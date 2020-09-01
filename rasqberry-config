@@ -2451,12 +2451,6 @@ do_rasqberry_install019() {
 }
 
 
-git clone https://github.com/sunqm/libcint.git &&
-mkdir -p libcint/build && cd libcint/build &&
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. &&
-sudo make install && cd -
-
-
 do_rasqberry_menu() {
   FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q1 System Update" "Update the system and create swapfile" \
