@@ -2427,7 +2427,7 @@ do_rasqberry_update() {
   sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/' /etc/dphys-swapfile
   /etc/init.d/dphys-swapfile stop
   /etc/init.d/dphys-swapfile start
-  apt update
+  sudo apt update
   apt -y full-upgrade
   printf "\n\nplease exit rasqberry-config and REBOOT the system\n"
   sleep 5
