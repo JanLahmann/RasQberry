@@ -2442,6 +2442,7 @@ do_rasqberry_clonegithub() {
     git clone https://github.com/JanLahmann/RasQberry 
   fi
   if [ -f RasQberry/rasqberry-config ]; then
+    ls -l; pwd;
     mv -f RasQberry/rasqberry-config ~/.local/bin/
   fi
   sleep 20
