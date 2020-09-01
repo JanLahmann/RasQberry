@@ -274,17 +274,10 @@ if [ "$INTERACTIVE" = True ]; then
     if is_pi ; then
       FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
         "Q RasQberry" "RasQberry setup and configuration" \
-        "8 Update" "Update this tool to the latest version" \
         "9 About rasqberry-config" "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     else
       FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
-        "1 Change User Password" "Change password for the '$USER' user" \
-        "2 Network Options" "Configure network settings" \
-        "3 Boot Options" "Configure options for start-up" \
-        "4 Localisation Options" "Set up language and regional settings to match your location" \
-        "5 SSH" "Enable/Disable remote command line access to your PC using SSH" \
-        "8 Update" "Update this tool to the latest version" \
         "9 About raspi-config" "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     fi
@@ -294,20 +287,12 @@ if [ "$INTERACTIVE" = True ]; then
     elif [ $RET -eq 0 ]; then
       if is_pi ; then
         case "$FUN" in
-          8\ *) do_rasqberry_update ;;
           9\ *) do_rasqberry_about ;;
           Q\ *) do_rasqberry_menu ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
       else
         case "$FUN" in
-          1\ *) do_change_pass ;;
-          2\ *) do_network_menu ;;
-          3\ *) do_boot_menu ;;
-          4\ *) do_internationalisation_menu ;;
-          5\ *) do_ssh ;;
-          8\ *) do_update ;;
-          9\ *) do_about ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
       fi
