@@ -2441,12 +2441,16 @@ do_rasqberry_clonegithub() {
 
 do_rasqberry_install019() {
   echo; echo "Install libcint"; echo;
+  cd /home/pi/
   apt -y install cmake libatlas-base-dev p7zip-full
-  sudo -u pi -H -- sh -c 'git clone https://github.com/sunqm/libcint.git &&
-    mkdir -p libcint/build && cd libcint/build &&
-    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. '
-  cd /home/pi/libcint/build && make install && cd 
-#  sudo -u pi -H /home/pi/.local/bin/install_Qiskit019.sh
+  if [ ! -f /usr/local/lib/libcint.so ]; then
+    sudo -u pi -H -- sh -c 'git clone https://github.com/sunqm/libcint.git &&
+      mkdir -p libcint/build && cd libcint/build &&
+      cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. '
+    cd /home/pi/libcint/build && make install && cd /home/pi/
+  fi
+  echo; echo "Install Qiskit"; echo;
+#  sudo -u pi -H -- sh -c /home/pi/.local/bin/install_Qiskit019.sh
   sleep 10
 }
 
