@@ -2414,7 +2414,7 @@ done
 # Everything else needs to be run as root
 if [ $(id -u) -ne 0 ]; then
   printf "Script must be run as root. Try 'sudo raspi-config'\n"
-  exit 1
+#  exit 1
 fi
 
 if [ -n "${OPT_MEMORY_SPLIT:-}" ]; then
@@ -2444,8 +2444,12 @@ do_rasqberry_clonegithub() {
   if [ -f RasQberry/rasqberry-config ]; then
     mv -f RasQberry/rasqberry-config ~/.local/bin/
   fi
-  sleep 20
 }
+
+do_rasqberry_install019() {
+  
+}
+
 
 do_rasqberry_menu() {
   FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
@@ -2463,7 +2467,7 @@ do_rasqberry_menu() {
     case "$FUN" in
       Q1\ *) do_rasqberry_update ;;
       Q2\ *) do_rasqberry_clonegithub ;;
-      Q3\ *) do_proxy https ;;
+      Q3\ *) do_rasqberry_install019 ;;
       Q4\ *) do_proxy ftp ;;
       Q5\ *) do_proxy rsync ;;
       Q6\ *) do_proxy no;;
