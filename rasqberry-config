@@ -2414,7 +2414,7 @@ done
 # Everything else needs to be run as root
 if [ $(id -u) -ne 0 ]; then
   printf "Script must be run as root. Try 'sudo raspi-config'\n"
-#  exit 1
+  exit 1
 fi
 
 if [ -n "${OPT_MEMORY_SPLIT:-}" ]; then
@@ -2435,6 +2435,11 @@ do_rasqberry_update() {
 }
 
 do_rasqberry_clonegithub() {
+  sudo -u pi -H clonegithub.sh
+  sleep 3
+}
+
+do_rasqberry_clonegithubold() {
   cd /home/pi
   if [ -d RasQberry ];then
     (cd RasQberry; git pull origin master)
