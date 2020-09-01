@@ -2423,6 +2423,9 @@ if [ -n "${OPT_MEMORY_SPLIT:-}" ]; then
   exit 0
 fi
 
+
+############# RasQberry  #############
+
 do_rasqberry_update() {
   sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/' /etc/dphys-swapfile
   /etc/init.d/dphys-swapfile stop
@@ -2435,11 +2438,11 @@ do_rasqberry_update() {
 }
 
 do_rasqberry_clonegithub() {
-  sudo -u pi -H /home/pi/.local/bin/clonegithub.sh
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/clonegithub.sh
   sleep 3
 }
 
-do_rasqberry_install019() {
+do_rasqberry_install_libcint() {
   echo; echo "Install libcint"; echo;
   cd /home/pi/
   apt -y install cmake libatlas-base-dev p7zip-full
@@ -2449,10 +2452,23 @@ do_rasqberry_install019() {
       cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. '
     cd /home/pi/libcint/build && make install && cd /home/pi/
   fi
-  echo; echo "Install Qiskit"; echo;
+  sleep 10
+}
+
+do_rasqberry_install019() {
+  echo; echo "Install Qiskit 0.19"; echo;
+  do_rasqberry_install_libcint;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/install_Qiskit019.sh
   sleep 10
 }
+
+do_rasqberry_install020() {
+  echo; echo "Install Qiskit 0.20"; echo;
+  do_rasqberry_install_libcint;
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/install_Qiskit020.sh
+  sleep 10
+}
+
 
 do_rasqberry_menu() {
   FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
@@ -2479,6 +2495,7 @@ do_rasqberry_menu() {
   fi
 }
 
+############# RasQberry  #############
 
 #
 # Interactive use loop
