@@ -181,6 +181,13 @@ fi
 
 ############# RasQberry  #############
 
+do_rasqberry_about() {
+  whiptail --msgbox "\
+This tool provides a straight-forward way of doing initial
+installation and configuration of the RasQberry system. \
+" 20 70 1
+}
+
 do_rasqberry_update() {
   sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/' /etc/dphys-swapfile
   /etc/init.d/dphys-swapfile stop
@@ -232,7 +239,7 @@ do_rasqberry_menu() {
     "Q3 Qiskit 0.19 Install" "Install Qiskit version 0.19" \
     "Q4 Qiskit 0.20 Install" "Install Qiskit version 0.20" \
     "Q5 Bloch-Sphere Demo" "Setup Bloch-Sphere Demo" \
-    "Q9 RasQberry Demos" "Execute the RasQberry Quantum Demos" \
+    "Q6 RasQberry Demos" "Execute the RasQberry Quantum Demos" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
