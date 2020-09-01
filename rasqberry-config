@@ -2450,7 +2450,7 @@ do_rasqberry_install019() {
     cd /home/pi/libcint/build && make install && cd /home/pi/
   fi
   echo; echo "Install Qiskit"; echo;
-#  sudo -u pi -H -- sh -c /home/pi/.local/bin/install_Qiskit019.sh
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/install_Qiskit019.sh
   sleep 10
 }
 
