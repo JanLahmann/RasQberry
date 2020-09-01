@@ -2445,9 +2445,9 @@ do_rasqberry_install019() {
   sudo -u pi -H -- sh -c 'git clone https://github.com/sunqm/libcint.git &&
     mkdir -p libcint/build && cd libcint/build &&
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. '
-  #cd /home/pi/libcint/build && make install && cd 
+  cd /home/pi/libcint/build && make install && cd 
 #  sudo -u pi -H /home/pi/.local/bin/install_Qiskit019.sh
-  sleep 30
+  sleep 10
 }
 
 do_rasqberry_menu() {

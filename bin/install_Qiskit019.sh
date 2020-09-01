@@ -36,20 +36,12 @@ source ~/.cargo/env
 echo; echo; echo "install retworkx pyscf cython"; echo;
 pip install --prefer-binary retworkx pyscf cython
 
-# 3. Install libcint
-echo; echo; echo "Install libcint"; echo;
-sudo apt -y install cmake libatlas-base-dev git &&
-git clone https://github.com/sunqm/libcint.git &&
-mkdir -p libcint/build && cd libcint/build &&
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. &&
-sudo make install && cd -
 
 # 4.  Install qiskit
 
 echo; echo; echo "Install Qiskit"; echo;
 # workaround to install Qiskit-Aer on armv6l architecture:
 # on armv6l, start a subshell to unpack libmuparserx.a from muparserx.armv7l.7z once the wrong library has been extracted
-[ `uname -m` = "armv6l" ] && [ "$(pip list | grep qiskit-aer | wc -l)" -eq 0 ] &&  sudo apt -y install p7zip-full;
 [ `uname -m` = "armv6l" ] && [ "$(pip list | grep qiskit-aer | wc -l)" -eq 0 ] &&   
 ( 
 until [ -f /tmp/pip-install-*/qiskit-aer/src/third-party/linux/lib/libmuparserx.a ]; do sleep 30; done
