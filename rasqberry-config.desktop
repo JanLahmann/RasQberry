@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=RasQberry Setup	
+Comment=run rasqberrypi-config
+Icon=/usr/share/piwiz/raspberry-pi-logo.png
+Type=Application
+Path=/usr/local/bin
+Exec=sudo rasqberrypi-config
+Terminal=true
