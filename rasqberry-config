@@ -2444,10 +2444,11 @@ do_rasqberry_clonegithub() {
   if [ -f RasQberry/rasqberry-config ]; then
     mv -f RasQberry/rasqberry-config ~/.local/bin/
   fi
+  sleep 3
 }
 
 do_rasqberry_install019() {
-  sleep 1
+  sleep 3
 }
 
 
