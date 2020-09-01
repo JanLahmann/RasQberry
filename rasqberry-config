@@ -2428,11 +2428,16 @@ do_rasqberry_update() {
   /etc/init.d/dphys-swapfile stop
   /etc/init.d/dphys-swapfile start
   apt update
-  apt -y full-upgrade &&
-  printf "Sleeping 5 seconds before reloading rasqberry-config\n" &&
-  sleep 5 &&
-  ASK_TO_REBOOT=1 &&
-  exec rasqberry-config
+  apt -y full-upgrade
+  printf "please exit rasqberry-config and reboot the system\n"
+  sleep 5
+  ASK_TO_REBOOT=1
+}
+
+do_rasqberry_clonegithub() {
+  cd ~/
+  [ -d RasQberry ] && (cd RasQberry; git pull origin master) || git clone https://github.com/JanLahmann/RasQberry 
+  [ -f RasQberry/rasqberry-config ] && mv -f RasQberry/rasqberry-config ~/.local/bin/
 }
 
 do_rasqberry_menu() {
@@ -2450,7 +2455,7 @@ do_rasqberry_menu() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       Q1\ *) do_rasqberry_update ;;
-      Q2\ *) do_proxy http ;;
+      Q2\ *) do_rasqberry_clonegithub ;;
       Q3\ *) do_proxy https ;;
       Q4\ *) do_proxy ftp ;;
       Q5\ *) do_proxy rsync ;;
