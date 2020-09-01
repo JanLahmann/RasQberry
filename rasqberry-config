@@ -2427,7 +2427,7 @@ do_rasqberry_update() {
   sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/' /etc/dphys-swapfile
   /etc/init.d/dphys-swapfile stop
   /etc/init.d/dphys-swapfile start
-  sudo apt update
+  apt update
   apt -y full-upgrade
   printf "\n\nplease exit rasqberry-config and REBOOT the system\n"
   sleep 5
@@ -2440,9 +2440,21 @@ do_rasqberry_clonegithub() {
 }
 
 do_rasqberry_install019() {
-  /home/pi/.local/bin/install_Qiskit019.sh
-  sleep 300
+  echo; echo "Install libcint"; echo;
+  apt -y install cmake libatlas-base-dev p7zip-full
+  sudo -u pi -H (cd /home/pi/ && git clone https://github.com/sunqm/libcint.git &&
+    mkdir -p libcint/build && cd libcint/build &&
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ ..)
+  cd /home/pi/libcint/build && make install && cd 
+#  sudo -u pi -H /home/pi/.local/bin/install_Qiskit019.sh
+  sleep 30
 }
+
+
+git clone https://github.com/sunqm/libcint.git &&
+mkdir -p libcint/build && cd libcint/build &&
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. &&
+sudo make install && cd -
 
 
 do_rasqberry_menu() {
