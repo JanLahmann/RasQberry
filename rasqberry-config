@@ -168,7 +168,7 @@ done
 
 # Everything else needs to be run as root
 if [ $(id -u) -ne 0 ]; then
-  printf "Script must be run as root. Try 'sudo raspi-config'\n"
+  printf "Script must be run as root. Try 'sudo rasqberry-config'\n"
   exit 1
 fi
 
@@ -233,7 +233,7 @@ do_rasqberry_install_020() {
 
 
 do_rasqberry_menu() {
-  FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q1 System Update" "Update the system and create swapfile" \
     "Q2 Clone GitHub" "Clone the RasQberry GitHub repository" \
     "Q3 Qiskit 0.19" "Install Qiskit version 0.19" \
@@ -272,13 +272,13 @@ if [ "$INTERACTIVE" = True ]; then
   done
   while true; do
     if is_pi ; then
-      FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
+      FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
         "Q RasQberry" "RasQberry setup and configuration" \
         "9 About rasqberry-config" "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     else
-      FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
-        "9 About raspi-config" "Information about this configuration tool" \
+      FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
+        "9 About rasqberry-config" "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     fi
     RET=$?
