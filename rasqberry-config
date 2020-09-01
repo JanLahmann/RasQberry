@@ -236,9 +236,9 @@ do_rasqberry_menu() {
   FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q1 System Update" "Update the system and create swapfile" \
     "Q2 Clone GitHub" "Clone the RasQberry GitHub repository" \
-    "Q3 Qiskit 0.19 Install" "Install Qiskit version 0.19" \
-    "Q4 Qiskit 0.20 Install" "Install Qiskit version 0.20" \
-    "Q5 Bloch-Sphere Demo" "Setup Bloch-Sphere Demo" \
+    "Q3 Qiskit 0.19" "Install Qiskit version 0.19" \
+    "Q4 Qiskit 0.20" "Install Qiskit version 0.20" \
+    "Q5 Bloch-Sphere" "Setup and Start the Bloch-Sphere Demo" \
     "Q6 RasQberry Demos" "Execute the RasQberry Quantum Demos" \
     3>&1 1>&2 2>&3)
   RET=$?
