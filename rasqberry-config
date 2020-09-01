@@ -2447,7 +2447,7 @@ do_rasqberry_clonegithub() {
 }
 
 do_rasqberry_install019() {
-  
+  sleep 1
 }
 
 
