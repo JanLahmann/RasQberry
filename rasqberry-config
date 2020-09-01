@@ -2429,7 +2429,7 @@ do_rasqberry_update() {
   /etc/init.d/dphys-swapfile start
   apt update
   apt -y full-upgrade
-  printf "please exit rasqberry-config and reboot the system\n"
+  printf "\n\nplease exit rasqberry-config and REBOOT the system\n"
   sleep 5
   ASK_TO_REBOOT=1
 }
@@ -2438,6 +2438,7 @@ do_rasqberry_clonegithub() {
   cd ~/
   [ -d RasQberry ] && (cd RasQberry; git pull origin master) || git clone https://github.com/JanLahmann/RasQberry 
   [ -f RasQberry/rasqberry-config ] && mv -f RasQberry/rasqberry-config ~/.local/bin/
+  sleep 20
 }
 
 do_rasqberry_menu() {
