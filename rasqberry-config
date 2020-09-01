@@ -2631,7 +2631,7 @@ if [ "$INTERACTIVE" = True ]; then
     if is_pi ; then
       FUN=$(whiptail --title "Raspberry Pi Software Configuration Tool (raspi-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
         "Q RasQberry" "RasQberry setup and configuration" \
-#        "1 Change User Password" "Change password for the '$USER' user" \
+        "1 Change User Password" "Change password for the '$USER' user" \
         "2 Network Options" "Configure network settings" \
         "3 Boot Options" "Configure options for start-up" \
         "4 Localisation Options" "Set up language and regional settings to match your location" \
