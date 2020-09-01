@@ -2435,7 +2435,7 @@ do_rasqberry_update() {
 }
 
 do_rasqberry_clonegithub() {
-  sudo -u pi -H clonegithub.sh
+  sudo -u pi -H /home/pi/.local/bin/clonegithub.sh
   sleep 3
 }
 
