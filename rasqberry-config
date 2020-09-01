@@ -2436,8 +2436,14 @@ do_rasqberry_update() {
 
 do_rasqberry_clonegithub() {
   cd ~/
-  [ -d RasQberry ] && (cd RasQberry; git pull origin master) || git clone https://github.com/JanLahmann/RasQberry 
-  [ -f RasQberry/rasqberry-config ] && mv -f RasQberry/rasqberry-config ~/.local/bin/
+  if [ -d RasQberry ];then
+    (cd RasQberry; git pull origin master)
+  else  
+    git clone https://github.com/JanLahmann/RasQberry 
+  fi
+  if [ -f RasQberry/rasqberry-config ]; then
+    mv -f RasQberry/rasqberry-config ~/.local/bin/
+  fi
   sleep 20
 }
 
