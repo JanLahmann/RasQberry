@@ -2431,6 +2431,7 @@ do_rasqberry_update() {
   apt -y full-upgrade &&
   printf "Sleeping 5 seconds before reloading rasqberry-config\n" &&
   sleep 5 &&
+  ASK_TO_REBOOT=1 &&
   exec rasqberry-config
 }
 
