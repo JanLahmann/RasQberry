@@ -2667,7 +2667,7 @@ if [ "$INTERACTIVE" = True ]; then
           7\ *) do_advanced_menu ;;
           8\ *) do_update ;;
           9\ *) do_about ;;
-	  Q\ *) do_rasqberry_menu ;;
+          Q\ *) do_rasqberry_menu ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
       else
