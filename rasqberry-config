@@ -2449,7 +2449,7 @@ do_rasqberry_menu() {
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      Q1\ *) do_proxy all ;;
+      Q1\ *) do_rasqberry_update ;;
       Q2\ *) do_proxy http ;;
       Q3\ *) do_proxy https ;;
       Q4\ *) do_proxy ftp ;;
