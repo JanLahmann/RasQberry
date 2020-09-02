@@ -199,7 +199,7 @@ do_rasqberry_update() {
 }
 
 do_rasqberry_clonegithub() {
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/clonegithub.sh
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_clonegithub.sh
   sleep 3
 }
 
@@ -219,24 +219,27 @@ do_rasqberry_install_libcint() {
 do_rasqberry_install_019() {
   echo; echo "Install Qiskit 0.19"; echo;
   do_rasqberry_install_libcint;
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/install_Qiskit019.sh
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh
   sleep 10
 }
 
 do_rasqberry_install_020() {
   echo; echo "Install Qiskit 0.20"; echo;
   do_rasqberry_install_libcint;
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/install_Qiskit020.sh
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit020.sh
   sleep 10
 }
 
+do_rasqberry_config_demos(){
+
+}
 
 do_rasqberry_menu() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q1 System Update" "Update the system and create swapfile" \
-    "Q2 Clone GitHub" "Clone the RasQberry GitHub repository" \
-    "Q3 Qiskit 0.19" "Install Qiskit version 0.19" \
-    "Q4 Qiskit 0.20" "Install Qiskit version 0.20" \
+    "Q2 Qiskit 0.19" "Install Qiskit version 0.19" \
+    "Q3 Qiskit 0.20" "Install Qiskit version 0.20" \
+    "Q4 Configuration and Demos" "Configure Qiskit and install Quantum Demos"
     "Q5 Bloch-Sphere" "Setup and Start the Bloch-Sphere Demo" \
     "Q6 RasQberry Demos" "Execute the RasQberry Quantum Demos" \
     3>&1 1>&2 2>&3)
@@ -246,10 +249,9 @@ do_rasqberry_menu() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       Q1\ *) do_rasqberry_update ;;
-      Q2\ *) do_rasqberry_clonegithub ;;
-      Q3\ *) do_rasqberry_install_019 ;;
-      Q4\ *) do_rasqberry_install_020 ;;
-      Q5\ *) sleep 5 ;;
+      Q2\ *) do_rasqberry_install_019 ;;
+      Q3\ *) do_rasqberry_install_020 ;;
+      Q4\ *) do_rasqberry_config_demos ;;
       Q6\ *) sleep 5 ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
@@ -273,6 +275,7 @@ if [ "$INTERACTIVE" = True ]; then
     if is_pi ; then
       FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
         "Q RasQberry" "RasQberry setup and configuration" \
+        "2 Clone GitHub" "Clone the RasQberry GitHub repository" \
         "9 About rasqberry-config" "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     else
@@ -286,8 +289,9 @@ if [ "$INTERACTIVE" = True ]; then
     elif [ $RET -eq 0 ]; then
       if is_pi ; then
         case "$FUN" in
-          9\ *) do_rasqberry_about ;;
           Q\ *) do_rasqberry_menu ;;
+          2\ *) do_rasqberry_clonegithub ;;
+          9\ *) do_rasqberry_about ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
       else
