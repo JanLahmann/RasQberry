@@ -194,13 +194,13 @@ do_rasqberry_update() {
   apt update
   apt -y full-upgrade
   printf "\n\nplease exit rasqberry-config and REBOOT the system\n"
-  sleep 5
+  sleep 2
   ASK_TO_REBOOT=1
 }
 
 do_rasqberry_clonegithub() {
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_clonegithub.sh
-  sleep 3
+  sleep 2
 }
 
 do_rasqberry_install_libcint() {
@@ -251,7 +251,7 @@ do_rasqberry_menu() {
     "Q1 System Update" "Update the system and create swapfile" \
     "Q2 Qiskit 0.19" "Install Qiskit version 0.19" \
     "Q3 Qiskit 0.20" "Install Qiskit version 0.20" \
-    "Q4 Configuration and Demos" "Configure Qiskit and install Quantum Demos"
+    "Q4 Configuration and Demos" "Configure Qiskit and install Quantum Demos" \
     "Q5 Bloch-Sphere" "Setup and Start the Bloch-Sphere Demo" \
     "Q6 RasQberry Demos" "Execute the RasQberry Quantum Demos" \
     3>&1 1>&2 2>&3)
