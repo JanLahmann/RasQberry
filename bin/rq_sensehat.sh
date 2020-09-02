@@ -2,6 +2,7 @@
 #
 # Sense HAT
 echo; echo; echo "Sense HAT"
+source ~/rasqberry/bin/activate
 cd ~
 pip install sense-hat RTIMULib
 git clone https://github.com/astro-pi/python-sense-hat
