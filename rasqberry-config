@@ -254,6 +254,10 @@ do_rasqberry_qtoken_update(){
   sleep 10
 }
 
+do_rasqberry_enable_touch4(){
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
+}
+
 do_rasqberry_menu() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q1 System Update" "Update the system and create swapfile" \
@@ -297,6 +301,7 @@ if [ "$INTERACTIVE" = True ]; then
     if is_pi ; then
       FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
         "Q RasQberry" "RasQberry setup and configuration" \
+        "1 Enable Display" "Enable 4'' Display (run twice to install and rotate)" \
         "2 Clone GitHub" "Clone the RasQberry GitHub repository" \
         "9 About rasqberry-config" "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
@@ -312,6 +317,7 @@ if [ "$INTERACTIVE" = True ]; then
       if is_pi ; then
         case "$FUN" in
           Q\ *) do_rasqberry_menu ;;
+          1\ *) do_rasqberry_enable_touch4 ;;
           2\ *) do_rasqberry_clonegithub ;;
           9\ *) do_rasqberry_about ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
