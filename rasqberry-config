@@ -239,10 +239,18 @@ do_rasqberry_config_demos(){
   sleep 10
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_jupyter_conf.sh
   sleep 10
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_qiskit_tutorial.sh
-  sleep 10
   apt -y install python3-sense-emu sense-emu-tools
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_sensehat.sh
+  sleep 10
+}
+
+do_rasqberry_qiskit_tutorials(){
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_qiskit_tutorial.sh
+  sleep 10
+}
+
+do_rasqberry_qtoken_update(){
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_qrasp_token.sh
   sleep 10
 }
 
@@ -253,7 +261,8 @@ do_rasqberry_menu() {
     "Q3 Qiskit 0.20" "Install Qiskit version 0.20" \
     "Q4 Config & Demos" "Configure Qiskit and install Quantum Demos" \
     "Q5 Bloch-Sphere" "Setup and Start the Bloch-Sphere Demo" \
-    "Q6 RasQberry Demos" "Execute the RasQberry Quantum Demos" \
+    "Q6 Qiskit Tutorials" "Clone Qiskit Tutorials" \
+    "Q7 Update Q Token" "Enter new IBM Quantum Experience Token" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
@@ -264,7 +273,8 @@ do_rasqberry_menu() {
       Q2\ *) do_rasqberry_install_019 ;;
       Q3\ *) do_rasqberry_install_020 ;;
       Q4\ *) do_rasqberry_config_demos ;;
-      Q6\ *) sleep 5 ;;
+      Q6\ *) do_rasqberry_qiskit_tutorials ;;
+      Q7\ *) do_rasqberry_qtoken_update ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
