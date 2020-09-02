@@ -231,7 +231,6 @@ do_rasqberry_install_020() {
 }
 
 do_rasqberry_config_demos(){
-  source ~/rasqberry/bin/activate:was
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_q_token.sh
   sleep 10
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_qrasp.sh
