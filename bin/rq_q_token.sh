@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-echo; echo; echo "store IBM Q Experience access token"
+rasqberry
+cho; echo; echo "store IBM Q Experience access token"
 (echo "from qiskit import IBMQ"; 
  echo "from getpass import getpass"; 
  echo "token = getpass('IBM Q Experience Token: ')"; 
