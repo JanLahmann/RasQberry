@@ -24,7 +24,7 @@ time . ./RasQ-02.sh
 
 To install the latest Qiskit version 0.20 (instead of 0.19 above), use the following commands after the reboot:
 ```python
-getgist JanLahmann RasQ-02.sh
+getgist JanLahmann RasQ-02_020.sh
 time . ./RasQ-02_020.sh
 ```
 
