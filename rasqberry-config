@@ -258,7 +258,7 @@ do_rasqberry_enable_touch4(){
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
 }
 
-do_rasqberry_run_bloch){
+do_rasqberry_run_bloch()){
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
 }
 
