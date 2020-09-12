@@ -258,6 +258,10 @@ do_rasqberry_enable_touch4(){
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
 }
 
+do_rasqberry_run_bloch){
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
+}
+
 do_rasqberry_menu() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q1 System Update" "Update the system and create swapfile" \
@@ -277,6 +281,7 @@ do_rasqberry_menu() {
       Q2\ *) do_rasqberry_install_019 ;;
       Q3\ *) do_rasqberry_install_020 ;;
       Q4\ *) do_rasqberry_config_demos ;;
+      Q5\ *) do_rasqberry_run_bloch ;;
       Q6\ *) do_rasqberry_qiskit_tutorials ;;
       Q7\ *) do_rasqberry_qtoken_update ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
