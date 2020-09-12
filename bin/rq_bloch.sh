@@ -18,7 +18,7 @@ if [  ! -f rasqberry-bloch-isrunning ]; then
 nohup chromium-browser --start-fullscreen --enable-webgl --ignore-gpu-blacklist  http://127.0.0.1:8000 &
    echo $! >> rasqberry-bloch-isrunning
 else
-   kill -TERM `cat rasqberry-bloch-isrunning`
+   kill -15 `cat rasqberry-bloch-isrunning`
    rm rasqberry-bloch-isrunning
 fi
 
