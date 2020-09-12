@@ -23,8 +23,3 @@ else
 fi
 
 
-
-
-
-killall python3 /usr/lib/chromium-browser/chromium-browser-v7 
-
