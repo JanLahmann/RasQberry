@@ -94,6 +94,7 @@ is_number() {
   esac
 }
 
+
 isable_raspi_config_at_boot() {
   if [ -e /etc/profile.d/raspi-config.sh ]; then
     rm -f /etc/profile.d/raspi-config.sh
