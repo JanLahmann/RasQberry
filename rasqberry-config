@@ -4,7 +4,6 @@
 
 INTERACTIVE=True
 ASK_TO_REBOOT=0
-BLACKLIST=/etc/modprobe.d/raspi-blacklist.conf
 CONFIG=/boot/config.txt
 
 USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
@@ -88,30 +87,11 @@ calc_wt_size() {
   WT_MENU_HEIGHT=$(($WT_HEIGHT-7))
 }
 
-do_about() {
-  whiptail --msgbox "\
-This tool provides a straight-forward way of doing initial
-configuration of the Raspberry Pi. Although it can be run
-at any time, some of the options may have difficulties if
-you have heavily customised your installation.\
-" 20 70 1
-}
-
 is_number() {
   case $1 in
     ''|*[!0-9]*) return 0 ;;
     *) return 1 ;;
   esac
-}
-
-disable_raspi_config_at_boot() {
-  if [ -e /etc/profile.d/raspi-config.sh ]; then
-    rm -f /etc/profile.d/raspi-config.sh
-    if [ -e /etc/systemd/system/getty@tty1.service.d/raspi-config-override.conf ]; then
-      rm /etc/systemd/system/getty@tty1.service.d/raspi-config-override.conf
-    fi
-    telinit q
-  fi
 }
 
 do_finish() {
@@ -126,44 +106,6 @@ do_finish() {
   exit 0
 }
 
-
-#
-# Command line options for non-interactive use
-#
-for i in $*
-do
-  case $i in
-  --memory-split)
-    OPT_MEMORY_SPLIT=GET
-    printf "Not currently supported\n"
-    exit 1
-    ;;
-  --memory-split=*)
-    OPT_MEMORY_SPLIT=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
-    printf "Not currently supported\n"
-    exit 1
-    ;;
-  --expand-rootfs)
-    INTERACTIVE=False
-    do_expand_rootfs
-    printf "Please reboot\n"
-    exit 0
-    ;;
-  --apply-os-config)
-    INTERACTIVE=False
-    do_apply_os_config
-    exit $?
-    ;;
-  nonint)
-    INTERACTIVE=False
-    "$@"
-    exit $?
-    ;;
-  *)
-    # unknown option
-    ;;
-  esac
-done
 
 # Everything else needs to be run as root
 if [ $(id -u) -ne 0 ]; then
@@ -262,28 +204,43 @@ do_rasqberry_run_bloch(){
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
 }
 
-do_rasqberry_menu() {
+do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "Q1 System Update" "Update the system and create swapfile" \
-    "Q2 Qiskit 0.19" "Install Qiskit version 0.19" \
-    "Q3 Qiskit 0.20" "Install Qiskit version 0.20" \
-    "Q4 Config & Demos" "Configure Qiskit and install Quantum Demos" \
-    "Q5 Bloch-Sphere" "Start/Stop the Bloch-Sphere Demo" \
-    "Q6 Qiskit Tutorials" "Clone Qiskit Tutorials" \
-    "Q7 Update Q Token" "Enter new IBM Quantum Experience Token" \
+    "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo" \
+    "D5 Qiskit Tutorials" "Clone Qiskit Tutorials GitHub Repo" \
+    "D6 Update Q Token" "Enter new IBM Quantum Experience Token" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      Q1\ *) do_rasqberry_update ;;
-      Q2\ *) do_rasqberry_install_019 ;;
-      Q3\ *) do_rasqberry_install_020 ;;
-      Q4\ *) do_rasqberry_config_demos ;;
-      Q5\ *) do_rasqberry_run_bloch ;;
-      Q6\ *) do_rasqberry_qiskit_tutorials ;;
-      Q7\ *) do_rasqberry_qtoken_update ;;
+      D1\ *) do_rasqberry_run_bloch ;;
+      D5\ *) do_rasqberry_qiskit_tutorials ;;
+      D6\ *) do_rasqberry_qtoken_update ;;
+      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
+    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
+  fi
+}
+
+do_rasqberry_setup() {
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "S1 Enable 4'' Display" "Setup and configure the 4'' Display + VNC" \
+    "S2 System Update" "Update the system and create swapfile" \
+    "S3 Qiskit 0.19" "Install Qiskit version 0.19" \
+    "S4 Qiskit 0.20" "Install Qiskit version 0.20" \
+    "S5 Config & Demos" "Configure Qiskit and install Quantum Demos" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return 0
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      S1\ *) do_rasqberry_enable_touch4 ;;
+      S2\ *) do_rasqberry_update ;;
+      S3\ *) do_rasqberry_install_019 ;;
+      S4\ *) do_rasqberry_install_020 ;;
+      S5\ *) do_rasqberry_config_demos ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
@@ -305,9 +262,8 @@ if [ "$INTERACTIVE" = True ]; then
   while true; do
     if is_pi ; then
       FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
-        "Q RasQberry" "RasQberry setup and configuration" \
-        "1 Enable Display" "Enable 4'' Display (run twice to install and rotate)" \
-        "2 Clone GitHub" "Clone the RasQberry GitHub repository" \
+        "S RasQberry Setup" "RasQberry initial setup and configuration" \
+        "D Quantum Demos" "Install and run Quantum Demos" \
         "9 About rasqberry-config" "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     else
@@ -321,9 +277,8 @@ if [ "$INTERACTIVE" = True ]; then
     elif [ $RET -eq 0 ]; then
       if is_pi ; then
         case "$FUN" in
-          Q\ *) do_rasqberry_menu ;;
-          1\ *) do_rasqberry_enable_touch4 ;;
-          2\ *) do_rasqberry_clonegithub ;;
+          S\ *) do_rasqberry_setup ;;
+          D\ *) do_rasqberry_demos ;;
           9\ *) do_rasqberry_about ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
