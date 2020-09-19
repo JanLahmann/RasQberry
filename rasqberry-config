@@ -264,12 +264,14 @@ do_rasqberry_enable_vncgl(){
   rq_do_vnc
   # enable GL2/GL3 driver
   rq_do_gldriver
-  sleep 10
+  whiptail --msgbox "Please exit and reboot" 20 60 1 ;;
+  ASK_TO_REBOOT=1
 }
 
 do_rasqberry_enable_touch4(){
   # enable 4'' touch display
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
+  ASK_TO_REBOOT=1
   sleep 10
 }
 
@@ -298,7 +300,7 @@ do_rasqberry_demos() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "S1 Enable VNC, GL2/3 " "Setup VNC and the GL2/3 driver" \
+    "S1 Enable VNC, GL2/3 " "Enable VNC and the GL2/3 driver" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
     "S3 System Update " "Update the system and create swapfile" \
     "S4 Qiskit 0.19" "Install Qiskit version 0.19" \
