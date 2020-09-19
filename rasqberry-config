@@ -154,6 +154,7 @@ rq_do_gldriver() {
     sed $CONFIG -i -e "s/^#dtoverlay=vc4-fkms-v3d/dtoverlay=vc4-fkms-v3d/g"
     if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-fkms-v3d" ; then
       printf "[all]\ndtoverlay=vc4-fkms-v3d\n" >> $CONFIG
+    fi
     STATUS="The fake KMS GL driver is enabled."
   else
     if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-kms-v3d" ; then
