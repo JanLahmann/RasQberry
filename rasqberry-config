@@ -94,6 +94,14 @@ is_number() {
   esac
 }
 
+is_installed() {
+    if [ "$(dpkg -l "$1" 2> /dev/null | tail -n 1 | cut -d ' ' -f 1)" != "ii" ]; then
+      return 1
+    else
+      return 0
+    fi
+}
+
 disable_raspi_config_at_boot() {
   if [ -e /etc/profile.d/raspi-config.sh ]; then
     rm -f /etc/profile.d/raspi-config.sh
@@ -271,6 +279,8 @@ do_rasqberry_enable_vncgl(){
 }
 
 do_rasqberry_enable_touch4(){
+  # setup wallpaper and icon
+  ln -s 
   # enable 4'' touch display
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
   ASK_TO_REBOOT=1
