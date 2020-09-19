@@ -280,7 +280,11 @@ do_rasqberry_enable_vncgl(){
 
 do_rasqberry_enable_touch4(){
   # setup wallpaper and icon
-  ln -s 
+  # ln -sf /home/pi/RasQberry/Raspberry-Qiskit-logo.jpg /etc/alternatives/desktop-background
+  sed /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf -i -e "s/^show_trash=1/show_trash=0/"
+  cp /home/pi/RasQberry/Raspberry-Qiskit-logo.jpg /usr/share/rpd-wallpaper/
+  sed /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf -i -e "s/temple.jpg/Raspberry-Qiskit-logo.jpg/"
+  cp /home/pi/RasQberry/rasqberry-config.desktop /home/pi/Desktop
   # enable 4'' touch display
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
   ASK_TO_REBOOT=1
