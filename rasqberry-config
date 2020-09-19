@@ -264,6 +264,8 @@ do_rasqberry_enable_vncgl(){
   rq_do_vnc
   # enable GL2/GL3 driver
   rq_do_gldriver
+  sleep 10
+  xrandr --output HDMI-1 --rotate right
   whiptail --msgbox "Please exit and reboot" 20 60 1
   ASK_TO_REBOOT=1
 }
