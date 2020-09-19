@@ -259,11 +259,15 @@ do_rasqberry_qtoken_update(){
   sleep 10
 }
 
-do_rasqberry_enable_touch4(){
+do_rasqberry_enable_vncgl(){
   # enable VNC
   rq_do_vnc
   # enable GL2/GL3 driver
   rq_do_gldriver
+  sleep 10
+}
+
+do_rasqberry_enable_touch4(){
   # enable 4'' touch display
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
   sleep 10
@@ -294,22 +298,24 @@ do_rasqberry_demos() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "S1 Enable 4'' Display " "Setup VNC, GL2/3 driver and the 4'' Display" \
-    "S2 System Update" "Update the system and create swapfile" \
-    "S3 Qiskit 0.19" "Install Qiskit version 0.19" \
-    "S4 Qiskit 0.20" "Install Qiskit version 0.20" \
-    "S5 Config & Demos" "Configure Qiskit and install Quantum Demos" \
+    "S1 Enable VNC, GL2/3 " "Setup VNC and the GL2/3 driver" \
+    "S2 Enable 4'' Display " "Setup the 4'' Display" \
+    "S3 System Update " "Update the system and create swapfile" \
+    "S4 Qiskit 0.19" "Install Qiskit version 0.19" \
+    "S5 Qiskit 0.20" "Install Qiskit version 0.20" \
+    "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      S1\ *) do_rasqberry_enable_touch4 ;;
-      S2\ *) do_rasqberry_update ;;
-      S3\ *) do_rasqberry_install_019 ;;
-      S4\ *) do_rasqberry_install_020 ;;
-      S5\ *) do_rasqberry_config_demos ;;
+      S1\ *) do_rasqberry_enable_vncgl ;;
+      S2\ *) do_rasqberry_enable_touch4 ;;
+      S3\ *) do_rasqberry_update ;;
+      S4\ *) do_rasqberry_install_019 ;;
+      S5\ *) do_rasqberry_install_020 ;;
+      S6\ *) do_rasqberry_config_demos ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
