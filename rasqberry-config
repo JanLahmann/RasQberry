@@ -94,8 +94,7 @@ is_number() {
   esac
 }
 
-
-isable_raspi_config_at_boot() {
+disable_raspi_config_at_boot() {
   if [ -e /etc/profile.d/raspi-config.sh ]; then
     rm -f /etc/profile.d/raspi-config.sh
     if [ -e /etc/systemd/system/getty@tty1.service.d/raspi-config-override.conf ]; then
