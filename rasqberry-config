@@ -165,6 +165,7 @@ rq_do_gldriver() {
       printf "[all]\ndtoverlay=vc4-kms-v3d\n" >> $CONFIG
     fi
     STATUS="The full KMS GL driver is enabled."
+  fi
   whiptail --msgbox "$STATUS" 20 60 1
 }
 
