@@ -235,7 +235,7 @@ do_rasqberry_install_libcint() {
       cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. '
     cd /home/pi/libcint/build && make install && cd /home/pi/
   fi
-  whiptail --msgbox "libcint is installed" 20 60 1
+  #whiptail --msgbox "libcint is installed" 20 60 1
 }
 
 do_rasqberry_install_019() {
@@ -273,8 +273,6 @@ do_rasqberry_qiskit_tutorials(){
 
 do_rasqberry_qtoken_update(){
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_qrasp_token.sh
-  whiptail --msgbox "Please exit and reboot" 20 60 1
-  ASK_TO_REBOOT=1
 }
 
 do_rasqberry_enable_desktop_vnc(){
