@@ -298,8 +298,10 @@ do_rasqberry_enable_touch4(){
 }
 
 do_rasqberry_run_bloch(){
+  # check touchscreen calibration
+  [ -f /home/pi/RasQberry/bin/rq_99-calibration.conf ] mv /home/pi/RasQberry/bin/rq_99-calibration.conf /etc/X11/xorg.conf.d/99-calibration.conf && whiptail --msgbox "Touchscreen recalibrated to Bloch Demo" 20 60 1
   # check if GL2/GL3 driver is enabled
-  rq_check_gldriver && sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
+  rq_check_gldriver || return 0 && sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
 }
 
 do_rasqberry_demos() {

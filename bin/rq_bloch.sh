@@ -21,5 +21,3 @@ else
    kill -15 `cat rasqberry-bloch-isrunning`
    rm rasqberry-bloch-isrunning
 fi
-
-
