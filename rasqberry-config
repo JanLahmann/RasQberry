@@ -140,7 +140,7 @@ fi
 
 ############# RasQberry  #############
 
-rq_do_gldriver() {
+rq_enable_gldriver() {
   if [ ! -e /boot/overlays/vc4-kms-v3d.dtbo ]; then
     whiptail --msgbox "Driver and kernel not present on your system. Please update" 20 60 2
     return 1
@@ -164,6 +164,7 @@ rq_do_gldriver() {
       printf "[all]\ndtoverlay=vc4-fkms-v3d\n" >> $CONFIG
     fi
     STATUS="The fake KMS GL driver is enabled."
+    touch /home/pi/RasQberry/.kms-gl-enabled
   else
     if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-kms-v3d" ; then
       ASK_TO_REBOOT=1
@@ -174,19 +175,28 @@ rq_do_gldriver() {
       printf "[all]\ndtoverlay=vc4-kms-v3d\n" >> $CONFIG
     fi
     STATUS="The full KMS GL driver is enabled."
+    touch /home/pi/RasQberry/.kms-gl-enabled
   fi
   whiptail --msgbox "$STATUS" 20 60 1
 }
 
-rq_do_vnc() {
-  if [ $RET -eq 0 ]; then
-    if is_installed realvnc-vnc-server || apt-get install realvnc-vnc-server; then
-      systemctl enable vncserver-x11-serviced.service &&
-      systemctl start vncserver-x11-serviced.service &&
-      STATUS=enabled
-    else
-      return 1
-    fi
+rq_check_gldriver() {
+  if [ -f /home/pi/RasQberry/.kms-gl-enabled ]; then 
+    return 0
+  else
+    rq_enable_gldriver
+    #DISPLAY=:0 xrandr --output HDMI-1 --rotate right
+    cp /home/pi/.local/bin/rq_dispsetup.sh /usr/share/dispsetup.sh
+    whiptail --msgbox "Please exit and reboot" 20 60 1
+    ASK_TO_REBOOT=1
+  fi
+}
+
+rq_do_vnc() {  
+  if is_installed realvnc-vnc-server || apt-get install realvnc-vnc-server; then
+    systemctl enable vncserver-x11-serviced.service &&
+    systemctl start vncserver-x11-serviced.service &&
+    STATUS=enabled  
   fi
   if [ "$INTERACTIVE" = True ]; then
     whiptail --msgbox "The VNC Server is $STATUS" 20 60 1
@@ -206,8 +216,7 @@ do_rasqberry_update() {
   /etc/init.d/dphys-swapfile start
   apt update
   apt -y full-upgrade
-  printf "\n\nplease exit rasqberry-config and REBOOT the system\n"
-  sleep 2
+  whiptail --msgbox "Please exit and reboot" 20 60 1
   ASK_TO_REBOOT=1
 }
 
@@ -226,21 +235,21 @@ do_rasqberry_install_libcint() {
       cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. '
     cd /home/pi/libcint/build && make install && cd /home/pi/
   fi
-  sleep 10
+  whiptail --msgbox "libcint is installed" 20 60 1
 }
 
 do_rasqberry_install_019() {
   echo; echo "Install Qiskit 0.19"; echo;
   do_rasqberry_install_libcint;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh
-  sleep 10
+  whiptail --msgbox "Qiskit 0.19 installed" 20 60 1
 }
 
 do_rasqberry_install_020() {
   echo; echo "Install Qiskit 0.20"; echo;
   do_rasqberry_install_libcint;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit020.sh
-  sleep 10
+  whiptail --msgbox "Qiskit 0.20 installed" 20 60 1
 }
 
 do_rasqberry_config_demos(){
@@ -268,30 +277,28 @@ do_rasqberry_qtoken_update(){
   ASK_TO_REBOOT=1
 }
 
-do_rasqberry_enable_vncgl(){
-  # enable VNC
-  rq_do_vnc
-  # enable GL2/GL3 driver
-  rq_do_gldriver
-  #DISPLAY=:0 xrandr --output HDMI-1 --rotate right
-  cp /home/pi/.local/bin/rq_dispsetup.sh /usr/share/dispsetup.sh
-  whiptail --msgbox "Please exit and reboot" 20 60 1
-  ASK_TO_REBOOT=1
-}
-
-do_rasqberry_enable_touch4(){
+do_rasqberry_enable_desktop_vnc(){
   # setup wallpaper and icon
   cp /home/pi/RasQberry/Raspberry-Qiskit-logo.jpg /usr/share/rpd-wallpaper/
   sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
   sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
   # cp /home/pi/RasQberry/rasqberry-config.desktop /home/pi/Desktop
+  # enable VNC
+  rq_do_vnc
+  ASK_TO_REBOOT=1
+  whiptail --msgbox "Please exit and reboot" 20 60 1
+}
+
+do_rasqberry_enable_touch4(){
   # enable 4'' touch display
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
   ASK_TO_REBOOT=1
-  sleep 10
+  whiptail --msgbox "Please exit and reboot" 20 60 1
 }
 
 do_rasqberry_run_bloch(){
+  # check if GL2/GL3 driver is enabled
+  rq_check_gldriver
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
 }
 
@@ -317,7 +324,7 @@ do_rasqberry_demos() {
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "S1 Enable 4'' Display " "Setup the 4'' Display" \
-    "S2 Enable VNC, GL2/3 " "Enable VNC and the GL2/3 driver" \
+    "S2 Enable VNC " "Enable VNC and configure desktop" \
     "S3 System Update " "Update the system and create swapfile" \
     "S4 Qiskit 0.19" "Install Qiskit version 0.19" \
     "S5 Qiskit 0.20" "Install Qiskit version 0.20" \
@@ -329,7 +336,7 @@ do_rasqberry_setup() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       S1\ *) do_rasqberry_enable_touch4 ;;
-      S2\ *) do_rasqberry_enable_vncgl ;;
+      S2\ *) do_rasqberry_enable_desktop_vnc ;;
       S3\ *) do_rasqberry_update ;;
       S4\ *) do_rasqberry_install_019 ;;
       S5\ *) do_rasqberry_install_020 ;;
