@@ -4,6 +4,8 @@ if ! grep -q 'Raspberry Pi' /proc/device-tree/model || (grep -q okay /proc/devic
 #    xrandr --output HDMI-1 --primary --mode FIXED_MODE --rate 59.78 --pos 0x0 --rotate right
   if xrandr --output HDMI-1 --primary --rate 59.78 --pos 0x0 --rotate right --dryrun ; then 
     xrandr --output HDMI-1 --primary --rate 59.78 --pos 0x0 --rotate right
+  else
+    whiptail --msgbox "xrandr failed in dispsetup.sh" 20 60 1
   fi
 fi
 if [ -e /usr/share/tssetup.sh ] ; then
