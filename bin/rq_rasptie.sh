@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-echo; echo; echo "Raspberry-Tie"
+echo; echo; echo "Raspberry-Tie 5 Qubit Demo"
 cd ~
 
 if [ ! -d quantum-raspberry-tie ]; then
