@@ -257,8 +257,6 @@ do_rasqberry_config_demos(){
   sleep 10
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_qrasp.sh
   sleep 10
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_rasptie.sh
-  sleep 10
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_jupyter_conf.sh
   sleep 10
   apt -y install python3-sense-emu sense-emu-tools
