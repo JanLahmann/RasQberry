@@ -9,6 +9,8 @@ fi
 
 cd quantum-raspberry-tie
 
+source ~/rasqberry/bin/activate
+
 if [  ! -f raspberry-tie-isrunning ]; then
   nohup python QuantumRaspberryTie.qiskit.py & # standard 5 Qubit example
   echo $! > raspberry-tie-isrunning
