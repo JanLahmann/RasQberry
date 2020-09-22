@@ -18,5 +18,5 @@ if [  ! -f raspberry-tie-isrunning ]; then
 else
    kill -15 `cat raspberry-tie-isrunning`
    rm raspberry-tie-isrunning
-   clear_sense.py
+   /home/pi/rasqberry/bin/clear_sense.py
 fi
