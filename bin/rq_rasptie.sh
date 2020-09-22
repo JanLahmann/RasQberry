@@ -12,6 +12,7 @@ cd quantum-raspberry-tie
 source ~/rasqberry/bin/activate
 
 if [  ! -f raspberry-tie-isrunning ]; then
+  whiptail --msgbox "Atarting Rqapberry-Tie Demo" 20 60 1
   nohup python QuantumRaspberryTie.qiskit.py & # standard 5 Qubit example
   echo $! > raspberry-tie-isrunning
   #python QuantumRaspberryTie.qiskit.py expt16.qasm # 16 Qubit example
