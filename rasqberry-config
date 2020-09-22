@@ -321,8 +321,9 @@ do_rasqberry_demos() {
     "D2 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
     "D3 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
     "D4 Qrasp " "Install/Start/Stop the Qrasp Demo" \
-    "D5 Qiskit Tutorials " "Clone Qiskit Tutorials GitHub Repo" \
-    "D6 Update Q Token" "Enter new IBM Quantum Experience Token" \
+    "D5 Clear " "Clear SenseHAT Display" \
+    "D7 Qiskit Tutorials " "Clone Qiskit Tutorials GitHub Repo" \
+    "D8 Update Q Token" "Enter new IBM Quantum Experience Token" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
@@ -333,8 +334,9 @@ do_rasqberry_demos() {
       D2\ *) do_rasqberry_run_rasptie ;;
       D3\ *) do_rasqberry_run_rasptie16 ;;
       D4\ *) do_rasqberry_run_qrasp ;;
-      D5\ *) do_rasqberry_qiskit_tutorials ;;
-      D6\ *) do_rasqberry_qtoken_update ;;
+      D5\ *) /home/pi/rasqberry/bin/clear_sense.py ;;
+      D7\ *) do_rasqberry_qiskit_tutorials ;;
+      D8\ *) do_rasqberry_qtoken_update ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
