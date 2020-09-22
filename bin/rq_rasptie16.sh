@@ -10,11 +10,8 @@ fi
 cd quantum-raspberry-tie
 
 if [  ! -f raspberry-tie-isrunning ]; then
-  nohup python QuantumRaspberryTie.qiskit.py & # standard 5 Qubit example
+  nohup python QuantumRaspberryTie.qiskit.py expt16.qasm & # 16 Qubit example
   echo $! > raspberry-tie-isrunning
-  #python QuantumRaspberryTie.qiskit.py expt16.qasm # 16 Qubit example
-  #/usr/bin/sense_emu_gui &
-  #python QuantumRaspberryTie.qiskit.py -e  # "-e" forces to use the emulator
 else
    kill -15 `cat raspberry-tie-isrunning`
    rm raspberry-tie-isrunning

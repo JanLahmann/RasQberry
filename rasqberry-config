@@ -303,9 +303,19 @@ do_rasqberry_run_bloch(){
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
 }
 
+do_rasqberry_run_rasptie(){
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_rasptie.sh
+}
+
+do_rasqberry_run_rasptie16(){
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_rasptie16.sh
+}
+
 do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo" \
+    "D2 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
+    "D3 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
     "D5 Qiskit Tutorials " "Clone Qiskit Tutorials GitHub Repo" \
     "D6 Update Q Token" "Enter new IBM Quantum Experience Token" \
     3>&1 1>&2 2>&3)
@@ -315,6 +325,8 @@ do_rasqberry_demos() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       D1\ *) do_rasqberry_run_bloch ;;
+      D2\ *) do_rasqberry_run_rasptie ;;
+      D3\ *) do_rasqberry_run_rasptie16 ;;
       D5\ *) do_rasqberry_qiskit_tutorials ;;
       D6\ *) do_rasqberry_qtoken_update ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
