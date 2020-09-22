@@ -13,6 +13,7 @@ source ~/rasqberry/bin/activate
 
 if [  ! -f raspberry-tie-isrunning ]; then
   nohup python QuantumRaspberryTie.qiskit.py expt16.qasm & # 16 Qubit example
+  echo $! > raspberry-tie-isrunning
 else
    kill -15 `cat raspberry-tie-isrunning`
    rm raspberry-tie-isrunning
