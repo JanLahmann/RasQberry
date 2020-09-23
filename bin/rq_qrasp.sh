@@ -6,17 +6,11 @@ cd ~
 
 if [ ! -d qrasp ]; then
   git clone https://github.com/ordmoj/qrasp;
-
-  cd ~/qrasp
-  echo; echo; echo "set IBM Q Experience token"
-  ( echo "from getpass import getpass"; 
-    echo "token = getpass('Enter your IBM Q Experience Token: ')";
-    echo "print ('APItoken = \'' + str(token) + '\'')" 
-  ) | python > Qconfig_IBMQ_experience.py
+  rq_qrasp_token.sh
 fi
 
 if [  ! -f qrasp-isrunning ]; then
-  whiptail --msgbox "Starting Qrasp Demo" 20 60 1
+  [ ! -f /home/pi/.rq_no_messages ] && whiptail --msgbox "Starting Qrasp Demo" 20 60 1
   cd ~/qrasp
   nohup python main_controller.py &
   echo $! > qrasp-isrunning
