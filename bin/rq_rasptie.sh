@@ -11,7 +11,7 @@ fi
 cd quantum-raspberry-tie
 
 if [  ! -f raspberry-tie-isrunning ]; then
-  whiptail --msgbox "Starting Rqapberry-Tie Demo" 20 60 1
+  [ ! -f /home/pi/.rq_no_messages ] && whiptail --msgbox "Starting Rqapberry-Tie Demo" 20 60 1
   nohup python QuantumRaspberryTie.qiskit.py & # standard 5 Qubit example
   echo $! > raspberry-tie-isrunning
   #python QuantumRaspberryTie.qiskit.py expt16.qasm # 16 Qubit example

@@ -213,14 +213,14 @@ rq_do_vnc() {
 
 do_rasqberry_about() {
   whiptail --msgbox "\
-This tool provides a straight-forward way of doing initial
+This tool provides a straight-forward way of doing initial \
 installation and configuration of the RasQberry system. 
-It offers a simple menu structure. To setup RasQberry, 
-go through the menu items in 'RasQberry Setup' one by one. 
-Some of them require a reboot. Select either Qiskit 
-version 0.19 or version 0.20 to be installed. 
-S6 Config & Demos installs and configures some of the quantum demos. 
-D Quantum Demos offers several Quantum demos " 20 70 1
+It offers a simple menu structure. \
+To setup RasQberry, go through the menu items in 'RasQberry Setup' one by one. \
+Some of them require a reboot. \
+Select either Qiskit version 0.19 or version 0.20 to be installed. 
+'Config & Demos' installs and configures several quantum demos. 
+'Quantum Demos' offers several Quantum demos " 20 70 1
 }
 
 do_rasqberry_update() {
