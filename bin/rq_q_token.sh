@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 source ~/rasqberry/bin/activate
+rm ~/.qiskit/qiskitrc ~/.Qconfig_IBMQ_experience.py
+
 echo; echo; echo "store IBM Q Experience access token"
 (echo "from qiskit import IBMQ"; 
  echo "from getpass import getpass"; 

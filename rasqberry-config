@@ -254,7 +254,6 @@ do_rasqberry_install_020() {
 
 do_rasqberry_config_demos(){
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_q_token.sh
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_qrasp.sh
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_jupyter_conf.sh
   apt -y install python3-sense-emu sense-emu-tools
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_sensehat.sh
