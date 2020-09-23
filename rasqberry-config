@@ -140,6 +140,14 @@ fi
 
 ############# RasQberry  #############
 
+rq_messages() {
+  [ ! -f /home/pi/.rq_no_messages ]
+}
+
+do_toggle_messages() {
+  [ ! -f /home/pi/.rq_no_messages ] && touch /home/pi/.rq_no_messages || rm /home/pi/.rq_no_messages
+}
+
 rq_enable_gldriver() {
   if [ ! -e /boot/overlays/vc4-kms-v3d.dtbo ]; then
     whiptail --msgbox "Driver and kernel not present on your system. Please update" 20 60 2
@@ -206,8 +214,13 @@ rq_do_vnc() {
 do_rasqberry_about() {
   whiptail --msgbox "\
 This tool provides a straight-forward way of doing initial
-installation and configuration of the RasQberry system. \
-" 20 70 1
+installation and configuration of the RasQberry system. 
+It offers a simple menu structure. To setup RasQberry, 
+go through the menu items in 'RasQberry Setup' one by one. 
+Some of them require a reboot. Select either Qiskit 
+version 0.19 or version 0.20 to be installed. 
+S6 Config & Demos installs and configures some of the quantum demos. 
+D Quantum Demos offers several Quantum demos " 20 70 1
 }
 
 do_rasqberry_update() {
@@ -287,6 +300,7 @@ do_rasqberry_enable_touch4(){
 }
 
 do_rasqberry_run_bloch(){
+  rq_messages && whiptail --msgbox "starting run_bloch" 20 60 1
   # check if GL2/GL3 driver is enabled
   rq_check_gldriver
   # check touchscreen calibration
@@ -345,6 +359,7 @@ do_rasqberry_setup() {
     "S4 Qiskit 0.19" "Install Qiskit version 0.19" \
     "S5 Qiskit 0.20" "Install Qiskit version 0.20" \
     "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "S9 Toggle Messages " "Toggle info message boxes on/off" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
@@ -357,6 +372,7 @@ do_rasqberry_setup() {
       S4\ *) do_rasqberry_install_019 ;;
       S5\ *) do_rasqberry_install_020 ;;
       S6\ *) do_rasqberry_config_demos ;;
+      S9\ *) do_toggle_messages ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
