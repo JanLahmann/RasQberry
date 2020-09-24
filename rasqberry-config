@@ -215,12 +215,14 @@ do_rasqberry_about() {
   whiptail --msgbox "\
 This tool provides a straight-forward way of doing initial \
 installation and configuration of the RasQberry system. 
-It offers a simple menu structure. \
-To setup RasQberry, go through the menu items in 'RasQberry Setup' one by one. \
-Some of them require a reboot. \
+ 
+To setup RasQberry, go through the steps in 'RasQberry Setup' one by one. \
+Some of them require a reboot. 
 Select either Qiskit version 0.19 or version 0.20 to be installed. 
 'Config & Demos' installs and configures several quantum demos. 
-'Quantum Demos' offers several Quantum demos " 20 70 1
+
+'Quantum Demos' offers several Quantum demos - suitable for a \
+TFT touchscreen display or a SenseHAT 8x8 LED matrix. " 20 70 1
 }
 
 do_rasqberry_update() {
