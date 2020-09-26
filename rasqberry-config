@@ -345,9 +345,6 @@ do_rasqberry_run_bloch(){
     whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\nPlease exit and reboot" 20 60 1
     return 0
   fi
-  
-  # run the bloch demo
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
 
   # enable autostart ?
   if [ ! -f /home/pi/RasQberry/.bloch_autorun_asked ]; then
@@ -370,8 +367,10 @@ do_rasqberry_run_bloch(){
         touch /home/pi/RasQberry/.bloch_autorun_asked
       fi
     fi
-    
   fi
+
+  # run the bloch demo
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
 }
 
 do_rasqberry_run_rasptie(){
