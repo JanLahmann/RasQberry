@@ -6,9 +6,9 @@ export DISPLAY=:0
 cd ~
 
 # check if GL2/GL3 driver is enabled
-[ ! -f /home/pi/RasQberry/.kms-gl-enabled ] && whiptail --msgbox "1. Bloch demo needs to be run once from rasqberry-config" 20 60 1
+[ ! -f /home/pi/RasQberry/.kms-gl-enabled ] && whiptail --msgbox "1. Bloch demo needs to be run once from rasqberry-config" 20 60 1 && return 1
 # check touchscreen calibration
-[ -f /home/pi/RasQberry/bin/rq_99-calibration.conf ] &&  whiptail --msgbox "2. Bloch demo needs to be run once from rasqberry-config" 20 60 1
+[ ! -f /home/pi/RasQberry/.is_tft_calibrated ] &&  whiptail --msgbox "2. Bloch demo needs to be run once from rasqberry-config" 20 60 1 && return 1
 
 
 if [ ! -d rasqberry-grok-bloch ]; then
