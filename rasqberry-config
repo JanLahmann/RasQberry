@@ -356,14 +356,17 @@ do_rasqberry_run_bloch(){
       "Would you like to enable the BlochSphere autostart?" $DEFAULT 20 60 2
     RET=$?
     if [ $RET ]; then #selected yes
+      whiptail --msgbox "selected yes" 20 60 1
       echo "@rq_bloch_desktop.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
       touch /home/pi/RasQberry/.bloch_autorun_asked
     else # selected no
+      whiptail --msgbox "selected no" 20 60 1
       DEFAULT=--defaultno
       whiptail --yesno \
         "Would you like to be asked again to activate autostart?" $DEFAULT 20 60 2
       RET=$?
       if [ $RET -eq 0 ]; then #selected no
+        whiptail --msgbox "selected no" 20 60 1
         touch /home/pi/RasQberry/.bloch_autorun_asked
       fi
     fi
