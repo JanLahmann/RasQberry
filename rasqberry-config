@@ -315,7 +315,7 @@ do_rasqberry_enable_desktop_vnc(){
   sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/*.desktop /home/pi/Desktop'
   [ -f /home/pi/.config/libfm/libfm.conf ] \
     && sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf \
-    || sudo -u pi -H -- sh -c 'mkdir -p home/pi/.config/libfm/; echo "[config]\nquick_exec=1" > /home/pi/.config/libfm/libfm.conf'
+    || sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/libfm/; echo "[config]\nquick_exec=1" > /home/pi/.config/libfm/libfm.conf'
   desktop-file-install /home/pi/RasQberry/*.desktop
   # remove warning for unchanged password
   apt -y purge libpam-chksshpwd
