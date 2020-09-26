@@ -36,5 +36,5 @@ echo $! > rasqberry-bloch-isrunning
 #nohup chromium-browser --start-fullscreen --no-sandbox --enable-webgl --ignore-gpu-blacklist --test-type  http://127.0.0.1:8000 &
 setsid nohup chromium-browser --start-fullscreen --enable-webgl --ignore-gpu-blacklist  http://127.0.0.1:8000 &
 echo $! >> rasqberry-bloch-isrunning
-sleep 10
+sleep 6
 #whiptail --msgbox "Please wait until BlochSphere Demo has started" 20 60 1
