@@ -309,7 +309,7 @@ do_rasqberry_qtoken_update(){
 
 do_rasqberry_enable_desktop_vnc(){
   # setup wallpaper and icon
-  cp /home/pi/RasQberry/Raspberry-Qiskit-logo*.jpg /usr/share/rpd-wallpaper/
+  cp /home/pi/RasQberry/Raspberry-Qiskit-logo*.jpg IBM-Q-RasQberry.jpg /usr/share/rpd-wallpaper/
   sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
   sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
   sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/*.desktop /home/pi/Desktop'
