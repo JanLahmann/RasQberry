@@ -6,5 +6,5 @@ Icon=/home/pi/RasQberry/Qiskit-in-Raspberry-logo.jpg
 Type=Application
 Categories=X-RasQberry
 Path=/sbin/
-Exec=shutdown
+Exec=sudo shutdown -h now
 Terminal=true

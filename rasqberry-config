@@ -312,7 +312,7 @@ do_rasqberry_enable_desktop_vnc(){
   cp /home/pi/RasQberry/Raspberry-Qiskit-logo*.jpg /usr/share/rpd-wallpaper/
   sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
   sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
-  sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/rasqberry-config.desktop /home/pi/Desktop'
+  sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/*.desktop /home/pi/Desktop'
   sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf
   sudo desktop-file-install /home/pi/RasQberry/rasqberry-config.desktop
   # enable VNC
