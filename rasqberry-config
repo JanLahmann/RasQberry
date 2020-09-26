@@ -315,6 +315,8 @@ do_rasqberry_enable_desktop_vnc(){
   sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/*.desktop /home/pi/Desktop'
   sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf
   sudo desktop-file-install /home/pi/RasQberry/rasqberry-config.desktop
+  # remove warning for unchanged password
+  apt -y purge libpam-chksshpwd
   # enable VNC
   rq_do_vnc
   whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
@@ -407,6 +409,40 @@ do_rasqberry_setup() {
 }
 
 ############# RasQberry  #############
+
+#
+# Command line options for non-interactive use
+#
+for i in $*
+do
+  case $i in
+  --memory-split=*)
+    OPT_MEMORY_SPLIT=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+    printf "Not currently supported\n"
+    exit 1
+    ;;
+  --expand-rootfs)
+    INTERACTIVE=False
+    do_expand_rootfs
+    printf "Please reboot\n"
+    exit 0
+    ;;
+  --apply-os-config)
+    INTERACTIVE=False
+    do_apply_os_config
+    exit $?
+    ;;
+  nonint)
+    INTERACTIVE=False
+    "$@"
+    exit $?
+    ;;
+  *)
+    # unknown option
+    ;;
+  esac
+done
+
 
 #
 # Interactive use loop

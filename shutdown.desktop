@@ -2,7 +2,7 @@
 Version=1.1
 Name=Shutdown RasQberry	
 Comment=Shutdown RasQberry
-Icon=/home/pi/RasQberry/Qiskit-in-Raspberry-logo.jpg
+Icon=/usr/share/icons/HighContrast/256x256/actions/system-shutdown.png
 Type=Application
 Categories=X-RasQberry
 Path=/sbin/
