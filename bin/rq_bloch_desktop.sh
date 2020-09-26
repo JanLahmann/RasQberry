@@ -10,10 +10,18 @@ if [ ! -f /home/pi/RasQberry/.kms-gl-enabled ]; then
    whiptail --msgbox "GL driver not enabled. Bloch demo needs to be run once from rasqberry-config" 20 60 1
    exit 1
 fi
+
 # check touchscreen calibration
-[ ! -f /home/pi/RasQberry/.is_tft_calibrated ] &&  (whiptail --msgbox "Touchscreen not calibrated. Bloch demo needs to be run once from rasqberry-config" 20 60 1; exit 1)
+if [ ! -f /home/pi/RasQberry/.is_tft_calibrated ]; then
+   whiptail --msgbox "Touchscreen not calibrated. Bloch demo needs to be run once from rasqberry-config" 20 60 1
+   exit 1
+fi
+
 # check if Bloch demo is installed
-[ ! -d rasqberry-grok-bloch ] && (whiptail --msgbox "Bloch demo code not downloaded. Bloch demo needs to be run once from rasqberry-config" 20 60 1; exit 1)
+if [ ! -d rasqberry-grok-bloch ]; then
+   whiptail --msgbox "Bloch demo code not downloaded. Bloch demo needs to be run once from rasqberry-config" 20 60 1
+   exit 1
+fi
 
 
 
