@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=Shutdown
+Icon=/usr/share/icons/Adwaita/96x96/actions/system-reboot-symbolic.symbolic.png
+Type=Application
+Categories=X-RasQberry
+Path=/sbin/
+Exec=sudo reboot
+Terminal=true
