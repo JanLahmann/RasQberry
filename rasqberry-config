@@ -308,31 +308,36 @@ do_rasqberry_qtoken_update(){
 }
 
 do_rasqberry_enable_desktop_vnc(){
-  # setup wallpaper and icon
-  cp /home/pi/RasQberry/Raspberry-Qiskit-logo*.jpg /home/pi/RasQberry/IBM-Q-RasQberry.jpg /usr/share/rpd-wallpaper/
-  sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
-  sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
-  sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/*.desktop /home/pi/Desktop'
-  [ -f /home/pi/.config/libfm/libfm.conf ] \
-    && sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf \
-    || sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/libfm/; echo "[config]\nquick_exec=1" > /home/pi/.config/libfm/libfm.conf'
-  desktop-file-install /home/pi/RasQberry/*.desktop
-  # remove warning for unchanged password
-  apt -y purge libpam-chksshpwd
-  # fix missing xterm when using desktop icons
-  ln -s /usr/bin/lxterminal /usr/bin/xterm
-  # prevent welcome wizard to start. (run manually with "sudo piwiz", if needed)
-  rm /etc/xdg/autostart/piwiz.desktop
-  # enable VNC
-  rq_do_vnc
-  whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
+  if [ ! -f /home/pi/RasQberry/.is_enabled_desktopvnc ]; then
+    # setup wallpaper and icon
+    cp /home/pi/RasQberry/Raspberry-Qiskit-logo*.jpg /home/pi/RasQberry/IBM-Q-RasQberry.jpg /usr/share/rpd-wallpaper/
+    sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
+    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
+    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/*.desktop /home/pi/Desktop'
+    [ -f /home/pi/.config/libfm/libfm.conf ] \
+      && sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf \
+      || sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/libfm/; echo "[config]\nquick_exec=1" > /home/pi/.config/libfm/libfm.conf'
+    desktop-file-install /home/pi/RasQberry/*.desktop
+    # remove warning for unchanged password
+    apt -y purge libpam-chksshpwd
+    # fix missing xterm when using desktop icons
+    ln -s /usr/bin/lxterminal /usr/bin/xterm
+    # prevent welcome wizard to start. (run manually with "sudo piwiz", if needed)
+    rm /etc/xdg/autostart/piwiz.desktop
+    # enable VNC
+    rq_do_vnc
+    whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
+    touch /home/pi/RasQberry/.is_enabled_desktopvnc
+  fi
 }
 
 do_rasqberry_enable_touch4(){
   # enable 4'' touch display
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
-  ASK_TO_REBOOT=1
-  whiptail --msgbox "Please exit and reboot" 20 60 1
+  if [ ! -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
+    sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
+    ASK_TO_REBOOT=1
+    whiptail --msgbox "Please exit and reboot" 20 60 1
+  fi
 }
 
 do_rasqberry_activate_bloch_autostart(){
