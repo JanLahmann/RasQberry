@@ -380,6 +380,15 @@ do_rasqberry_run_bloch(){
 
 do_rq_setup_bloch_autostart(){
   rq_messages && whiptail --msgbox "starting do_rq_setup_bloch_autostart" 20 60 1
+
+  # enable vnc and configure desktop
+  rq_messages && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
+  do_rasqberry_enable_desktop_vnc
+
+  # enable touch display
+  rq_messages && whiptail --msgbox "enable touch display" 20 60 1
+  do_rasqberry_enable_touch4
+
   # check if GL2/GL3 driver is enabled
   if [ ! -f /home/pi/RasQberry/.kms-gl-enabled ]; then 
     rq_enable_gldriver
