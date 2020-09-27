@@ -1,9 +1,10 @@
 [Desktop Entry]
 Version=1.1
 Name=RasQberry Setup	
-Comment=run rasqberrypi-config
-Icon=/home/pi/RasQberry/Qiskit-in-Raspberry-logo.jpg
+Comment=run rasqberry-config
+Icon=/home/pi/RasQberry/Qiskit-in-Raspberry-logo_256px.jpg
 Type=Application
+Categories=X-RasQberry
 Path=/usr/local/bin
-Exec=sudo rasqberrypi-config
+Exec=sudo rasqberry-config
 Terminal=true

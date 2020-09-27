@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=Shutdown
+Icon=/usr/share/icons/HighContrast/256x256/actions/system-shutdown.png
+Type=Application
+Categories=X-RasQberry
+Path=/sbin/
+Exec=sudo shutdown -h now
+Terminal=true

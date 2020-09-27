@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=Reboot
+Icon=/home/pi/RasQberry/restart-icon-18-256.png
+Type=Application
+Categories=X-RasQberry
+Path=/sbin/
+Exec=sudo reboot
+Terminal=true

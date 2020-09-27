@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.1
+Name=BlochSphere Demo	
+Comment=run the BlochSphere Demo
+Icon=/home/pi/RasQberry/Qiskit-Ra_logo_256px.jpg
+Type=Application
+Categories=X-RasQberry
+Path=/home/pi/.local/bin/
+Exec=rq_bloch_desktop.sh
+#Exec=lxterminal -t "BlochSphere Demo" --working-directory=/home/pi/.local/bin -e ./rq_bloch_desktop.sh
+Terminal=true
+#X-KeepTerminal=true

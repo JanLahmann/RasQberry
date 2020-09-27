@@ -144,8 +144,32 @@ rq_messages() {
   [ ! -f /home/pi/.rq_no_messages ]
 }
 
+rq_check_tft4() {
+  [ `tvservice -n` == "device_name=ADA-MPI4008" ] && touch /home/pi/.rq_is_tft4 || rm -f /home/pi/.rq_is_tft4
+}
+
+rq_is_tft4() {
+  [ -f /home/pi/.rq_is_tft4 ]
+}
+
+rq_check_hat() {
+  [ -d /proc/device-tree/hat/ ] && touch /home/pi/.rq_is_hat || rm -f /home/pi/.rq_is_hat
+}
+
+rq_is_hat() {
+  [ -f /home/pi/.rq_is_hat ]
+}
+
+rq_check_internet() {
+  [ `ping -q -w 1 -c 1 8.8.8.8` ] && touch /home/pi/.rq_is_internet || rm -f /home/pi/.rq_is_internet
+}
+
+rq_is_internet() {
+  [ -f /home/pi/.rq_is_internet ]
+}
+
 do_toggle_messages() {
-  [ ! -f /home/pi/.rq_no_messages ] && touch /home/pi/.rq_no_messages || rm /home/pi/.rq_no_messages
+  [ ! -f /home/pi/.rq_no_messages ] && touch /home/pi/.rq_no_messages || rm -f /home/pi/.rq_no_messages
 }
 
 rq_enable_gldriver() {
@@ -215,12 +239,14 @@ do_rasqberry_about() {
   whiptail --msgbox "\
 This tool provides a straight-forward way of doing initial \
 installation and configuration of the RasQberry system. 
-It offers a simple menu structure. \
-To setup RasQberry, go through the menu items in 'RasQberry Setup' one by one. \
-Some of them require a reboot. \
+ 
+To setup RasQberry, go through the steps in 'RasQberry Setup' one by one. \
+Some of them require a reboot. 
 Select either Qiskit version 0.19 or version 0.20 to be installed. 
 'Config & Demos' installs and configures several quantum demos. 
-'Quantum Demos' offers several Quantum demos " 20 70 1
+
+'Quantum Demos' offers several Quantum demos - suitable for a \
+TFT touchscreen display or a SenseHAT 8x8 LED matrix. " 20 70 1
 }
 
 do_rasqberry_update() {
@@ -282,21 +308,61 @@ do_rasqberry_qtoken_update(){
 }
 
 do_rasqberry_enable_desktop_vnc(){
-  # setup wallpaper and icon
-  cp /home/pi/RasQberry/Raspberry-Qiskit-logo.jpg /usr/share/rpd-wallpaper/
-  sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
-  sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
-  # cp /home/pi/RasQberry/rasqberry-config.desktop /home/pi/Desktop
-  # enable VNC
-  rq_do_vnc
-  whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
+  if [ ! -f /home/pi/RasQberry/.is_enabled_desktopvnc ]; then
+    # setup wallpaper and icon
+    cp /home/pi/RasQberry/Raspberry-Qiskit-logo*.jpg /home/pi/RasQberry/IBM-Q-RasQberry.jpg /usr/share/rpd-wallpaper/
+    sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
+    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
+    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/*.desktop /home/pi/Desktop'
+    [ -f /home/pi/.config/libfm/libfm.conf ] \
+      && sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf \
+      || sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/libfm/; echo "[config]\nquick_exec=1" > /home/pi/.config/libfm/libfm.conf'
+    desktop-file-install /home/pi/RasQberry/*.desktop
+    # remove warning for unchanged password
+    apt -y purge libpam-chksshpwd
+    # fix missing xterm when using desktop icons
+    ln -s /usr/bin/lxterminal /usr/bin/xterm
+    # prevent welcome wizard to start. (run manually with "sudo piwiz", if needed)
+    rm /etc/xdg/autostart/piwiz.desktop
+    # enable VNC
+    rq_do_vnc
+    whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
+    touch /home/pi/RasQberry/.is_enabled_desktopvnc
+  fi
 }
 
 do_rasqberry_enable_touch4(){
   # enable 4'' touch display
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
-  ASK_TO_REBOOT=1
-  whiptail --msgbox "Please exit and reboot" 20 60 1
+  if [ ! -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
+    sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
+    ASK_TO_REBOOT=1
+    whiptail --msgbox "Please exit and reboot" 20 60 1
+  fi
+}
+
+do_rasqberry_activate_bloch_autostart(){
+# enable bloch autostart ?
+  if [ ! -f /home/pi/RasQberry/.bloch_autorun_asked ]; then
+    DEFAULT=--defaultno
+    whiptail --yesno \
+      "Would you like to enable the BlochSphere autostart?" $DEFAULT 20 60 2
+    RET=$?
+    if [ $RET -eq 0 ]; then #selected yes
+      #whiptail --msgbox "selected yes" 20 60 1
+      echo "@rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+      touch /home/pi/RasQberry/.bloch_autorun_asked
+    else # selected no
+      #whiptail --msgbox "selected no" 20 60 1
+      DEFAULT=--defaultno
+      whiptail --yesno \
+        "Would you like to be asked again to activate autostart?" $DEFAULT 20 60 2
+      RET=$?
+      if [ $RET -eq 1 ]; then #selected no
+        #whiptail --msgbox "selected no" 20 60 1
+        touch /home/pi/RasQberry/.bloch_autorun_asked
+      fi
+    fi
+  fi
 }
 
 do_rasqberry_run_bloch(){
@@ -304,12 +370,51 @@ do_rasqberry_run_bloch(){
   # check if GL2/GL3 driver is enabled
   rq_check_gldriver
   # check touchscreen calibration
-  if [ -f /home/pi/RasQberry/bin/rq_99-calibration.conf ] && [ -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
-    cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && rm /home/pi/RasQberry/bin/rq_99-calibration.conf
+  if [ ! -f /home/pi/RasQberry/.is_tft_calibrated ] && [ -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
+    cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && touch /home/pi/RasQberry/.is_tft_calibrated
     whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\nPlease exit and reboot" 20 60 1
     return 0
   fi
+
+  # enable autostart ?
+  do_rasqberry_activate_bloch_autostart
+
+  # run the bloch demo
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
+}
+
+do_rq_setup_bloch_autostart(){
+  rq_messages && whiptail --msgbox "starting do_rq_setup_bloch_autostart" 20 60 1
+
+  # enable vnc and configure desktop
+  rq_messages && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
+  do_rasqberry_enable_desktop_vnc
+
+  # enable touch display
+  rq_messages && whiptail --msgbox "enable touch display" 20 60 1
+  do_rasqberry_enable_touch4
+
+  # check if GL2/GL3 driver is enabled
+  if [ ! -f /home/pi/RasQberry/.kms-gl-enabled ]; then 
+    rq_enable_gldriver
+    cp /home/pi/.local/bin/rq_dispsetup.sh /usr/share/dispsetup.sh
+  fi
+
+  # check touchscreen calibration
+  rq_messages && whiptail --msgbox "check touchscreen calibration" 20 60 1
+  if [ ! -f /home/pi/RasQberry/.is_tft_calibrated ] && [ -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
+    cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && touch /home/pi/RasQberry/.is_tft_calibrated
+    whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\n\\nPlease re-run 'D6 Bloch Autostart' after the reboot." 20 60 1
+    reboot
+  fi
+
+  # enable autostart
+  rq_messages && whiptail --msgbox "enable autostart" 20 60 1
+  echo "@rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+  touch /home/pi/RasQberry/.bloch_autorun_asked
+  rq_messages && whiptail --msgbox "The System will reboot now and then \
+  autostart the Bloch Sphere Demo after each reboot." 20 60 1
+  reboot
 }
 
 do_rasqberry_run_rasptie(){
@@ -331,6 +436,7 @@ do_rasqberry_demos() {
     "D3 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
     "D4 Qrasp " "Install/Start/Stop the Qrasp Demo" \
     "D5 Clear " "Clear SenseHAT Display" \
+    "D6 Bloch Autostart " "Setup Bloch Demo Autostart" \
     "D7 Qiskit Tutorials " "Clone Qiskit Tutorials GitHub Repo" \
     "D8 Update Q Token" "Enter new IBM Quantum Experience Token" \
     3>&1 1>&2 2>&3)
@@ -344,6 +450,7 @@ do_rasqberry_demos() {
       D3\ *) do_rasqberry_run_rasptie16 ;;
       D4\ *) do_rasqberry_run_qrasp ;;
       D5\ *) /home/pi/rasqberry/bin/clear_sense.py ;;
+      D6\ *) do_rq_setup_bloch_autostart ;;
       D7\ *) do_rasqberry_qiskit_tutorials ;;
       D8\ *) do_rasqberry_qtoken_update ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
@@ -379,6 +486,40 @@ do_rasqberry_setup() {
 }
 
 ############# RasQberry  #############
+
+#
+# Command line options for non-interactive use
+#
+for i in $*
+do
+  case $i in
+  --memory-split=*)
+    OPT_MEMORY_SPLIT=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+    printf "Not currently supported\n"
+    exit 1
+    ;;
+  --expand-rootfs)
+    INTERACTIVE=False
+    do_expand_rootfs
+    printf "Please reboot\n"
+    exit 0
+    ;;
+  --apply-os-config)
+    INTERACTIVE=False
+    do_apply_os_config
+    exit $?
+    ;;
+  nonint)
+    INTERACTIVE=False
+    "$@"
+    exit $?
+    ;;
+  *)
+    # unknown option
+    ;;
+  esac
+done
+
 
 #
 # Interactive use loop
