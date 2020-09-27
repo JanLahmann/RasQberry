@@ -390,15 +390,16 @@ do_rq_setup_bloch_autostart(){
   rq_messages && whiptail --msgbox "check touchscreen calibration" 20 60 1
   if [ ! -f /home/pi/RasQberry/.is_tft_calibrated ] && [ -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
     cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && touch /home/pi/RasQberry/.is_tft_calibrated
-    whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\nPlease exit and reboot" 20 60 1
-    return 0
+    whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\n\\nPlease re-run 'D6 Bloch Autostart' after the reboot." 20 60 1
+    reboot
   fi
 
   # enable autostart
   rq_messages && whiptail --msgbox "enable autostart" 20 60 1
   echo "@rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
   touch /home/pi/RasQberry/.bloch_autorun_asked
-  rq_messages && whiptail --msgbox "finished do_rq_setup_bloch_autostart" 20 60 1
+  rq_messages && whiptail --msgbox "finished do_rq_setup_bloch_autostart\\n\\nThe System will reboot now." 20 60 1
+  reboot
 }
 
 do_rasqberry_run_rasptie(){

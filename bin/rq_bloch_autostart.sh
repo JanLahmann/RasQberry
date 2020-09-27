@@ -5,5 +5,5 @@ echo; echo; echo "Bloch Sphere Demo Autostart"
 export DISPLAY=:0
 cd ~
 
-sleep 20
+sleep 15
 rq_bloch_desktop.sh
