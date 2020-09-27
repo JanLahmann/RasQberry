@@ -19,8 +19,8 @@ fi
 
 # check if Bloch demo is installed
 if [ ! -d rasqberry-grok-bloch ]; then
-   whiptail --msgbox "Bloch demo code not downloaded. Bloch demo needs to be run once from rasqberry-config" 20 60 1
-   exit 1
+   git clone https://github.com/JanLahmann/rasqberry-grok-bloch;
+   whiptail --msgbox "Bloch demo code downloaded." 20 60 1
 fi
 
 
