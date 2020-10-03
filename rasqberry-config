@@ -340,6 +340,25 @@ do_rasqberry_enable_touch4(){
   fi
 }
 
+do_rasqberry_enable_LED() {
+  # enable rpi_ws281x python library
+  cd /home/pi/
+  pip3 install rpi_ws281x
+  [ ! -d rpi-ws281x-python ] && sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python' || return 0
+}
+
+do_rasqberry_toggle_LED() {
+  # turn on or off the LED light ring above the cryostat
+  if [ -f /home/pi/RasQberry/.is_running_LED ]; then
+    kill -15 `cat /home/pi/RasQberry/.is_running_LED`
+    rm /home/pi/RasQberry/.is_running_LED
+    python3 .local/bin/rq_LED-off.py -c
+  else
+    nohup python3 .local/bin/rq_LED-test.py -c &
+    echo $! > /home/pi/RasQberry/.is_running_LED
+  fi
+}
+
 do_rasqberry_activate_bloch_autostart(){
 # enable bloch autostart ?
   if [ ! -f /home/pi/RasQberry/.bloch_autorun_asked ]; then
@@ -460,12 +479,15 @@ do_rasqberry_demos() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "S0 Bloch Autostart " "Setup Bloch Demo Autostart" \
     "S1 Enable VNC " "Enable VNC and configure desktop" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
     "S3 System Update " "Update the system and create swapfile" \
     "S4 Qiskit 0.19" "Install Qiskit version 0.19" \
     "S5 Qiskit 0.20" "Install Qiskit version 0.20" \
     "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
+    "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
     "S9 Toggle Messages " "Toggle info message boxes on/off" \
     3>&1 1>&2 2>&3)
   RET=$?
@@ -473,12 +495,15 @@ do_rasqberry_setup() {
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
+      S0\ *) do_rq_setup_bloch_autostart ;;
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
       S2\ *) do_rasqberry_enable_touch4 ;;
       S3\ *) do_rasqberry_update ;;
       S4\ *) do_rasqberry_install_019 ;;
       S5\ *) do_rasqberry_install_020 ;;
       S6\ *) do_rasqberry_config_demos ;;
+      S7\ *) do_rasqberry_enable_LED ;;
+      S8\ *) do_rasqberry_toggle_LED ;;
       S9\ *) do_toggle_messages ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
