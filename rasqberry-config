@@ -344,7 +344,7 @@ do_rasqberry_enable_LED() {
   # enable rpi_ws281x python library
   cd /home/pi/
   pip3 install rpi_ws281x
-  [ ! -d rpi-ws281x-python ] && sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python'
+  [ ! -d rpi-ws281x-python ] && sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python' || return 0
 }
 
 do_rasqberry_toggle_LED() {
@@ -352,9 +352,9 @@ do_rasqberry_toggle_LED() {
   if [ -f /home/pi/RasQberry/.is_running_LED ]; then
     kill -15 `cat /home/pi/RasQberry/.is_running_LED`
     rm /home/pi/RasQberry/.is_running_LED
-    python3 .local/bin/rq_LED-off.py
+    python3 .local/bin/rq_LED-off.py -c
   else
-    nohup python3 .local/bin/rq_LED-test.py &
+    nohup python3 .local/bin/rq_LED-test.py -c &
     echo $! > /home/pi/RasQberry/.is_running_LED
   fi
   sleep 1
