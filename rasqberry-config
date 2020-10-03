@@ -342,8 +342,9 @@ do_rasqberry_enable_touch4(){
 
 do_rasqberry_enable_LED() {
   # enable rpi_ws281x python library
+  cd /home/pi/
   pip3 install rpi_ws281x
-  sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python'
+  [ ! -d rpi-ws281x-python ] && sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python'
 }
 
 do_rasqberry_toggle_LED() {
