@@ -346,6 +346,19 @@ do_rasqberry_enable_LED() {
   sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python'
 }
 
+do_rasqberry_toggle_LED() {
+  # turn on or off the LED light ring above the cryostat
+  if [ -f /home/pi/RasQberry/.is_running_LED ]; then
+    kill -15 `cat /home/pi/RasQberry/.is_running_LED`
+    rm /home/pi/RasQberry/.is_running_LED
+    python3 .local/bin/rq_LED-off.py
+  else
+    nohup python3 .local/bin/rq_LED-test.py &
+    echo $! > /home/pi/RasQberry/.is_running_LED
+  fi
+  sleep 1
+}
+
 do_rasqberry_activate_bloch_autostart(){
 # enable bloch autostart ?
   if [ ! -f /home/pi/RasQberry/.bloch_autorun_asked ]; then
@@ -473,6 +486,7 @@ do_rasqberry_setup() {
     "S5 Qiskit 0.20" "Install Qiskit version 0.20" \
     "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
+    "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
     "S9 Toggle Messages " "Toggle info message boxes on/off" \
     3>&1 1>&2 2>&3)
   RET=$?
@@ -487,6 +501,7 @@ do_rasqberry_setup() {
       S5\ *) do_rasqberry_install_020 ;;
       S6\ *) do_rasqberry_config_demos ;;
       S7\ *) do_rasqberry_enable_LED ;;
+      S8\ *) do_rasqberry_toggle_LED ;;
       S9\ *) do_toggle_messages ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
