@@ -340,6 +340,12 @@ do_rasqberry_enable_touch4(){
   fi
 }
 
+do_rasqberry_enable_LED{
+  # enable rpi_ws281x python library
+  pip3 install rpi_ws281x
+  sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python'
+}
+
 do_rasqberry_activate_bloch_autostart(){
 # enable bloch autostart ?
   if [ ! -f /home/pi/RasQberry/.bloch_autorun_asked ]; then
@@ -466,6 +472,7 @@ do_rasqberry_setup() {
     "S4 Qiskit 0.19" "Install Qiskit version 0.19" \
     "S5 Qiskit 0.20" "Install Qiskit version 0.20" \
     "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
     "S9 Toggle Messages " "Toggle info message boxes on/off" \
     3>&1 1>&2 2>&3)
   RET=$?
@@ -479,6 +486,7 @@ do_rasqberry_setup() {
       S4\ *) do_rasqberry_install_019 ;;
       S5\ *) do_rasqberry_install_020 ;;
       S6\ *) do_rasqberry_config_demos ;;
+      S7\ *) do_rasqberry_enable_LED ;;
       S9\ *) do_toggle_messages ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
