@@ -357,7 +357,6 @@ do_rasqberry_toggle_LED() {
     nohup python3 .local/bin/rq_LED-test.py -c &
     echo $! > /home/pi/RasQberry/.is_running_LED
   fi
-  sleep 1
 }
 
 do_rasqberry_activate_bloch_autostart(){
