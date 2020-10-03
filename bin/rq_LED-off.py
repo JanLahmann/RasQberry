@@ -42,11 +42,5 @@ if __name__ == '__main__':
     # Intialize the library (must be called once before other functions).
     strip.begin()
 
-    try:
-
-        colorWipe(strip, Color(0, 0, 0))  # Black wipe
-
-    except KeyboardInterrupt:
-        if args.clear:
-            colorWipe(strip, Color(0, 0, 0), 10)
+    colorWipe(strip, Color(0, 0, 0))  # Black wipe
 
