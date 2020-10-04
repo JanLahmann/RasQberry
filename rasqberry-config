@@ -308,6 +308,7 @@ do_rasqberry_qtoken_update(){
 }
 
 do_rasqberry_enable_desktop_vnc(){
+  rq_messages && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
   if [ ! -f /home/pi/RasQberry/.is_enabled_desktopvnc ]; then
     # setup wallpaper and icon
     #cp /home/pi/RasQberry/Raspberry-Qiskit-logo*.jpg /home/pi/RasQberry/IBM-Q-RasQberry.jpg /usr/share/rpd-wallpaper/
@@ -333,6 +334,7 @@ do_rasqberry_enable_desktop_vnc(){
 }
 
 do_rasqberry_enable_touch4(){
+  rq_messages && whiptail --msgbox "enable touch display" 20 60 1
   # enable 4'' touch display
   if [ ! -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
     sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
@@ -393,30 +395,6 @@ do_rasqberry_deactivate_bloch_autostart(){
     sed -i 's/@rq_bloch_autostart.sh//' /etc/xdg/lxsession/LXDE-pi/autostart
     rm /home/pi/RasQberry/.bloch_autorun_enabled
   fi
-  
-  
-  if [ ! -f /home/pi/RasQberry/.bloch_autorun_asked ]; then
-    DEFAULT=--defaultno
-    whiptail --yesno \
-      "Would you like to enable the BlochSphere autostart?" $DEFAULT 20 60 2
-    RET=$?
-    if [ $RET -eq 0 ]; then #selected yes
-      #whiptail --msgbox "selected yes" 20 60 1
-      echo "@rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
-      touch /home/pi/RasQberry/.bloch_autorun_enabled
-      touch /home/pi/RasQberry/.bloch_autorun_asked
-    else # selected no
-      #whiptail --msgbox "selected no" 20 60 1
-      DEFAULT=--defaultno
-      whiptail --yesno \
-        "Would you like to be asked again to activate autostart?" $DEFAULT 20 60 2
-      RET=$?
-      if [ $RET -eq 1 ]; then #selected no
-        #whiptail --msgbox "selected no" 20 60 1
-        touch /home/pi/RasQberry/.bloch_autorun_asked
-      fi
-    fi
-  fi
 }
 
 do_rasqberry_run_bloch(){
@@ -441,11 +419,9 @@ do_rq_setup_bloch_autostart(){
   rq_messages && whiptail --msgbox "starting do_rq_setup_bloch_autostart" 20 60 1
 
   # enable vnc and configure desktop
-  rq_messages && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
   do_rasqberry_enable_desktop_vnc
 
   # enable touch display
-  rq_messages && whiptail --msgbox "enable touch display" 20 60 1
   do_rasqberry_enable_touch4
 
   # check if GL2/GL3 driver is enabled
@@ -455,16 +431,15 @@ do_rq_setup_bloch_autostart(){
   fi
 
   # check touchscreen calibration
-  rq_messages && whiptail --msgbox "check touchscreen calibration" 20 60 1
   if [ ! -f /home/pi/RasQberry/.is_tft_calibrated ] && [ -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
     cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && touch /home/pi/RasQberry/.is_tft_calibrated
-    whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\n\\nPlease re-run 'D6 Bloch Autostart' after the reboot." 20 60 1
+    rq_messages && whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\n\\nPlease re-run 'D6 Bloch Autostart' after the reboot." 20 60 1
     reboot
   fi
 
   # enable autostart
   if [ ! -f /home/pi/RasQberry/.bloch_autorun_enabled]; then
-    rq_messages && whiptail --msgbox "enable autostart" 20 60 1
+    rq_messages && whiptail --msgbox "enable autostart of Bloch Sphere Demo" 20 60 1
     echo "@rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
     touch /home/pi/RasQberry/.bloch_autorun_enabled
     touch /home/pi/RasQberry/.bloch_autorun_asked
