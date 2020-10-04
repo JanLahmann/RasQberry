@@ -445,7 +445,7 @@ do_rq_setup_bloch_autostart(){
 
   # enable autostart
   rq_messages && whiptail --msgbox "start enable autostart of Bloch Sphere Demo" 20 60 1
-  if [ ! -f /home/pi/RasQberry/.bloch_autorun_enabled]; then
+  if [ ! -f /home/pi/RasQberry/.bloch_autorun_enabled ]; then
     rq_messages && whiptail --msgbox "in enable autostart of Bloch Sphere Demo" 20 60 1
     echo "@rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
     touch /home/pi/RasQberry/.bloch_autorun_enabled
