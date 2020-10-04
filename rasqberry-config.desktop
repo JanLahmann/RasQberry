@@ -2,7 +2,7 @@
 Version=1.1
 Name=RasQberry Setup	
 Comment=run rasqberry-config
-Icon=/home/pi/RasQberry/Qiskit-in-Raspberry-logo_256px.jpg
+Icon=/home/pi/RasQberry/RaspberryQiskitInside.png
 Type=Application
 Categories=X-RasQberry
 Path=/usr/local/bin
