@@ -323,6 +323,7 @@ do_rasqberry_enable_desktop_vnc(){
     if [ -f /home/pi/.config/libfm/libfm.conf ]; then
       sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf \
     else sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/libfm/; echo "[config]\nquick_exec=1\nsingle_click=1" > /home/pi/.config/libfm/libfm.conf'
+      whiptail --msgbox "libfm configured" 20 60 1
     fi
     # desktop panel config
     [ ! -f /home/pi/.config/lxpanel/LXDE-pi/panels/panel ] \
