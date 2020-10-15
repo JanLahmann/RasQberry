@@ -231,7 +231,7 @@ rq_do_vnc() {
     STATUS=enabled  
   fi
   if [ "$INTERACTIVE" = True ]; then
-    whiptail --msgbox "The VNC Server is $STATUS" 20 60 1
+    rq_messages && whiptail --msgbox "The VNC Server is $STATUS" 20 60 1
   fi
 }
 
