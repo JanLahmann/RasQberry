@@ -338,7 +338,7 @@ do_rasqberry_enable_desktop_vnc(){
     do_rasqberry_enable_LED
     # enable VNC
     rq_do_vnc
-    whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
+    rq_messages && whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
     touch /home/pi/RasQberry/.is_enabled_desktopvnc
   fi
 }
