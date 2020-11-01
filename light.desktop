@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.1
+Name=Lights
+Comment=Toggle Lights
+Icon=/home/pi/RasQberry/RaspberryQiskitEarsTop.png
+Type=Application
+Categories=X-RasQberry
+Path=/home/pi/.local/bin/
+Exec=sudo /home/pi/.local/bin/rq_light_desktop.sh
+#Exec=lxterminal -t "BlochSphere Demo" --working-directory=/home/pi/.local/bin -e ./rq_light_desktop.sh
+Terminal=true
+#X-KeepTerminal=true
