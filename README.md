@@ -1,5 +1,5 @@
 # RasQberry
-###The RasQberry project: exploring quantum computing with Qiskit and a Raspberry Pi
+### The RasQberry project: exploring quantum computing with Qiskit and a Raspberry Pi
 
 Quantum Computing - which is based on Quantum Mechanics - is a complex technology that is hard to understand for most people. Completely new algorithms - and even new thinking - is needed to exploit the potential power of upcoming quantum computers. This requires new approaches to teach Quantum Computing in engaging and understandable ways for IT experts, developers and young academics.
 
