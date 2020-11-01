@@ -514,7 +514,8 @@ do_rasqberry_setup() {
     "S3 System Update " "Update the system and create swapfile" \
     "Q19 Qiskit 0.19" "Install Qiskit version 0.19" \
     "Q20 Qiskit 0.20" "Install Qiskit version 0.20" \
-    "Q23 Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "Q23 Qiskit 0.23" "Install Qiskit version 0.23" \
+    "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
     "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
     "S9 Toggle Messages " "Toggle info message boxes on/off" \
