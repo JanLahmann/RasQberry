@@ -1,9 +1,11 @@
 # RasQberry
-The RasQberry project: exploring quantum computing with Qiskit and a Raspberry Pi
+###The RasQberry project: exploring quantum computing with Qiskit and a Raspberry Pi
 
 Quantum Computing - which is based on Quantum Mechanics - is a complex technology that is hard to understand for most people. Completely new algorithms - and even new thinking - is needed to exploit the potential power of upcoming quantum computers. This requires new approaches to teach Quantum Computing in engaging and understandable ways for IT experts, developers and young academics.
 
-In this project, we use Qiskit, a Raspberry Pi (the full range from Pi 4 down to a Pi Zero) and a spectrum of Quantum Computing demos and serious games (that illustrate superposition, interference and entanglement) for an engaging introduction to Quantum Computing.
+RasQberry integrates Qiskit, a Raspberry Pi (the full range from Pi 4 down to a Pi Zero) and a 3D printed model of IBM Q System One to explore various state of the art technologies and create a tool that can be used in meetings, meetups, demo booths, etc. A spectrum of Quantum Computing demos and Serious Games for Quantum Computing (that illustrate superposition, interference and entanglement) will be made available on this device for an engaging introduction to Quantum Computing. 
+
+![](Artwork/ibmqTheQTwoGlow.png)
 
 ### Qiskit on Raspberry Pi
 A first discription how to install Qiskit on a Raspberry Pi is available at http://ibm.biz/Qiskit-Raspberry-Medium. It also includes a description how to setup some quantum demos (Qrasp, Raspberry-Tie) based on a Sense Hat 8x8 LED display.
@@ -27,7 +29,13 @@ Also use the ". ./RasQ-init.sh" command to start the rasqberry-config tool again
 The above installation procedure used pre-compiled wheel files for most of the python packages. These are downloaded automatically from https://www.piwheels.org.
 For the packages retworkx and qiskit-aer, currently there are no whl files available. Total install with local compile takes 25 minutes on RPi 4, on a Pi Zero about 4.5 hours.
 
+![](Artwork/rasqconfig-1.png)
+![](Artwork/rasqconfig-2.png)
+
+
 ### 3D model
 An enclosure (3D model) of the IBM Q System One can be used for RasQberry. STL files are available at https://github.com/JanLahmann/RasQberry_enclosure. This is based on an idea of Andy Stanford-Clark (https://github.com/andysc/IBM-Q-System-One-3D-model). Additional instructions for assembling the enclosure and all components (Raspberry Pi, 4'' touchscreen display, battery pack inside the enclosure, etc) will be provided later.
+
+![](Artwork/RasQberry-3D-Model.png)
 
 [![](http://img.youtube.com/vi/QkLW0Yw_pmg/0.jpg)](http://www.youtube.com/watch?v=QkLW0Yw_pmg "RasQberry 3D model draft")
