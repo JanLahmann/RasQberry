@@ -291,6 +291,13 @@ do_rasqberry_install_020() {
   whiptail --msgbox "Qiskit 0.20 installed" 20 60 1
 }
 
+do_rasqberry_install_023() {
+  echo; echo "Install Qiskit 0.23"; echo;
+  apt -y install libatlas-base-dev;
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh
+  whiptail --msgbox "Qiskit 0.20 installed" 20 60 1
+}
+
 do_rasqberry_config_demos(){
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_q_token.sh
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_jupyter_conf.sh
