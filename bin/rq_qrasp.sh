@@ -6,7 +6,7 @@ cd ~
 
 if [ ! -d qrasp ]; then
   git clone https://github.com/ordmoj/qrasp;
-  rq_qrasp_token.sh
+  /home/pi/.local/bin/rq_qrasp_token.sh
 fi
 
 if [  ! -f qrasp-isrunning ]; then
