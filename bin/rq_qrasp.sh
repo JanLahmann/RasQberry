@@ -9,6 +9,8 @@ if [ ! -d qrasp ]; then
   /home/pi/.local/bin/rq_qrasp_token.sh
 fi
 
+cd qrasp 
+
 if [  ! -f qrasp-isrunning ]; then
   [ ! -f /home/pi/.rq_no_messages ] && whiptail --msgbox "Starting Qrasp Demo" 20 60 1
   cd ~/qrasp
