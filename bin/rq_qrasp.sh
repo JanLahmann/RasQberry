@@ -18,5 +18,5 @@ if [  ! -f qrasp-isrunning ]; then
 else
    kill -15 `cat qrasp-isrunning`
    rm qrasp-isrunning
-   /home/pi/RasQberry/bin/clear_sense.py
+   /home/pi/.local/bin/clear_sense.py
 fi

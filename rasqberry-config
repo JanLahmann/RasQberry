@@ -497,7 +497,7 @@ do_rasqberry_demos() {
       D2\ *) do_rasqberry_run_rasptie ;;
       D3\ *) do_rasqberry_run_rasptie16 ;;
       D4\ *) do_rasqberry_run_qrasp ;;
-      D5\ *) /home/pi/RasQberry/bin/clear_sense.py ;;
+      D5\ *) /home/pi/.local/bin/clear_sense.py ;;
       D7\ *) do_rasqberry_qiskit_tutorials ;;
       D8\ *) do_rasqberry_qtoken_update ;;
       D9\ *) do_rasqberry_deactivate_bloch_autostart ;;
