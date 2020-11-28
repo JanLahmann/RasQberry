@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=Qiskit	
+Comment=Show installed Qiskit packages
+Icon=/home/pi/RasQberry/RaspberryQiskitInside.png
+Type=Application
+Categories=X-RasQberry
+Path=/home/pi/
+Exec=lxterminal -e "source ~/rasqberry/bin/activate; pip list | grep qiskit; /bin/bash"
