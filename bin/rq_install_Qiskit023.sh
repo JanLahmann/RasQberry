@@ -30,13 +30,6 @@ curl -o get_rustup.sh -s https://sh.rustup.rs &&
 sh ./get_rustup.sh -y && 
 source ~/.cargo/env
 
-# TEMPORARY fix for retworkx
-
-git clone https://github.com/Qiskit/retworkx.git
-cd retworkx/
-pip install .
-cd ..
-
 # 4.  Install qiskit
 
 echo; echo; echo "Install Qiskit"; echo;
