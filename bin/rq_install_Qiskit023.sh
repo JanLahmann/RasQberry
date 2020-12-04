@@ -30,7 +30,6 @@ curl -o get_rustup.sh -s https://sh.rustup.rs &&
 sh ./get_rustup.sh -y && 
 source ~/.cargo/env
 
-
 # 4.  Install qiskit
 
 echo; echo; echo "Install Qiskit"; echo;
