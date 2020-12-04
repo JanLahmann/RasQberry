@@ -267,7 +267,7 @@ do_rasqberry_clonegithub() {
 do_rasqberry_install_libcint() {
   echo; echo "Install libcint"; echo;
   cd /home/pi/
-  apt -y install cmake libatlas-base-dev p7zip-full
+  apt -y install cmake libatlas-base-dev p7zip-full rustc cargo
   if [ ! -f /usr/local/lib/libcint.so ]; then
     sudo -u pi -H -- sh -c 'git clone https://github.com/sunqm/libcint.git &&
       mkdir -p libcint/build && cd libcint/build &&
