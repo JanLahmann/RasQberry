@@ -61,7 +61,7 @@ def circ_execute():
 # bin(statevector.tolist().index(1.+0.j))[2:]
 
 def call_display_on_strip(measurement):
-  subprocess.call(["sudo","python3","RasQ-LED-display.py", measurement])
+  subprocess.call(["sudo","python3","/home/pi/.local/bin/RasQ-LED-display.py", measurement])
 
 def run_circ(n):
   init_circuit()
@@ -83,7 +83,7 @@ def action():
         elif player_action == '2':
           run_circ(2)
         elif player_action == 'q':
-          subprocess.call(["sudo","python3","RasQ-LED-display.py", "0", "-c"])
+          subprocess.call(["sudo","python3","/home/pi/.local/bin/RasQ-LED-display.py", "0", "-c"])
           quit()
         else:
             print("Please type \'1\' or \'2\'")
@@ -94,7 +94,7 @@ def loop(duration):
     time.sleep(3)
     run_circ(2)
     time.sleep(3)
-  subprocess.call(["sudo","python3","RasQ-LED-display.py", "0", "-c"])
+  subprocess.call(["sudo","python3","/home/pi/.local/bin/RasQ-LED-display.py", "0", "-c"])
   
 loop(5)
 
