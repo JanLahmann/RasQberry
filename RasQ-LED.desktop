@@ -6,6 +6,6 @@ Icon=/home/pi/RasQberry/RaspberryQiskitEarsTop.png
 Type=Application
 Categories=X-RasQberry
 Path=/home/pi/.local/bin/
-Exec=sudo python3 /home/pi/.local/bin/RasQ-LED.py
+Exec=/home/pi/.local/bin/RasQ-LED_desktop.sh
 Terminal=true
 #X-KeepTerminal=true
