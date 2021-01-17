@@ -3,7 +3,7 @@
 
 # start with  rasqbery; python RasQ-LED.py 
 
-import subprocess
+import subprocess, time
 
 n_qbit = 30
 
@@ -88,4 +88,15 @@ def action():
         else:
             print("Please type \'1\' or \'2\'")
 
-action()
+def loop(duration):
+  for in in range(duration):
+    run_circ(1)
+    time.sleep(3)
+    run_circ(2)
+    time.sleep(3)
+  subprocess.call(["sudo","python3","RasQ-LED-display.py", "0", "-c"])
+  
+loop(5)
+
+#action()
+
