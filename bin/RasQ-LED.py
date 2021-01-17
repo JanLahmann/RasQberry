@@ -89,7 +89,7 @@ def action():
             print("Please type \'1\' or \'2\'")
 
 def loop(duration):
-  for in in range(duration):
+  for i in range(duration):
     run_circ(1)
     time.sleep(3)
     run_circ(2)
