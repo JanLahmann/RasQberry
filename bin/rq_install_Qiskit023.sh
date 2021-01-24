@@ -15,11 +15,7 @@ python3 -m pip install virtualenv
 python3 -m virtualenv rasqberry
 source ~/rasqberry/bin/activate
 
-# 2. if /boot/custom-wheels/ exists, use pre-compiled wheels on SD card (esp. for retworkx and qiskit-aer) to save time
-echo; echo; echo "if /boot/custom-wheels/ exists, use pre-compiled wheels on SD card"; echo;
-[ -d /boot/custom-wheels/ ] && pip install --prefer-binary /boot/custom-wheels/*`uname -m`.whl
-
-# 3.  Install qiskit
+# 2. Install qiskit
 
 echo; echo; echo "Install Qiskit"; echo;
 pip install --prefer-binary 'qiskit[visualization]==0.23.*'
