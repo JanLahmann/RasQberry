@@ -1,3 +1,5 @@
+![](Artwork/RasQberry_back_Bloch__DSC07046s.jpg)
+
 # RasQberry
 ### The RasQberry project: Exploring Quantum Computing and Qiskit with a Raspberry Pi and a 3D Printer
 
