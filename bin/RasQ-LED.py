@@ -33,50 +33,35 @@ def init_circuit():
   global measurement
   measurement = ""
 
-def circuit1():
-  global circuit
-  circuit = QuantumCircuit(qr, cr)
 
-  # Add gates to the circuit, equal superposition
-  circuit.h(qr)
-  circuit.measure(qr, cr)
-
-def circuit2():
-  global circuit
-  circuit = QuantumCircuit(qr, cr)
-
-  # Add gates to the circuit, highly entangled state
-  circuit.h(qr[0])
-  for i in range(1,n_qbit):
-    circuit.cx(qr[0], qr[i])
-  circuit.measure(qr, cr)
-
-def circuit3(factor):
+def set_up_circuit(factor):
     global circuit
     circuit = QuantumCircuit(qr, cr)
+
+    if factor == 0:
+      factor = n_qbit
 
     # relevant qubits are the first qubits in each subgroup
     relevant_qbit = 0
 
     for i in range(0, n_qbit):
-        if (i % (n_qbit / factor)) == 0:
+        if (i % factor) == 0:
             circuit.h(qr[i])
             relevant_qbit = i
         else:
             circuit.cx(qr[relevant_qbit], qr[i])
 
     circuit.measure(qr, cr)
-    circ_execute()
-    call_display_on_strip(measurement)
 
 def get_factors(number):
     factor_list = []
 
-    # search for factors
-    # this excludes factor 1 and n_qbit itself, since we got those covered in circuit 1 & 2
-    for i in range(2, math.ceil(number / 2) + 1):  
+    # search for factors, including factor 1 and n_qbit itself
+    for i in range(1, math.ceil(number / 2) + 1):  
         if number % i == 0:
             factor_list.append(i)
+
+    factor_list.append(n_qbit)
     return factor_list
 
 def circ_execute():
@@ -97,20 +82,18 @@ def circ_execute():
 def call_display_on_strip(measurement):
   subprocess.call(["sudo","python3","/home/pi/.local/bin/RasQ-LED-display.py", measurement])
 
+# n is the size of the entangled blocks
 def run_circ(n):
   init_circuit()
   if n == 1:
-    print("build circuit 1")
-    circuit1() 
-  elif n == 2:
-    print("build circuit 2")
-    circuit2()
+    print("build circuit without entanglement")
+    set_up_circuit(1) 
+  elif n == 0 or n == n_qbit:
+    print("build circuit with complete entanglement")
+    set_up_circuit(n_qbit)
   else:
-    print("build circuit 3")
-    factors = get_factors(n_qbit)  # or specific list of factors
-    for factor in factors:
-        circuit3(factor)
-    return
+    print("build circuit with entangled blocks of size " + str(n))
+    set_up_circuit(n)
   circ_execute()
   call_display_on_strip(measurement)
 
@@ -121,9 +104,12 @@ def action():
         if player_action == '1':
           run_circ(1) 
         elif player_action == '2':
-          run_circ(2)
+          run_circ(n_qbit)
         elif player_action == "3":
-            run_circ(3)
+            factors = get_factors(n_qbit)
+            for factor in factors: 
+              run_circ(factor)
+              time.sleep(3)
         elif player_action == 'q':
           subprocess.call(["sudo","python3","/home/pi/.local/bin/RasQ-LED-display.py", "0", "-c"])
           quit()
@@ -132,12 +118,10 @@ def action():
 
 def loop(duration):
   for i in range(duration):
-    run_circ(1)
-    time.sleep(3)
-    run_circ(2)
-    time.sleep(3)
-    run_circ(3)
-    time.sleep(3)
+    factors = get_factors(n_qbit)
+    for factor in factors: 
+      run_circ(factor)
+      time.sleep(3)
   subprocess.call(["sudo","python3","/home/pi/.local/bin/RasQ-LED-display.py", "0", "-c"])
   
 loop(5)
