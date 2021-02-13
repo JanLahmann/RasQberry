@@ -293,7 +293,7 @@ do_rasqberry_install_020() {
 
 do_rasqberry_install_023() {
   echo; echo "Install Qiskit 0.23"; echo;
-  #apt -y install libatlas-base-dev rustc cargo;
+  apt -y install libatlas-base-dev #rustc cargo;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh
   whiptail --msgbox "Qiskit 0.23 installed" 20 60 1
 }
