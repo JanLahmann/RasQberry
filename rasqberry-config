@@ -326,6 +326,7 @@ do_rasqberry_enable_desktop_vnc(){
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bloch.desktop /home/pi/Desktop'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/light.desktop /home/pi/Desktop'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/qiskit.desktop /home/pi/Desktop'
+    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/RasQ-LED.desktop /home/pi/Desktop'
     desktop-file-install /home/pi/RasQberry/*.desktop
     # file manager config
     if [ -f /home/pi/.config/libfm/libfm.conf ]; then
@@ -342,6 +343,8 @@ do_rasqberry_enable_desktop_vnc(){
     ln -s /usr/bin/lxterminal /usr/bin/xterm
     # prevent welcome wizard to start. (run manually with "sudo piwiz", if needed)
     rm /etc/xdg/autostart/piwiz.desktop
+    # install virtual keyboard
+    apt -y install florence matchbox-keyboard
     # enable light
     do_rasqberry_enable_LED
     # enable VNC
