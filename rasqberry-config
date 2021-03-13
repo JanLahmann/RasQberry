@@ -324,6 +324,7 @@ do_rasqberry_enable_desktop_vnc(){
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
     #add desktop icons and menu entries
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bloch.desktop /home/pi/Desktop'
+    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/composer.desktop /home/pi/Desktop'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/light.desktop /home/pi/Desktop'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/qiskit.desktop /home/pi/Desktop'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/RasQ-LED.desktop /home/pi/Desktop'
