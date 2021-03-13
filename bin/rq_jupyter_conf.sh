@@ -2,7 +2,7 @@
 #
 echo; echo; echo "configure jupyter notebooks"
 #source ~/rasqberry/bin/activate
-pip install --prefer-binary jupyter
+pip3 install --prefer-binary jupyter
 jupyter notebook --generate-config
 JUPYTER_PW=`(echo "from notebook.auth import passwd"; echo "print(passwd('RasQberry'))") | python3`; echo $JUPYTER_PW
 JUPYTER_PW=$(echo ${JUPYTER_PW} | sed -e "s#/#\\\/#g")
