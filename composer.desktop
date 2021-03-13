@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.1
+Name=IBM Quantum Composer	
+Comment=run the IBM Quantum Composer
+Icon=/home/pi/RasQberry/QiskitWithEars.png
+Type=Application
+Categories=X-RasQberry
+Path=/home/pi/.local/bin/
+Exec=rq_composer.sh
+Terminal=true
