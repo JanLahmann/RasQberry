@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-echo; echo; echo "Bloch Sphere Demo"
+echo; echo; echo "IBM Quantum Composer"
 
 export DISPLAY=:0
 cd ~
