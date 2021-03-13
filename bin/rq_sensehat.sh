@@ -2,13 +2,13 @@
 #
 # Sense HAT
 echo; echo; echo "Sense HAT"
-source ~/rasqberry/bin/activate
+#source ~/rasqberry/bin/activate
 cd ~
 pip install sense-hat RTIMULib
 git clone https://github.com/astro-pi/python-sense-hat
 #cd python-sense-hat/examples/
 #./rainbow.py
-echo "alias sense_clear='(echo \"from sense_hat import SenseHat\"; echo \"SenseHat().clear()\") | python' ">> ~/.bashrc && . ~/.bashrc
+echo "alias sense_clear='(echo \"from sense_hat import SenseHat\"; echo \"SenseHat().clear()\") | python3' ">> ~/.bashrc && . ~/.bashrc
 
 # Sense HAT + Emulator
 echo; echo; echo "Sense HAT Emulator"

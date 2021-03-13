@@ -2,7 +2,7 @@
 Version=1.1
 Name=Qiskit	
 Comment=Show installed Qiskit packages
-Icon=/home/pi/RasQberry/RaspberryQiskitInside.png
+Icon=/home/pi/RasQberry/icons/RaspberryQiskitInside.png
 Type=Application
 Categories=X-RasQberry
 Path=/home/pi/

@@ -2,7 +2,7 @@
 Version=1.1
 Name=IBM Quantum Composer	
 Comment=run the IBM Quantum Composer
-Icon=/home/pi/RasQberry/QiskitWithEars.png
+Icon=/home/pi/RasQberry/icons/QiskitWithEars.png
 Type=Application
 Categories=X-RasQberry
 Path=/home/pi/.local/bin/

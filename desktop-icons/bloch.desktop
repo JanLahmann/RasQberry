@@ -2,7 +2,7 @@
 Version=1.1
 Name=BlochSphere Demo	
 Comment=run the BlochSphere Demo
-Icon=/home/pi/RasQberry/QiskitWithEars.png
+Icon=/home/pi/RasQberry/icons/QiskitWithEars.png
 Type=Application
 Categories=X-RasQberry
 Path=/home/pi/.local/bin/

@@ -242,7 +242,7 @@ installation and configuration of the RasQberry system.
  
 To setup RasQberry, go through the steps in 'RasQberry Setup' one by one. \
 Some of them require a reboot. 
-Select either Qiskit version 0.19 or version 0.20 to be installed. 
+Select either Qiskit version 0.20 or version 0.23 to be installed. 
 'Config & Demos' installs and configures several quantum demos. 
 
 'Quantum Demos' offers several Quantum demos - suitable for a \
@@ -275,13 +275,6 @@ do_rasqberry_install_libcint() {
     cd /home/pi/libcint/build && make install && cd /home/pi/
   fi
   #whiptail --msgbox "libcint is installed" 20 60 1
-}
-
-do_rasqberry_install_019() {
-  echo; echo "Install Qiskit 0.19"; echo;
-  do_rasqberry_install_libcint;
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh
-  whiptail --msgbox "Qiskit 0.19 installed" 20 60 1
 }
 
 do_rasqberry_install_020() {
@@ -317,18 +310,12 @@ do_rasqberry_qtoken_update(){
 do_rasqberry_enable_desktop_vnc(){
   rq_messages && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
   if [ ! -f /home/pi/RasQberry/.is_enabled_desktopvnc ]; then
-    # setup wallpaper and icon
-    #cp /home/pi/RasQberry/Raspberry-Qiskit-logo*.jpg /home/pi/RasQberry/IBM-Q-RasQberry.jpg /usr/share/rpd-wallpaper/
-    cp /home/pi/RasQberry/Raspberry-Qiskit-logo*.jpg /home/pi/RasQberry/ibmqTheQTwoGlow.png /usr/share/rpd-wallpaper/
+    # setup wallpaper
     sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
     #add desktop icons and menu entries
-    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bloch.desktop /home/pi/Desktop'
-    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/composer.desktop /home/pi/Desktop'
-    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/light.desktop /home/pi/Desktop'
-    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/qiskit.desktop /home/pi/Desktop'
-    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/RasQ-LED.desktop /home/pi/Desktop'
-    desktop-file-install /home/pi/RasQberry/*.desktop
+    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/desktop-icons/*.desktop /home/pi/Desktop'
+    desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
     # file manager config
     if [ -f /home/pi/.config/libfm/libfm.conf ]; then
       sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf
@@ -521,7 +508,6 @@ do_rasqberry_setup() {
     "S1 Enable VNC " "Enable VNC and configure desktop" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
     "S3 System Update " "Update the system and create swapfile" \
-    "Q19 Qiskit 0.19" "Install Qiskit version 0.19" \
     "Q20 Qiskit 0.20" "Install Qiskit version 0.20" \
     "Q23 Qiskit 0.23" "Install Qiskit version 0.23" \
     "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
@@ -538,7 +524,6 @@ do_rasqberry_setup() {
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
       S2\ *) do_rasqberry_enable_touch4 ;;
       S3\ *) do_rasqberry_update ;;
-      Q19\ *) do_rasqberry_install_019 ;;
       Q20\ *) do_rasqberry_install_020 ;;
       Q23\ *) do_rasqberry_install_023 ;;
       S6\ *) do_rasqberry_config_demos ;;

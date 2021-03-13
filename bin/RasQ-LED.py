@@ -1,11 +1,11 @@
 # https://raspberrypi.stackexchange.com/questions/85109/run-rpi-ws281x-without-sudo
 # https://github.com/joosteto/ws2812-spi
 
-# start with  rasqbery; python RasQ-LED.py 
+# start with python3 RasQ-LED.py 
 
 import subprocess, time, math
 
-n_qbit = 30
+n_qbit = 12
 
 #Import Qiskit classes
 from qiskit import IBMQ, execute
