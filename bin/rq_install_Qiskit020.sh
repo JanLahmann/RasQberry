@@ -4,8 +4,10 @@
 #
 
 export STARTDATE=`date`
-echo; echo; echo "Install Qiskit"; echo;
+echo; echo; echo "Install Qiskit 0.20"; echo;
+. /home/pi/.bashrc
 
+pip3 install -U numpy Pillow
 pip3 install --prefer-binary 'qiskit[visualization]==0.20.*'
 pip3 list | grep qiskit
 

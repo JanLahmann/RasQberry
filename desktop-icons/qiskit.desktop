@@ -6,4 +6,4 @@ Icon=/home/pi/RasQberry/icons/RaspberryQiskitInside.png
 Type=Application
 Categories=X-RasQberry
 Path=/home/pi/
-Exec=lxterminal -e "source ~/rasqberry/bin/activate; pip list | grep qiskit; /bin/bash"
+Exec=lxterminal -e "pip3 list | grep qiskit; /bin/bash"
