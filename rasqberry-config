@@ -259,9 +259,10 @@ do_rasqberry_update() {
   ASK_TO_REBOOT=1
 }
 
-do_rasqberry_clonegithub() {
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_clonegithub.sh
-  sleep 2
+do_rq_initial_config() {
+  ( echo; echo '##### added for rasqberry #####';
+  echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
+  ) >> ~/.bashrc && . ~/.bashrc
 }
 
 do_rasqberry_install_libcint() {
@@ -286,7 +287,7 @@ do_rasqberry_install_020() {
 
 do_rasqberry_install_023() {
   echo; echo "Install Qiskit 0.23"; echo;
-  apt -y install libatlas-base-dev #rustc cargo;
+  apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh
   whiptail --msgbox "Qiskit 0.23 installed" 20 60 1
 }
@@ -504,6 +505,7 @@ do_rasqberry_demos() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "I0 Initial Config " "Basic configurations (PATH, etc)" \
     "S0 Bloch Autostart " "Setup Autostart for Bloch Demo" \
     "S1 Enable VNC " "Enable VNC and configure desktop" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
@@ -520,6 +522,7 @@ do_rasqberry_setup() {
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
+      I0\ *) do_rq_initial_config ;;
       S0\ *) do_rq_setup_bloch_autostart ;;
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
       S2\ *) do_rasqberry_enable_touch4 ;;
