@@ -263,6 +263,9 @@ do_rq_initial_config() {
   ( echo; echo '##### added for rasqberry #####';
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
   ) >> ~/.bashrc && . ~/.bashrc
+  echo ".bashrc: "
+  cat ~/.bashrc
+  whiptail --msgbox "initial config completed" 20 60 1
 }
 
 do_rasqberry_install_libcint() {
