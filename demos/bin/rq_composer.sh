@@ -12,5 +12,5 @@ if [ ! -f /home/pi/RasQberry/.is_tft_calibrated ]; then
 fi
 
 
-nohup chromium-browser --start-fullscreen --enable-webgl --ignore-gpu-blacklist  http://quantum-computing.ibm.com/composer/new &
+setsid nohup chromium-browser --start-fullscreen --enable-webgl --ignore-gpu-blacklist  http://quantum-computing.ibm.com/composer/new &
 sleep 6

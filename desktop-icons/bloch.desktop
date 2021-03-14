@@ -5,8 +5,8 @@ Comment=run the BlochSphere Demo
 Icon=/home/pi/RasQberry/icons/QiskitWithEars.png
 Type=Application
 Categories=X-RasQberry
-Path=/home/pi/RasQberry/demos/bin/
-Exec=rq_bloch_desktop.sh
+#Path=/home/pi/RasQberry/demos/bin/
+Exec=/home/pi/RasQberry/demos/bin/rq_bloch_desktop.sh
 #Exec=lxterminal -t "BlochSphere Demo" --working-directory=/home/pi/.local/bin -e ./rq_bloch_desktop.sh
 Terminal=true
 #X-KeepTerminal=true
