@@ -294,19 +294,19 @@ do_rasqberry_install_023() {
 }
 
 do_rasqberry_config_demos(){
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_q_token.sh
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_jupyter_conf.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_jupyter_conf.sh
   apt -y install python3-sense-emu sense-emu-tools
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_sensehat.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_sensehat.sh
 }
 
 do_rasqberry_qiskit_tutorials(){
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_qiskit_tutorial.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_qiskit_tutorial.sh
   sleep 10
 }
 
 do_rasqberry_qtoken_update(){
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_q_token.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
 }
 
 do_rasqberry_enable_desktop_vnc(){
@@ -366,9 +366,9 @@ do_rasqberry_toggle_LED() {
   if [ -f /home/pi/RasQberry/.is_running_LED ]; then
     kill -15 `cat /home/pi/RasQberry/.is_running_LED`
     rm /home/pi/RasQberry/.is_running_LED
-    python3 .local/bin/rq_LED-off.py -c
+    python3 RasQberry/demos/bin/rq_LED-off.py -c
   else
-    nohup python3 .local/bin/rq_LED-test.py -c &
+    nohup python3 RasQberry/demos/bin/rq_LED-test.py -c &
     echo $! > /home/pi/RasQberry/.is_running_LED
   fi
 }
@@ -423,7 +423,7 @@ do_rasqberry_run_bloch(){
   do_rasqberry_activate_bloch_autostart
 
   # run the bloch demo
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_bloch.sh
 }
 
 do_rq_setup_bloch_autostart(){
@@ -458,21 +458,21 @@ do_rq_setup_bloch_autostart(){
   fi
   
   # run the bloch demo
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_bloch.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_bloch.sh
 
   whiptail --msgbox "The System will now autostart the Bloch Sphere Demo after each reboot." 20 60 1
 }
 
 do_rasqberry_run_rasptie(){
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_rasptie.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie.sh
 }
 
 do_rasqberry_run_rasptie16(){
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_rasptie16.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie16.sh
 }
 
 do_rasqberry_run_qrasp(){
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_qrasp.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_qrasp.sh
 }
 
 do_rasqberry_demos() {
