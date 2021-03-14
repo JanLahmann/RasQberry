@@ -262,9 +262,7 @@ do_rasqberry_update() {
 do_rq_initial_config() {
   ( echo; echo '##### added for rasqberry #####';
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
-  ) >> ~/.bashrc && . ~/.bashrc
-  echo ".bashrc: "
-  cat ~/.bashrc
+  ) >> /home/pi/.bashrc && . /home/pi/.bashrc
   whiptail --msgbox "initial config completed" 20 60 1
 }
 
