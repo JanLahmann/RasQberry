@@ -6,4 +6,4 @@ export DISPLAY=:0
 cd ~
 
 sleep 15
-rq_bloch_desktop.sh
+/home/pi/RasQberry/demos/bin/rq_bloch_desktop.sh
