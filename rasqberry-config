@@ -555,7 +555,7 @@ do_rasqberry_setup() {
     "S1 Enable VNC " "Enable VNC and configure desktop" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
     "S3 System Update " "Update the system and create swapfile" \
-    "Q1 Qiskit" "Install Qiskit (several versions)" \
+    "Q1 Install Qiskit" "Install Qiskit (several versions)" \
     "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
     "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
