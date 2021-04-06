@@ -5,6 +5,6 @@ echo; echo; echo "start RasQ-LED demo"
 #source ~/rasqberry/bin/activate
 cd ~
 
-python3 /home/pi/.local/bin/RasQ-LED.py
+python3 /home/pi/RasQberry/demos/bin/RasQ-LED.py
 
 sleep 2
