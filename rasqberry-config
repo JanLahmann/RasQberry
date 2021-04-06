@@ -527,11 +527,11 @@ do_rasqberry_demos() {
 
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "Q25 Qiskit 0.25" "Install Qiskit version 0.25" \
-    "Q24 Qiskit 0.24" "Install Qiskit version 0.24" \
-    "Q23 Qiskit 0.23" "Install Qiskit version 0.23" \
-    "Q20 Qiskit 0.20" "Install Qiskit version 0.20" \
-    "Q19 Qiskit 0.19       " "Install Qiskit version 0.19" \
+    "Q25 Qiskit 0.25" "Install Qiskit v0.25" \
+    "Q24 Qiskit 0.24" "Install Qiskit v0.24" \
+    "Q23 Qiskit 0.23" "Install Qiskit v0.23" \
+    "Q20 Qiskit 0.20" "Install Qiskit v0.20" \
+    "Q19 Qiskit 0.19       " "Install Qiskit v0.19" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
