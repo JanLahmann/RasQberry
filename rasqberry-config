@@ -279,6 +279,13 @@ do_rasqberry_install_libcint() {
   #whiptail --msgbox "libcint is installed" 20 60 1
 }
 
+do_rasqberry_install_019() {
+  echo; echo "Install Qiskit 0.19"; echo;
+  do_rasqberry_install_libcint;
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh
+  whiptail --msgbox "Qiskit 0.19 installed" 20 60 1
+}
+
 do_rasqberry_install_020() {
   echo; echo "Install Qiskit 0.20"; echo;
   do_rasqberry_install_libcint;
@@ -291,6 +298,20 @@ do_rasqberry_install_023() {
   apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh
   whiptail --msgbox "Qiskit 0.23 installed" 20 60 1
+}
+
+do_rasqberry_install_024() {
+  echo; echo "Install Qiskit 0.24"; echo;
+  apt -y install libatlas-base-dev
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit024.sh
+  whiptail --msgbox "Qiskit 0.24 installed" 20 60 1
+}
+
+do_rasqberry_install_025() {
+  echo; echo "Install Qiskit 0.25"; echo;
+  apt -y install libatlas-base-dev llvm-9
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh
+  whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
 }
 
 do_rasqberry_config_demos(){
@@ -504,6 +525,29 @@ do_rasqberry_demos() {
   fi
 }
 
+do_rasqberry_install_qiskit() {
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "Q19 Qiskit 0.19" "Install Qiskit version 0.19" \
+    "Q20 Qiskit 0.20" "Install Qiskit version 0.20" \
+    "Q23 Qiskit 0.23" "Install Qiskit version 0.23" \
+    "Q24 Qiskit 0.24" "Install Qiskit version 0.24" \
+    "Q25 Qiskit 0.25" "Install Qiskit version 0.25" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return 0
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      Q19\ *) do_rasqberry_install_019 ;;
+      Q20\ *) do_rasqberry_install_020 ;;
+      Q23\ *) do_rasqberry_install_023 ;;
+      Q24\ *) do_rasqberry_install_024 ;;
+      Q25\ *) do_rasqberry_install_025 ;;
+      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
+    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
+  fi
+}
+
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "I0 Initial Config " "Basic configurations (PATH, etc)" \
@@ -511,8 +555,7 @@ do_rasqberry_setup() {
     "S1 Enable VNC " "Enable VNC and configure desktop" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
     "S3 System Update " "Update the system and create swapfile" \
-    "Q20 Qiskit 0.20" "Install Qiskit version 0.20" \
-    "Q23 Qiskit 0.23" "Install Qiskit version 0.23" \
+    "Q1 Qiskit" "Install Qiskit (several versions)" \
     "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
     "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
@@ -528,8 +571,7 @@ do_rasqberry_setup() {
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
       S2\ *) do_rasqberry_enable_touch4 ;;
       S3\ *) do_rasqberry_update ;;
-      Q20\ *) do_rasqberry_install_020 ;;
-      Q23\ *) do_rasqberry_install_023 ;;
+      Q1\ *) do_rasqberry_install_qiskit ;;
       S6\ *) do_rasqberry_config_demos ;;
       S7\ *) do_rasqberry_enable_LED ;;
       S8\ *) do_rasqberry_toggle_LED ;;
