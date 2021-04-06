@@ -80,7 +80,7 @@ def circ_execute():
 # bin(statevector.tolist().index(1.+0.j))[2:]
 
 def call_display_on_strip(measurement):
-  subprocess.call(["sudo","python3","/home/pi/.local/bin/RasQ-LED-display.py", measurement])
+  subprocess.call(["sudo","python3","/home/pi/RasQberry/demos/bin/RasQ-LED-display.py", measurement])
 
 # n is the size of the entangled blocks
 def run_circ(n):
@@ -111,7 +111,7 @@ def action():
               run_circ(factor)
               time.sleep(3)
         elif player_action == 'q':
-          subprocess.call(["sudo","python3","/home/pi/.local/bin/RasQ-LED-display.py", "0", "-c"])
+          subprocess.call(["sudo","python3","/home/pi/RasQberry/demos/bin/RasQ-LED-display.py", "0", "-c"])
           quit()
         else:
             print("Please type \'1\', \'2\', \'3\' or \'q\'")
@@ -122,7 +122,7 @@ def loop(duration):
     for factor in factors: 
       run_circ(factor)
       time.sleep(3)
-  subprocess.call(["sudo","python3","/home/pi/.local/bin/RasQ-LED-display.py", "0", "-c"])
+  subprocess.call(["sudo","python3","/home/pi/RasQberry/demos/bin/RasQ-LED-display.py", "0", "-c"])
   
 loop(5)
 
