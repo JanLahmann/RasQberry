@@ -2,8 +2,8 @@
 #
 # install Qiskit tutorials
 echo; echo; echo "install Qiskit tutorials"
-source ~/rasqberry/bin/activate
+#source ~/rasqberry/bin/activate
 cd ~/
 git clone https://github.com/Qiskit/qiskit-tutorials
-pip install --prefer-binary cvxpy
+pip3 install --prefer-binary cvxpy
 #jupyter notebook qiskit-tutorials --no-browser

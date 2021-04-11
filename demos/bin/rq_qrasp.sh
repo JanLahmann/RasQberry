@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 echo; echo; echo "Qrasp"
-source ~/rasqberry/bin/activate
+#source ~/rasqberry/bin/activate
 cd ~
 
 if [ ! -d qrasp ]; then
@@ -13,7 +13,7 @@ cd qrasp
 
 if [  ! -f qrasp-isrunning ]; then
   [ ! -f /home/pi/.rq_no_messages ] && whiptail --msgbox "Starting Qrasp Demo" 20 60 1
-  nohup python main_controller.py &
+  nohup python3 main_controller.py &
   echo $! > qrasp-isrunning
 else
    kill -15 `cat qrasp-isrunning`
