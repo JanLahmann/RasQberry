@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# installation of Qiskit 0.25
+# installation of Qiskit 0.25.4
 #
 
 export STARTDATE=`date`
-echo; echo; echo "Install Qiskit 0.25"; echo;
+echo; echo; echo "Install Qiskit 0.25.4"; echo;
 
 LLVM_CONFIG=llvm-config-9 pip3 install llvmlite
 pip3 install --prefer-binary -U Pillow
