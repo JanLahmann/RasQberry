@@ -364,7 +364,7 @@ do_rasqberry_enable_desktop_vnc(){
     # install virtual keyboard
     apt -y install florence matchbox-keyboard
     #install bluetooth manager blueman
-    apt - y install blueman
+    apt -y install blueman
     # enable light
     do_rasqberry_enable_LED
     # enable VNC
