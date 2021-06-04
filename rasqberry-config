@@ -263,6 +263,8 @@ do_rq_initial_config() {
   ( echo; echo '##### added for rasqberry #####';
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
   ) >> /home/pi/.bashrc && . /home/pi/.bashrc
+  #install bluetooth manager blueman
+  apt -y install blueman
   whiptail --msgbox "initial config completed" 20 60 1
 }
 
@@ -363,8 +365,6 @@ do_rasqberry_enable_desktop_vnc(){
     rm /etc/xdg/autostart/piwiz.desktop
     # install virtual keyboard
     apt -y install florence matchbox-keyboard
-    #install bluetooth manager blueman
-    apt -y install blueman
     # enable light
     do_rasqberry_enable_LED
     # enable VNC
