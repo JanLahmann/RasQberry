@@ -8,10 +8,8 @@
 echo; echo; echo "store IBM Q Experience access token";
 echo "Get access to your IBM Q Experience token as decribed here:";
 echo "https://quantum-computing.ibm.com/docs/manage/account/";
-<<<<<<< HEAD:bin/rq_q_token.sh
-=======
 echo "Please wait for the prompt to enter your token";
->>>>>>> JRL-dev3:demos/bin/rq_q_token.sh
+
 (echo "from qiskit import IBMQ"; 
  echo "from getpass import getpass"; 
  echo "token = getpass('Enter your IBM Q Experience Token: ')"; 
