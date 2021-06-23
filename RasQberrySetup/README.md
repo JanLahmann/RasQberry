@@ -171,7 +171,11 @@ Put your cables on the Raspberry Pins as follows:
 * VCC-cable to Pin 4 [5V]
 * IN-cable to Pin 40 [GPIO21]
 
-You can check which Pin on your Raspberry is the right one, when you type pinout in your terminal/ssh window.
+You can check which Pin on your Raspberry is the right one, when you type 
+```python
+pinout 
+```
+in your terminal/ssh window.
 
 Open your terminal/ssh window and type 
 ```python 
