@@ -5,7 +5,7 @@
 
 import subprocess, time, math
 
-n_qbit = 12
+n_qbit = 27
 
 #Import Qiskit classes
 from qiskit import IBMQ, execute
