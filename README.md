@@ -20,6 +20,4 @@ A summary of that article has been published at hackster.io: https://www.hackste
 
 When you want your own RasQberry this repository is the right place!
 
-Under **RasQberry3DModel** you can find all the information to the 3D Model you can see above.
-
-Under **RasQberrySetup** you can find instructions and explanations on how to setup your RasQberry.
+Here ou can find all the information to the [3D Model](./documentation/3DModel.md) you can see above itself and [the bill of material](./documentation/3DModel.md) you will need, aswell as the [instructions](./documentation/RasQberry_Setup.md) for the setup.
