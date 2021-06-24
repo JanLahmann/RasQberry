@@ -5,9 +5,9 @@ If you already have a raspberry pi with the latest version of Raspbian you can s
 ## Step 1: Get your Raspberry Pi ready
 With the Raspberry Pi Imager (https://www.raspberrypi.org/software/ ) write the Raspberry Pi OS Raspian on an (empty) SD-Card. You can either choose the Image right from the Raspberry Pi Imager or you can first download Raspian at https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit.
 
-<div style="text-align:center"> 
+<p align="center"> 
 <img src="../Artwork/RPi.png" alt="drawing" width="350"/> <img src="../Artwork/RPi_OS.png" alt="drawing" width="350"/> <br/>
-</div>
+</p>
 
 **(Optional)** Do the default Setup of your Raspberry Pi by using 
 ```python 
@@ -26,9 +26,9 @@ When you added the file, you can now boot your Raspberry Pi.
 * **Headless (with Imager):** <br/>
 When you write the Raspberry Pi OS on your SD-Card you can enable SSH with the writing process. You can access the extend menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
 <br/>
-<div style="text-align:center"> 
+<p align="center">  
 <img src="../Artwork/RPi_SSH.png" alt="drawing" width="350"/> <br/>
-</div>
+</p>
 <br/>
 The you can enable SSH and enter your password or pblic-key to make the authenticating process while connecting easier.
 
@@ -58,9 +58,9 @@ pip3 install getgist
 .local/bin/getgist -y JanLahmann RasQ-init.sh
 . ./RasQ-init.sh
 ```
-<div style="text-align:center"> 
+<p align="center"> 
     <img src="../Artwork/rasqberry_config-1.png" alt="drawing"/> <img src="../Artwork/rasqberry_config-2.png" alt="drawing"/> 
-</div>
+</p>
 
 This will download and start the RasQberry Configuration Tool (rasqberry-config) in your terminal. It is similar to the well-known raspi-config and can also be used for some basic configurations. 
 To start the tool again you can use 
@@ -143,9 +143,9 @@ If you got handed an SD-Card where the above described installation already is m
 * **Raspberry Pi Imager**<br/>
 When you write the Raspberry Pi OS on your SD-Card you can set your WIFI Settings with the writing process. You can access the extend menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
 <br/>
-<div style="text-align:center"> 
+<p align="center"> 
 <img src="../Artwork/RPi_WIFI.png" alt="drawing" width="350"/> <br/>
-</div>
+</p>
 
 <br/>
 
@@ -203,9 +203,9 @@ pinout
 ```
 in your terminal/ssh window.
 
-<div style="text-align:center"> 
+<p align="center"> 
 <img src="../Artwork/pinout-1.png" alt="drawing" height="350"/> <img src="../Artwork/pinout-2.png" alt="drawing" height="350"/> <br/>
-</div>
+</p>
 
 Open your terminal/ssh window and type 
 ```python 
