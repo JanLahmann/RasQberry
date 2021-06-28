@@ -501,6 +501,14 @@ do_rasqberry_run_rasptie16(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie16.sh
 }
 
+do_rasqberry_run_rasptie_no_network(){
+  sudo -u pi -H -- sh -c "/home/pi/RasQberry/demos/bin/rq_rasptie.sh -local"
+}
+
+do_rasqberry_run_rasptie16_no_network(){
+  sudo -u pi -H -- sh -c "/home/pi/RasQberry/demos/bin/rq_rasptie16.sh -local"
+}
+
 do_rasqberry_run_qrasp(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_qrasp.sh
 }
@@ -509,7 +517,9 @@ do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo" \
     "D2 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
+    "D2a Raspberry-Tie 5" "Start/Stop the Raspberry-Tie Demo (no network - simulated)" \
     "D3 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
+    "D3a Raspberry-Tie 16" "Start/Stop the Raspberry-Tie Demo (no network - simulated)" \
     "D4 Qrasp " "Install/Start/Stop the Qrasp Demo" \
     "D5 Clear " "Clear SenseHAT Display" \
     "D7 Qiskit Tutorials " "Clone Qiskit Tutorials GitHub Repo" \
@@ -523,7 +533,9 @@ do_rasqberry_demos() {
     case "$FUN" in
       D1\ *) do_rasqberry_run_bloch ;;
       D2\ *) do_rasqberry_run_rasptie ;;
+      D2a\ *) do_rasqberry_run_rasptie_no_network ;;
       D3\ *) do_rasqberry_run_rasptie16 ;;
+      D3a\ *) do_rasqberry_run_rasptie16_no_network ;;
       D4\ *) do_rasqberry_run_qrasp ;;
       D5\ *) /home/pi/.local/bin/clear_sense.py ;;
       D7\ *) do_rasqberry_qiskit_tutorials ;;
