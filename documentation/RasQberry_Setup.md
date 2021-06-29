@@ -33,7 +33,7 @@ When you write the Raspberry Pi OS on your SD-Card you can enable SSH with the w
 The you can enable SSH and enter your password or pblic-key to make the authenticating process while connecting easier.
 
 * 	**With Display:**  
-Open the terminal on your Raspberry Pi.	
+Open the terminal on your Raspberry Pi.	You can find the terminal in the applicatin menu, under *Accessories*.
 ```python
 sudo raspi-config
 ```
@@ -185,7 +185,7 @@ With the virtual keyboard you can enter the wpa-key.
 <br/>
 
 ## Install VNC Viewer
-To remotely access the screen of your Raspberry Pi you need to have a VNC Viewer installed on a different computer.   
+To remotely access the screen of your Raspberry Pi you need to have a VNC Viewer installed on a different computer. VNC has been tested using the realVNC Viewer (https://www.realvnc.com/de/connect/download/viewer/)   
 To connect to your Raspberry Pi you need to open your VNC Viewer.  
 In the VNC Viewer you enter the VNC server-address from your Raspberry. After that you will need to enter a username (default: pi) and a password (default: raspberry).  
 Your VNC Viewer will now connect to your Raspberry Pi.
