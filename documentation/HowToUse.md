@@ -17,7 +17,7 @@ The taskbar appears.
 <p align="center">  
 <img src="../Artwork/RasQberry_Taskbar.png" alt="drawing" width="600"/> <br/>
 </p>
-On the left side you can see the *applications menu*, the *RasQerry Configuration Tool*, the *reboot* button and the *shoutdown* button.<br/>
+On the left side you can see the *applications menu*, the *RasQerry Configuration Tool*, the *reboot* button and the *shutdown* button.<br/>
 On the right side you can see the *VNC Viewer* and the *wifi*.<br/>
 
 <br/>
@@ -110,7 +110,7 @@ To stop the Qrasp demo by selecting `D4` again.
 
 <br/>
 
-## Shoutdown and turn of your RasQberry
+## Shutdown and turn of your RasQberry
 First close all open windows.<br/>
-Next you need to shoutsdown your Rasqberry pi.<br/>
+Next you need to shutsdown your Rasqberry pi.<br/>
 The last thing is to turn off the battery. In the hole on the oppisite site if the display, inster your stilo pen and press the button twice. The battery is now turned off.
