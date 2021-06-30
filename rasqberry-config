@@ -263,8 +263,6 @@ do_rq_initial_config() {
   ( echo; echo '##### added for rasqberry #####';
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
   ) >> /home/pi/.bashrc && . /home/pi/.bashrc
-  #install bluetooth manager blueman
-  apt -y install blueman
   whiptail --msgbox "initial config completed" 20 60 1
 }
 
@@ -313,13 +311,6 @@ do_rasqberry_install_025() {
   echo; echo "Install Qiskit 0.25"; echo;
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh
-  whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
-}
-
-do_rasqberry_install_0254() {
-  echo; echo "Install Qiskit 0.25"; echo;
-  apt -y install libatlas-base-dev llvm-9
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit0254.sh
   whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
 }
 
@@ -505,13 +496,22 @@ do_rasqberry_run_qrasp(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_qrasp.sh
 }
 
+do_sensehat_display_off(){
+  sudo -H -- sh -c /home/pi/.local/bin/clear_sense.py
+}
+
+do_led_lights_off(){
+  sudo -H -- sh -c /home/pi/.local/bin/rq_LED-off.py
+}
+
 do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo" \
     "D2 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
     "D3 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
     "D4 Qrasp " "Install/Start/Stop the Qrasp Demo" \
-    "D5 Clear " "Clear SenseHAT Display" \
+    "D5 Clear SenseHA" "Clear SenseHAT Display" \
+    "D6 Clear LED" "Clear LED Lights" \
     "D7 Qiskit Tutorials " "Clone Qiskit Tutorials GitHub Repo" \
     "D8 Update Q Token" "Enter new IBM Quantum Experience Token" \
     "D9 Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
@@ -525,7 +525,8 @@ do_rasqberry_demos() {
       D2\ *) do_rasqberry_run_rasptie ;;
       D3\ *) do_rasqberry_run_rasptie16 ;;
       D4\ *) do_rasqberry_run_qrasp ;;
-      D5\ *) /home/pi/.local/bin/clear_sense.py ;;
+      D5\ *) do_sensehat_display_off ;;
+      D6\ *) do_led_lights_off ;;
       D7\ *) do_rasqberry_qiskit_tutorials ;;
       D8\ *) do_rasqberry_qtoken_update ;;
       D9\ *) do_rasqberry_deactivate_bloch_autostart ;;
@@ -536,7 +537,6 @@ do_rasqberry_demos() {
 
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "Q254 Qiskit 0.254" "Install Qiskit v0.254" \
     "Q25 Qiskit 0.25" "Install Qiskit v0.25" \
     "Q24 Qiskit 0.24" "Install Qiskit v0.24" \
     "Q23 Qiskit 0.23" "Install Qiskit v0.23" \
@@ -553,7 +553,6 @@ do_rasqberry_install_qiskit() {
       Q23\ *) do_rasqberry_install_023 ;;
       Q24\ *) do_rasqberry_install_024 ;;
       Q25\ *) do_rasqberry_install_025 ;;
-      Q254\ *) do_rasqberry_install_0254 ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
