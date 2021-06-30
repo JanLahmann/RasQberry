@@ -263,6 +263,8 @@ do_rq_initial_config() {
   ( echo; echo '##### added for rasqberry #####';
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
   ) >> /home/pi/.bashrc && . /home/pi/.bashrc
+  #install bluetooth manager blueman
+  apt -y install blueman
   whiptail --msgbox "initial config completed" 20 60 1
 }
 
