@@ -20,4 +20,8 @@ A summary of that article has been published at hackster.io: https://www.hackste
 
 When you want your own RasQberry this repository is the right place!
 
-Here ou can find all the information to the [3D Model](./documentation/3DModel.md) you can see above itself and the [bill of material](./documentation/3DModel_BillOfMaterial.md) you will need, aswell as the [instructions](./documentation/RasQberry_Setup.md) for the setup and informations to the available [demos](./documentation/RasQberry_Demos.md).
+* **If you want to build your very own RasQberry**<br/> 
+Here you can find all the information to the [3D Model](./documentation/3DModel.md) you can see above itself and the [bill of material](./documentation/3DModel_BillOfMaterial.md) you will need, aswell as the [instructions](./documentation/RasQberry_Setup.md) for the setup and informations to the available [demos](./documentation/RasQberry_Demos.md).
+
+* **If you get an RasQberry**<br/>
+Here you can find all the information on [how to use your RasQberry](./documentation/HowToUse.md) and informations to the available [demos](./documentation/RasQberry_Demos.md).

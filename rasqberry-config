@@ -263,6 +263,8 @@ do_rq_initial_config() {
   ( echo; echo '##### added for rasqberry #####';
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
   ) >> /home/pi/.bashrc && . /home/pi/.bashrc
+  #install bluetooth manager blueman
+  apt -y install blueman
   whiptail --msgbox "initial config completed" 20 60 1
 }
 
@@ -311,6 +313,13 @@ do_rasqberry_install_025() {
   echo; echo "Install Qiskit 0.25"; echo;
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh
+  whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
+}
+
+do_rasqberry_install_0254() {
+  echo; echo "Install Qiskit 0.25"; echo;
+  apt -y install libatlas-base-dev llvm-9
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit0254.sh
   whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
 }
 
@@ -484,12 +493,12 @@ do_rq_setup_bloch_autostart(){
   whiptail --msgbox "The System will now autostart the Bloch Sphere Demo after each reboot." 20 60 1
 }
 
-do_rasqberry_run_rasptie(){
-  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie.sh
+do_rasqberry_run_rasptie_no_network(){
+  sudo -u pi -H -- sh -c "/home/pi/RasQberry/demos/bin/rq_rasptie.sh -local"
 }
 
-do_rasqberry_run_rasptie16(){
-  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie16.sh
+do_rasqberry_run_rasptie16_no_network(){
+  sudo -u pi -H -- sh -c "/home/pi/RasQberry/demos/bin/rq_rasptie16.sh -local"
 }
 
 do_rasqberry_run_qrasp(){
@@ -513,8 +522,8 @@ do_rasqberry_demos() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       D1\ *) do_rasqberry_run_bloch ;;
-      D2\ *) do_rasqberry_run_rasptie ;;
-      D3\ *) do_rasqberry_run_rasptie16 ;;
+      D2\ *) do_rasqberry_run_rasptie_no_network ;;
+      D3\ *) do_rasqberry_run_rasptie16_no_network ;;
       D4\ *) do_rasqberry_run_qrasp ;;
       D5\ *) /home/pi/.local/bin/clear_sense.py ;;
       D7\ *) do_rasqberry_qiskit_tutorials ;;
@@ -527,6 +536,7 @@ do_rasqberry_demos() {
 
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "Q254 Qiskit 0.254" "Install Qiskit v0.254" \
     "Q25 Qiskit 0.25" "Install Qiskit v0.25" \
     "Q24 Qiskit 0.24" "Install Qiskit v0.24" \
     "Q23 Qiskit 0.23" "Install Qiskit v0.23" \
@@ -543,6 +553,7 @@ do_rasqberry_install_qiskit() {
       Q23\ *) do_rasqberry_install_023 ;;
       Q24\ *) do_rasqberry_install_024 ;;
       Q25\ *) do_rasqberry_install_025 ;;
+      Q254\ *) do_rasqberry_install_0254 ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
