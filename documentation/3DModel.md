@@ -3,5 +3,7 @@ An enclosure (3D model) of the IBM Q System One can be used for RasQberry. STL f
 
 <img src="../Artwork/RasQberry-3D-Model.png" alt="drawing" width="400"/> <br/>
 
-[![](http://img.youtube.com/vi/QkLW0Yw_pmg/0.jpg)](http://www.youtube.com/watch?v=QkLW0Yw_pmg "RasQberry 3D model draft")
+
+### Assembly for Version 5.5
+[![](http://img.youtube.com/vi/LZZDI9oBFN8/0.jpg)](https://www.youtube.com/watch?v=LZZDI9oBFN8 "assembly animation RasQberry 3D model v.5.5") 
 
