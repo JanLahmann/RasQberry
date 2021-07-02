@@ -15,6 +15,7 @@ pip3 install --prefer-binary numpy==1.20.1 scipy==1.6.1 decorator==4.4.* sympy==
 #pip3 install qiskit-aer
 #pip3 install git+https://github.com/Qiskit/qiskit-aer.git@0.8.0
 pip3 install --no-warn-script-location --prefer-binary 'qiskit[visualization,all]==0.25.*'
+pip3 install ibm-quantum-widgets
 
 pip3 list | grep qiskit
 
