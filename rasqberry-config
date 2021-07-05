@@ -559,11 +559,24 @@ do_rasqberry_install_qiskit() {
   fi
 }
 
+do_rasqberry_enable_second_vnc() {
+  sudo /home/pi/RasQberry/bin/vnc_side-to-side.sh
+  rq_messages && whiptail --msgbox "enabled second vnc" 20 60 1
+}
+
+do_rasqberry_disable_second_vnc() {
+  sudo /home/pi/RasQberry/bin/stop_vnc_side-to-side.sh
+  rq_messages && whiptail --msgbox "disabled second vnc" 20 60 1
+
+}
+
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "I0 Initial Config " "Basic configurations (PATH, etc)" \
     "S0 Bloch Autostart " "Setup Autostart for Bloch Demo" \
     "S1 Enable VNC " "Enable VNC and configure desktop" \
+    "S1a Enable second VNC" "Enable VNC Display with higher resolution" \
+    "S1b Disable second VNC" "Disable VNC Display with higher resolution" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
     "S3 System Update " "Update the system and create swapfile" \
     "Q1 Install Qiskit" "Install Qiskit (several versions)" \
@@ -580,6 +593,8 @@ do_rasqberry_setup() {
       I0\ *) do_rq_initial_config ;;
       S0\ *) do_rq_setup_bloch_autostart ;;
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
+      S1a\ *) do_rasqberry_enable_second_vnc ;;
+      S1b\ *) do_rasqberry_disable_second_vnc ;;
       S2\ *) do_rasqberry_enable_touch4 ;;
       S3\ *) do_rasqberry_update ;;
       Q1\ *) do_rasqberry_install_qiskit ;;
