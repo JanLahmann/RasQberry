@@ -346,7 +346,7 @@ do_rasqberry_enable_desktop_vnc(){
     sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
     #add desktop icons and menu entries
-    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/desktop-icons/*.desktop /home/pi/Desktop'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/Desktop/'
     desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
     # file manager config
     if [ -f /home/pi/.config/libfm/libfm.conf ]; then
