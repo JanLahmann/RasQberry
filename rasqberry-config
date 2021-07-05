@@ -560,12 +560,12 @@ do_rasqberry_install_qiskit() {
 }
 
 do_rasqberry_enable_second_vnc() {
-  sudo /home/pi/RasQberry/bin/vnc_side-to-side.sh
+  sudo -u pi /home/pi/RasQberry/bin/vnc_side-to-side.sh
   rq_messages && whiptail --msgbox "enabled second vnc" 20 60 1
 }
 
 do_rasqberry_disable_second_vnc() {
-  sudo /home/pi/RasQberry/bin/stop_vnc_side-to-side.sh
+  sudo -u pi /home/pi/RasQberry/bin/stop_vnc_side-to-side.sh
   rq_messages && whiptail --msgbox "disabled second vnc" 20 60 1
 
 }
