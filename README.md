@@ -25,3 +25,28 @@ Here you can find all the information to the [3D Model](./documentation/3DModel.
 
 * **If you get an RasQberry**<br/>
 Here you can find all the information on [how to use your RasQberry](./documentation/HowToUse.md) and informations to the available [demos](./documentation/RasQberry_Demos.md).
+
+***
+
+## Quick Installation of RasQberry
+When you already have a RasQberry that you can use you can install RasQberry in just a very few moments.<br/>
+Open the terminal/ssh window on your Raspberry Pi.
+```python
+pip3 install getgist
+.local/bin/getgist -y JanLahmann RasQ-init.sh
+. ./RasQ-init.sh
+```
+<p align="center"> 
+    <img src="./Artwork/rasqberry_config-1.png" alt="drawing"/> <img src="./Artwork/rasqberry_config-2.png" alt="drawing"/> 
+</p>
+
+This will download and start the RasQberry Configuration Tool (rasqberry-config) in your terminal. It is similar to the well-known raspi-config and can also be used for some basic configurations. 
+To start the tool again you can use 
+
+```pyhton 
+. ./RasQ-init.sh 
+````
+
+in your terminal/ssh window.
+
+You can find the full instructions for the setup [here](./documentation/RasQberry_Setup.md).

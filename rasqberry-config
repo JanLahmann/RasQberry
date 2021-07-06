@@ -506,6 +506,10 @@ do_led_lights_off(){
   sudo -H -- sh -c /home/pi/.local/bin/rq_LED-off.py
 }
 
+do_start_jupyter_notebook(){
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/start_jupyter_notebook.sh
+}
+
 do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo" \
@@ -515,8 +519,9 @@ do_rasqberry_demos() {
     "D5 Clear SenseHA" "Clear SenseHAT Display" \
     "D6 Clear LED" "Clear LED Lights" \
     "D7 Qiskit Tutorials " "Clone Qiskit Tutorials GitHub Repo" \
-    "D8 Update Q Token" "Enter new IBM Quantum Experience Token" \
-    "D9 Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
+    "D8 Start Jupyter Noteebook" "Start Jupyter Notebookt" \
+    "D9 Update Q Token" "Enter new IBM Quantum Experience Token" \
+    "D10 Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
@@ -530,8 +535,9 @@ do_rasqberry_demos() {
       D5\ *) do_sensehat_display_off ;;
       D6\ *) do_led_lights_off ;;
       D7\ *) do_rasqberry_qiskit_tutorials ;;
-      D8\ *) do_rasqberry_qtoken_update ;;
-      D9\ *) do_rasqberry_deactivate_bloch_autostart ;;
+      D8\ *) do_start_jupyter_notebook ;;
+      D9\ *) do_rasqberry_qtoken_update ;;
+      D10\ *) do_rasqberry_deactivate_bloch_autostart ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi

@@ -16,4 +16,4 @@ echo "Please wait for the prompt to enter your token";
  echo "print ('APItoken = \'' + str(token) + '\'')";
  echo "IBMQ.save_account(token)") | python3 > ~/.Qconfig_IBMQ_experience.py
 
-[ -f ~/qrasp/Qconfig_IBMQ_experience.py ] && rq_qrasp_token.sh
+[ -f ~/qrasp/Qconfig_IBMQ_experience.py ] && ~/RasQberry/demos/bin/rq_qrasp_token.sh
