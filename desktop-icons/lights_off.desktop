@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.1
+Name=Clear LED Lights
+Comment=Turn LED Lights off
+Icon=/home/pi/RasQberry/icons/RaspberryQiskitEarsTop.png
+Type=Application
+Categories=X-RasQberry
+#Path=/home/pi/RasQberry/demos/bin/
+Exec=sudo -H -- sh -c /home/pi/.local/bin/rq_LED-off.py
+Terminal=true
+#X-KeepTerminal=true

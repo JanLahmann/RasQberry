@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.1
+Name=Fun-with-Quantum Repo
+Comment=Open Fun-with-Quantum Repository on GitHub
+Icon=/home/pi/RasQberry/icons/QiskitWithEars.png
+Type=Application
+Categories=X-RasQberry
+#Path=/home/pi/RasQberry/demos/bin/
+Exec=/home/pi/RasQberry/bin/rq_fun_with_quantum.sh
+Terminal=true

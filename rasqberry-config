@@ -316,13 +316,6 @@ do_rasqberry_install_025() {
   whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
 }
 
-do_rasqberry_install_0254() {
-  echo; echo "Install Qiskit 0.25"; echo;
-  apt -y install libatlas-base-dev llvm-9
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit0254.sh
-  whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
-}
-
 do_rasqberry_config_demos(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_jupyter_conf.sh
@@ -346,7 +339,7 @@ do_rasqberry_enable_desktop_vnc(){
     sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
     #add desktop icons and menu entries
-    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/desktop-icons/*.desktop /home/pi/Desktop'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/Desktop/'
     desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
     # file manager config
     if [ -f /home/pi/.config/libfm/libfm.conf ]; then
@@ -505,13 +498,22 @@ do_rasqberry_run_qrasp(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_qrasp.sh
 }
 
+do_sensehat_display_off(){
+  sudo -H -- sh -c /home/pi/.local/bin/clear_sense.py
+}
+
+do_led_lights_off(){
+  sudo -H -- sh -c /home/pi/.local/bin/rq_LED-off.py
+}
+
 do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo" \
     "D2 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
     "D3 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
     "D4 Qrasp " "Install/Start/Stop the Qrasp Demo" \
-    "D5 Clear " "Clear SenseHAT Display" \
+    "D5 Clear SenseHA" "Clear SenseHAT Display" \
+    "D6 Clear LED" "Clear LED Lights" \
     "D7 Qiskit Tutorials " "Clone Qiskit Tutorials GitHub Repo" \
     "D8 Update Q Token" "Enter new IBM Quantum Experience Token" \
     "D9 Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
@@ -525,7 +527,8 @@ do_rasqberry_demos() {
       D2\ *) do_rasqberry_run_rasptie_no_network ;;
       D3\ *) do_rasqberry_run_rasptie16_no_network ;;
       D4\ *) do_rasqberry_run_qrasp ;;
-      D5\ *) /home/pi/.local/bin/clear_sense.py ;;
+      D5\ *) do_sensehat_display_off ;;
+      D6\ *) do_led_lights_off ;;
       D7\ *) do_rasqberry_qiskit_tutorials ;;
       D8\ *) do_rasqberry_qtoken_update ;;
       D9\ *) do_rasqberry_deactivate_bloch_autostart ;;
@@ -536,7 +539,6 @@ do_rasqberry_demos() {
 
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "Q254 Qiskit 0.254" "Install Qiskit v0.254" \
     "Q25 Qiskit 0.25" "Install Qiskit v0.25" \
     "Q24 Qiskit 0.24" "Install Qiskit v0.24" \
     "Q23 Qiskit 0.23" "Install Qiskit v0.23" \
@@ -553,10 +555,20 @@ do_rasqberry_install_qiskit() {
       Q23\ *) do_rasqberry_install_023 ;;
       Q24\ *) do_rasqberry_install_024 ;;
       Q25\ *) do_rasqberry_install_025 ;;
-      Q254\ *) do_rasqberry_install_0254 ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
+}
+
+do_rasqberry_enable_second_vnc() {
+  sudo -u pi /home/pi/RasQberry/bin/vnc_side-to-side.sh
+  rq_messages && whiptail --msgbox "enabled second vnc <ip address>:5902" 20 60 1
+}
+
+do_rasqberry_disable_second_vnc() {
+  sudo -u pi /home/pi/RasQberry/bin/stop_vnc_side-to-side.sh
+  rq_messages && whiptail --msgbox "disabled second vnc<ip address>:5902" 20 60 1
+
 }
 
 do_rasqberry_setup() {
@@ -564,6 +576,8 @@ do_rasqberry_setup() {
     "I0 Initial Config " "Basic configurations (PATH, etc)" \
     "S0 Bloch Autostart " "Setup Autostart for Bloch Demo" \
     "S1 Enable VNC " "Enable VNC and configure desktop" \
+    "S1a Enable second VNC" "Enable VNC Display with higher resolution" \
+    "S1b Disable second VNC" "Disable VNC Display with higher resolution" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
     "S3 System Update " "Update the system and create swapfile" \
     "Q1 Install Qiskit" "Install Qiskit (several versions)" \
@@ -580,6 +594,8 @@ do_rasqberry_setup() {
       I0\ *) do_rq_initial_config ;;
       S0\ *) do_rq_setup_bloch_autostart ;;
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
+      S1a\ *) do_rasqberry_enable_second_vnc ;;
+      S1b\ *) do_rasqberry_disable_second_vnc ;;
       S2\ *) do_rasqberry_enable_touch4 ;;
       S3\ *) do_rasqberry_update ;;
       Q1\ *) do_rasqberry_install_qiskit ;;
