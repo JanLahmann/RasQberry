@@ -112,8 +112,17 @@ By pushing the joystick to the left you select the `3Q`-option.<br/>
 To stop the Qrasp demo by selecting `D4` again.
 
 ## Continuative demos<br/>
-* **Qiskit-Demos**<br/>
-By cloning the git-repository with the qiskit-demos you have access to new jupyter notebooks that you can run and investigate.
+### Qiskit-Demos<br/>
+By cloning the git-repository with the qiskit-demos you have access to new jupyter notebooks that you can run and investigate.<br/>
 
-* **Jupyter Notebooks**<br/>
-By executing `S6 - Config & Demos` in the Rasqberry Configuration Tool you have acces to more demos that you can run in jupyter notebooks on your Raspberry Pi.
+### Jupyter Notebooks<br/>
+In your Jupyter Notebook you can invastigate demos (e.g. the qiskit tutorials and demos) or can run your own code.<br/>
+* **Start**<br/>
+By executing `S6 - Config & Demos` in the Rasqberry Configuration Tool you have acces to more demos that you can run in jupyter notebooks on your Raspberry Pi. You need to provide your API Token and the jupyter notebook will be configurated.
+<br/>
+* **Start**<br/>
+To start the Jupyter Notebook you need to open the Rasqberry Configuration Tool.<br/> 
+Select `D - Quantum Demos` and then `D8 - Start Jupyter Notebook`.<br/>
+The Jupyter Noebook boots in the background. By opening http://raspberrypi:8888/ in your browser you can access the Jupyter Notebook.<br/>
+The password is *RasQberry*.<br/>
+You can now use the Jupyter notebook.
