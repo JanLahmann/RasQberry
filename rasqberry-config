@@ -357,7 +357,7 @@ do_rasqberry_enable_desktop_vnc(){
     # prevent welcome wizard to start. (run manually with "sudo piwiz", if needed)
     rm /etc/xdg/autostart/piwiz.desktop
     # install virtual keyboard
-    apt -y install florence matchbox-keyboard
+    apt -y install matchbox-keyboard
     # enable light
     do_rasqberry_enable_LED
     # enable VNC
