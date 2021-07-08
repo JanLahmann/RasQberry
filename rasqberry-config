@@ -572,7 +572,7 @@ do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "I0 Initial Config " "Basic configurations (PATH, etc)" \
     "S0 Bloch Autostart " "Setup Autostart for Bloch Demo" \
-    "S1 Enable VNC " "Enable mirrored and side-to-sode VNC displays and configure desktop" \
+    "S1 Enable VNC " "Enable mirrored and side-to-side VNC displays and configure desktop" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
     "S3 System Update " "Update the system and create swapfile" \
     "Q1 Install Qiskit" "Install Qiskit (several versions)" \
