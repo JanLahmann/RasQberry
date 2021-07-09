@@ -356,8 +356,10 @@ do_rasqberry_enable_desktop_vnc(){
     ln -s /usr/bin/lxterminal /usr/bin/xterm
     # prevent welcome wizard to start. (run manually with "sudo piwiz", if needed)
     rm /etc/xdg/autostart/piwiz.desktop
+
     # install virtual keyboard
     apt -y install matchbox-keyboard
+
     # enable light
     do_rasqberry_enable_LED
     # enable VNC
@@ -603,6 +605,53 @@ do_rasqberry_setup() {
   fi
 }
 
+do_clone_qiskit_start_jupyter() {
+  whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  sudo -u pi nohup /home/pi/RasQberry/demos/bin/rq_qiskit_tutorial.sh -port 8888 & 
+}
+
+do_clone_qiskit_start_jupyter_no_browser() {
+  whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  sudo -u pi nohup /home/pi/RasQberry/demos/bin/rq_qiskit_tutorial.sh -port 8888 --no-browser &
+  echo "Starting jupyter in the background. Please be patient..."
+  sleep 10 
+  whiptail --msgbox "you can access jupyter at http://<ip address>:8888/tree in your browser" 20 60 1
+}
+
+do_clone_fwq_start_jupyter() {
+  whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  sudo -u pi nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh -port 8889 &
+}
+
+do_clone_fwq_start_jupyter_no_browser() {
+  whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  sudo -u pi nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh -port 8889 --no-browser &
+  echo "Starting jupyter in the background. Please be patient..."
+  sleep 10 
+  whiptail --msgbox "you can access jupyter at http://<ip address>:8889/tree in your browser" 20 60 1
+}
+
+do_hd_demos() {
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "HD Demos" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "Q1 Qiskit Tutorials" "clone qiskit-tutorials and start jupyter notebook" \
+    "Q2 Qiskit Tutorials - no browser" "Clone qiskit-tutorials and start jupyter notebook - no browser" \
+    "F1 Fun-with-Quantum" "clone Fun-with-Quantum and start jupyter notebook" \
+    "F2 Fun-with-Quantum - no browser" "clone Fun-with-Quantum and start jupyter notebook - no browser" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return 0
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      Q1\ *) do_clone_qiskit_start_jupyter ;;
+      Q2\ *) do_clone_qiskit_start_jupyter_no_browser ;;
+      F1\ *) do_clone_fwq_start_jupyter ;;
+      F2\ *) do_clone_fwq_start_jupyter_no_browser ;;
+      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
+    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
+  fi
+}
+
 ############# RasQberry  #############
 
 #
@@ -655,6 +704,7 @@ if [ "$INTERACTIVE" = True ]; then
       FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
         "S RasQberry Setup" "RasQberry initial setup and configuration" \
         "D Quantum Demos" "Install and run Quantum Demos" \
+        "H HD Demos" "Install and run HD Demos" \
         "9 About rasqberry-config " "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     else
@@ -670,6 +720,7 @@ if [ "$INTERACTIVE" = True ]; then
         case "$FUN" in
           S\ *) do_rasqberry_setup ;;
           D\ *) do_rasqberry_demos ;;
+          H\ *) do_hd_demos ;;
           9\ *) do_rasqberry_about ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
