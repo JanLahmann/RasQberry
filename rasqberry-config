@@ -607,12 +607,12 @@ do_rasqberry_setup() {
 
 do_clone_qiskit_start_jupyter() {
   whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
-  sudo -u pi nohup /home/pi/RasQberry/demos/bin/rq_qiskit_tutorial.sh -port 8888 & 
+  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_qiskit_tutorial.sh -port 8888 & 
 }
 
 do_clone_qiskit_start_jupyter_no_browser() {
   whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
-  sudo -u pi nohup /home/pi/RasQberry/demos/bin/rq_qiskit_tutorial.sh -port 8888 --no-browser &
+  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_qiskit_tutorial.sh -port 8888 --no-browser &
   echo "Starting jupyter in the background. Please be patient..."
   sleep 10 
   whiptail --msgbox "you can access jupyter at http://<ip address>:8888/tree in your browser" 20 60 1
@@ -620,12 +620,12 @@ do_clone_qiskit_start_jupyter_no_browser() {
 
 do_clone_fwq_start_jupyter() {
   whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
-  sudo -u pi nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh -port 8889 &
+  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh -port 8889 &
 }
 
 do_clone_fwq_start_jupyter_no_browser() {
   whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
-  sudo -u pi nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh -port 8889 --no-browser &
+  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh -port 8889 --no-browser &
   echo "Starting jupyter in the background. Please be patient..."
   sleep 10 
   whiptail --msgbox "you can access jupyter at http://<ip address>:8889/tree in your browser" 20 60 1
