@@ -2,7 +2,6 @@
 #
 echo; echo; echo "Bloch Sphere Demo"
 
-export DISPLAY=:0
 cd ~
 
 # check if GL2/GL3 driver is enabled
