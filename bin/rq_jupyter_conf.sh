@@ -10,6 +10,8 @@ sed -i "s/# c.NotebookApp.password = ''/c.NotebookApp.password = '$JUPYTER_PW'/"
 sed -i "s/# c.NotebookApp.ip = 'localhost'/c.NotebookApp.ip = '*'/" ~/.jupyter/jupyter_notebook_config.py
 # configurations for the ibm_quantum_widgets
 echo "Jupyter Notebook Widgets";
-pip3 install ipwidgets
+pip3 install ipywidgets
 jupyter nbextension enable --py widgetsnbextension
 jupyter nbextension enable --py --user ibm_quantum_widgets
+# install rise
+pip3 install rise
