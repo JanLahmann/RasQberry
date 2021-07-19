@@ -321,6 +321,9 @@ do_rasqberry_config_demos(){
   sudo -u pi -i /home/pi/.local/bin/rq_jupyter_conf.sh
   apt -y install python3-sense-emu sense-emu-tools
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_sensehat.sh
+  # enable jupyter notebook autostart
+  rq_messages && whiptail --msgbox "enabled jupyter notebook autostart on port 8888 and 8889" 20 60 1
+    echo "@/home/pi/RasQberry/demos/bin/start_jupyter_notebooks.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
 }
 
 do_rasqberry_qtoken_update(){
@@ -620,10 +623,10 @@ do_clone_fwq_start_jupyter_no_browser() {
 
 do_hd_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "HD Demos" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "Q1 Qiskit Tutorials" "clone qiskit-tutorials and start jupyter notebook" \
-    "Q2 Qiskit Tutorials - no browser" "Clone qiskit-tutorials and start jupyter notebook - no browser" \
-    "F1 Fun-with-Quantum" "clone Fun-with-Quantum and start jupyter notebook" \
-    "F2 Fun-with-Quantum - no browser" "clone Fun-with-Quantum and start jupyter notebook - no browser" \
+    "Q1 Qiskit Tutorials - internal browser" "Clone qiskit-tutorials and start jupyter notebook" \
+    "Q2 Qiskit Tutorials - remote browser" "Clone qiskit-tutorials and start jupyter notebook - no browser" \
+    "F1 Fun-with-Quantum - internal browser" "Clone Fun-with-Quantum and start jupyter notebook" \
+    "F2 Fun-with-Quantum - remote browser" "Clone Fun-with-Quantum and start jupyter notebook - no browser" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
