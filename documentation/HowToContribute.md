@@ -1,5 +1,5 @@
 # How to Contribute
-If you have an interesitng idea you'd like to add or the solution to an issues you are welcome to contribute!<br/>
+If you have an interesting idea you'd like to add or the solution to an issues you are welcome to contribute!<br/>
 To contribute you will fork the repository. By forking the RasQberry-Repository you create a personal copy of the repo that will be stored under your account.<br/>
 Later on you can submit your changes via Pull Request.
 
