@@ -102,10 +102,17 @@ Open your repository in your webbrowser. You will see a banner that lets you com
 
 <br/>
 <p align="center">  
-<img src="../Artwork/PR_Repo.png" alt="drawing" width="350"/> <br/>
+<img src="../Artwork/PR_Repo.png" alt="drawing" width="800"/> <br/>
 </p>
 <br/>
 
 Click on `Compare & pull request`. You will get redirected to a new page, where you need to enter a title and a description to your pull request. It is best practice to provide as much useful information on what you changed or added and why you changed or added it.<br/>
 When you are done with your description you need to click on `Create pull request`.<br/>
+
+<br/>
+<p align="center">  
+<img src="../Artwork/PR_Repo-2.png" alt="drawing" width="800"/> <br/>
+</p>
+<br/>
+
 Congratulations, you created a pull request!
