@@ -26,6 +26,9 @@ Here you can find all the information to the [3D Model](./documentation/3DModel.
 * **If you get an RasQberry**<br/>
 Here you can find all the information on [how to use your RasQberry](./documentation/HowToUse.md) and informations to the available [demos](./documentation/RasQberry_Demos.md).
 
+* **If you want to work with the repository**<br/>
+Here you can find all the informations on [how to contribute to the RasQberry-Repository](./documentation/HowToContribute.md)
+
 ***
 
 ## Quick Installation of RasQberry
