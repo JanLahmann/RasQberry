@@ -338,9 +338,14 @@ do_rasqberry_enable_desktop_vnc(){
     # setup wallpaper
     sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
-    #add desktop icons and menu entries
+    # add desktop icons and menu entries
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/Desktop/'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/.local/share/applications/'
     desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
+    # add menu categories
+    sudo -u pi -i /home/pi/RasQberry/bin/add_menu.sh
+    # add menu directories
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/.local/share/desktop-directories'
     # file manager config
     if [ -f /home/pi/.config/libfm/libfm.conf ]; then
       sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf
@@ -618,9 +623,7 @@ do_hd_demos() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       Q1\ *) do_clone_qiskit_start_jupyter ;;
-      Q2\ *) do_clone_qiskit_start_jupyter_no_browser ;;
       F1\ *) do_clone_fwq_start_jupyter ;;
-      F2\ *) do_clone_fwq_start_jupyter_no_browser ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
