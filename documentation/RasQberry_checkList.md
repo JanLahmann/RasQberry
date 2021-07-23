@@ -50,7 +50,7 @@ pip3 list installed | grep sense
 <br/>
 
 The touch display demos are executable:<br/>
-    - You can access these demos with the desktop-icons.<br/>
+You can access these demos with the desktop-icons.<br/>
 - [ ] Bloch Sphere Demo<br/>
 - [ ] Quantum Composer<br/>
 - [ ] Lights (Toogle)<br/>
@@ -60,7 +60,7 @@ The touch display demos are executable:<br/>
 <br/>
 
 The senseHAT Demos are executable:<br/>
-    - You can sccess these demos with the RasQberry Configuration Tool under `D - Quantum Demos`.<br/>
+You can sccess these demos with the RasQberry Configuration Tool under `D - Quantum Demos`.<br/>
 - [ ] Rasqberry-Tie 5<br/>
 - [ ] Rasqberry-Tie 16<br/>
 - [ ] Qrasp<br/>
