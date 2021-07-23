@@ -1,7 +1,9 @@
 # How to Contribute
 If you have an interesting idea you'd like to add or the solution to an issues you are welcome to contribute!<br/>
 To contribute you will fork the repository. By forking the RasQberry-Repository you create a personal copy of the repo that will be stored under your account.<br/>
-Later on you can submit your changes via Pull Request.
+Later on you can submit your changes via Pull Request.<br/>
+<br/>
+Please update the check list with your changes, if they need to be checked at any new installation. You can find the checklist [here](./RasQberry_checkList.md).
 
 ## 1. Fork the Repository
 You can fork the RasQberry-Repo easly by clicking on the `fork`-button on the top right of the window.
