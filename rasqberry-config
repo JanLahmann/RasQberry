@@ -345,7 +345,7 @@ do_rasqberry_enable_desktop_vnc(){
     # add menu categories
     sudo -u pi -i /home/pi/RasQberry/bin/add_menu.sh
     # add menu directories
-    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/.local/share/desktop-directories'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/directory-entries/* /home/pi/.local/share/desktop-directories'
     # file manager config
     if [ -f /home/pi/.config/libfm/libfm.conf ]; then
       sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf
