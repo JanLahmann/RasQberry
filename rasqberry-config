@@ -316,7 +316,7 @@ do_rasqberry_install_025() {
   whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
 }
 
-do_rasqberry_install_028() {
+do_rasqberry_install_027() {
   echo; echo "Install Qiskit 0.28"; echo;
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit028.sh
@@ -555,7 +555,7 @@ do_rasqberry_demos() {
 
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "Q28 Qiskit 0.28" "Install Qiskit v0.28" \
+    "Q27 Qiskit 0.28" "Install Qiskit v0.28" \
     "Q25 Qiskit 0.25" "Install Qiskit v0.25" \
     "Q24 Qiskit 0.24" "Install Qiskit v0.24" \
     "Q23 Qiskit 0.23" "Install Qiskit v0.23" \
@@ -572,7 +572,7 @@ do_rasqberry_install_qiskit() {
       Q23\ *) do_rasqberry_install_023 ;;
       Q24\ *) do_rasqberry_install_024 ;;
       Q25\ *) do_rasqberry_install_025 ;;
-      Q28\ *) do_rasqberry_install_028 ;;
+      Q27\ *) do_rasqberry_install_027 ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
