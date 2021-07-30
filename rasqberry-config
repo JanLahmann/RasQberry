@@ -317,10 +317,10 @@ do_rasqberry_install_025() {
 }
 
 do_rasqberry_install_027() {
-  echo; echo "Install Qiskit 0.28"; echo;
+  echo; echo "Install Qiskit 0.27"; echo;
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit028.sh
-  whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
+  whiptail --msgbox "Qiskit 0.27 installed" 20 60 1
 }
 
 do_rasqberry_config_demos(){
@@ -555,7 +555,7 @@ do_rasqberry_demos() {
 
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "Q27 Qiskit 0.28" "Install Qiskit v0.28" \
+    "Q27 Qiskit 0.27" "Install Qiskit v0.27" \
     "Q25 Qiskit 0.25" "Install Qiskit v0.25" \
     "Q24 Qiskit 0.24" "Install Qiskit v0.24" \
     "Q23 Qiskit 0.23" "Install Qiskit v0.23" \
