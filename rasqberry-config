@@ -325,7 +325,6 @@ do_rasqberry_install_027() {
 
 do_rasqberry_install_028() {
   echo; echo "Install Qiskit 0.28"; echo;
-  apt -y install cmake
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit028.sh
   whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
 }
