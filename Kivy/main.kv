@@ -1,0 +1,195 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import webbrowser webbrowser
+<Button>:
+    background_color: 1, 0.98, 0.98, 1
+    color: 1, 1, 1, 1
+    font_size: 30
+
+<RootScreen>:
+    size: 500, 350
+    size_hint: 1, 1
+    transition: FadeTransition()
+    HomeScreen:
+    DemosScreen:
+    SeriousGamesScreen:
+    ConfigScreen:
+    InfoScreen:
+
+<HomeScreen>:
+    name: "homescreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/minimal_background.png"
+
+    FloatLayout:
+        Button:
+            id: demos
+            pos_hint: {"x": 0.1, "top": 0.72}
+            text: "Demos"
+            size_hint: 0.8, 0.1
+            on_press: root.manager.current = "demosscreen"
+
+        Button:
+            id: serious_games
+            pos_hint: {"x": 0.1, "top": 0.57}
+            text: "Serious games"
+            size_hint: 0.8, 0.1
+            on_press: root.manager.current = "seriousgamesscreen"
+        
+        Button:
+            id: rasq_config
+            pos_hint: {"x": 0.1, "top": 0.42}
+            text: "Rasqberry Configuration Tool"
+            size_hint: 0.8, 0.1
+            on_press: root.manager.current = "configscreen"
+
+        Button:
+            id: info
+            pos_hint: {"x": 0.1, "top": 0.27}
+            text: "Info"
+            size_hint: 0.8, 0.1
+            on_press: root.manager.current = "infoscreen"
+
+<DemosScreen>:
+    name: "demosscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/ibmqantumTwoGlowScaled_black.png"
+        
+    FloatLayout:
+        Button:
+            id: back_to_home
+            pos_hint: {"x": 0.8, "top": 1}
+            text: "Home"
+            size_hint: 0.2, 0.05
+            on_press: root.manager.current = "homescreen"
+        
+        Button:
+            id: bloch
+            pos_hint: {"x": 0.095, "top": 0.9}
+            size_hint: 0.1, 0.13
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            on_press: "/home/pi/RasQberry/demos/bin/rq_bloch_desktop.sh"
+        
+        Label:
+            id: bloch_text
+            pos_hint: {"x": -0.355, "top": 1.26}
+            text_size: None, None
+            text: "Bloch Sphere\nDemo"
+            halign: "center"
+
+<SeriousGamesScreen>:
+    name: "seriousgamesscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/ibmqantumTwoGlowScaled_black.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_home
+            pos_hint: {"x": 0.8, "top": 1}
+            text: "Home"
+            size_hint: 0.2, 0.05
+            on_press: root.manager.current = "homescreen"
+
+        Button:
+            id: coin_game
+            pos_hint: {"x": 0.095, "top": 0.9}
+            size_hint: 0.1, 0.13
+            background_normal: "../icons/QiskitWithEars.png"
+            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Quantum-Coin-Game.ipynb')
+        
+        Label:
+            id: coin_game_text
+            pos_hint: {"x": -0.355, "top": 1.26}
+            text: "Coin Game"
+        
+        Button:
+            id: ghz_game
+            pos_hint: {"x": 0.245, "top": 0.9}
+            size_hint: 0.1, 0.13
+            background_normal: "../icons/QiskitWithEars.png"
+            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/GHZ-Game.ipynb')
+        
+        Label:
+            id: ghz_game_text
+            pos_hint: {"x": -0.205, "top": 1.26}
+            text: "GHZ Game"
+        
+        Button:
+            id: 3sat_game
+            pos_hint: {"x": 0.395, "top": 0.9}
+            size_hint: 0.1, 0.13
+            background_normal: "../icons/QiskitWithEars.png"
+            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/3sat.ipynb')
+        
+        Label:
+            id: 3sat_game_text
+            pos_hint: {"x": -0.055, "top": 1.26}
+            text: "3 SAT Game"
+
+        Button:
+            id: hardy_paradox
+            pos_hint: {"x": 0.545, "top": 0.9}
+            size_hint: 0.1, 0.13
+            background_normal: "../icons/QiskitWithEars.png"
+            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Hardys-Paradox.ipynb')
+        
+        Label:
+            id: hardy_paradox_text
+            pos_hint: {"x": 0.095, "top": 1.24}
+            text_size: None, None
+            text: "Hardys\nParadox"
+            halign: "center"
+
+        Button:
+            id: mermin_peres
+            pos_hint: {"x": 0.695, "top": 0.9}
+            size_hint: 0.1, 0.13
+            background_normal: "../icons/QiskitWithEars.png"
+            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Mermin–Peres-Game.ipynb')
+        
+        Label:
+            id: mermin_peres_text
+            pos_hint: {"x": 0.25, "top": 1.24}
+            text_size: None, None
+            text: "Mermin Peres\nMagic Square"
+            halign: "center"
+
+<ConfigScreen>:
+    name: "configscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/ibmqantumTwoGlowScaled_black.png"
+
+    FloatLayout:
+        Button:
+            id: back_to_home
+            pos_hint: {"x": 0.8, "top": 1}
+            text: "Home"
+            size_hint: 0.2, 0.05
+            on_press: root.manager.current = "homescreen"
+
+<InfoScreen>:
+    name: "infoscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/ibmqantumTwoGlowScaled_black.png"
+
+    FloatLayout:
+        Button:
+            id: back_to_home
+            pos_hint: {"x": 0.8, "top": 1}
+            text: "Home"
+            size_hint: 0.2, 0.05
+            on_press: root.manager.current = "homescreen"
