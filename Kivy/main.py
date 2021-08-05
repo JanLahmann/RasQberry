@@ -2,6 +2,12 @@ import kivy
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.config import Config
+import os
+
+Config.set('graphics', 'width', '795')
+Config.set('graphics', 'height', '445')
+Config.write()
 
 # Create Screens
 class RootScreen(ScreenManager):
@@ -17,6 +23,9 @@ class SeriousGamesScreen(Screen):
     pass
 
 class ConfigScreen(Screen):
+    pass
+
+class QiskitScreen(Screen):
     pass
 
 class InfoScreen(Screen):

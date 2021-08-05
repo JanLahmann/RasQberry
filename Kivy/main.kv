@@ -1,18 +1,20 @@
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
 #:import webbrowser webbrowser
+#:import os os
 <Button>:
     background_color: 1, 0.98, 0.98, 1
     color: 1, 1, 1, 1
     font_size: 30
 
 <RootScreen>:
-    size: 500, 350
+    size: 795, 445
     size_hint: 1, 1
     transition: FadeTransition()
     HomeScreen:
     DemosScreen:
     SeriousGamesScreen:
     ConfigScreen:
+    QiskitScreen:
     InfoScreen:
 
 <HomeScreen>:
@@ -29,28 +31,28 @@
             pos_hint: {"x": 0.1, "top": 0.72}
             text: "Demos"
             size_hint: 0.8, 0.1
-            on_press: root.manager.current = "demosscreen"
+            on_release: root.manager.current = "demosscreen"
 
         Button:
             id: serious_games
             pos_hint: {"x": 0.1, "top": 0.57}
             text: "Serious games"
             size_hint: 0.8, 0.1
-            on_press: root.manager.current = "seriousgamesscreen"
+            on_release: root.manager.current = "seriousgamesscreen"
         
         Button:
             id: rasq_config
             pos_hint: {"x": 0.1, "top": 0.42}
             text: "Rasqberry Configuration Tool"
             size_hint: 0.8, 0.1
-            on_press: root.manager.current = "configscreen"
+            on_release: root.manager.current = "configscreen"
 
         Button:
             id: info
             pos_hint: {"x": 0.1, "top": 0.27}
             text: "Info"
             size_hint: 0.8, 0.1
-            on_press: root.manager.current = "infoscreen"
+            on_release: root.manager.current = "infoscreen"
 
 <DemosScreen>:
     name: "demosscreen"
@@ -58,28 +60,99 @@
         Rectangle:
             pos: self.pos
             size: self.size
-            source: "../wallpapers/ibmqantumTwoGlowScaled_black.png"
+            source: "../wallpapers/minimal_background.png"
         
     FloatLayout:
         Button:
             id: back_to_home
-            pos_hint: {"x": 0.8, "top": 1}
+            pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
-            on_press: root.manager.current = "homescreen"
+            on_release: root.manager.current = "homescreen"
         
         Button:
             id: bloch
-            pos_hint: {"x": 0.095, "top": 0.9}
-            size_hint: 0.1, 0.13
+            pos_hint: {"x": 0.145, "top": 0.73}
+            size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_press: "/home/pi/RasQberry/demos/bin/rq_bloch_desktop.sh"
+            on_release: os.system("/home/pi/RasQberry/helloworld.sh")
+            #on_release: os.system("/home/pi/RasQberry/demos/bin/rq_bloch_desktop.sh")
         
         Label:
             id: bloch_text
-            pos_hint: {"x": -0.355, "top": 1.26}
+            pos_hint: {"x": -0.305, "top": 1.05}
             text_size: None, None
             text: "Bloch Sphere\nDemo"
+            halign: "center"
+        
+        Button:
+            id: composer
+            pos_hint: {"x": 0.295, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            on_release: "/home/pi/RasQberry/demos/bin/rq_composer.sh"
+        
+        Label:
+            id: composer_text
+            pos_hint: {"x": -0.155, "top": 1.05}
+            text_size: None, None
+            text: "Quanatum\nComposer"
+            halign: "center"
+        
+        Button:
+            id: fwq
+            pos_hint: {"x": 0.445, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            on_release: "/home/pi/RasQberry/bin/rq_fun_with_quantum.sh"
+        
+        Label:
+            id: fwq_text
+            pos_hint: {"x": -0.005, "top": 1.05}
+            text_size: None, None
+            text: "Fun-with-\nQuantum Repo"
+            halign: "center"
+        
+        Button:
+            id: lights
+            pos_hint: {"x": 0.595, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            on_release: "sudo /home/pi/.local/bin/rq_light_desktop.sh"
+        
+        Label:
+            id: lights_text
+            pos_hint: {"x": 0.145, "top": 1.05}
+            text_size: None, None
+            text: "Lights"
+            halign: "center"
+        
+        Button:
+            id: ambilight
+            pos_hint: {"x": 0.745, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            on_release: "sudo /home/pi/.local/bin/rq_light_desktop_amb.sh"
+        
+        Label:
+            id: ambilight_text
+            pos_hint: {"x": 0.3, "top": 1.05}
+            text_size: None, None
+            text: "Ambilights"
+            halign: "center"
+        
+        Button:
+            id: rasqled
+            pos_hint: {"x": 0.145, "top": 0.43}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            on_release: "/home/pi/RasQberry/demos/bin/RasQ-LED_desktop.sh"
+        
+        Label:
+            id: rasqled_text
+            pos_hint: {"x": -0.305, "top": 0.75}
+            text_size: None, None
+            text: "RasQ-LED"
             halign: "center"
 
 <SeriousGamesScreen>:
@@ -88,76 +161,76 @@
         Rectangle:
             pos: self.pos
             size: self.size
-            source: "../wallpapers/ibmqantumTwoGlowScaled_black.png"
+            source: "../wallpapers/minimal_background.png"
     
     FloatLayout:
         Button:
             id: back_to_home
-            pos_hint: {"x": 0.8, "top": 1}
+            pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
-            on_press: root.manager.current = "homescreen"
+            on_release: root.manager.current = "homescreen"
 
         Button:
             id: coin_game
-            pos_hint: {"x": 0.095, "top": 0.9}
-            size_hint: 0.1, 0.13
+            pos_hint: {"x": 0.145, "top": 0.73}
+            size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Quantum-Coin-Game.ipynb')
+            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Quantum-Coin-Game.ipynb')
         
         Label:
             id: coin_game_text
-            pos_hint: {"x": -0.355, "top": 1.26}
+            pos_hint: {"x": -0.305, "top": 1.05}
             text: "Coin Game"
         
         Button:
             id: ghz_game
-            pos_hint: {"x": 0.245, "top": 0.9}
-            size_hint: 0.1, 0.13
+            pos_hint: {"x": 0.295, "top": 0.73}
+            size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/GHZ-Game.ipynb')
+            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/GHZ-Game.ipynb')
         
         Label:
             id: ghz_game_text
-            pos_hint: {"x": -0.205, "top": 1.26}
+            pos_hint: {"x": -0.155, "top": 1.05}
             text: "GHZ Game"
         
         Button:
             id: 3sat_game
-            pos_hint: {"x": 0.395, "top": 0.9}
-            size_hint: 0.1, 0.13
+            pos_hint: {"x": 0.445, "top": 0.73}
+            size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/3sat.ipynb')
+            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/3sat.ipynb')
         
         Label:
             id: 3sat_game_text
-            pos_hint: {"x": -0.055, "top": 1.26}
+            pos_hint: {"x": -0.005, "top": 1.05}
             text: "3 SAT Game"
 
         Button:
             id: hardy_paradox
-            pos_hint: {"x": 0.545, "top": 0.9}
-            size_hint: 0.1, 0.13
+            pos_hint: {"x": 0.595, "top": 0.73}
+            size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Hardys-Paradox.ipynb')
+            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Hardys-Paradox.ipynb')
         
         Label:
             id: hardy_paradox_text
-            pos_hint: {"x": 0.095, "top": 1.24}
+            pos_hint: {"x": 0.145, "top": 1.03}
             text_size: None, None
             text: "Hardys\nParadox"
             halign: "center"
 
         Button:
             id: mermin_peres
-            pos_hint: {"x": 0.695, "top": 0.9}
-            size_hint: 0.1, 0.13
+            pos_hint: {"x": 0.745, "top": 0.73}
+            size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_press: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Mermin–Peres-Game.ipynb')
+            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Mermin–Peres-Game.ipynb')
         
         Label:
             id: mermin_peres_text
-            pos_hint: {"x": 0.25, "top": 1.24}
+            pos_hint: {"x": 0.3, "top": 1.03}
             text_size: None, None
             text: "Mermin Peres\nMagic Square"
             halign: "center"
@@ -168,15 +241,87 @@
         Rectangle:
             pos: self.pos
             size: self.size
-            source: "../wallpapers/ibmqantumTwoGlowScaled_black.png"
+            source: "../wallpapers/minimal_background.png"
 
     FloatLayout:
         Button:
             id: back_to_home
-            pos_hint: {"x": 0.8, "top": 1}
+            pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
-            on_press: root.manager.current = "homescreen"
+            on_release: root.manager.current = "homescreen"
+        
+        Button:
+            id: installqiskit
+            pos_hint: {"x": 0.1, "top": 0.72}
+            text: "Install Qiskit"
+            size_hint: 0.8, 0.1
+            on_release: root.manager.current = "qiskitscreen"
+
+<QiskitScreen>:
+    name: "qiskitscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/minimal_background.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_config
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Config"
+            size_hint: 0.2, 0.05
+            on_release: root.manager.current = "configscreen"
+        
+        Button:
+            id: installqiskit019
+            pos_hint: {"x": 0.1, "top": 0.72}
+            text: "Install Qiskit 0.19"
+            size_hint: 0.8, 0.05
+            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh"
+        
+        Button:
+            id: installqiskit020
+            pos_hint: {"x": 0.1, "top": 0.65}
+            text: "Install Qiskit 0.20"
+            size_hint: 0.8, 0.05
+            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit020.sh"
+        
+        Button:
+            id: installqiskit023
+            pos_hint: {"x": 0.1, "top": 0.58}
+            text: "Install Qiskit 0.23"
+            size_hint: 0.8, 0.05
+            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh"
+        
+        Button:
+            id: installqiskit024
+            pos_hint: {"x": 0.1, "top": 0.51}
+            text: "Install Qiskit 0.14"
+            size_hint: 0.8, 0.05
+            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit024.sh"
+        
+        Button:
+            id: installqiskit025
+            pos_hint: {"x": 0.1, "top": 0.44}
+            text: "Install Qiskit 0.25"
+            size_hint: 0.8, 0.05
+            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh"
+        
+        Button:
+            id: installqiskit027
+            pos_hint: {"x": 0.1, "top": 0.37}
+            text: "Install Qiskit 0.27"
+            size_hint: 0.8, 0.05
+            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit027.sh"
+        
+        Button:
+            id: installqiskit028
+            pos_hint: {"x": 0.1, "top": 0.30}
+            text: "Install Qiskit 0.28"
+            size_hint: 0.8, 0.05
+            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit028.sh"
 
 <InfoScreen>:
     name: "infoscreen"
@@ -184,12 +329,12 @@
         Rectangle:
             pos: self.pos
             size: self.size
-            source: "../wallpapers/ibmqantumTwoGlowScaled_black.png"
+            source: "../wallpapers/minimal_background.png"
 
     FloatLayout:
         Button:
             id: back_to_home
-            pos_hint: {"x": 0.8, "top": 1}
+            pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
-            on_press: root.manager.current = "homescreen"
+            on_release: root.manager.current = "homescreen"
