@@ -318,13 +318,14 @@ do_rasqberry_install_025() {
 
 do_rasqberry_install_027() {
   echo; echo "Install Qiskit 0.27"; echo;
-  apt -y install llvm-9
+  apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit027.sh
   whiptail --msgbox "Qiskit 0.27 installed" 20 60 1
 }
 
 do_rasqberry_install_028() {
   echo; echo "Install Qiskit 0.28"; echo;
+  apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit028.sh
   whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
 }
