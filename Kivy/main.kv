@@ -76,7 +76,7 @@
             pos_hint: {"x": 0.145, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['./demos/bin/rrq_bloch_desktop.sh'])
+            on_release: subprocess.Popen(['./demos/bin/rq_bloch_desktop.sh'])
             #on_release: os.system("/home/pi/RasQberry/demos/bin/rq_bloch_desktop.sh")
         
         Label:
@@ -148,7 +148,6 @@
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
             on_release: subprocess.Popen(['./demos/bin/RasQ-LED_desktop.sh'])
-            on_release: "/home/pi/RasQberry/demos/bin/RasQ-LED_desktop.sh"
         
         Label:
             id: rasqled_text
