@@ -1,6 +1,7 @@
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
 #:import webbrowser webbrowser
 #:import os os
+#:import subprocess subprocess
 <Button>:
     background_color: 1, 0.98, 0.98, 1
     color: 1, 1, 1, 1
@@ -75,7 +76,7 @@
             pos_hint: {"x": 0.145, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: os.system("/home/pi/RasQberry/helloworld.sh")
+            on_release: subprocess.Popen(['./demos/bin/rrq_bloch_desktop.sh'])
             #on_release: os.system("/home/pi/RasQberry/demos/bin/rq_bloch_desktop.sh")
         
         Label:
@@ -90,7 +91,7 @@
             pos_hint: {"x": 0.295, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: "/home/pi/RasQberry/demos/bin/rq_composer.sh"
+            on_release: subprocess.Popen(['./demos/bin/rq_composer.sh'])
         
         Label:
             id: composer_text
@@ -104,7 +105,7 @@
             pos_hint: {"x": 0.445, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: "/home/pi/RasQberry/bin/rq_fun_with_quantum.sh"
+            on_release: subprocess.Popen(['./demos/bin/rq_clone_FwQ.sh'])
         
         Label:
             id: fwq_text
@@ -118,7 +119,7 @@
             pos_hint: {"x": 0.595, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: "sudo /home/pi/.local/bin/rq_light_desktop.sh"
+            on_release: subprocess.Popen(['./bin/rq_light_desktop.sh'])
         
         Label:
             id: lights_text
@@ -132,7 +133,7 @@
             pos_hint: {"x": 0.745, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: "sudo /home/pi/.local/bin/rq_light_desktop_amb.sh"
+            on_release: subprocess.Popen(['./bin/rq_light_desktop_amb'])
         
         Label:
             id: ambilight_text
@@ -146,6 +147,7 @@
             pos_hint: {"x": 0.145, "top": 0.43}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
+            on_release: subprocess.Popen(['./demos/bin/RasQ-LED_desktop.sh'])
             on_release: "/home/pi/RasQberry/demos/bin/RasQ-LED_desktop.sh"
         
         Label:
