@@ -76,8 +76,7 @@
             pos_hint: {"x": 0.145, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['./demos/bin/rq_bloch_desktop.sh'])
-            #on_release: os.system("/home/pi/RasQberry/demos/bin/rq_bloch_desktop.sh")
+            on_release: subprocess.Popen(['../demos/bin/rq_bloch_desktop.sh'])
         
         Label:
             id: bloch_text
@@ -91,7 +90,7 @@
             pos_hint: {"x": 0.295, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['./demos/bin/rq_composer.sh'])
+            on_release: subprocess.Popen(['../demos/bin/rq_composer.sh'])
         
         Label:
             id: composer_text
@@ -105,7 +104,7 @@
             pos_hint: {"x": 0.445, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['./demos/bin/rq_clone_FwQ.sh'])
+            on_release: subprocess.Popen(['../demos/bin/rq_clone_FwQ.sh'])
         
         Label:
             id: fwq_text
@@ -119,7 +118,7 @@
             pos_hint: {"x": 0.595, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['./bin/rq_light_desktop.sh'])
+            on_release: subprocess.Popen(['../bin/rq_light_desktop.sh'])
         
         Label:
             id: lights_text
@@ -133,7 +132,7 @@
             pos_hint: {"x": 0.745, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['./bin/rq_light_desktop_amb'])
+            on_release: subprocess.Popen(['../bin/rq_light_desktop_amb'])
         
         Label:
             id: ambilight_text
@@ -147,7 +146,7 @@
             pos_hint: {"x": 0.145, "top": 0.43}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['./demos/bin/RasQ-LED_desktop.sh'])
+            on_release: subprocess.Popen(['../demos/bin/RasQ-LED_desktop.sh'])
         
         Label:
             id: rasqled_text
@@ -280,21 +279,21 @@
             pos_hint: {"x": 0.1, "top": 0.72}
             text: "Install Qiskit 0.19"
             size_hint: 0.8, 0.05
-            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh"
+            on_release: subprocess.Popen(['sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh'])
         
         Button:
             id: installqiskit020
             pos_hint: {"x": 0.1, "top": 0.65}
             text: "Install Qiskit 0.20"
             size_hint: 0.8, 0.05
-            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit020.sh"
+            on_release: subprocess.Popen(['sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit020.sh'])
         
         Button:
             id: installqiskit023
             pos_hint: {"x": 0.1, "top": 0.58}
             text: "Install Qiskit 0.23"
             size_hint: 0.8, 0.05
-            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh"
+            on_release: subprocess.Popen(['sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh'])
         
         Button:
             id: installqiskit024
@@ -308,21 +307,21 @@
             pos_hint: {"x": 0.1, "top": 0.44}
             text: "Install Qiskit 0.25"
             size_hint: 0.8, 0.05
-            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh"
+            on_release: subprocess.Popen(['sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh'])
         
         Button:
             id: installqiskit027
             pos_hint: {"x": 0.1, "top": 0.37}
             text: "Install Qiskit 0.27"
             size_hint: 0.8, 0.05
-            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit027.sh"
+            on_release: subprocess.Popen(['sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit027.sh'])
         
         Button:
             id: installqiskit028
             pos_hint: {"x": 0.1, "top": 0.30}
             text: "Install Qiskit 0.28"
             size_hint: 0.8, 0.05
-            on_release: "sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit028.sh"
+            on_release: subprocess.Popen(['sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit028.sh'])
 
 <InfoScreen>:
     name: "infoscreen"
