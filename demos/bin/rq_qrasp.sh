@@ -5,8 +5,8 @@ echo; echo; echo "Qrasp"
 cd ~
 
 if [ ! -d qrasp ]; then
-  git clone https://github.com/ordmoj/qrasp;
-  /home/pi/.local/bin/rq_qrasp_token.sh
+  git clone https://github.com/JanLahmann/qrasp;
+  /home/pi/RasQberry/demos/bin/rq_qrasp_token.sh
 fi
 
 cd qrasp 
