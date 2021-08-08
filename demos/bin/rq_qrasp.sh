@@ -13,7 +13,7 @@ cd qrasp
 
 if [  ! -f qrasp-isrunning ]; then
   [ ! -f /home/pi/.rq_no_messages ] && whiptail --msgbox "Starting Qrasp Demo" 20 60 1
-  nohup python3 main_controller.py &
+  nohup python3 qrasp.py &
   echo $! > qrasp-isrunning
 else
    kill -15 `cat qrasp-isrunning`
