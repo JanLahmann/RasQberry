@@ -118,7 +118,7 @@
             pos_hint: {"x": 0.595, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['../bin/rq_light_desktop.sh'])
+            on_release: subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop.sh'])
         
         Label:
             id: lights_text
@@ -132,7 +132,7 @@
             pos_hint: {"x": 0.745, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['../bin/rq_light_desktop_amb'])
+            on_release: subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop_amb.sh'])
         
         Label:
             id: ambilight_text
