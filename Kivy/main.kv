@@ -33,7 +33,8 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Exit"
             size_hint: 0.2, 0.05
-            on_release: app.Exit()
+            on_release: app.stop()
+            
         Button:
             id: demos
             pos_hint: {"x": 0.1, "top": 0.72}
