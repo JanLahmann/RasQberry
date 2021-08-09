@@ -8,10 +8,6 @@ from kivy.config import Config
 import os
 import subprocess
 
-#Config.set('graphics', 'width', '795')
-#Config.set('graphics', 'height', '445')
-#Config.write()
-
 Window.size = (800, 480)
 Window.borderless = True
 ewmh = EWMH()
@@ -22,22 +18,34 @@ class RootScreen(ScreenManager):
     pass
 
 class HomeScreen(Screen):
-    pass
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
 
 class DemosScreen(Screen):
-    pass
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
 
 class SeriousGamesScreen(Screen):
-    pass
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
 
 class ConfigScreen(Screen):
-    pass
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
 
 class QiskitScreen(Screen):
-    pass
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
 
 class InfoScreen(Screen):
-    pass
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
 
 class SmallOverlay(Screen):
     def on_pre_enter(self, *args):
