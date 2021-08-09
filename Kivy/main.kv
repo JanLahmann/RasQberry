@@ -4,7 +4,6 @@
 #:import subprocess subprocess
 <Button>:
     background_color: 1, 0.98, 0.98, 1
-    background_down: 0.68, 0.16, 0.27, 1
     color: 1, 1, 1, 1
     font_size: 30
 
@@ -34,35 +33,50 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Exit"
             size_hint: 0.2, 0.05
-            on_release: app.stop()
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                app.stop()
+                self.background_color=(1, 0.98, 0.98, 1)
 
         Button:
             id: demos
             pos_hint: {"x": 0.1, "top": 0.72}
             text: "Demos"
             size_hint: 0.8, 0.1
-            on_release: root.manager.current = "demosscreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "demosscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
 
         Button:
             id: serious_games
             pos_hint: {"x": 0.1, "top": 0.57}
             text: "Serious games"
             size_hint: 0.8, 0.1
-            on_release: root.manager.current = "seriousgamesscreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
         
         Button:
             id: rasq_config
             pos_hint: {"x": 0.1, "top": 0.42}
             text: "Rasqberry Configuration Tool"
             size_hint: 0.8, 0.1
-            on_release: root.manager.current = "configscreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "configscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
 
         Button:
             id: info
             pos_hint: {"x": 0.1, "top": 0.27}
             text: "Info"
             size_hint: 0.8, 0.1
-            on_release: root.manager.current = "infoscreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "infoscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
 
 <DemosScreen>:
     name: "demosscreen"
@@ -78,7 +92,10 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
-            on_release: root.manager.current = "homescreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
         
         Button:
             id: bloch
@@ -213,7 +230,10 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
-            on_release: root.manager.current = "homescreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
 
         Button:
             id: coin_game
@@ -308,14 +328,20 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
-            on_release: root.manager.current = "homescreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
         
         Button:
             id: installqiskit
             pos_hint: {"x": 0.1, "top": 0.72}
             text: "Install Qiskit"
             size_hint: 0.8, 0.1
-            on_release: root.manager.current = "qiskitscreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "qiskitscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
 
 <QiskitScreen>:
     name: "qiskitscreen"
@@ -331,7 +357,10 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Config"
             size_hint: 0.2, 0.05
-            on_release: root.manager.current = "configscreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "configscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
         
         Button:
             id: installqiskit019
@@ -339,8 +368,10 @@
             text: "Install Qiskit 0.19"
             font_size: 25
             size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit019.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
                 root.manager.current = "smalloverlay"
         
         Button:
@@ -349,8 +380,10 @@
             text: "Install Qiskit 0.20"
             font_size: 25
             size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit020.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
                 root.manager.current = "smalloverlay"
         
         Button:
@@ -359,8 +392,10 @@
             text: "Install Qiskit 0.23"
             font_size: 25
             size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit023.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
                 root.manager.current = "smalloverlay"
         
         Button:
@@ -369,8 +404,10 @@
             text: "Install Qiskit 0.24"
             font_size: 25
             size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit024.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
                 root.manager.current = "smalloverlay"
         
         Button:
@@ -379,8 +416,10 @@
             text: "Install Qiskit 0.25"
             font_size: 25
             size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit025.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
                 root.manager.current = "smalloverlay"
         
         Button:
@@ -389,8 +428,10 @@
             text: "Install Qiskit 0.27"
             font_size: 25
             size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit027.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
                 root.manager.current = "smalloverlay"
         
         Button:
@@ -399,8 +440,10 @@
             text: "Install Qiskit 0.28"
             font_size: 25
             size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit028.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
                 root.manager.current = "smalloverlay"
 
 <InfoScreen>:
@@ -417,7 +460,10 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
-            on_release: root.manager.current = "homescreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
         
         Button:
             id: rasqberryrepo
@@ -449,5 +495,8 @@
         Button:
             text: "Home"
             orientation:"vertical"
-            on_release: root.manager.current = "homescreen"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
 
