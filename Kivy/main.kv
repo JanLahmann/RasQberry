@@ -160,7 +160,7 @@
             pos_hint: {"x": 0.295, "top": 0.43}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['python3', '../bin/rq_LED-off.py'])
+            on_release: subprocess.Popen(['sudo', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_LED-off.py'])
         
         Label:
             id: clearLED_text
