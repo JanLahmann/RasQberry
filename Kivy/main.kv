@@ -154,6 +154,20 @@
             text_size: None, None
             text: "RasQ-LED"
             halign: "center"
+        
+        Button:
+            id: clearLED
+            pos_hint: {"x": 0.295, "top": 0.43}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            on_release: subprocess.Popen(['python3', '../bin/rq_LED-off.py'])
+        
+        Label:
+            id: clearLED_text
+            pos_hint: {"x": -0.155, "top": 0.75}
+            text_size: None, None
+            text: "Clear LED\nLights"
+            halign: "center"
 
 <SeriousGamesScreen>:
     name: "seriousgamesscreen"
@@ -278,6 +292,7 @@
             id: installqiskit019
             pos_hint: {"x": 0.1, "top": 0.72}
             text: "Install Qiskit 0.19"
+            font_size: 25
             size_hint: 0.8, 0.05
             on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit019.sh'])
         
@@ -285,6 +300,7 @@
             id: installqiskit020
             pos_hint: {"x": 0.1, "top": 0.65}
             text: "Install Qiskit 0.20"
+            font_size: 25
             size_hint: 0.8, 0.05
             on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit020.sh'])
         
@@ -292,6 +308,7 @@
             id: installqiskit023
             pos_hint: {"x": 0.1, "top": 0.58}
             text: "Install Qiskit 0.23"
+            font_size: 25
             size_hint: 0.8, 0.05
             on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit023.sh'])
         
@@ -299,6 +316,7 @@
             id: installqiskit024
             pos_hint: {"x": 0.1, "top": 0.51}
             text: "Install Qiskit 0.24"
+            font_size: 25
             size_hint: 0.8, 0.05
             on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit024.sh'])
         
@@ -306,6 +324,7 @@
             id: installqiskit025
             pos_hint: {"x": 0.1, "top": 0.44}
             text: "Install Qiskit 0.25"
+            font_size: 25
             size_hint: 0.8, 0.05
             on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit025.sh'])
         
@@ -313,6 +332,7 @@
             id: installqiskit027
             pos_hint: {"x": 0.1, "top": 0.37}
             text: "Install Qiskit 0.27"
+            font_size: 25
             size_hint: 0.8, 0.05
             on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit027.sh'])
         
@@ -320,6 +340,7 @@
             id: installqiskit028
             pos_hint: {"x": 0.1, "top": 0.30}
             text: "Install Qiskit 0.28"
+            font_size: 25
             size_hint: 0.8, 0.05
             on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit028.sh'])
 
