@@ -17,6 +17,7 @@
     ConfigScreen:
     QiskitScreen:
     InfoScreen:
+    SmallOverlay:
 
 <HomeScreen>:
     name: "homescreen"
@@ -27,6 +28,12 @@
             source: "../wallpapers/minimal_background.png"
 
     FloatLayout:
+        Button:
+            id: exit
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Exit"
+            size_hint: 0.2, 0.05
+            on_release: app.Exit()
         Button:
             id: demos
             pos_hint: {"x": 0.1, "top": 0.72}
@@ -76,7 +83,9 @@
             pos_hint: {"x": 0.145, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['../demos/bin/rq_bloch_desktop.sh'])
+            on_release: 
+                subprocess.Popen(['../demos/bin/rq_bloch_desktop.sh'])
+                root.manager.current = "smalloverlay"
         
         Label:
             id: bloch_text
@@ -90,8 +99,10 @@
             pos_hint: {"x": 0.295, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['../demos/bin/rq_composer.sh'])
-        
+            on_release: 
+                subprocess.Popen(['../demos/bin/rq_composer.sh'])
+                root.manager.current = "smalloverlay"
+
         Label:
             id: composer_text
             pos_hint: {"x": -0.155, "top": 1.05}
@@ -104,7 +115,9 @@
             pos_hint: {"x": 0.445, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['../demos/bin/rq_clone_FwQ.sh'])
+            on_release: 
+                subprocess.Popen(['../demos/bin/rq_clone_FwQ.sh'])
+                root.manager.current = "smalloverlay"
         
         Label:
             id: fwq_text
@@ -118,7 +131,9 @@
             pos_hint: {"x": 0.595, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop.sh'])
+            on_release: 
+                subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop.sh'])
+                root.manager.current = "smalloverlay"
         
         Label:
             id: lights_text
@@ -132,7 +147,9 @@
             pos_hint: {"x": 0.745, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop_amb.sh'])
+            on_release: 
+                subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop_amb.sh'])
+                root.manager.current = "smalloverlay"
         
         Label:
             id: ambilight_text
@@ -146,7 +163,9 @@
             pos_hint: {"x": 0.145, "top": 0.43}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['../demos/bin/RasQ-LED_desktop.sh'])
+            on_release: 
+                subprocess.Popen(['../demos/bin/RasQ-LED_desktop.sh'])
+                root.manager.current = "smalloverlay"
         
         Label:
             id: rasqled_text
@@ -160,8 +179,10 @@
             pos_hint: {"x": 0.295, "top": 0.43}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
-            on_release: subprocess.Popen(['sudo', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_LED-off.py'])
-        
+            on_release: 
+                subprocess.Popen(['sudo', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_LED-off.py'])
+                root.manager.current = "smalloverlay"
+
         Label:
             id: clearLED_text
             pos_hint: {"x": -0.155, "top": 0.75}
@@ -190,7 +211,9 @@
             pos_hint: {"x": 0.145, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Quantum-Coin-Game.ipynb')
+            on_release: 
+                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Quantum-Coin-Game.ipynb')
+                root.manager.current = "smalloverlay"
         
         Label:
             id: coin_game_text
@@ -202,7 +225,9 @@
             pos_hint: {"x": 0.295, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/GHZ-Game.ipynb')
+            on_release: 
+                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/GHZ-Game.ipynb')
+                root.manager.current = "smalloverlay"
         
         Label:
             id: ghz_game_text
@@ -214,7 +239,9 @@
             pos_hint: {"x": 0.445, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/3sat.ipynb')
+            on_release: 
+                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/3sat.ipynb')
+                root.manager.current = "smalloverlay"
         
         Label:
             id: 3sat_game_text
@@ -226,7 +253,9 @@
             pos_hint: {"x": 0.595, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Hardys-Paradox.ipynb')
+            on_release: 
+                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Hardys-Paradox.ipynb')
+                root.manager.current = "smalloverlay"
         
         Label:
             id: hardy_paradox_text
@@ -240,7 +269,9 @@
             pos_hint: {"x": 0.745, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/QiskitWithEars.png"
-            on_release: webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Mermin–Peres-Game.ipynb')
+            on_release: 
+                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Mermin–Peres-Game.ipynb')
+                root.manager.current = "smalloverlay"
         
         Label:
             id: mermin_peres_text
@@ -294,7 +325,9 @@
             text: "Install Qiskit 0.19"
             font_size: 25
             size_hint: 0.8, 0.05
-            on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit019.sh'])
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit019.sh'])
+                root.manager.current = "smalloverlay"
         
         Button:
             id: installqiskit020
@@ -302,7 +335,9 @@
             text: "Install Qiskit 0.20"
             font_size: 25
             size_hint: 0.8, 0.05
-            on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit020.sh'])
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit020.sh'])
+                root.manager.current = "smalloverlay"
         
         Button:
             id: installqiskit023
@@ -310,7 +345,9 @@
             text: "Install Qiskit 0.23"
             font_size: 25
             size_hint: 0.8, 0.05
-            on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit023.sh'])
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit023.sh'])
+                root.manager.current = "smalloverlay"
         
         Button:
             id: installqiskit024
@@ -318,7 +355,9 @@
             text: "Install Qiskit 0.24"
             font_size: 25
             size_hint: 0.8, 0.05
-            on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit024.sh'])
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit024.sh'])
+                root.manager.current = "smalloverlay"
         
         Button:
             id: installqiskit025
@@ -326,7 +365,9 @@
             text: "Install Qiskit 0.25"
             font_size: 25
             size_hint: 0.8, 0.05
-            on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit025.sh'])
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit025.sh'])
+                root.manager.current = "smalloverlay"
         
         Button:
             id: installqiskit027
@@ -334,7 +375,9 @@
             text: "Install Qiskit 0.27"
             font_size: 25
             size_hint: 0.8, 0.05
-            on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit027.sh'])
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit027.sh'])
+                root.manager.current = "smalloverlay"
         
         Button:
             id: installqiskit028
@@ -342,7 +385,9 @@
             text: "Install Qiskit 0.28"
             font_size: 25
             size_hint: 0.8, 0.05
-            on_release: subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit028.sh'])
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit028.sh'])
+                root.manager.current = "smalloverlay"
 
 <InfoScreen>:
     name: "infoscreen"
@@ -359,3 +404,17 @@
             text: "Home"
             size_hint: 0.2, 0.05
             on_release: root.manager.current = "homescreen"
+
+<SmallOverlay>:
+    name: "smalloverlay"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/minimal_background.png"
+    FloatLayout:
+        Button:
+            text: "Home"
+            orientation:"vertical"
+            on_release: root.manager.current = "homescreen"
+
