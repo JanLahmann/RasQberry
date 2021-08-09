@@ -34,7 +34,7 @@
             text: "Exit"
             size_hint: 0.2, 0.05
             on_release: app.stop()
-            
+
         Button:
             id: demos
             pos_hint: {"x": 0.1, "top": 0.72}
@@ -84,6 +84,7 @@
             pos_hint: {"x": 0.145, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
                 subprocess.Popen(['../demos/bin/rq_bloch_desktop.sh'])
                 root.manager.current = "smalloverlay"
@@ -100,6 +101,7 @@
             pos_hint: {"x": 0.295, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
                 subprocess.Popen(['../demos/bin/rq_composer.sh'])
                 root.manager.current = "smalloverlay"
@@ -116,6 +118,7 @@
             pos_hint: {"x": 0.445, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
                 subprocess.Popen(['../demos/bin/rq_clone_FwQ.sh'])
                 root.manager.current = "smalloverlay"
@@ -132,6 +135,7 @@
             pos_hint: {"x": 0.595, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
                 subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop.sh'])
                 root.manager.current = "smalloverlay"
@@ -148,6 +152,7 @@
             pos_hint: {"x": 0.745, "top": 0.73}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
                 subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop_amb.sh'])
                 root.manager.current = "smalloverlay"
@@ -164,6 +169,7 @@
             pos_hint: {"x": 0.145, "top": 0.43}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
                 subprocess.Popen(['../demos/bin/RasQ-LED_desktop.sh'])
                 root.manager.current = "smalloverlay"
@@ -180,6 +186,7 @@
             pos_hint: {"x": 0.295, "top": 0.43}
             size_hint: 0.1, 0.17
             background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
                 subprocess.Popen(['sudo', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_LED-off.py'])
                 root.manager.current = "smalloverlay"
