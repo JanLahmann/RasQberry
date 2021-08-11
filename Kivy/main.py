@@ -1,3 +1,6 @@
+from qiskit import ClassicalRegister, QuantumRegister, QuantumCircuit
+from qiskit import execute, BasicAer
+from ipywidgets import interact
 import kivy
 from ewmh import EWMH
 from kivy.app import App
