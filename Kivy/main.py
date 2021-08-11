@@ -5,8 +5,6 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
 from kivy.config import Config
-import os
-import subprocess
 
 Window.size = (800, 480)
 Window.borderless = True
@@ -32,6 +30,26 @@ class SeriousGamesScreen(Screen):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
         ewmh.display.flush()
 
+class CoinGameScreenA1(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+
+class CoinGameScreenB1(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+
+class CoinGameScreenA2(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+
+class CoinGameScreenResults(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+
 class ConfigScreen(Screen):
     def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
@@ -41,7 +59,6 @@ class QiskitScreen(Screen):
     def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
         ewmh.display.flush()
-
 class InfoScreen(Screen):
     def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
