@@ -40,6 +40,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Exit"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 app.stop()
@@ -99,6 +100,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "homescreen"
@@ -237,6 +239,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "homescreen"
@@ -349,6 +352,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Back"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "seriousgamesscreen"
@@ -421,6 +425,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Back"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "seriousgamesscreen"
@@ -511,6 +516,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Back"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "seriousgamesscreen"
@@ -583,6 +589,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Back"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "seriousgamesscreen"
@@ -655,6 +662,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Back"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "seriousgamesscreen"
@@ -727,6 +735,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Back"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "seriousgamesscreen"
@@ -820,6 +829,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Back"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release:
                 root.manager.current = "seriousgamesscreen"
@@ -838,7 +848,7 @@
             id: winner
             pos_hint: {"x": 0, "top": 0.93}
             text: app.winnert
-            font_size: 100
+            font_size: 70
             text_size: None, None
             halign: "center"
 
@@ -846,7 +856,7 @@
             id: results_counts
             pos_hint: {"x": 0, "top": 1.08}
             text: app.countst
-            font_size: 40
+            font_size: 30
             text_size: None, None
             halign: "center"
         
@@ -854,7 +864,7 @@
             id: superposition_text
             pos_hint: {"x": 0, "top": 0.93}
             text: app.superpositiont
-            font_size: 40
+            font_size: 30
             text_size: None, None
             halign: "center"
         
@@ -862,7 +872,7 @@
             id: prop_A
             pos_hint: {"x": 0, "top": 0.8}
             text: app.propAt
-            font_size: 40
+            font_size: 30
             text_size: None, None
             halign: "center"
         
@@ -870,7 +880,7 @@
             id: prop_B
             pos_hint: {"x": 0, "top": 0.7}
             text: app.propBt
-            font_size: 40
+            font_size: 30
             text_size: None, None
             halign: "center"
 
@@ -888,6 +898,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "homescreen"
@@ -917,6 +928,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Back"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "configscreen"
@@ -926,7 +938,7 @@
             id: installqiskit019
             pos_hint: {"x": 0.1, "top": 0.73}
             text: "Install Qiskit 0.19"
-            font_size: 25
+            font_size: 17
             size_hint: 0.8, 0.05
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
@@ -938,7 +950,7 @@
             id: installqiskit020
             pos_hint: {"x": 0.1, "top": 0.66}
             text: "Install Qiskit 0.20"
-            font_size: 25
+            font_size: 17
             size_hint: 0.8, 0.05
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
@@ -950,7 +962,7 @@
             id: installqiskit023
             pos_hint: {"x": 0.1, "top": 0.59}
             text: "Install Qiskit 0.23"
-            font_size: 25
+            font_size: 17
             size_hint: 0.8, 0.05
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
@@ -962,7 +974,7 @@
             id: installqiskit024
             pos_hint: {"x": 0.1, "top": 0.52}
             text: "Install Qiskit 0.24"
-            font_size: 25
+            font_size: 17
             size_hint: 0.8, 0.05
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
@@ -974,7 +986,7 @@
             id: installqiskit025
             pos_hint: {"x": 0.1, "top": 0.45}
             text: "Install Qiskit 0.25"
-            font_size: 25
+            font_size: 17
             size_hint: 0.8, 0.05
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
@@ -986,7 +998,7 @@
             id: installqiskit027
             pos_hint: {"x": 0.1, "top": 0.38}
             text: "Install Qiskit 0.27"
-            font_size: 25
+            font_size: 17
             size_hint: 0.8, 0.05
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
@@ -998,7 +1010,7 @@
             id: installqiskit028
             pos_hint: {"x": 0.1, "top": 0.31}
             text: "Install Qiskit 0.28"
-            font_size: 25
+            font_size: 17
             size_hint: 0.8, 0.05
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
@@ -1020,6 +1032,7 @@
             pos_hint: {"x": 0.68, "top": 0.09}
             text: "Home"
             size_hint: 0.2, 0.05
+            font_size: 17
             on_press: self.background_color=(0.6, 0.16, 0.27, 1)
             on_release: 
                 root.manager.current = "homescreen"
