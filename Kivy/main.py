@@ -42,7 +42,20 @@ class CoinGameScreenA1(Screen):
     def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
         ewmh.display.flush()
+
+    def xgatea1(self):
+        global moveA1 
+        moveA1 = 1
     
+    def idgatea1(self):
+        global moveA1
+        moveA1 = 0
+
+class QCoinGameScreenA1(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+
     def xgatea1(self):
         global moveA1 
         moveA1 = 1
@@ -68,7 +81,33 @@ class CoinGameScreenB1(Screen):
         global moveB1
         moveB1 = 0
 
+class QCoinGameScreenB1(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+    
+    def xgateb1(self):
+        global moveB1
+        moveB1 = 1
+    
+    def idgateb1(self):
+        global moveB1
+        moveB1 = 0
+
 class CoinGameScreenA2(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+
+    def xgatea2(self):
+        global moveA2
+        moveA2 = 1
+    
+    def idgatea2(self):
+        global moveA2
+        moveA2 = 0
+
+class QCoinGameScreenA2(Screen):
     def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
         ewmh.display.flush()
