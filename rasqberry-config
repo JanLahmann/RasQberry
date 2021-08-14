@@ -609,24 +609,24 @@ do_rasqberry_install_qiskit() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "S3 System Update " "Update the system and create swapfile" \
-    "I0 Initial Config " "Basic configurations (PATH, etc)" \
-    "Q1 Install Qiskit" "Install Qiskit (several versions)" \
-    "S0 Bloch Autostart " "Setup Autostart for Bloch Demo" \
-    "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
-    "S4 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
+    "G0 System Update " "Update the system and create swapfile" \
+    "G1 Initial Config " "Basic configurations (PATH, etc)" \
+    "G2 Install Qiskit" "Install Qiskit (several versions)" \
+    "D0 Bloch Autostart " "Setup Autostart for Bloch Demo" \
+    "D1 Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "S0 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      I0\ *) do_rq_initial_config ;;
-      S0\ *) do_rq_setup_bloch_autostart ;;
-      S3\ *) do_rasqberry_update ;;
-      S4\ *) do_rq_setup_SenseHAT ;;
-      Q1\ *) do_rasqberry_install_qiskit ;;
-      S6\ *) do_rasqberry_config_demos ;;
+      G0\ *) do_rasqberry_update ;;
+      G1\ *) do_rq_initial_config ;;
+      G2\ *) do_rasqberry_install_qiskit ;;
+      D0\ *) do_rq_setup_bloch_autostart ;;
+      D1\ *) do_rasqberry_config_demos ;;
+      S0\ *) do_rq_setup_SenseHAT ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
