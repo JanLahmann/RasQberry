@@ -529,19 +529,17 @@ do_sensehat_display_off(){
 
 do_rq_setup_SenseHAT(){
   cd ~
+  # input IBM Quantum Token
+  do_rasqberry_qtoken_update
+
   # install/clone qrasp
-  if [ ! -d qrasp ]; then
-    git clone https://github.com/JanLahmann/qrasp;
-    /home/pi/RasQberry/demos/bin/rq_qrasp_token.sh
-  fi
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_qrasp_install.sh
 
   # configure qrasp autostart in crontab
   (crontab -l 2>/dev/null; echo "@reboot sudo -u pi -H -- sh -c /home/pi/qrasp/qrasp.sh > /home/pi/qrasp/qrasp.sh.log 2>&1") | crontab -
 
   # install/clone raspberry-tie
-  if [ ! -d quantum-raspberry-tie ]; then
-    git clone https://github.com/JanLahmann/quantum-raspberry-tie;
-  fi
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie_install.sh
 }
 
 do_led_lights_off(){
