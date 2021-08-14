@@ -76,8 +76,8 @@ P, P, P, W, W, W, B, B
 show_pic("IBM_Q", IBM_Q)
 
 hat.show_message("up: qrasp")
-hat.show_message("left/right: raspberry-tie")
-hat.show_message("down: shutdown")
+#hat.show_message("left/right: raspberry-tie")
+#hat.show_message("down: shutdown")
 
 
 # The main loop.
