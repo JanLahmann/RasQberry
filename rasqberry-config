@@ -608,8 +608,8 @@ do_rasqberry_setup() {
     "I0 Initial Config " "Basic configurations (PATH, etc)" \
     "Q1 Install Qiskit" "Install Qiskit (several versions)" \
     "S0 Bloch Autostart " "Setup Autostart for Bloch Demo" \
-    "S4 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
     "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "S4 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
