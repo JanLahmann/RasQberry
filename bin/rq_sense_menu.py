@@ -139,4 +139,4 @@ hat.stick.direction_right = pushed_right
 hat.stick.direction_middle = pushed_middle
 pause()
 sleep(2)
-os._exit()
+os._exit(0)
