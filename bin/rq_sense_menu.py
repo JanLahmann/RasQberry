@@ -84,9 +84,14 @@ hat.show_message("middle: shutdown")
 # Use the joystick to select and execute one of the Qiskit function files.
 # see examples in https://pythonhosted.org/sense-hat/api/
 
+def call_qrasp():
+        os.system("/home/pi/RasQberry/demos/bin/rq_qrasp.sh")
+
 def pushed_up(event):
     if event.action == ACTION_PRESSED:
-        os.execl(/home/pi/RasQberry/demos/bin/rq_qrasp.sh)
+        import atexit
+        atexit.register(call_qrasp)
+        exit()
 
 def pushed_left(event):
     if event.action == ACTION_PRESSED:
@@ -98,7 +103,7 @@ def pushed_right(event):
 
 def pushed_down(event):
     if event.action == ACTION_PRESSED:
-        os.execl(/home/pi/RasQberry/demos/bin/rq_rasptie.sh, "-local")
+        os.system("/home/pi/RasQberry/demos/bin/rq_rasptie.sh -local")
 
 def pushed_middle(event):
     global hat

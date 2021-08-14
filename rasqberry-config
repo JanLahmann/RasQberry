@@ -529,6 +529,10 @@ do_sensehat_display_off(){
 
 do_rq_setup_SenseHAT(){
   cd ~
+
+  # disable messages
+  touch /home/pi/.rq_no_messages
+  
   # input IBM Quantum Token
   do_rasqberry_qtoken_update
 
