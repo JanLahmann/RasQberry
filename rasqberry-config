@@ -604,14 +604,33 @@ do_rasqberry_install_qiskit() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "S3 System Update " "Update the system and create swapfile" \
     "I0 Initial Config " "Basic configurations (PATH, etc)" \
+    "Q1 Install Qiskit" "Install Qiskit (several versions)" \
     "S0 Bloch Autostart " "Setup Autostart for Bloch Demo" \
+    "S4 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
+    "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return 0
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      I0\ *) do_rq_initial_config ;;
+      S0\ *) do_rq_setup_bloch_autostart ;;
+      S3\ *) do_rasqberry_update ;;
+      S4\ *) do_rq_setup_SenseHAT ;;
+      Q1\ *) do_rasqberry_install_qiskit ;;
+      S6\ *) do_rasqberry_config_demos ;;
+      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
+    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
+  fi
+}
+
+do_advanced_config() {
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "S1 Enable VNC " "Enable mirrored and side-to-side VNC displays and configure desktop" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
-    "S3 System Update " "Update the system and create swapfile" \
-    "S4 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
-    "Q1 Install Qiskit" "Install Qiskit (several versions)" \
-    "S6 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
     "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
     "S9 Toggle Messages " "Toggle info message boxes on/off" \
@@ -621,14 +640,8 @@ do_rasqberry_setup() {
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      I0\ *) do_rq_initial_config ;;
-      S0\ *) do_rq_setup_bloch_autostart ;;
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
       S2\ *) do_rasqberry_enable_touch4 ;;
-      S3\ *) do_rasqberry_update ;;
-      S4\ *) do_rq_setup_SenseHAT ;;
-      Q1\ *) do_rasqberry_install_qiskit ;;
-      S6\ *) do_rasqberry_config_demos ;;
       S7\ *) do_rasqberry_enable_LED ;;
       S8\ *) do_rasqberry_toggle_LED ;;
       S9\ *) do_toggle_messages ;;
@@ -636,6 +649,7 @@ do_rasqberry_setup() {
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
 }
+
 
 do_clone_qiskit_start_jupyter() {
   whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
@@ -717,6 +731,7 @@ if [ "$INTERACTIVE" = True ]; then
         "S RasQberry Setup" "RasQberry initial setup and configuration" \
         "D Quantum Demos" "Install and run Quantum Demos" \
         "H HD Demos" "Install and run HD Demos" \
+        "A Advanced Config" "Advanced Config" \
         "9 About rasqberry-config " "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     else
@@ -733,6 +748,7 @@ if [ "$INTERACTIVE" = True ]; then
           S\ *) do_rasqberry_setup ;;
           D\ *) do_rasqberry_demos ;;
           H\ *) do_hd_demos ;;
+          A\ *) do_advanced_config ;;
           9\ *) do_rasqberry_about ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
