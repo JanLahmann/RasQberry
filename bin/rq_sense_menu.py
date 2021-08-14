@@ -99,6 +99,7 @@ def pushed_up(event):
         hat.clear()
         atexit.register(call_qrasp)
         os.kill(os.getpid(), signal.SIGINT)
+        os.kill(os.getpid(), signal.SIGTERM)
 
 def pushed_left(event):
     if event.action == ACTION_PRESSED:
