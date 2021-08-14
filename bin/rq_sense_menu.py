@@ -95,16 +95,22 @@ def call_tie16():
 
 def pushed_up(event):
     if event.action == ACTION_PRESSED:
+        hat.show_message("qrasp")
+        hat.clear()
         atexit.register(call_qrasp)
         os.kill(os.getpid(), signal.SIGINT)
 
 def pushed_left(event):
     if event.action == ACTION_PRESSED:
+        hat.show_message("tie5")
+        hat.clear()
         atexit.register(call_tie5)
         os.kill(os.getpid(), signal.SIGINT)
       
 def pushed_right(event):
     if event.action == ACTION_PRESSED:
+        hat.show_message("tie16")
+        hat.clear()
         atexit.register(call_tie16)
         os.kill(os.getpid(), signal.SIGINT)
 
