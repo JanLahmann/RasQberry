@@ -95,10 +95,15 @@ def call_tie16():
 
 def pushed_up(event):
     if event.action == ACTION_PRESSED:
-        hat.show_message("qrasp")
+        # hat.show_message("qrasp")
+        # hat.clear()
+        # atexit.register(call_qrasp)
+        # os.kill(os.getpid(), signal.SIGINT)
+        hat.show_message("qrasp...")
         hat.clear()
-        atexit.register(call_qrasp)
-        os.kill(os.getpid(), signal.SIGINT)
+        os.system("nohup /home/pi/RasQberry/demos/bin/rq_qrasp_run.sh &")
+        sleep(2)
+        os._exit(0)
 
 def pushed_left(event):
     if event.action == ACTION_PRESSED:
