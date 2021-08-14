@@ -90,9 +90,10 @@ def call_qrasp():
 
 def pushed_up(event):
     if event.action == ACTION_PRESSED:
-        import atexit, sys
+        import atexit, sys, signal
         atexit.register(call_qrasp)
         print("vor exit")
+        signal.raise_signal(signal.SIGCONT)
         sys.exit()
         os._exit(0)
 
@@ -124,4 +125,4 @@ hat.stick.direction_down = pushed_down
 hat.stick.direction_left = pushed_left
 hat.stick.direction_right = pushed_right
 hat.stick.direction_middle = pushed_middle
-pause()
+#pause()
