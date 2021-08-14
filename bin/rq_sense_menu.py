@@ -76,29 +76,18 @@ P, P, P, W, W, W, B, B
 show_pic("IBM_Q", IBM_Q)
 
 hat.show_message("up: qrasp")
-#hat.show_message("left/right: raspberry-tie")
-#hat.show_message("down: shutdown")
+hat.show_message("left/right: rasp-tie")
+hat.show_message("down: halt")
 
 
 # The main loop.
 # Use the joystick to select and execute one of the Qiskit function files.
 # see examples in https://pythonhosted.org/sense-hat/api/
 
-# def call_qrasp():
-#     os.system("nohup /home/pi/RasQberry/demos/bin/rq_qrasp_run.sh &")
-
-# def call_tie5():
-#     os.system("nohup /home/pi/RasQberry/demos/bin/rq_rasptie_run.sh -local &")
-
-# def call_tie16():
-#     os.system("nohup /home/pi/RasQberry/demos/bin/rq_rasptie16_run.sh -local &")
-
 def pushed_up(event):
     if event.action == ACTION_PRESSED:
         hat.show_message("qrasp")
         hat.clear()
-        # atexit.register(call_qrasp)
-        # os.kill(os.getpid(), signal.SIGINT)
         os.system("nohup /home/pi/RasQberry/demos/bin/rq_qrasp_run.sh &")
         sleep(2)
         os._exit(0)
@@ -107,8 +96,6 @@ def pushed_left(event):
     if event.action == ACTION_PRESSED:
         hat.show_message("tie5")
         hat.clear()
-        # atexit.register(call_tie5)
-        # os.kill(os.getpid(), signal.SIGINT)
         os.system("nohup /home/pi/RasQberry/demos/bin/rq_rasptie_run.sh -local &")
         sleep(2)
         os._exit(0)
@@ -118,8 +105,6 @@ def pushed_right(event):
     if event.action == ACTION_PRESSED:
         hat.show_message("tie16")
         hat.clear()
-        # atexit.register(call_tie16)
-        # os.kill(os.getpid(), signal.SIGINT)
         os.system("nohup /home/pi/RasQberry/demos/bin/rq_rasptie16_run.sh -local &")
         sleep(2)
         os._exit(0)
