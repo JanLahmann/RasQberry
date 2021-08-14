@@ -85,13 +85,13 @@ hat.show_message("down: shutdown")
 # see examples in https://pythonhosted.org/sense-hat/api/
 
 def call_qrasp():
-    os.system("/home/pi/RasQberry/demos/bin/rq_qrasp_run.sh")
+    os.system("nohup /home/pi/RasQberry/demos/bin/rq_qrasp_run.sh &")
 
 def call_tie5():
-    os.system("/home/pi/RasQberry/demos/bin/rq_rasptie_run.sh -local")
+    os.system("nohup /home/pi/RasQberry/demos/bin/rq_rasptie_run.sh -local &")
 
 def call_tie16():
-    os.system("/home/pi/RasQberry/demos/bin/rq_rasptie16_run.sh -local")
+    os.system("nohup /home/pi/RasQberry/demos/bin/rq_rasptie16_run.sh -local &")
 
 def pushed_up(event):
     if event.action == ACTION_PRESSED:
@@ -124,7 +124,9 @@ def pushed_down(event):
 def pushed_middle(event):
     global hat
     if event.action == ACTION_PRESSED:
-        hat.show_message("middle?")
+        hat.show_message("Shutdown...")
+        hat.clear()
+        os.system('sudo halt')
     
 
 from signal import pause
@@ -136,3 +138,5 @@ hat.stick.direction_left = pushed_left
 hat.stick.direction_right = pushed_right
 hat.stick.direction_middle = pushed_middle
 pause()
+sleep(2)
+os._exit()
