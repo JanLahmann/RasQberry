@@ -85,13 +85,13 @@ hat.show_message("down: shutdown")
 # see examples in https://pythonhosted.org/sense-hat/api/
 
 def call_qrasp():
-    os.system("/home/pi/RasQberry/demos/bin/rq_qrasp.sh")
+    os.system("/home/pi/RasQberry/demos/bin/rq_qrasp_run.sh")
 
 def call_tie5():
-    os.system("/home/pi/RasQberry/demos/bin/rq_rasptie.sh - local")
+    os.system("/home/pi/RasQberry/demos/bin/rq_rasptie_run.sh -local")
 
 def call_tie16():
-    os.system("/home/pi/RasQberry/demos/bin/rq_rasptie16.sh - local")
+    os.system("/home/pi/RasQberry/demos/bin/rq_rasptie16_run.sh -local")
 
 def pushed_up(event):
     if event.action == ACTION_PRESSED:

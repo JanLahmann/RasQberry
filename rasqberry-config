@@ -532,7 +532,7 @@ do_rq_setup_SenseHAT(){
 
   # disable messages
   touch /home/pi/.rq_no_messages
-  
+
   # input IBM Quantum Token
   do_rasqberry_qtoken_update
 
@@ -540,7 +540,8 @@ do_rq_setup_SenseHAT(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_qrasp_install.sh
 
   # configure qrasp autostart in crontab
-  (crontab -l 2>/dev/null; echo "@reboot sudo -u pi -H -- sh -c /home/pi/qrasp/qrasp.sh > /home/pi/qrasp/qrasp.sh.log 2>&1") | crontab -
+  #(crontab -l 2>/dev/null; echo "@reboot sudo -u pi -H -- sh -c /home/pi/qrasp/qrasp.sh > /home/pi/qrasp/qrasp.sh.log 2>&1") | crontab -
+  (crontab -l 2>/dev/null; echo "@reboot sudo -u pi -H --  python3 /home/pi/.local/bin/rq_sense_menu.py > /home/pi/rq_sense_menu.py.log 2>&1") | crontab -
 
   # install/clone raspberry-tie
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie_install.sh
