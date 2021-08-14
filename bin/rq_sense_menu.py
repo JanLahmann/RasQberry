@@ -85,13 +85,16 @@ hat.show_message("middle: shutdown")
 # see examples in https://pythonhosted.org/sense-hat/api/
 
 def call_qrasp():
-        os.system("/home/pi/RasQberry/demos/bin/rq_qrasp.sh")
+    print("in call_qrasp")
+    os.system("/home/pi/RasQberry/demos/bin/rq_qrasp.sh")
 
 def pushed_up(event):
     if event.action == ACTION_PRESSED:
-        import atexit
+        import atexit, sys
         atexit.register(call_qrasp)
-        exit()
+        print("vor exit")
+        sys.exit()
+        os._exit(0)
 
 def pushed_left(event):
     if event.action == ACTION_PRESSED:
