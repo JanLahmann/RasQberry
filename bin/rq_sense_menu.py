@@ -8,7 +8,7 @@ hat.clear()
 hat.low_light = True
 
 from time import sleep
-import os
+import os, atexit, signal
 
 
 # Understand which direction is down, and rotate the SenseHat display accordingly.
@@ -76,8 +76,8 @@ P, P, P, W, W, W, B, B
 show_pic("IBM_Q", IBM_Q)
 
 hat.show_message("up: qrasp")
-#hat.show_message("down: raspberry-tie")
-#hat.show_message("middle: shutdown")
+hat.show_message("left/right: raspberry-tie")
+hat.show_message("down: shutdown")
 
 
 # The main loop.
@@ -85,36 +85,40 @@ hat.show_message("up: qrasp")
 # see examples in https://pythonhosted.org/sense-hat/api/
 
 def call_qrasp():
-    print("in call_qrasp")
     os.system("/home/pi/RasQberry/demos/bin/rq_qrasp.sh")
+
+def call_tie5():
+    os.system("/home/pi/RasQberry/demos/bin/rq_rasptie.sh - local")
+
+def call_tie16():
+    os.system("/home/pi/RasQberry/demos/bin/rq_rasptie16.sh - local")
 
 def pushed_up(event):
     if event.action == ACTION_PRESSED:
-        import atexit, sys, signal
         atexit.register(call_qrasp)
-        print("vor exit")
-        signal.raise_signal(signal.SIGCONT)
-        sys.exit()
-        os._exit(0)
+        os.kill(os.getpid(), signal.SIGINT)
 
 def pushed_left(event):
     if event.action == ACTION_PRESSED:
-        hat.show_message("left?")
+        atexit.register(call_tie5)
+        os.kill(os.getpid(), signal.SIGINT)
       
 def pushed_right(event):
     if event.action == ACTION_PRESSED:
-        hat.show_message("right?")
+        atexit.register(call_tie16)
+        os.kill(os.getpid(), signal.SIGINT)
 
 def pushed_down(event):
-    if event.action == ACTION_PRESSED:
-        os.system("/home/pi/RasQberry/demos/bin/rq_rasptie.sh -local")
-
-def pushed_middle(event):
     global hat
     if event.action == ACTION_PRESSED:
         hat.show_message("Shutdown...")
         hat.clear()
         os.system('sudo halt')
+
+def pushed_middle(event):
+    global hat
+    if event.action == ACTION_PRESSED:
+        hat.show_message("middle?")
     
 
 from signal import pause
@@ -125,4 +129,4 @@ hat.stick.direction_down = pushed_down
 hat.stick.direction_left = pushed_left
 hat.stick.direction_right = pushed_right
 hat.stick.direction_middle = pushed_middle
-#pause()
+pause()
