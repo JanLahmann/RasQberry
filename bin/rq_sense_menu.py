@@ -75,9 +75,8 @@ P, P, P, W, W, W, B, B
 ]
 show_pic("IBM_Q", IBM_Q)
 
-hat.show_message("up: qrasp")
-hat.show_message("left/right: rasp-tie")
-hat.show_message("down: halt")
+# hat.show_message("up: qrasp")
+hat.show_message("up: qrasp, side: tie, down: halt, middle: reboot")
 
 
 # The main loop.
@@ -89,7 +88,7 @@ def pushed_up(event):
         hat.show_message("qrasp")
         hat.clear()
         os.system("nohup /home/pi/RasQberry/demos/bin/rq_qrasp_run.sh &")
-        sleep(2)
+        sleep(1)
         os._exit(0)
 
 def pushed_left(event):
@@ -97,7 +96,7 @@ def pushed_left(event):
         hat.show_message("tie5")
         hat.clear()
         os.system("nohup /home/pi/RasQberry/demos/bin/rq_rasptie_run.sh -local &")
-        sleep(2)
+        sleep(1)
         os._exit(0)
       
 
@@ -106,7 +105,7 @@ def pushed_right(event):
         hat.show_message("tie16")
         hat.clear()
         os.system("nohup /home/pi/RasQberry/demos/bin/rq_rasptie16_run.sh -local &")
-        sleep(2)
+        sleep(1)
         os._exit(0)
 
 def pushed_down(event):
@@ -114,14 +113,16 @@ def pushed_down(event):
     if event.action == ACTION_PRESSED:
         hat.show_message("Shutdown...")
         hat.clear()
+        sleep(2)
         os.system('sudo halt')
 
 def pushed_middle(event):
     global hat
     if event.action == ACTION_PRESSED:
-        hat.show_message("Shutdown...")
+        hat.show_message("Reboot...")
         hat.clear()
-        os.system('sudo halt')
+        sleep(2)
+        os.system('sudo reboot')
     
 
 from signal import pause

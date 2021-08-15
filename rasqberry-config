@@ -333,8 +333,6 @@ do_rasqberry_install_028() {
 do_rasqberry_config_demos(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
   sudo -u pi -i /home/pi/.local/bin/rq_jupyter_conf.sh
-  apt -y install python3-sense-emu sense-emu-tools
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_sensehat.sh
   # clone Git-Repositories
   sudo -u pi -i /home/pi/RasQberry/demos/bin/rq_clone_repos.sh
   # enable jupyter notebook autostart
@@ -533,6 +531,10 @@ do_rq_setup_SenseHAT(){
   # disable messages
   touch /home/pi/.rq_no_messages
 
+  # Additional SenseHAT libraries (not sure if they are needed)
+  # apt -y install python3-sense-emu sense-emu-tools
+  # sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_sensehat.sh
+
   # input IBM Quantum Token
   do_rasqberry_qtoken_update
 
@@ -545,6 +547,10 @@ do_rq_setup_SenseHAT(){
 
   # install/clone raspberry-tie
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie_install.sh
+
+  # reboot to activate crontab entry for sense_menu
+  whiptail --msgbox "Please exit and reboot" 20 60 1
+  ASK_TO_REBOOT=1
 }
 
 do_led_lights_off(){
