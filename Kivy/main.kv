@@ -864,7 +864,7 @@
         
         Label:
             id: superposition_text
-            pos_hint: {"x": 0, "top": 0.93}
+            pos_hint: {"x": 0, "top": 1}
             text: app.superpositiont
             font_size: 30
             text_size: None, None
@@ -872,7 +872,7 @@
         
         Label:
             id: prop_A
-            pos_hint: {"x": 0, "top": 0.8}
+            pos_hint: {"x": 0, "top": 0.92}
             text: app.propAt
             font_size: 30
             text_size: None, None
@@ -880,11 +880,35 @@
         
         Label:
             id: prop_B
-            pos_hint: {"x": 0, "top": 0.7}
+            pos_hint: {"x": 0, "top": 0.85}
             text: app.propBt
             font_size: 30
             text_size: None, None
             halign: "center"
+        
+        Image:
+            id: coin-1
+            size_hint: 0.1, 0.2
+            pos_hint: {"x": 0.225, "top": 0.325}
+            source: app.coin1
+        
+        Image:
+            id: coin-2
+            size_hint: 0.1, 0.2
+            pos_hint: {"x": 0.375, "top": 0.325}
+            source: app.coin2
+        
+        Image:
+            id: coin-3
+            size_hint: 0.1, 0.2
+            pos_hint: {"x": 0.525, "top": 0.325}
+            source: app.coin3
+        
+        Image:
+            id: coin-4
+            size_hint: 0.1, 0.2
+            pos_hint: {"x": 0.675, "top": 0.325}
+            source: app.coin4
 
 <ConfigScreen>:
     name: "configscreen"
