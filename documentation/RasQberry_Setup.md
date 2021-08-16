@@ -88,13 +88,6 @@ With this step you Raspberry will start the Bloch Sphere Demo automatically when
 After your first the executing `D0` your Raspberry will reboot automatically. After the reboot you should execute `D0` again. This time there is no automatic reboot, but one is recommended.
 1. Select `D1 – Config & Demos` (optional)<br/>
 With this step you will configurate Qiskit automatically and install the Quantum Demos. Also this step will configurate jupyter notebook.
-1. Go back to the first menu page and select `A – Advaned Config`
-1. Select `S1 – Enable VNC` (optional; required if you want to remotely access the screen)<br/>
-With this step you will be able to use VNC.<br/>
-After this step is executed, you will have to reboot your device. (See also: Install VNC Viewer)
-1. Select `S2 – Enable 4’’ Display` (required if using touch screen)<br/>
-With this step you will be able to use a touchscreen with your Raspberry. After this step is executed, you will have to reboot your device.
-1. Under `A – Advanced Config’ and ‘S7 – Enable LED Light` you can enable the LED Light you connected to your Raspberry Pi.
 
 ### With Sense HAT
 Open the RasQberry Configuration Tool and follow the steps below.
