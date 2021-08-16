@@ -1,0 +1,1101 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import webbrowser webbrowser
+#:import os os
+#:import subprocess subprocess
+<Button>:
+    background_color: 1, 0.98, 0.98, 1
+    color: 1, 1, 1, 1
+    font_size: 30
+
+<RootScreen>:
+    size: 795, 445
+    size_hint: 1, 1
+    transition: FadeTransition()
+    HomeScreen:
+    DemosScreen:
+    SeriousGamesScreen:
+    CoinGameScreenA1:
+    QCoinGameScreenA1:
+    CoinGameScreenB1:
+    QCoinGameScreenB1:
+    CoinGameScreenA2:
+    QCoinGameScreenA2:
+    CoinGameScreenResults:
+    ConfigScreen:
+    QiskitScreen:
+    InfoScreen:
+    SmallOverlay:
+
+<HomeScreen>:
+    name: "homescreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+
+    FloatLayout:
+        Button:
+            id: exit
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Exit"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                app.stop()
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Button:
+            id: demos
+            pos_hint: {"x": 0.1, "top": 0.73}
+            text: "Demos"
+            size_hint: 0.8, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "demosscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Button:
+            id: serious_games
+            pos_hint: {"x": 0.1, "top": 0.58}
+            text: "Serious games"
+            size_hint: 0.8, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Button:
+            id: rasq_config
+            pos_hint: {"x": 0.1, "top": 0.43}
+            text: "Rasqberry Configuration Tool"
+            size_hint: 0.8, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "configscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Button:
+            id: info
+            pos_hint: {"x": 0.1, "top": 0.28}
+            text: "Info"
+            size_hint: 0.8, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "infoscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+<DemosScreen>:
+    name: "demosscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+        
+    FloatLayout:
+        Button:
+            id: back_to_home
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Home"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Button:
+            id: bloch
+            pos_hint: {"x": 0.145, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
+            on_release: 
+                subprocess.Popen(['../demos/bin/rq_bloch_desktop.sh'])
+                root.manager.current = "smalloverlay"
+        
+        Label:
+            id: bloch_text
+            pos_hint: {"x": -0.305, "top": 1.05}
+            text_size: None, None
+            text: "Bloch Sphere\nDemo"
+            halign: "center"
+        
+        Button:
+            id: composer
+            pos_hint: {"x": 0.295, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
+            on_release: 
+                subprocess.Popen(['../demos/bin/rq_composer.sh'])
+                root.manager.current = "smalloverlay"
+
+        Label:
+            id: composer_text
+            pos_hint: {"x": -0.155, "top": 1.05}
+            text_size: None, None
+            text: "Quanatum\nComposer"
+            halign: "center"
+        
+        Button:
+            id: fwq
+            pos_hint: {"x": 0.445, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
+            on_release: 
+                subprocess.Popen(['../demos/bin/rq_clone_FwQ.sh'])
+                root.manager.current = "smalloverlay"
+        
+        Label:
+            id: fwq_text
+            pos_hint: {"x": -0.005, "top": 1.05}
+            text_size: None, None
+            text: "Fun-with-\nQuantum Repo"
+            halign: "center"
+        
+        Button:
+            id: lights
+            pos_hint: {"x": 0.595, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
+            on_release: 
+                subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop.sh'])
+                root.manager.current = "smalloverlay"
+        
+        Label:
+            id: lights_text
+            pos_hint: {"x": 0.145, "top": 1.05}
+            text_size: None, None
+            text: "Lights"
+            halign: "center"
+        
+        Button:
+            id: ambilight
+            pos_hint: {"x": 0.745, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
+            on_release: 
+                subprocess.Popen(['sudo', '/home/pi/.local/bin/rq_light_desktop_amb.sh'])
+                root.manager.current = "smalloverlay"
+        
+        Label:
+            id: ambilight_text
+            pos_hint: {"x": 0.3, "top": 1.05}
+            text_size: None, None
+            text: "Ambilights"
+            halign: "center"
+        
+        Button:
+            id: rasqled
+            pos_hint: {"x": 0.145, "top": 0.43}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
+            on_release: 
+                subprocess.Popen(['../demos/bin/RasQ-LED_desktop.sh'])
+                root.manager.current = "smalloverlay"
+        
+        Label:
+            id: rasqled_text
+            pos_hint: {"x": -0.305, "top": 0.75}
+            text_size: None, None
+            text: "RasQ-LED"
+            halign: "center"
+        
+        Button:
+            id: clearLED
+            pos_hint: {"x": 0.295, "top": 0.43}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/RaspberryQiskitInside.png"
+            background_down: "../icons/invertedRasqberryQiskitInside-2.png"
+            on_release: 
+                subprocess.Popen(['sudo', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_LED-off.py'])
+                root.manager.current = "smalloverlay"
+
+        Label:
+            id: clearLED_text
+            pos_hint: {"x": -0.155, "top": 0.75}
+            text_size: None, None
+            text: "Clear LED\nLights"
+            halign: "center"
+
+<SeriousGamesScreen>:
+    name: "seriousgamesscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_home
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Home"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Button:
+            id: coin_game
+            pos_hint: {"x": 0.145, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/QiskitWithEars.png"
+            background_down: "../icons/invertedQiskitWithEars.png"
+            on_release: 
+                root.manager.current = "coingamescreena1"
+        
+        Label:
+            id: coin_game_text
+            pos_hint: {"x": -0.305, "top": 1.03}
+            text: "Coin Game\nTraditional"
+        
+        Button:
+            id: ghz_game
+            pos_hint: {"x": 0.295, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/QiskitWithEars.png"
+            background_down: "../icons/invertedQiskitWithEars.png"
+            on_release: 
+                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/GHZ-Game.ipynb')
+                root.manager.current = "smalloverlay"
+        
+        Label:
+            id: ghz_game_text
+            pos_hint: {"x": -0.155, "top": 1.05}
+            text: "GHZ Game"
+        
+        Button:
+            id: 3sat_game
+            pos_hint: {"x": 0.445, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/QiskitWithEars.png"
+            background_down: "../icons/invertedQiskitWithEars.png"
+            on_release: 
+                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/3sat.ipynb')
+                root.manager.current = "smalloverlay"
+        
+        Label:
+            id: 3sat_game_text
+            pos_hint: {"x": -0.005, "top": 1.05}
+            text: "3 SAT Game"
+
+        Button:
+            id: hardy_paradox
+            pos_hint: {"x": 0.595, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/QiskitWithEars.png"
+            background_down: "../icons/invertedQiskitWithEars.png"
+            on_release: 
+                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Hardys-Paradox.ipynb')
+                root.manager.current = "smalloverlay"
+        
+        Label:
+            id: hardy_paradox_text
+            pos_hint: {"x": 0.145, "top": 1.03}
+            text_size: None, None
+            text: "Hardys\nParadox"
+            halign: "center"
+
+        Button:
+            id: mermin_peres
+            pos_hint: {"x": 0.745, "top": 0.73}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/QiskitWithEars.png"
+            background_down: "../icons/invertedQiskitWithEars.png"
+            on_release: 
+                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Mermin–Peres-Game.ipynb')
+                root.manager.current = "smalloverlay"
+        
+        Label:
+            id: mermin_peres_text
+            pos_hint: {"x": 0.3, "top": 1.03}
+            text_size: None, None
+            text: "Mermin Peres\nMagic Square"
+            halign: "center"
+        
+        Button:
+            id: coin_game_quantum
+            pos_hint: {"x": 0.145, "top": 0.44}
+            size_hint: 0.1, 0.17
+            background_normal: "../icons/QiskitWithEars.png"
+            background_down: "../icons/invertedQiskitWithEars.png"
+            on_release: 
+                root.manager.current = "qcoingamescreena1"
+        
+        Label:
+            id: coin_game_text
+            pos_hint: {"x": -0.305, "top": 0.74}
+            text: "Coin Game\nQuantum"
+            halign: "center"
+
+<CoinGameScreenA1>
+    name: "coingamescreena1"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_seriousgames
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Label:
+            id: playera
+            pos_hint: {"x": 0, "top": 1.2}
+            font_size: 50
+            bold: True
+            text_size: None, None
+            text: "Player A"
+            halign: "center"
+        
+        Label:
+            id: instructions
+            pos_hint: {"x": 0, "top": 1.1}
+            font_size: 40
+            text_size: None, None
+            text: "Make your move"
+            halign: "center"
+
+        Button:
+            id: xgate-a1
+            pos_hint: {"x": 0.1, "top": 0.5}
+            text: "X-Gate"
+            size_hint: 0.38, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release:
+                root.xgatea1()
+                root.manager.current = "coingamescreenb1"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: xgate_text
+            pos_hint: {"x": -0.21, "top": 0.85}
+            text_size: None, None
+            text: "turn the coin"
+            halign: "center"
+            
+        Button:
+            id: idgate-a1
+            pos_hint: {"x": 0.52, "top": 0.5}
+            text: "id-Gate"
+            size_hint: 0.38, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.idgatea1()
+                root.manager.current = "coingamescreenb1"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: idgate_text
+            pos_hint: {"x": 0.21, "top": 0.85}
+            text_size: None, None
+            text: "don't turn the coin"
+            halign: "center"
+
+<QCoinGameScreenA1>:
+    name: "qcoingamescreena1"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_seriousgames
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: playerA
+            pos_hint: {"x": 0, "top": 1.2}
+            font_size: 50
+            bold: True
+            text_size: None, None
+            text: "Player A"
+            halign: "center"
+        
+        Label:
+            id: instructions
+            pos_hint: {"x": 0, "top": 1.1}
+            font_size: 40
+            text_size: None, None
+            text: "Make your move"
+            halign: "center"
+        
+        Button:
+            id: xgate-a1
+            pos_hint: {"x": 0.1, "top": 0.5}
+            text: "X-Gate"
+            size_hint: 0.234, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release:
+                root.xgatea1()
+                root.manager.current = "qcoingamescreenb1"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: xgate_text
+            pos_hint: {"x": -0.285, "top": 0.85}
+            text_size: None, None
+            text: "turn the coin"
+            halign: "center"
+            
+        Button:
+            id: idgate-a1
+            pos_hint: {"x": 0.385, "top": 0.5}
+            text: "id-Gate"
+            size_hint: 0.234, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release:
+                root.idgatea1()
+                root.manager.current = "qcoingamescreenb1"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: idgate_text
+            pos_hint: {"x": 0, "top": 0.85}
+            text_size: None, None
+            text: "don't turn the coin"
+            halign: "center"
+        
+        Button:
+            id: hgate-a1
+            pos_hint: {"x": 0.668, "top": 0.5}
+            text: "H-Gate"
+            size_hint: 0.234, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release:
+                root.hgatea1()
+                root.manager.current = "qcoingamescreenb1"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: hgate_text
+            pos_hint: {"x": 0.285, "top": 0.85}
+            text_size: None, None
+            text: "superposition"
+            halign: "center"
+
+<CoinGameScreenB1>
+    name: "coingamescreenb1"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_seriousgames
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Label:
+            id: playerb
+            pos_hint: {"x": 0, "top": 1.2}
+            font_size: 50
+            bold: True
+            text_size: None, None
+            text: "Player B"
+            halign: "center"
+        
+        Label:
+            id: instructions
+            pos_hint: {"x": 0, "top": 1.1}
+            font_size: 40
+            text_size: None, None
+            text: "Make your move"
+            halign: "center"
+
+        Button:
+            id: xgate-b1
+            pos_hint: {"x": 0.1, "top": 0.5}
+            text: "X-Gate"
+            size_hint: 0.38, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release:
+                root.xgateb1()
+                root.manager.current = "coingamescreena2"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: xgate_text
+            pos_hint: {"x": -0.21, "top": 0.85}
+            text_size: None, None
+            text: "turn the coin"
+            halign: "center"
+            
+        Button:
+            id: idgate-b1
+            pos_hint: {"x": 0.52, "top": 0.5}
+            text: "id-Gate"
+            size_hint: 0.38, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.idgateb1()
+                root.manager.current = "coingamescreena2"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: idgate_text
+            pos_hint: {"x": 0.21, "top": 0.85}
+            text_size: None, None
+            text: "don't turn the coin"
+            halign: "center"
+
+<QCoinGameScreenB1>
+    name: "qcoingamescreenb1"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_seriousgames
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Label:
+            id: playerb
+            pos_hint: {"x": 0, "top": 1.2}
+            font_size: 50
+            bold: True
+            text_size: None, None
+            text: "Player B"
+            halign: "center"
+        
+        Label:
+            id: instructions
+            pos_hint: {"x": 0, "top": 1.1}
+            font_size: 40
+            text_size: None, None
+            text: "Make your move"
+            halign: "center"
+
+        Button:
+            id: xgate-b1
+            pos_hint: {"x": 0.1, "top": 0.5}
+            text: "X-Gate"
+            size_hint: 0.38, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release:
+                root.xgateb1()
+                root.manager.current = "qcoingamescreena2"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: xgate_text
+            pos_hint: {"x": -0.21, "top": 0.85}
+            text_size: None, None
+            text: "turn the coin"
+            halign: "center"
+            
+        Button:
+            id: idgate-b1
+            pos_hint: {"x": 0.52, "top": 0.5}
+            text: "id-Gate"
+            size_hint: 0.38, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.idgateb1()
+                root.manager.current = "qcoingamescreena2"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: idgate_text
+            pos_hint: {"x": 0.21, "top": 0.85}
+            text_size: None, None
+            text: "don't turn the coin"
+            halign: "center"
+
+<CoinGameScreenA2>
+    name: "coingamescreena2"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_seriousgames
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Label:
+            id: playera
+            pos_hint: {"x": 0, "top": 1.2}
+            font_size: 50
+            bold: True
+            text_size: None, None
+            text: "Player A"
+            halign: "center"
+        
+        Label:
+            id: instructions
+            pos_hint: {"x": 0, "top": 1.1}
+            font_size: 40
+            text_size: None, None
+            text: "Make your move"
+            halign: "center"
+
+        Button:
+            id: xgate-a2
+            pos_hint: {"x": 0.1, "top": 0.5}
+            text: "X-Gate"
+            size_hint: 0.38, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release:
+                root.xgatea2()
+                app.run_game()
+                root.manager.current = "coingamescreenresults"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: xgate_text
+            pos_hint: {"x": -0.21, "top": 0.85}
+            text_size: None, None
+            text: "turn the coin"
+            halign: "center"
+            
+        Button:
+            id: idgate-a2
+            pos_hint: {"x": 0.52, "top": 0.5}
+            text: "id-Gate"
+            size_hint: 0.38, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.idgatea2()
+                app.run_game()
+                root.manager.current = "coingamescreenresults"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: idgate_text
+            pos_hint: {"x": 0.21, "top": 0.85}
+            text_size: None, None
+            text: "don't turn the coin"
+            halign: "center"
+
+<QCoinGameScreenA2>:
+    name: "qcoingamescreena2"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+
+    FloatLayout:
+        Button:
+            id: back_to_seriousgames
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: playerA
+            pos_hint: {"x": 0, "top": 1.2}
+            font_size: 50
+            bold: True
+            text_size: None, None
+            text: "Player A"
+            halign: "center"
+        
+        Label:
+            id: instructions
+            pos_hint: {"x": 0, "top": 1.1}
+            font_size: 40
+            text_size: None, None
+            text: "Make your move"
+            halign: "center"
+        
+        Button:
+            id: xgate-a2
+            pos_hint: {"x": 0.1, "top": 0.5}
+            text: "X-Gate"
+            size_hint: 0.234, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release:
+                root.xgatea2()
+                app.run_game()
+                root.manager.current = "coingamescreenresults"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: xgate_text
+            pos_hint: {"x": -0.285, "top": 0.85}
+            text_size: None, None
+            text: "turn the coin"
+            halign: "center"
+            
+        Button:
+            id: idgate-a2
+            pos_hint: {"x": 0.385, "top": 0.5}
+            text: "id-Gate"
+            size_hint: 0.234, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.idgatea2()
+                app.run_game()
+                root.manager.current = "coingamescreenresults"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: idgate_text
+            pos_hint: {"x": 0, "top": 0.85}
+            text_size: None, None
+            text: "don't turn the coin"
+            halign: "center"
+        
+        Button:
+            id: hgate-a2
+            pos_hint: {"x": 0.668, "top": 0.5}
+            text: "H-Gate"
+            size_hint: 0.234, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.hgatea2()
+                app.run_game()
+                root.manager.current = "coingamescreenresults"
+                self.background_color=(1, 0.98, 0.98, 1)
+            
+        Label:
+            id: hgate_text
+            pos_hint: {"x": 0.285, "top": 0.85}
+            text_size: None, None
+            text: "superposition"
+            halign: "center"
+
+<CoinGameScreenResults>:
+    name: "coingamescreenresults"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_seriousgames
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release:
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Label:
+            id: results_text
+            pos_hint: {"x": 0, "top": 1.2}
+            font_size: 50
+            bold: True
+            text_size: None, None
+            text: "RESULTS"
+            halign: "center"
+
+        Label:
+            id: winner
+            pos_hint: {"x": 0, "top": 0.93}
+            text: app.winnert
+            font_size: 70
+            text_size: None, None
+            halign: "center"
+
+        Label:
+            id: results_counts
+            pos_hint: {"x": 0, "top": 1.08}
+            text: app.countst
+            font_size: 30
+            text_size: None, None
+            halign: "center"
+        
+        Label:
+            id: superposition_text
+            pos_hint: {"x": 0, "top": 1}
+            text: app.superpositiont
+            font_size: 30
+            text_size: None, None
+            halign: "center"
+        
+        Label:
+            id: prop_A
+            pos_hint: {"x": 0, "top": 0.92}
+            text: app.propAt
+            font_size: 30
+            text_size: None, None
+            halign: "center"
+        
+        Label:
+            id: prop_B
+            pos_hint: {"x": 0, "top": 0.85}
+            text: app.propBt
+            font_size: 30
+            text_size: None, None
+            halign: "center"
+        
+        Image:
+            id: coin-1
+            size_hint: 0.1, 0.2
+            pos_hint: {"x": 0.225, "top": 0.325}
+            source: app.coin1
+        
+        Image:
+            id: coin-2
+            size_hint: 0.1, 0.2
+            pos_hint: {"x": 0.375, "top": 0.325}
+            source: app.coin2
+        
+        Image:
+            id: coin-3
+            size_hint: 0.1, 0.2
+            pos_hint: {"x": 0.525, "top": 0.325}
+            source: app.coin3
+        
+        Image:
+            id: coin-4
+            size_hint: 0.1, 0.2
+            pos_hint: {"x": 0.675, "top": 0.325}
+            source: app.coin4
+
+<ConfigScreen>:
+    name: "configscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+
+    FloatLayout:
+        Button:
+            id: back_to_home
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Home"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Button:
+            id: installqiskit
+            pos_hint: {"x": 0.1, "top": 0.73}
+            text: "Install Qiskit"
+            size_hint: 0.8, 0.1
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "qiskitscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+<QiskitScreen>:
+    name: "qiskitscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_config
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "configscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Button:
+            id: installqiskit019
+            pos_hint: {"x": 0.1, "top": 0.73}
+            text: "Install Qiskit 0.19"
+            font_size: 17
+            size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit019.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
+                root.manager.current = "smalloverlay"
+        
+        Button:
+            id: installqiskit020
+            pos_hint: {"x": 0.1, "top": 0.66}
+            text: "Install Qiskit 0.20"
+            font_size: 17
+            size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit020.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
+                root.manager.current = "smalloverlay"
+        
+        Button:
+            id: installqiskit023
+            pos_hint: {"x": 0.1, "top": 0.59}
+            text: "Install Qiskit 0.23"
+            font_size: 17
+            size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit023.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
+                root.manager.current = "smalloverlay"
+        
+        Button:
+            id: installqiskit024
+            pos_hint: {"x": 0.1, "top": 0.52}
+            text: "Install Qiskit 0.24"
+            font_size: 17
+            size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit024.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
+                root.manager.current = "smalloverlay"
+        
+        Button:
+            id: installqiskit025
+            pos_hint: {"x": 0.1, "top": 0.45}
+            text: "Install Qiskit 0.25"
+            font_size: 17
+            size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit025.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
+                root.manager.current = "smalloverlay"
+        
+        Button:
+            id: installqiskit027
+            pos_hint: {"x": 0.1, "top": 0.38}
+            text: "Install Qiskit 0.27"
+            font_size: 17
+            size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit027.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
+                root.manager.current = "smalloverlay"
+        
+        Button:
+            id: installqiskit028
+            pos_hint: {"x": 0.1, "top": 0.31}
+            text: "Install Qiskit 0.28"
+            font_size: 17
+            size_hint: 0.8, 0.05
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                subprocess.Popen(['sudo', '-u', 'pi', '-H', '--', 'sh', '-c', '/home/pi/.local/bin/rq_install_Qiskit028.sh'])
+                self.background_color=(1, 0.98, 0.98, 1)
+                root.manager.current = "smalloverlay"
+
+<InfoScreen>:
+    name: "infoscreen"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+
+    FloatLayout:
+        Button:
+            id: back_to_home
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Home"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+        
+        Button:
+            id: rasqberryrepo
+            pos_hint: {"x": 0.1, "top": 0.73}
+            text: "RasQberry Repository"
+            size_hint: 0.8, 0.1
+            on_release: 
+                webbrowser.open('https://github.com/JanLahmann/RasQberry')
+                root.manager.current = "smalloverlay"
+
+        Button:
+            id: fwqrepo
+            pos_hint: {"x": 0.1, "top": 0.58}
+            text: "Fun-with-Quantum Repository"
+            size_hint: 0.8, 0.1
+            on_release: 
+                webbrowser.open('https://github.com/JanLahmann/Fun-with-Quantum')
+                root.manager.current = "smalloverlay"
+
+<SmallOverlay>:
+    name: "smalloverlay"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+
+    FloatLayout:
+        Button:
+            text: "Home"
+            orientation:"vertical"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "homescreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+                

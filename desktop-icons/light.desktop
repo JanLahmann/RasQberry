@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.1
-Name=Lights
-Comment=Toggle Lights
-Icon=/home/pi/RasQberry/icons/RaspberryQiskitEarsTop.png
-Type=Application
-Categories=Demos;
-Exec=sudo /home/pi/.local/bin/rq_light_desktop.sh
-Terminal=true
