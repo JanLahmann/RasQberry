@@ -1,6 +1,8 @@
 # RasQberry Demos
 In this repository you can find diferent demos which also work with diferent hardware components.<br/>
 
+You can access the different demos with the main menu from the Raspberry under the categpries `Demos` and `HD Demos`. When you use your RasQberry with an display you can access the demos with the Kivy Interface aswell. You can start the Kivy Interface by clicking the desktop-icon on your Desktop.
+
 ## Demos using a (touch) display
 ### Bloch Sphere <br/>
 In quantum mechanics and computing, the Bloch sphere is a geometrical representation of the pure state space of a two-level quantum mechanical system (qubit), named after the physicist Felix Bloch.<br/>
