@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=Kivy Interface
+Comment=Open the Kivy GUI
+Icon=/home/pi/RasQberry/icons/RaspberryQiskitEarsTop.png
+Type=Application
+Categories=GUI;
+Exec=python3 home/pi/RasQberry/Kivy/main.py
+Terminal=true
