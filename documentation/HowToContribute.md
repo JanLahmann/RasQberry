@@ -119,3 +119,6 @@ When you are done with your description you need to click on `Create pull reques
 <br/>
 
 Congratulations, you created a pull request!
+
+[Go back to: Content](./README.md) <br/>
+[Go back to: Start Page](../README.md) 
