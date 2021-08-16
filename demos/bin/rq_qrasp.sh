@@ -5,15 +5,15 @@ echo; echo; echo "Qrasp"
 cd ~
 
 if [ ! -d qrasp ]; then
-  git clone https://github.com/ordmoj/qrasp;
-  /home/pi/.local/bin/rq_qrasp_token.sh
+  git clone https://github.com/JanLahmann/qrasp;
+  /home/pi/RasQberry/demos/bin/rq_qrasp_token.sh
 fi
 
 cd qrasp 
 
 if [  ! -f qrasp-isrunning ]; then
   [ ! -f /home/pi/.rq_no_messages ] && whiptail --msgbox "Starting Qrasp Demo" 20 60 1
-  nohup python3 main_controller.py &
+  nohup python3 qrasp.py &
   echo $! > qrasp-isrunning
 else
    kill -15 `cat qrasp-isrunning`

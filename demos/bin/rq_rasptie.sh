@@ -5,7 +5,7 @@ echo; echo; echo "Raspberry-Tie 5 Qubit Demo"
 cd ~
 
 if [ ! -d quantum-raspberry-tie ]; then
-  git clone https://github.com/KPRoche/quantum-raspberry-tie;
+  git clone https://github.com/JanLahmann/quantum-raspberry-tie;
 fi
 
 cd quantum-raspberry-tie
