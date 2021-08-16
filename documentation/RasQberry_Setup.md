@@ -93,7 +93,7 @@ With this step you will configurate Qiskit automatically and install the Quantum
 Open the RasQberry Configuration Tool and follow the steps below.
 1. Select `S – RasQberry Setup`
 1. Select `G0 – System Update`
-1. Select `G1 – Initial Config’
+1. Select `G1 – Initial Config`
 Your Raspberry will process the basic configurations on your device.
 1. Select `G2 – Install Qiskit`
 With this step you will install Qiskit. You can choose between a few versions of Qiskit to install. The latest version is recommended.
