@@ -13,8 +13,8 @@ from kivy.uix.image import Image
 
 Window.size = (800, 480)
 Window.borderless = True
-#ewmh = EWMH()
-#win = None
+ewmh = EWMH()
+win = None
 
 moveA1 = None
 moveB1 = None
@@ -25,27 +25,24 @@ class RootScreen(ScreenManager):
     pass
 
 class HomeScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class DemosScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class SeriousGamesScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class CoinGameScreenA1(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     def xgatea1(self):
         global moveA1 
@@ -55,9 +52,9 @@ class CoinGameScreenA1(Screen):
         moveA1 = 0
 
 class QCoinGameScreenA1(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     def xgatea1(self):
         global moveA1 
@@ -73,9 +70,9 @@ class QCoinGameScreenA1(Screen):
 
 
 class CoinGameScreenB1(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
     
     def xgateb1(self):
         global moveB1
@@ -86,9 +83,9 @@ class CoinGameScreenB1(Screen):
         moveB1 = 0
 
 class QCoinGameScreenB1(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
     
     def xgateb1(self):
         global moveB1
@@ -99,9 +96,9 @@ class QCoinGameScreenB1(Screen):
         moveB1 = 0
 
 class CoinGameScreenA2(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     def xgatea2(self):
         global moveA2
@@ -112,9 +109,9 @@ class CoinGameScreenA2(Screen):
         moveA2 = 0
 
 class QCoinGameScreenA2(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     def xgatea2(self):
         global moveA2
@@ -130,34 +127,29 @@ class QCoinGameScreenA2(Screen):
     
 
 class CoinGameScreenResults(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class ConfigScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class QiskitScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class InfoScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class SmallOverlay(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 800 - 100, 480 - 80, 80, 40)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class Main(App):
     winnert = StringProperty("")
@@ -202,11 +194,11 @@ class Main(App):
     def build(self):
         return RootScreen()
 
-    """def on_start(self):
+    def on_start(self):
         global win
         win = ewmh.getActiveWindow()
         ewmh.setWmState(win, 1, '_NET_WM_STATE_ABOVE')
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     # auxillary function to identify the winner
     def who_wins(self, counts):
