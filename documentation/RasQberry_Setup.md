@@ -66,47 +66,46 @@ This will download and start the RasQberry Configuration Tool (rasqberry-config)
 To start the tool again you can use 
 ```pyhton 
 . ./RasQ-init.sh 
-````
+```
 in your terminal/ssh window.
 
 <br/>
 
 ## Step 4: RasQberry Setup
-You can assemble your Hardware either with an (touch) display or with an senseHAT. It is not possible to use the senseHAT and the touch display on the same Raspberry P, because the senseHAT isn't working with the installation process from the touch display.
+You can assemble your Hardware either with an (touch) display or with an senseHAT. It is not possible to use the senseHAT and the touch display on the same Raspberry Pi, because the senseHAT isn’t working with the installation process from the touch display.
+<br/>
+
 ### With touch display
-In the RasQberry Configuration Tool select `S – RasQberry Setup`. <br/> Follow these steps one by one.
-1.	Select `I0 – Initial Config`   
-Your Raspberry will process the basic configurations on your device
-1.	Select `S1 – Enable VNC` (required if you want to remotely access the screen)  
-With this step you will be able to use VNC
-After this step is executed, you will have to reboot your device.
-(See also: Install VNC Viewer)
-1.	Select `S2 – Enable 4’’ Display` (required if using a touchscreen)  
-With this step you will be able to use a touchscreen with your Raspberry.
-After this step is executed, you will have to reboot your device
-1.	Select `S3 – Software Update`   
-With this step your device is searching for software updates and will execute them.
-After this step is executed, you will have to reboot your device.
-1.	Select `Q1 – Install Qiskit`  
+Open the RasQberry Configuration Tool and follow the steps below.
+1. Select `S – RasQberry Setup`
+1. Select `G0 – System Update`
+1. Select `G1 - Initial Config`<br/>
+Your Raspberry will process the basic configurations on your device.
+1. Select `G2 – Install Qiskit`<br/>
 With this step you will install Qiskit. You can choose between a few versions of Qiskit to install. The latest version is recommended.
-1.	Select `S0 – Bloch Autostart`   
-With this step your Raspberry will start the Bloch Sphere Demo automatically whenever you start your device. 
-After your first time executing `S0` your Raspberry will reboot automatically. After the reboot you should execute `S0` again. This time there is no automatic reboot, but one is recommended.
-1.	Select `S7 – Enable LED Lights` (optional)   
-With this step you can enable LED Lights that you connected to your Raspberry Pi.
+1. Select `D0 – Bloch Autostart`<br/>
+With this step you Raspberry will start the Bloch Sphere Demo automatically whenever you start your device.<br/>
+After your first the executing `D0` your Raspberry will reboot automatically. After the reboot you should execute `D0` again. This time there is no automatic reboot, but one is recommended.
+1. Select `D1 – Config & Demos` (optional)<br/>
+With this step you will configurate Qiskit automatically and install the Quantum Demos. Also this step will configurate jupyter notebook.
+1. Go back to the first menu page and select `A – Advaned Config`
+1. Select `S1 – Enable VNC` (optional; required if you want to remotely access the screen)<br/>
+With this step you will be able to use VNC.<br/>
+After this step is executed, you will have to reboot your device. (See also: Install VNC Viewer)
+1. Select `S2 – Enable 4’’ Display` (required if using touch screen)<br/>
+With this step you will be able to use a touchscreen with your Raspberry. After this step is executed, you will have to reboot your device.
+1. Under `A – Advanced Config’ and ‘S7 – Enable LED Light` you can enable the LED Light you connected to your Raspberry Pi.
 
 ### With Sense HAT
-In the RasQberry Configuration Tool select `S – RasQberry Setup`. <br/> Follow these steps one by one.
-1.	Select `I0 – Initial Config`   
-Your Raspberry will process the basic configurations on your device
-1.	Select `S3 – Software Update`   
-With this step your device is searching for software updates and will execute them.
-After this step is executed, you will have to reboot your device.
-1.	Select `Q1 – Install Qiskit`  
+Open the RasQberry Configuration Tool and follow the steps below.
+1. Select `S – RasQberry Setup`
+1. Select `G0 – System Update`
+1. Select `G1 – Initial Config’
+Your Raspberry will process the basic configurations on your device.
+1. Select `G2 – Install Qiskit`
 With this step you will install Qiskit. You can choose between a few versions of Qiskit to install. The latest version is recommended.
-1.	Select `S6 – Config & Demos` (optional if using touchscreen; required if using Sense HAT)  
-With this step you will configurate Qiskit automatically and install the Quantum Demos. Also, this step will configurate jupyter notebook.  
-This step will also configurate jupyter notebook and install the any required packages for the jupyter notebook, the Sense HAT and the Sense HAT Emulator.
+1. Select `S0 – Config SenseHAT`<br/>
+With this step you will configurate the SenseHAT and the qrasp demo will autostart.
 
 <br/>
 
@@ -124,7 +123,7 @@ In the terminal you can now enter your new API Token.
 ## Cloning the Git-Repository with the Qiskit-tutorials 
 By executing the following instructions you clone a repository (https://github.com/Qiskit/qiskit-tutorials) with a collection of jupyter notebooks aimed at teaching people who want to use Qiskit for writing quantum computing programs, and executing them on one of several backends (online quantum processors, online simulators, and local simulators).
 
-If you want to clone the Git Repository to access the with the Qiskit-Tutorials, you need to open the RasQberry Configuration Tool. First select `H - HD Demos` and second `Q1 - Qiskit Tutorials` (Jupyter Notebokk starts automatically) or `Q2 - Qiskit Tutorials - no browser`.<br/>
+If you want to clone the Git Repository to access the with the Qiskit-Tutorials, you need to open the RasQberry Configuration Tool. First select `H - HD Demos` and second `Q1 - Qiskit Tutorials` (Jupyter Notebokk starts automatically).<br/>
 This will take a moment to clone and as the case may be to open the jupyter notebook.
  
  <br/>
@@ -190,15 +189,6 @@ Your VNC Viewer will now connect to your Raspberry Pi.
 
 <br/>
 
-## Enable/Disable second VNC Display
-You can enable a second vnc display with an higher resolution that functions as a side-to-side display to your RasQberry or your first vnc display.<br/>
-To enable the second display you need to open the Rasqberry Configuration Tool and select `S - RasQberry Setup` and then `S1a - Enable second VNC`.<br/>
-You can now connect to the vnc server with the address: *{ip address}:5902*<br/>
-
-To disable the second display you need to open the Rasqberry Configuration Tool and select `S - RasQberry Setup`and then `S1b - Disable second VNC`.<br>
-
-<br/>
-
 ## Connect a LED Ring-Light to your Raspberry Pi
 To connect your LED light, you need three cables (GND, VCC & IN).
 Put your cables on the Raspberry Pins as follows:
@@ -224,3 +214,6 @@ Your LED Light should now be turned on. To turn it of press ctl + c.
 
 If this method doesn’t work, you can also open the RasQberry Configuration Tool. Select `S – RasQberry Setup`, then `S7 – Enable LED Light` and finally `S8 – Toggle LED Light`.  
 Your LED Light should now be turned on. To turn it off again select `S8 – Toggle LED Light` again.
+
+[Go back to: Content](./README.md) <br/>
+[Go back to: Start Page](../README.md)  

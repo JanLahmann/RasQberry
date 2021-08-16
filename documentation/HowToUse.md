@@ -65,3 +65,6 @@ When you click this icon the RasQ-LED Demo starts, if you connected any LED Ligh
 ### Clear LED Lights
 <img src="../icons/RaspberryQiskitEarsTop.png" alt="drawing" width="64"/> <br/>
 When you click this icon you clear all attached LED Lights.
+
+[Go back to: Content](./README.md) <br/>
+[Go back to: Start Page](../README.md) 
