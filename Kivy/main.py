@@ -1,13 +1,11 @@
 from qiskit import ClassicalRegister, QuantumRegister, QuantumCircuit
 from qiskit import execute, BasicAer
-from ipywidgets import interact
 import kivy
 from ewmh import EWMH
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
-from kivy.config import Config
 from kivy.properties import StringProperty
 from kivy.uix.image import Image
 
