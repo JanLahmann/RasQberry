@@ -297,6 +297,7 @@ do_rasqberry_install_019() {
   do_rasqberry_install_libcint;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh
   whiptail --msgbox "Qiskit 0.19 installed" 20 60 1
+  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
 }
 
 do_rasqberry_install_020() {
@@ -304,6 +305,7 @@ do_rasqberry_install_020() {
   do_rasqberry_install_libcint;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit020.sh
   whiptail --msgbox "Qiskit 0.20 installed" 20 60 1
+  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
 }
 
 do_rasqberry_install_023() {
@@ -311,6 +313,7 @@ do_rasqberry_install_023() {
   apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh
   whiptail --msgbox "Qiskit 0.23 installed" 20 60 1
+  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
 }
 
 do_rasqberry_install_024() {
@@ -318,6 +321,7 @@ do_rasqberry_install_024() {
   apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit024.sh
   whiptail --msgbox "Qiskit 0.24 installed" 20 60 1
+  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
 }
 
 do_rasqberry_install_025() {
@@ -325,6 +329,7 @@ do_rasqberry_install_025() {
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh
   whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
+  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
 }
 
 do_rasqberry_install_027() {
@@ -332,6 +337,7 @@ do_rasqberry_install_027() {
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit027.sh
   whiptail --msgbox "Qiskit 0.27 installed" 20 60 1
+  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
 }
 
 do_rasqberry_install_028() {
@@ -341,6 +347,7 @@ do_rasqberry_install_028() {
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
   fi 
+  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
 }
 
 do_rasqberry_install_latest() {
@@ -350,6 +357,7 @@ do_rasqberry_install_latest() {
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "Qiskit (latest version) installed" 20 60 1
   fi 
+  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
 }
 
 do_rasqberry_config_demos(){
@@ -377,7 +385,7 @@ do_rasqberry_enable_desktop_vnc(){
     sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
     # add desktop icons and menu entries
-    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/Desktop/'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/kivy.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/.local/share/applications/'
     desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
     # add menu categories
