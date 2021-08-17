@@ -90,7 +90,15 @@ After your first the executing `D0` your Raspberry will reboot automatically. Af
 With this step you will configurate Qiskit automatically and install the Quantum Demos. Also this step will configurate jupyter notebook.
 
 ### With Sense HAT
-Open the RasQberry Configuration Tool and follow the steps below.
+Before the Raspberry Pi can boot with the SenseHAT attached you need to do some changes in the **config.txt**-file.<br/>
+```python
+/boot/config.txt
+``` 
+Open the **config.txt**-file and **un**comment the line 
+```python
+#hdmi_force_hotplug
+```
+Next, open the RasQberry Configuration Tool and follow the steps below.
 1. Select `S – RasQberry Setup`
 1. Select `G0 – System Update`
 1. Select `G1 – Initial Config`
