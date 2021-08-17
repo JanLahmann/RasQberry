@@ -76,7 +76,7 @@ P, P, P, W, W, W, B, B
 show_pic("IBM_Q", IBM_Q)
 
 # hat.show_message("up: qrasp")
-hat.show_message("up: qrasp, side: tie, down: halt, middle: reboot")
+hat.show_message("up: qrasp, side: tie, down: halt, mid: reboot")
 
 
 # The main loop.

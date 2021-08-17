@@ -174,7 +174,9 @@ do_toggle_messages() {
 
 rq_enable_gldriver() {
   if [ ! -e /boot/overlays/vc4-kms-v3d.dtbo ]; then
-    whiptail --msgbox "Driver and kernel not present on your system. Please update" 20 60 2
+    if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Driver and kernel not present on your system. Please update" 20 60 2
+    fi
     return 1
   fi
   for package in gldriver-test libgl1-mesa-dri; do
@@ -183,7 +185,9 @@ rq_enable_gldriver() {
     fi
   done
   if [ -n "$missing_packages" ] && ! apt-get install $missing_packages; then
-    whiptail --msgbox "Required packages not found, please install: ${missing_packages}" 20 60 2
+    if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Required packages not found, please install: ${missing_packages}" 20 60 2
+    fi
     return 1
   fi
   if is_pifour ; then
@@ -209,7 +213,9 @@ rq_enable_gldriver() {
     STATUS="The full KMS GL driver is enabled."
     touch /home/pi/RasQberry/.kms-gl-enabled
   fi
-  whiptail --msgbox "$STATUS \\nIt will become active after next reboot" 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "$STATUS \\nIt will become active after next reboot" 20 60 1
+  fi
 }
 
 rq_check_gldriver() {
@@ -255,7 +261,10 @@ do_rasqberry_update() {
   /etc/init.d/dphys-swapfile start
   apt update
   apt -y full-upgrade
-  whiptail --msgbox "Please exit and reboot" 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "Please exit and reboot" 20 60 1
+  fi
+
   ASK_TO_REBOOT=1
 }
 
@@ -265,7 +274,9 @@ do_rq_initial_config() {
   ) >> /home/pi/.bashrc && . /home/pi/.bashrc
   #install bluetooth manager blueman
   apt -y install blueman
-  whiptail --msgbox "initial config completed" 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "initial config completed" 20 60 1
+  fi
 }
 
 do_rasqberry_install_libcint() {
@@ -327,7 +338,9 @@ do_rasqberry_install_028() {
   echo; echo "Install Qiskit 0.28"; echo;
   apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit028.sh
-  whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
+  fi 
 }
 
 do_rasqberry_config_demos(){
@@ -336,7 +349,9 @@ do_rasqberry_config_demos(){
   # clone Git-Repositories
   sudo -u pi -i /home/pi/RasQberry/demos/bin/rq_clone_repos.sh
   # enable jupyter notebook autostart
-  rq_messages && whiptail --msgbox "enabled jupyter notebook autostart on port 8888 and 8889" 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "enabled jupyter notebook autostart on port 8888 and 8889" 20 60 1
+  fi 
   echo "@/home/pi/RasQberry/demos/bin/start_jupyter_notebooks.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
 }
 
@@ -345,7 +360,9 @@ do_rasqberry_qtoken_update(){
 }
 
 do_rasqberry_enable_desktop_vnc(){
-  rq_messages && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
+  fi 
   if [ ! -f /home/pi/RasQberry/.is_enabled_desktopvnc ]; then
     # setup wallpaper
     sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
@@ -381,22 +398,30 @@ do_rasqberry_enable_desktop_vnc(){
     do_rasqberry_enable_LED
     # enable VNC
     rq_do_vnc
-    rq_messages && whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
+    if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
+    fi 
     touch /home/pi/RasQberry/.is_enabled_desktopvnc
     # enable second vnc display (side-to-side)
     sudo -u pi /home/pi/RasQberry/bin/vnc_side-to-side.sh
-    rq_messages && whiptail --msgbox "enabled second vnc <ip address>:5902" 20 60 1
+    if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "enabled second vnc <ip address>:5902" 20 60 1
+    fi 
     echo "@/home/pi/RasQberry/bin/vnc_side-to-side.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
   fi
 }
 
 do_rasqberry_enable_touch4(){
-  rq_messages && whiptail --msgbox "enable touch display" 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "enable touch display" 20 60 1
+  fi 
   # enable 4'' touch display
   if [ ! -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
     sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
     ASK_TO_REBOOT=1
-    whiptail --msgbox "Please exit and reboot" 20 60 1
+    if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Please exit and reboot" 20 60 1
+    fi 
   fi
 }
 
@@ -455,13 +480,17 @@ do_rasqberry_deactivate_bloch_autostart(){
 }
 
 do_rasqberry_run_bloch(){
-  rq_messages && whiptail --msgbox "starting run_bloch" 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "starting run_bloch" 20 60 1
+  fi 
   # check if GL2/GL3 driver is enabled
   rq_check_gldriver
   # check touchscreen calibration
   if [ ! -f /home/pi/RasQberry/.is_tft_calibrated ] && [ -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
     cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && touch /home/pi/RasQberry/.is_tft_calibrated
-    whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\nPlease exit and reboot" 20 60 1
+    if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\nPlease exit and reboot" 20 60 1
+    fi 
     return 0
   fi
 
@@ -473,8 +502,9 @@ do_rasqberry_run_bloch(){
 }
 
 do_rq_setup_bloch_autostart(){
-  rq_messages && whiptail --msgbox "starting do_rq_setup_bloch_autostart" 20 60 1
-
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "starting do_rq_setup_bloch_autostart" 20 60 1
+  fi
   # enable vnc and configure desktop
   do_rasqberry_enable_desktop_vnc
 
@@ -490,13 +520,17 @@ do_rq_setup_bloch_autostart(){
   # check touchscreen calibration
   if [ ! -f /home/pi/RasQberry/.is_tft_calibrated ] && [ -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
     cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && touch /home/pi/RasQberry/.is_tft_calibrated
-    rq_messages && whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\n\\nPlease re-run 'S0 Bloch Autostart' after the reboot." 20 60 1
+    if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\n\\nPlease re-run 'S0 Bloch Autostart' after the reboot." 20 60 1
+    fi
     reboot
   fi
 
   # enable autostart
   if [ ! -f /home/pi/RasQberry/.bloch_autorun_enabled ]; then
-    rq_messages && whiptail --msgbox "enable autostart of Bloch Sphere Demo" 20 60 1
+    if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "enable autostart of Bloch Sphere Demo" 20 60 1
+    fi
     echo "@/home/pi/RasQberry/demos/bin/rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
     touch /home/pi/RasQberry/.bloch_autorun_enabled
     touch /home/pi/RasQberry/.bloch_autorun_asked
@@ -506,7 +540,9 @@ do_rq_setup_bloch_autostart(){
   # run the bloch demo
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_bloch.sh
 
-  whiptail --msgbox "The System will now autostart the Bloch Sphere Demo after each reboot." 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "The System will now autostart the Bloch Sphere Demo after each reboot." 20 60 1
+  fi
 }
 
 do_rasqberry_run_rasptie_no_network(){
@@ -549,7 +585,9 @@ do_rq_setup_SenseHAT(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie_install.sh
 
   # reboot to activate crontab entry for sense_menu
-  whiptail --msgbox "Please exit and reboot" 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "Please exit and reboot" 20 60 1
+  fi
   ASK_TO_REBOOT=1
 }
 
@@ -663,12 +701,16 @@ do_advanced_config() {
 
 
 do_clone_qiskit_start_jupyter() {
-  whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  fi
   sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_qiskit_tutorial.sh -port 8888 & 
 }
 
 do_clone_fwq_start_jupyter() {
-  whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  fi
   sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh -port 8889 &
 }
 
