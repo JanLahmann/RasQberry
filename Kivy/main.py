@@ -39,6 +39,17 @@ class SeriousGamesScreen(Screen):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
         ewmh.display.flush()
 
+# Coin Game Screens
+class CoinGameScreenRules(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+
+class QCoinGameScreenRules(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+
 class CoinGameScreenA1(Screen):
     def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
@@ -67,7 +78,6 @@ class QCoinGameScreenA1(Screen):
     def hgatea1(self):
         global moveA1
         moveA1 = 2
-
 
 class CoinGameScreenB1(Screen):
     def on_pre_enter(self, *args):
@@ -125,7 +135,6 @@ class QCoinGameScreenA2(Screen):
         global moveA2
         moveA2 = 2
     
-
 class CoinGameScreenResults(Screen):
     def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
@@ -152,12 +161,14 @@ class SmallOverlay(Screen):
         ewmh.display.flush()
 
 class Main(App):
+    # var for result text
     winnert = StringProperty("")
     superpositiont = StringProperty("")
     propAt = StringProperty("")
     propBt = StringProperty("")
     countst = StringProperty("")
 
+    # images for coinr esults
     heads = "./Images/Coin-25-0-0-Kopf.png"
     heads_twist = "./Images/Coin-25-180-0-Kopf-gedreht.png"
     superpos = "./Images/Coin-115-0-0-Kante.png"
@@ -165,6 +176,7 @@ class Main(App):
     superpos_twist = "./Images/Coin-115-180-0-Kante-gedreht.png"
     superpos_tails = "./Images/Coin-Zahl-Kante.png"
 
+    # all possible coin game outcomes
     images_map = {
         "000": [heads, heads, heads], 
         "001": [heads, heads, tails], 
@@ -186,6 +198,7 @@ class Main(App):
         "112": [tails, heads, superpos]
         }
 
+    # var for the for coins in the result screen
     coin1 = StringProperty("")
     coin2 = StringProperty("")
     coin3 = StringProperty("")
@@ -265,6 +278,7 @@ class Main(App):
         # celebrate the winner
         self.who_wins(counts); 
 
+        # get the images for the result screen, dependent from the moves
         move = str(moveA1) + str(moveB1) + str(moveA2)
         coins = self.images_map.get(move)
 
@@ -273,7 +287,6 @@ class Main(App):
         self.coin3 = coins[1]
         self.coin4 = coins[2]
         
-
 # run
 if __name__ == "__main__":
     Main().run()
