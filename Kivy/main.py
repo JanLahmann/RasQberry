@@ -13,8 +13,8 @@ from kivy.uix.image import Image
 
 Window.size = (800, 480)
 Window.borderless = True
-#ewmh = EWMH()
-#win = None
+ewmh = EWMH()
+win = None
 
 moveA1 = None
 moveB1 = None
@@ -25,27 +25,35 @@ class RootScreen(ScreenManager):
     pass
 
 class HomeScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class DemosScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class SeriousGamesScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
+
+# Coin Game Screens
+class CoinGameScreenRules(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
+
+class QCoinGameScreenRules(Screen):
+    def on_pre_enter(self, *args):
+        ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
+        ewmh.display.flush()
 
 class CoinGameScreenA1(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     def xgatea1(self):
         global moveA1 
@@ -55,9 +63,9 @@ class CoinGameScreenA1(Screen):
         moveA1 = 0
 
 class QCoinGameScreenA1(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     def xgatea1(self):
         global moveA1 
@@ -71,11 +79,10 @@ class QCoinGameScreenA1(Screen):
         global moveA1
         moveA1 = 2
 
-
 class CoinGameScreenB1(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
     
     def xgateb1(self):
         global moveB1
@@ -86,9 +93,9 @@ class CoinGameScreenB1(Screen):
         moveB1 = 0
 
 class QCoinGameScreenB1(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
     
     def xgateb1(self):
         global moveB1
@@ -99,9 +106,9 @@ class QCoinGameScreenB1(Screen):
         moveB1 = 0
 
 class CoinGameScreenA2(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     def xgatea2(self):
         global moveA2
@@ -112,9 +119,9 @@ class CoinGameScreenA2(Screen):
         moveA2 = 0
 
 class QCoinGameScreenA2(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     def xgatea2(self):
         global moveA2
@@ -128,44 +135,40 @@ class QCoinGameScreenA2(Screen):
         global moveA2
         moveA2 = 2
     
-
 class CoinGameScreenResults(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class ConfigScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class QiskitScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class InfoScreen(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 0, 0, 800, 480)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class SmallOverlay(Screen):
-    """def on_pre_enter(self, *args):
+    def on_pre_enter(self, *args):
         ewmh.setMoveResizeWindow(win, 0, 800 - 100, 480 - 80, 80, 40)
-        ewmh.display.flush()"""
-    pass
+        ewmh.display.flush()
 
 class Main(App):
+    # var for result text
     winnert = StringProperty("")
     superpositiont = StringProperty("")
     propAt = StringProperty("")
     propBt = StringProperty("")
     countst = StringProperty("")
 
+    # images for coinr esults
     heads = "./Images/Coin-25-0-0-Kopf.png"
     heads_twist = "./Images/Coin-25-180-0-Kopf-gedreht.png"
     superpos = "./Images/Coin-115-0-0-Kante.png"
@@ -173,6 +176,7 @@ class Main(App):
     superpos_twist = "./Images/Coin-115-180-0-Kante-gedreht.png"
     superpos_tails = "./Images/Coin-Zahl-Kante.png"
 
+    # all possible coin game outcomes
     images_map = {
         "000": [heads, heads, heads], 
         "001": [heads, heads, tails], 
@@ -194,6 +198,7 @@ class Main(App):
         "112": [tails, heads, superpos]
         }
 
+    # var for the for coins in the result screen
     coin1 = StringProperty("")
     coin2 = StringProperty("")
     coin3 = StringProperty("")
@@ -202,11 +207,11 @@ class Main(App):
     def build(self):
         return RootScreen()
 
-    """def on_start(self):
+    def on_start(self):
         global win
         win = ewmh.getActiveWindow()
         ewmh.setWmState(win, 1, '_NET_WM_STATE_ABOVE')
-        ewmh.display.flush()"""
+        ewmh.display.flush()
 
     # auxillary function to identify the winner
     def who_wins(self, counts):
@@ -273,6 +278,7 @@ class Main(App):
         # celebrate the winner
         self.who_wins(counts); 
 
+        # get the images for the result screen, dependent from the moves
         move = str(moveA1) + str(moveB1) + str(moveA2)
         coins = self.images_map.get(move)
 
@@ -281,7 +287,6 @@ class Main(App):
         self.coin3 = coins[1]
         self.coin4 = coins[2]
         
-
 # run
 if __name__ == "__main__":
     Main().run()

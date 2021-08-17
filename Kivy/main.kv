@@ -14,6 +14,8 @@
     HomeScreen:
     DemosScreen:
     SeriousGamesScreen:
+    CoinGameScreenRules:
+    QCoinGameScreenRules:
     CoinGameScreenA1:
     QCoinGameScreenA1:
     CoinGameScreenB1:
@@ -235,76 +237,12 @@
             background_normal: "../icons/QiskitWithEars.png"
             background_down: "../icons/invertedQiskitWithEars.png"
             on_release: 
-                root.manager.current = "coingamescreena1"
+                root.manager.current = "coingamescreenrules"
         
         Label:
             id: coin_game_text
             pos_hint: {"x": -0.305, "top": 1.03}
             text: "Coin Game\nTraditional"
-        
-        Button:
-            id: ghz_game
-            pos_hint: {"x": 0.295, "top": 0.73}
-            size_hint: 0.1, 0.17
-            background_normal: "../icons/QiskitWithEars.png"
-            background_down: "../icons/invertedQiskitWithEars.png"
-            on_release: 
-                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/GHZ-Game.ipynb')
-                root.manager.current = "smalloverlay"
-        
-        Label:
-            id: ghz_game_text
-            pos_hint: {"x": -0.155, "top": 1.05}
-            text: "GHZ Game"
-        
-        Button:
-            id: 3sat_game
-            pos_hint: {"x": 0.445, "top": 0.73}
-            size_hint: 0.1, 0.17
-            background_normal: "../icons/QiskitWithEars.png"
-            background_down: "../icons/invertedQiskitWithEars.png"
-            on_release: 
-                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/3sat.ipynb')
-                root.manager.current = "smalloverlay"
-        
-        Label:
-            id: 3sat_game_text
-            pos_hint: {"x": -0.005, "top": 1.05}
-            text: "3 SAT Game"
-
-        Button:
-            id: hardy_paradox
-            pos_hint: {"x": 0.595, "top": 0.73}
-            size_hint: 0.1, 0.17
-            background_normal: "../icons/QiskitWithEars.png"
-            background_down: "../icons/invertedQiskitWithEars.png"
-            on_release: 
-                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Hardys-Paradox.ipynb')
-                root.manager.current = "smalloverlay"
-        
-        Label:
-            id: hardy_paradox_text
-            pos_hint: {"x": 0.145, "top": 1.03}
-            text_size: None, None
-            text: "Hardys\nParadox"
-            halign: "center"
-
-        Button:
-            id: mermin_peres
-            pos_hint: {"x": 0.745, "top": 0.73}
-            size_hint: 0.1, 0.17
-            background_normal: "../icons/QiskitWithEars.png"
-            background_down: "../icons/invertedQiskitWithEars.png"
-            on_release: 
-                webbrowser.open('https://quantum-computing.ibm.com/lab/files/Fun-with-Quantum/Mermin–Peres-Game.ipynb')
-                root.manager.current = "smalloverlay"
-        
-        Label:
-            id: mermin_peres_text
-            pos_hint: {"x": 0.3, "top": 1.03}
-            text_size: None, None
-            text: "Mermin Peres\nMagic Square"
-            halign: "center"
         
         Button:
             id: coin_game_quantum
@@ -313,13 +251,170 @@
             background_normal: "../icons/QiskitWithEars.png"
             background_down: "../icons/invertedQiskitWithEars.png"
             on_release: 
-                root.manager.current = "qcoingamescreena1"
+                root.manager.current = "qcoingamescreenrules"
         
         Label:
             id: coin_game_text
             pos_hint: {"x": -0.305, "top": 0.74}
             text: "Coin Game\nQuantum"
             halign: "center"
+
+<CoinGameScreenRules>
+    name: "coingamescreenrules"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_seriousgames
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Label:
+            id: coin_game_header
+            pos_hint: {"x": 0, "top": 1.2}
+            font_size: 50
+            bold: True
+            text_size: None, None
+            text: "The Coin Game - Traditional"
+            halign: "center"
+        
+        Label:
+            id: introduction
+            pos_hint: {"x": 0, "top": 1.1}
+            font_size: 40
+            text_size: None, None
+            text: "Two players, A(lice) and B(ob), play a coin game."
+            halign: "center"
+        
+        Label:
+            id: introduction-heads
+            pos_hint: {"x": 0, "top": 1}
+            font_size: 25
+            text_size: None, None
+            text: "The game starts with the coin showing Heads."
+            halign: "center"
+        
+        Label:
+            id: rules-1
+            pos_hint: {"x": 0, "top": 0.95}
+            font_size: 25
+            text_size: None, None
+            text: "Player A starts and may either turn the coin or leave it as is."
+            halign: "center"
+        
+        Label:
+            id: rules-2
+            pos_hint: {"x": 0, "top": 0.9}
+            font_size: 25
+            text_size: None, None
+            text: "The moves are hidden, i.e. not revealed to the other player."
+            halign: "center"
+        
+        Label:
+            id: rules-3
+            pos_hint: {"x": 0, "top": 0.85}
+            font_size: 25
+            text_size: None, None
+            text: "B may now also turn the coin or leave it as is."
+            halign: "center"
+        
+        Label:
+            id: rules-4
+            pos_hint: {"x": 0, "top": 0.8}
+            font_size: 25
+            text_size: None, None
+            text: "A then has the third and final move."
+            halign: "center"
+        
+        Label:
+            id: rules-5
+            pos_hint: {"x": 0, "top": 0.75}
+            font_size: 25
+            text_size: None, None
+            text: "Now the coin gets revealed."
+            halign: "center"
+
+        Label:
+            id: rules-6
+            pos_hint: {"x": 0, "top": 0.7}
+            font_size: 25
+            text_size: None, None
+            text: "If it shows Heads, A wins; if it shows Tails, B wins."
+            halign: "center"  
+        
+        Button:
+            id: start_game
+            pos_hint: {"x": 0.765, "top": 0.25}
+            size_hint: 0.15, 0.07
+            text: "Start Game"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "coingamescreena1"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+<QCoinGameScreenRules>
+    name: "qcoingamescreenrules"
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "../wallpapers/background_minimal.png"
+    
+    FloatLayout:
+        Button:
+            id: back_to_seriousgames
+            pos_hint: {"x": 0.68, "top": 0.09}
+            text: "Back"
+            size_hint: 0.2, 0.05
+            font_size: 17
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "seriousgamesscreen"
+                self.background_color=(1, 0.98, 0.98, 1)
+
+        Label:
+            id: q-coin_game_header
+            pos_hint: {"x": 0, "top": 1.2}
+            font_size: 50
+            bold: True
+            text_size: None, None
+            text: "The Coin Game - Quantum"
+            halign: "center"
+        
+        Label:
+            id: traditional_rules
+            pos_hint: {"x": 0, "top": 1}
+            fonz_size: 30
+            text_size: None, None
+            text: "Additionally to the rules from the traditonal coin game"
+            halign: "center"
+        
+        Label:
+            id: qrules-1
+            pos_hint: {"x": 0, "top": 0.9}
+            font_size: 30
+            text_size: None, None
+            text: "A(lice) can now use the H-Gate aswell."
+        
+        Button:
+            id: start_game
+            pos_hint: {"x": 0.4, "top": 0.3}
+            size_hint: 0.2, 0.1
+            text: "Start Game"
+            on_press: self.background_color=(0.6, 0.16, 0.27, 1)
+            on_release: 
+                root.manager.current = "qcoingamescreena1"
+                self.background_color=(1, 0.98, 0.98, 1)
 
 <CoinGameScreenA1>
     name: "coingamescreena1"
