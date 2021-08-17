@@ -297,7 +297,7 @@ do_rasqberry_install_019() {
   do_rasqberry_install_libcint;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh
   whiptail --msgbox "Qiskit 0.19 installed" 20 60 1
-  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
+  do_install_kivy
 }
 
 do_rasqberry_install_020() {
@@ -305,7 +305,7 @@ do_rasqberry_install_020() {
   do_rasqberry_install_libcint;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit020.sh
   whiptail --msgbox "Qiskit 0.20 installed" 20 60 1
-  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
+  do_install_kivy
 }
 
 do_rasqberry_install_023() {
@@ -313,7 +313,7 @@ do_rasqberry_install_023() {
   apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh
   whiptail --msgbox "Qiskit 0.23 installed" 20 60 1
-  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
+  do_install_kivy
 }
 
 do_rasqberry_install_024() {
@@ -321,7 +321,7 @@ do_rasqberry_install_024() {
   apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit024.sh
   whiptail --msgbox "Qiskit 0.24 installed" 20 60 1
-  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
+  do_install_kivy
 }
 
 do_rasqberry_install_025() {
@@ -329,7 +329,7 @@ do_rasqberry_install_025() {
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh
   whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
-  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
+  do_install_kivy
 }
 
 do_rasqberry_install_027() {
@@ -337,7 +337,7 @@ do_rasqberry_install_027() {
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit027.sh
   whiptail --msgbox "Qiskit 0.27 installed" 20 60 1
-  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
+  do_install_kivy
 }
 
 do_rasqberry_install_028() {
@@ -347,7 +347,7 @@ do_rasqberry_install_028() {
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
   fi 
-  sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
+  do_install_kivy
 }
 
 do_rasqberry_install_latest() {
@@ -357,6 +357,10 @@ do_rasqberry_install_latest() {
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "Qiskit (latest version) installed" 20 60 1
   fi 
+  do_install_kivy
+}
+
+do_install_kivy() {
   sudo -u pi -H -- sh -c /home/pi/bin/rq_install_kivy.sh
 }
 
@@ -699,6 +703,7 @@ do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "S1 Enable VNC " "Enable mirrored and side-to-side VNC displays and configure desktop" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
+    "S3 Install Kivy" "Install needed packages for Kivy interface" \
     "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
     "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
     "S9 Toggle Messages " "Toggle info message boxes on/off" \
@@ -710,6 +715,7 @@ do_advanced_config() {
     case "$FUN" in
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
       S2\ *) do_rasqberry_enable_touch4 ;;
+      S3\ *) do_install_kivy ;;
       S7\ *) do_rasqberry_enable_LED ;;
       S8\ *) do_rasqberry_toggle_LED ;;
       S9\ *) do_toggle_messages ;;
