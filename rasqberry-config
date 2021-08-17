@@ -361,7 +361,7 @@ do_rasqberry_install_latest() {
 }
 
 do_install_kivy() {
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_kivy.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/bin/rq_install_kivy.sh
 }
 
 do_rasqberry_config_demos(){
