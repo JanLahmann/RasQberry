@@ -352,11 +352,17 @@ do_rasqberry_install_latest() {
   fi 
 }
 
+do_install_kivy() {
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/bin/rq_install_kivy.sh
+}
+
 do_rasqberry_config_demos(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
   sudo -u pi -i /home/pi/.local/bin/rq_jupyter_conf.sh
   # clone Git-Repositories
   sudo -u pi -i /home/pi/RasQberry/demos/bin/rq_clone_repos.sh
+  # install kivy
+  do_install_kivy
   # enable jupyter notebook autostart
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "enabled jupyter notebook autostart on port 8888 and 8889" 20 60 1
@@ -377,7 +383,7 @@ do_rasqberry_enable_desktop_vnc(){
     sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
     # add desktop icons and menu entries
-    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/Desktop/'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/kivy.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/.local/share/applications/'
     desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
     # add menu categories
@@ -691,6 +697,7 @@ do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "S1 Enable VNC " "Enable mirrored and side-to-side VNC displays and configure desktop" \
     "S2 Enable 4'' Display " "Setup the 4'' Display" \
+    "S3 Install Kivy" "Install needed packages for Kivy interface" \
     "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
     "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
     "S9 Toggle Messages " "Toggle info message boxes on/off" \
@@ -702,6 +709,7 @@ do_advanced_config() {
     case "$FUN" in
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
       S2\ *) do_rasqberry_enable_touch4 ;;
+      S3\ *) do_install_kivy ;;
       S7\ *) do_rasqberry_enable_LED ;;
       S8\ *) do_rasqberry_toggle_LED ;;
       S9\ *) do_toggle_messages ;;
