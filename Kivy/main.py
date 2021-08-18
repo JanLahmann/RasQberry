@@ -223,7 +223,7 @@ class Main(App):
             self.winnert = ""
             count0=counts["0"]
             count1=counts["1"]
-            superposition = 'The coin is in superposition of |0⟩ and |1⟩'
+            superposition = 'The coin is in superposition of |0> and |1>'
             self.superpositiont = superposition
             A = (100.*count0/(count0+count1))
             propA = "%.1f%%" % A
