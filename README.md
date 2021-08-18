@@ -21,13 +21,15 @@ A summary of that article has been published at hackster.io: https://www.hackste
 When you want your own RasQberry this repository is the right place!
 
 * **If you want to build your very own RasQberry**<br/> 
-Here you can find all the information to the [3D Model](./documentation/3DModel.md) you can see above itself and the [bill of material](./documentation/3DModel_BillOfMaterial.md) you will need, aswell as the [instructions](./documentation/RasQberry_Setup.md) for the setup and informations to the available [demos](./documentation/RasQberry_Demos.md).
+Here you can find all the information to the [3D Model](https://janlahmann.github.io/RasQberry/documentation/3DModel.html) you can see above itself and the [bill of material](https://janlahmann.github.io/RasQberry/documentation/3DModel_BillOfMaterial.html) you will need, aswell as the [instructions](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Setup.html) for the setup and informations to the available [demos](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Demos.html).
 
 * **If you get an RasQberry**<br/>
-Here you can find all the information on [how to use your RasQberry](./documentation/HowToUse.md) and informations to the available [demos](./documentation/RasQberry_Demos.md).
+Here you can find all the information on [how to use your RasQberry](https://janlahmann.github.io/RasQberry/documentation/HowToUse.html) and informations to the available [demos](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Demos.html).
 
 * **If you want to work with the repository**<br/>
-Here you can find all the informations on [how to contribute to the RasQberry-Repository](./documentation/HowToContribute.md)
+Here you can find all the informations on [how to contribute to the RasQberry-Repository](https://janlahmann.github.io/RasQberry/documentation/HowToContribute.html)
+
+You can find andy further informations [here](https://janlahmann.github.io/RasQberry/).
 
 ***
 
@@ -52,4 +54,4 @@ To start the tool again you can use
 
 in your terminal/ssh window.
 
-You can find the full instructions for the setup [here](./documentation/RasQberry_Setup.md).
+You can find the full instructions for the setup [here](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Setup.html).
