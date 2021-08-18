@@ -297,7 +297,6 @@ do_rasqberry_install_019() {
   do_rasqberry_install_libcint;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh
   whiptail --msgbox "Qiskit 0.19 installed" 20 60 1
-  do_install_kivy
 }
 
 do_rasqberry_install_020() {
@@ -305,7 +304,6 @@ do_rasqberry_install_020() {
   do_rasqberry_install_libcint;
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit020.sh
   whiptail --msgbox "Qiskit 0.20 installed" 20 60 1
-  do_install_kivy
 }
 
 do_rasqberry_install_023() {
@@ -313,7 +311,6 @@ do_rasqberry_install_023() {
   apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh
   whiptail --msgbox "Qiskit 0.23 installed" 20 60 1
-  do_install_kivy
 }
 
 do_rasqberry_install_024() {
@@ -321,7 +318,6 @@ do_rasqberry_install_024() {
   apt -y install libatlas-base-dev
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit024.sh
   whiptail --msgbox "Qiskit 0.24 installed" 20 60 1
-  do_install_kivy
 }
 
 do_rasqberry_install_025() {
@@ -329,7 +325,6 @@ do_rasqberry_install_025() {
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh
   whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
-  do_install_kivy
 }
 
 do_rasqberry_install_027() {
@@ -337,7 +332,6 @@ do_rasqberry_install_027() {
   apt -y install libatlas-base-dev llvm-9
   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit027.sh
   whiptail --msgbox "Qiskit 0.27 installed" 20 60 1
-  do_install_kivy
 }
 
 do_rasqberry_install_028() {
@@ -347,7 +341,6 @@ do_rasqberry_install_028() {
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
   fi 
-  do_install_kivy
 }
 
 do_rasqberry_install_latest() {
@@ -357,7 +350,6 @@ do_rasqberry_install_latest() {
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "Qiskit (latest version) installed" 20 60 1
   fi 
-  do_install_kivy
 }
 
 do_install_kivy() {
@@ -369,6 +361,8 @@ do_rasqberry_config_demos(){
   sudo -u pi -i /home/pi/.local/bin/rq_jupyter_conf.sh
   # clone Git-Repositories
   sudo -u pi -i /home/pi/RasQberry/demos/bin/rq_clone_repos.sh
+  # install kivy
+  do_install_kivy
   # enable jupyter notebook autostart
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "enabled jupyter notebook autostart on port 8888 and 8889" 20 60 1
