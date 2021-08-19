@@ -4,4 +4,6 @@
 # on port 8889
 #
 
-sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh -port 8889 &
+cd ~
+
+nohup jupyter notebook Fun-with-Quantum -port 8889 &
