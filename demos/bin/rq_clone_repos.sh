@@ -12,8 +12,6 @@ if [ ! -d Fun-with-Quantum ]; then
    echo "Cloned Fun-with-Quantum Repository"
 fi
 
-cd ~ 
-
 if [ ! -d qiskit-tutorials ]; then
    git clone https://github.com/Qiskit/qiskit-tutorials;
    echo "Cloned Qiskit-tutorials Repository"

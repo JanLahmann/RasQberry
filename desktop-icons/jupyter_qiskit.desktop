@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=Jupyter Notebook Qiskit Tutorials
+Comment=Open The Jupyter Notebook with the qiskit Tutorials in the browser
+Icon=/home/pi/RasQberry/icons/QiskitWithEars.png
+Type=Application
+Categories=HDDemos;
+Exec=/home/pi/RasQberry/demos/bin/start_jupyter_qiskit.sh
+Terminal=true
