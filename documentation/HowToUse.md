@@ -39,32 +39,11 @@ You can find the virtual keyboard in the application menu under *Accessories*.
 <br/>
 
 ## The Desktop Icons
-When you installed RasQberry on your Raspberry Pi then there should be some icon on your desktop.
+When you installed RasQberry on your Raspberry Pi then there should be an icon on your desktop.
 
-### BlochSphere Demo
-<img src="../icons/QiskitWithEars.png" alt="drawing" width="64"/> <br/>
-When you click on this icon the Bloch Sphere Demo will open.
-
-### IBM Quantum Composer
-<img src="../icons/QiskitWithEars.png" alt="drawing" width="64"/> <br/>
-When you click on this icon the IBM Quantum Composer will open in your web browser
-
-### Lights
+### Kivy Interface
 <img src="../icons/RaspberryQiskitEarsTop.png" alt="drawing" width="64"/> <br/>
-When you click on this icon, you can toogle the lights, if you connected any to your raspberry Pi.
-By your first cklcik you start the LED Lights. By your second click you stop the LED Lights.
-
-### Qiskit
-<img src="../icons/RaspberryQiskitInside.png" alt="drawing" width="64"/> <br/>
-When you click on this icon a terminal window opens in which you can see all the qiskit packages that are installed and their versions.
-
-### RasQ-LED
-<img src="../icons/RaspberryQiskitEarsTop.png" alt="drawing" width="64"/> <br/>
-When you click this icon the RasQ-LED Demo starts, if you connected any LED Lights to your Raspberry Pi.
-
-### Clear LED Lights
-<img src="../icons/RaspberryQiskitEarsTop.png" alt="drawing" width="64"/> <br/>
-When you click this icon you clear all attached LED Lights.
+When you click this icon you open the kivy user interface with which you can navigate through the demos ad serious games.
 
 ## The Applications Menu
 In the Applications Menu you can find all RasQerry Demos.<br>
