@@ -66,5 +66,10 @@ When you click this icon the RasQ-LED Demo starts, if you connected any LED Ligh
 <img src="../icons/RaspberryQiskitEarsTop.png" alt="drawing" width="64"/> <br/>
 When you click this icon you clear all attached LED Lights.
 
+## The Applications Menu
+In the Applications Menu you can find all RasQerry Demos.<br>
+Under **Demos** you'll find the Demos that you can use with your touch display an the LED Lights.<br/>
+Under **HD Demos** you'll find the Demos we would recommend using a larger screen or the second VNC Screen.<br/>
+
 [Go back to: Content](./README.md) <br/>
 [Go back to: Start Page](../README.md) 

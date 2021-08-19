@@ -4,7 +4,7 @@ To contribute you will fork the repository. By forking the RasQberry-Repository 
 Later on you can submit your changes via Pull Request.<br/>
 <br/>
 You can use the following [checklist](./RasQberry_checkList.md) to run simple, manual regresion tests and validate your modifications before creating a Pull Request.
-Please update the check list with additional tests related to your modifications, if applicapble.
+Please update the check list with additional tests related to your modifications, if applicable.
 
 ## 1. Fork the Repository
 You can fork the RasQberry-Repo easly by clicking on the `fork`-button on the top right of the window.
@@ -28,7 +28,7 @@ To update your copied repository for changes you can click on `fetch upstream` a
 If you made some changes at the same time it is possible that you will get an merge conflict. To work further on your changes you will need to resolve them.<br/>
 
 ## 2. Clone the copied repository
-After you successfully forked the RasQberry-Repo you now need to cloned on your local computer to work on it and to make some changes.<br/>
+After you successfully forked the RasQberry-Repo you now need to clone on your local computer to work on it and to make some changes.<br/>
 You can clone it either with the github desktop tool or with the terminal
 
 ### with github desktop
@@ -57,7 +57,7 @@ Hit enter to clone the repository.<br/>
 
 You can now make your changes.
 
-## 3. Push your canges on the forked repository
+## 3. Push your changes on the forked repository
 If you made some changes on your local computer you need to push them first on your forked repository before you can create a pull request to push them onto the original repository.<br/>
 
 ### with github desktop
