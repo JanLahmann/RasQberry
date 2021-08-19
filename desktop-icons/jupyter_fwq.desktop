@@ -5,5 +5,5 @@ Comment=Open The Jupyter Notebook with Fun-with-Quantum Demos in the browser
 Icon=/home/pi/RasQberry/icons/QiskitWithEars.png
 Type=Application
 Categories=HDDemos;
-Exec=sudo /home/pi/RasQberry/bin/start_jupyter_fwq.sh.sh
+Exec=sudo /home/pi/RasQberry/demos/bin/start_jupyter_fwq.sh.sh
 Terminal=true
