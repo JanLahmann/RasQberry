@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.1
-Name=Jupyter Notebook Fun-qith-Quantum
+Name=Jupyter Notebook Fun-with-Quantum
 Comment=Open The Jupyter Notebook with Fun-with-Quantum Demos in the browser
 Icon=/home/pi/RasQberry/icons/QiskitWithEars.png
 Type=Application
 Categories=HDDemos;
-Exec=/home/pi/RasQberry/bin/start_jupyter_fwq.sh.sh
+Exec=sudo /home/pi/RasQberry/bin/start_jupyter_fwq.sh.sh
 Terminal=true
