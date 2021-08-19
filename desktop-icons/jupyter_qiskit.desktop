@@ -5,5 +5,5 @@ Comment=Open The Jupyter Notebook with the qiskit Tutorials in the browser
 Icon=/home/pi/RasQberry/icons/QiskitWithEars.png
 Type=Application
 Categories=HDDemos;
-Exec=sudo /home/pi/RasQberry/demos/bin/start_jupyter_qiskit.sh
+Exec=/home/pi/RasQberry/demos/bin/start_jupyter_qiskit.sh
 Terminal=true
