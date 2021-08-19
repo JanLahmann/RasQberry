@@ -24,13 +24,13 @@ After you wrote the Raspian Image on your SD-Card you need to add a file named �
 When you added the file, you can now boot your Raspberry Pi.
 
 * **Headless (with Imager):** <br/>
-When you write the Raspberry Pi OS on your SD-Card you can enable SSH with the writing process. You can access the extend menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
+When you write the Raspberry Pi OS on your SD-Card you can enable SSH with the writing process. You can access the extended menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
 <br/>
 <p align="center">  
 <img src="../Artwork/RPi_SSH.png" alt="drawing" width="350"/> <br/>
 </p>
 <br/>
-The you can enable SSH and enter your password or pblic-key to make the authenticating process while connecting easier.
+You can enable SSH and enter your password or public-key to make the authenticating process while connecting easier.
 
 * 	**With Display:**  
 Open the terminal on your Raspberry Pi.	You can find the terminal in the applicatin menu, under *Accessories*.
@@ -101,9 +101,9 @@ Open the **config.txt**-file and **un**comment the line
 Next, open the RasQberry Configuration Tool and follow the steps below.
 1. Select `S – RasQberry Setup`
 1. Select `G0 – System Update`
-1. Select `G1 – Initial Config`
+1. Select `G1 – Initial Config`<br/>
 Your Raspberry will process the basic configurations on your device.
-1. Select `G2 – Install Qiskit`
+1. Select `G2 – Install Qiskit`<br/>
 With this step you will install Qiskit. You can choose between a few versions of Qiskit to install. The latest version is recommended.
 1. Select `S0 – Config SenseHAT`<br/>
 With this step you will configurate the SenseHAT and the qrasp demo will autostart.
@@ -132,14 +132,14 @@ This will take a moment to clone and as the case may be to open the jupyter note
 
 ## Disable the Bloch Autostart
 You can disable the autostart of the BlochSphere Demo in the RasQberry Configuration Tool. First you need to select `D – Quantum Demos` and then `D8 – Disable Bloch Autostart`.   
-The autostart is no disabled.
+The autostart is now disabled.
 
 <br/>
 
 ## Changing WIFI Settings
 If you got handed an SD-Card where the above described installation already is made and you want to connect the Raspberry with your network you can do this in different ways.<br/>
 * **Raspberry Pi Imager**<br/>
-When you write the Raspberry Pi OS on your SD-Card you can set your WIFI Settings with the writing process. You can access the extend menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
+When you write the Raspberry Pi OS on your SD-Card you can set your WIFI Settings with the writing process. You can access the extended menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
 <br/>
 <p align="center"> 
 <img src="../Artwork/RPi_WIFI.png" alt="drawing" width="350"/> <br/>
@@ -152,7 +152,7 @@ When your boot your Raspberry Pi it should automatically connect to your wifi of
 
 <br/>
 
-* **With the Raspberry Configuration Tool**
+* **With the Raspberry Configuration Tool** <br/>
 Open your terminal/ssh window.
 ```python
 Sudo raspi-config
@@ -177,15 +177,15 @@ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
 * **With the display and a (virtual) keyboard**<br/>
 First click on the WIFI-Icon in the top right corner of the screen and activate the WIFI and select your WIFI of choice.<br/> 
-If you don't have keyboard with you, you can use a virtual keyboard that comes with the Raspberry Pi OS. You can find it in the menu under `Accessories`.<br/>
+If you don't have a keyboard with you, you can use a virtual keyboard that comes with the Raspberry Pi OS. You can find it in the menu under `Accessories`.<br/>
 With the virtual keyboard you can enter the wpa-key.
 
 <br/>
 
 ## Install VNC Viewer
-To remotely access the screen of your Raspberry Pi you need to have a VNC Viewer installed on a different computer. VNC has been tested using the realVNC Viewer (https://www.realvnc.com/de/connect/download/viewer/) 
+To remotely access the screen of your Raspberry Pi you need to have a VNC Viewer installed on a different computer. VNC has been tested using the realVNC Viewer (https://www.realvnc.com/de/connect/download/viewer/) <br/>
 To connect to your Raspberry Pi you need to open your VNC Viewer.  
-In the VNC Viewer you enter the VNC server-address from your Raspberry. After that you will need to enter a username (default: pi) and a password (default: raspberry).  
+In the VNC Viewer you enter the VNC server-address from your Raspberry. After that you will need to enter a username (default: pi) and a password (default: raspberry).  <br/>
 Your VNC Viewer will now connect to your Raspberry Pi.
 
 <br/>
@@ -197,7 +197,7 @@ Put your cables on the Raspberry Pins as follows:
 * VCC-cable to Pin 4 [5V]
 * IN-cable to Pin 40 [GPIO21]
 
-You can check which Pin on your Raspberry is the right one, when you type 
+You can check which Pin on your Raspberry is the right one, with 
 ```python
 pinout 
 ```

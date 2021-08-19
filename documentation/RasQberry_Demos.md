@@ -1,7 +1,8 @@
 # RasQberry Demos
-In this repository you can find diferent demos which also work with diferent hardware components.<br/>
+In this repository you can find different demos which also work with diferent hardware components.<br/>
 
-You can access the different demos with the main menu from the Raspberry under the categpries `Demos` and `HD Demos`. When you use your RasQberry with an display you can access the demos with the Kivy Interface aswell. You can start the Kivy Interface by clicking the desktop-icon on your Desktop.
+You can access the different demos with the main menu from the Raspberry under the categpries `Demos` and `HD Demos`. When you use your RasQberry with an display you can access the demos with the Kivy Interface aswell.<br> 
+You can start the Kivy Interface by clicking the desktop-icon on your Desktop.
 
 ## Demos using a (touch) display
 ### Bloch Sphere <br/>
@@ -9,8 +10,8 @@ In quantum mechanics and computing, the Bloch sphere is a geometrical representa
 In this demo you can investigate how the Bloch Sphere behaves under curtain changes.<br/>
 
 * **Start**<br/>
-After your RasQberry Configuration the Bloch Sphere Demo should be autostarted whenever you boot your RasQberry.<br/>
-If not installed, install, start and stop this demo by opening the Rasqberry Configuration Tool, selecting `D - Quantum Demos` and then `D1 - Bloch-Sphere`. <br/>
+After your RasQberry Configuration is done the Bloch Sphere Demo should be autostarted whenever you boot your RasQberry.<br/>
+If it is not installed, install, start and stop this demo by opening the Rasqberry Configuration Tool, selecting `D - Quantum Demos` and then `D1 - Bloch-Sphere`. <br/>
 You can also start it manually by clicking on the desktop icon *BlochSphereDemo*.<br/>
 Enter fullscreen-mode by clicking on the icon on the right.<br/>
 
@@ -23,7 +24,7 @@ You can click on the Bloch Sphere and use the bottons on the left and right side
 You can turn the bloch sphere itself and view it from different angle.
 
 * **Stop**<br/>
-You can exit fullscreen-mode by clicking the icon again.
+You can exit fullscreen-mode by clicking the icon in the top right again.
 Now you can exit the demo by closing the window.
 
 The Bloch Sphere demo is based on https://github.com/JavaFXpert/grok-bloch by James Weaver.<br/>
@@ -69,7 +70,7 @@ To start the RasQ-LED Demo you need to click on the desktop icon *RasQ-LED*.
 
 <p align="center">  
     <img src="../Artwork/RasQ_LED-1.png" alt="drawing" width="300"/> <img src="../Artwork/RasQ_LED-2.png" alt="drawing" width="300"/> <br/>
-    <img src="../Artwork/RasQ_LED-3.png" alt="drawing" width="300"/> <img src="../Artwork/RasQ_LED-4.png" alt="drawing" width="300"/> <br/>
+    <img src="../Artwork/RasQ_LED-3.png" alt="drawing" width="300"/> 
 </p>
 
 * **Stop**<br/>
@@ -94,7 +95,7 @@ To stop the demo you need to select the same menu option (`D2`or `D3`) as before
 
 ### Qrasp<br/>
 The Qrasp demo is based on https://github.com/ordmoj/qrasp by Hassi Norlen.<br/>
-* **Start**
+* **Start**<br/>
 If not installed, you can install, start and stop this demo by opening the Rasqberry Configuration Tool, selecting `D - Quantum Demos` and then `D4 - Qrasp`.<br/>
 <br/>
 <p align="center"> 

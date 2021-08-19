@@ -33,7 +33,7 @@ pip3 list installed | grep jupyter
 <br/>
 
 - [ ] the Fun-with-Quantum and Qiskit-tutorials Repositories are cloned and on the RasQberry available.<br/>
-    - If cloned corretaly you can find the Repositories in your file directory under `/home/pi/`<br/>
+    - If cloned correctly you can find the Repositories in your file directory under `/home/pi/`<br/>
 - [ ] jupyter notebook autostart is enabled on ports 8888 and 8889. <br/>
     - To test if the jupyter notebook starts correctly automaticaly after the reboot go in the browser on your PC and type in the URL window: {ip address RasQberry}:{portnumber} with the portnumbers 8888 and 8889.<br/>
 - [ ] all needed packages for the SenseHAT demos are installed (Sense HAT und Sense HAT Emulator). <br/>
@@ -60,7 +60,7 @@ You can access these demos with the desktop-icons.<br/>
 <br/>
 
 The senseHAT Demos are executable:<br/>
-You can sccess these demos with the RasQberry Configuration Tool under `D - Quantum Demos`.<br/>
+You can access these demos with the RasQberry Configuration Tool under `D - Quantum Demos`.<br/>
 - [ ] Rasqberry-Tie 5<br/>
 - [ ] Rasqberry-Tie 16<br/>
 - [ ] Qrasp<br/>
