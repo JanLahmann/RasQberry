@@ -7,3 +7,4 @@
 cd ~
 
 nohup jupyter notebook Fun-with-Quantum -port 8889 &
+sleep 5
