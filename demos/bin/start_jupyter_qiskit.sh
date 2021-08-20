@@ -6,5 +6,5 @@
 
 cd ~
 
-nohup jupyter notebook qiskit-tutorials -port 8888 &
+nohup jupyter notebook qiskit-tutorials --port 8888 &
 sleep 5
