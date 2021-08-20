@@ -115,7 +115,7 @@
             background_normal: "../icons/RaspberryQiskitInside.png"
             background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
-                subprocess.Popen(['../demos/bin/rq_bloch_desktop.sh'])
+                subprocess.Popen(['/home/pi/RasQberry/demos/bin/rq_bloch_desktop.sh'])
                 root.manager.current = "smalloverlay"
         
         Label:
@@ -132,7 +132,7 @@
             background_normal: "../icons/RaspberryQiskitInside.png"
             background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
-                subprocess.Popen(['../demos/bin/rq_composer.sh'])
+                subprocess.Popen(['/home/pi/RasQberry/demos/bin/rq_composer.sh'])
                 root.manager.current = "smalloverlay"
 
         Label:
@@ -183,7 +183,7 @@
             background_normal: "../icons/RaspberryQiskitInside.png"
             background_down: "../icons/invertedRasqberryQiskitInside-2.png"
             on_release: 
-                subprocess.Popen(['../demos/bin/RasQ-LED_desktop.sh'])
+                subprocess.Popen(['/home/pi/RasQberry/demos/bin/RasQ-LED_desktop.sh'])
                 root.manager.current = "smalloverlay"
         
         Label:
