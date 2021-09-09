@@ -2,7 +2,6 @@
 #
 echo; echo; echo "Bloch Sphere Demo"
 
-export DISPLAY=:0
 cd ~
 
 if [ ! -d rasqberry-grok-bloch ]; then

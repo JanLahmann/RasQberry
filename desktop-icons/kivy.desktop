@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.1
-Name=Lights
-Comment=Toggle Lights
+Name=Kivy Interface
+Comment=Open the Kivy GUI
 Icon=/home/pi/RasQberry/icons/RaspberryQiskitEarsTop.png
 Type=Application
-Categories=Demos;
-Exec=sudo /home/pi/.local/bin/rq_light_desktop.sh
+Categories=GUI;
+Exec=python3 /home/pi/RasQberry/Kivy/main.py
 Terminal=true

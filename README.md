@@ -21,7 +21,37 @@ A summary of that article has been published at hackster.io: https://www.hackste
 When you want your own RasQberry this repository is the right place!
 
 * **If you want to build your very own RasQberry**<br/> 
-Here you can find all the information to the [3D Model](./documentation/3DModel.md) you can see above itself and the [bill of material](./documentation/3DModel_BillOfMaterial.md) you will need, aswell as the [instructions](./documentation/RasQberry_Setup.md) for the setup and informations to the available [demos](./documentation/RasQberry_Demos.md).
+Here you can find all the information to the [3D Model](https://janlahmann.github.io/RasQberry/documentation/3DModel.html) you can see above itself and the [bill of material](https://janlahmann.github.io/RasQberry/documentation/3DModel_BillOfMaterial.html) you will need, aswell as the [instructions](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Setup.html) for the setup and informations to the available [demos](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Demos.html).
 
 * **If you get an RasQberry**<br/>
-Here you can find all the information on [how to use your RasQberry](./documentation/HowToUse.md) and informations to the available [demos](./documentation/RasQberry_Demos.md).
+Here you can find all the information on [how to use your RasQberry](https://janlahmann.github.io/RasQberry/documentation/HowToUse.html) and informations to the available [demos](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Demos.html).
+
+* **If you want to work with the repository**<br/>
+Here you can find all the informations on [how to contribute to the RasQberry-Repository](https://janlahmann.github.io/RasQberry/documentation/HowToContribute.html)
+
+You can find andy further informations [here](https://janlahmann.github.io/RasQberry/).
+
+***
+
+## Quick Installation of RasQberry
+When you already have a RasQberry that you can use you can install RasQberry in just a very few moments.<br/>
+Open the terminal/ssh window on your Raspberry Pi.
+```python
+pip3 install getgist
+.local/bin/getgist -y JanLahmann RasQ-init.sh
+. ./RasQ-init.sh
+```
+<p align="center"> 
+    <img src="./Artwork/rasqberry_config-1.png" alt="drawing"/> <img src="./Artwork/rasqberry_config-2.png" alt="drawing"/> 
+</p>
+
+This will download and start the RasQberry Configuration Tool (rasqberry-config) in your terminal. It is similar to the well-known raspi-config and can also be used for some basic configurations. 
+To start the tool again you can use 
+
+```pyhton 
+. ./RasQ-init.sh 
+````
+
+in your terminal/ssh window.
+
+You can find the full instructions for the setup [here](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Setup.html).
