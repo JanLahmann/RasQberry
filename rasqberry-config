@@ -343,6 +343,15 @@ do_rasqberry_install_028() {
   fi 
 }
 
+do_rasqberry_install_029() {
+  echo; echo "Install Qiskit 0.29"; echo;
+  apt -y install libatlas-base-dev
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit029.sh
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
+  fi 
+}
+
 do_rasqberry_install_latest() {
   echo; echo "Install Qiskit (latest version)"; echo;
   apt -y install libatlas-base-dev
@@ -641,6 +650,7 @@ do_rasqberry_demos() {
 
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "Q29 Qiskit 0.29" "Install Qiskit v0.29" \
     "Q28 Qiskit 0.28" "Install Qiskit v0.28" \
     "Q27 Qiskit 0.27" "Install Qiskit v0.27" \
     "Q25 Qiskit 0.25" "Install Qiskit v0.25" \
@@ -662,6 +672,7 @@ do_rasqberry_install_qiskit() {
       Q25\ *) do_rasqberry_install_025 ;;
       Q27\ *) do_rasqberry_install_027 ;;
       Q28\ *) do_rasqberry_install_028 ;;
+      Q29\ *) do_rasqberry_install_029 ;;
       Q00\ *) do_rasqberry_install_latest ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
