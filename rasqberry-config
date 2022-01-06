@@ -361,6 +361,15 @@ do_rasqberry_install_030() {
   fi 
 }
 
+do_rasqberry_install_034() {
+  echo; echo "Install Qiskit 0.34"; echo;
+  apt -y install libatlas-base-dev
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit034.sh
+  if [ "$INTERACTIVE" = True ]; then
+    rq_messages && whiptail --msgbox "Qiskit 0.34 installed" 20 60 1
+  fi 
+}
+
 do_rasqberry_install_latest() {
   echo; echo "Install Qiskit (latest version)"; echo;
   apt -y install libatlas-base-dev
@@ -684,6 +693,7 @@ do_rasqberry_install_qiskit() {
       Q28\ *) do_rasqberry_install_028 ;;
       Q29\ *) do_rasqberry_install_029 ;;
       Q30\ *) do_rasqberry_install_030 ;;
+      Q34\ *) do_rasqberry_install_034 ;;
       Q00\ *) do_rasqberry_install_latest ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
