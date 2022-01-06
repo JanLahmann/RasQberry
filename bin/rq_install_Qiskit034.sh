@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# installation of Qiskit 0.29
+# installation of Qiskit 0.34
 #
 
 export STARTDATE=`date`
