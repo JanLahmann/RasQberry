@@ -669,6 +669,7 @@ do_rasqberry_demos() {
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q00 Qiskit" "Install Qiskit (latest version)" \
+    "Q34 Qiskit 0.34" "Install Qiskit v0.34" \
     "Q30 Qiskit 0.30" "Install Qiskit v0.30" \
     "Q29 Qiskit 0.29" "Install Qiskit v0.29" \
     "Q28 Qiskit 0.28" "Install Qiskit v0.28" \
