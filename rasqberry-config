@@ -754,7 +754,7 @@ do_advanced_config() {
     #"S3 Install Kivy" "Install needed packages for Kivy interface" \
     #"S7 Enable LED Light" "Setup LED Ring above Kryostat" \
     #"S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
-    #"S9 Toggle Messages " "Toggle info message boxes on/off" \
+    "S9 Toggle Messages " "Toggle info message boxes on/off" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
