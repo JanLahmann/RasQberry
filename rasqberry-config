@@ -409,6 +409,8 @@ do_rasqberry_enable_desktop_vnc(){
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
     # add desktop icons and menu entries
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/kivy.desktop /home/pi/Desktop/'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/bloch.desktop /home/pi/Desktop/'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/composer.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/.local/share/applications/'
     desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
     # add menu categories
@@ -434,6 +436,12 @@ do_rasqberry_enable_desktop_vnc(){
     # install virtual keyboard
     apt -y install matchbox-keyboard
 
+    # check if GL2/GL3 driver is enabled
+    rq_check_gldriver
+
+    # install kivy
+    sudo -u pi -H -- sh -c /home/pi/RasQberry/bin/rq_install_kivy.sh
+
     # enable light
     do_rasqberry_enable_LED
     # enable VNC
@@ -448,6 +456,7 @@ do_rasqberry_enable_desktop_vnc(){
       rq_messages && whiptail --msgbox "enabled second vnc <ip address>:5902" 20 60 1
     fi 
     echo "@/home/pi/RasQberry/bin/vnc_side-to-side.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+    reboot
   fi
 }
 
