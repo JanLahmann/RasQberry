@@ -725,7 +725,7 @@ do_rasqberry_setup() {
       G0\ *) do_rasqberry_update ;;
       G1\ *) do_rq_initial_config ;;
       G2\ *) do_rasqberry_install_034 ;;
-      D0\ *) do_rq_display_config ;
+      D0\ *) do_rq_display_config ;;
       D2\ *) do_rasqberry_config_demos ;;
       S0\ *) do_rq_setup_SenseHAT ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
