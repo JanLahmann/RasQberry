@@ -403,6 +403,8 @@ do_rasqberry_enable_desktop_vnc(){
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
     # add desktop icons and menu entries
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/kivy.desktop /home/pi/Desktop/'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/bloch.desktop /home/pi/Desktop/'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/composer.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/.local/share/applications/'
     desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
     # add menu categories
@@ -692,7 +694,7 @@ do_rasqberry_install_qiskit() {
 
 do_rq_display_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Display Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "D1 Enable VNC " "Enable mirrored and side-to-side VNC displays and configure desktop" \
+    "D1 Enable VNC " "Config Desktop and enable mirrored and side-to-side VNC" \
     "D2 Enable 4'' Display " "Setup the 4'' Display" \
     "D3 Calibrate 4'' Display " "Calibrate the 4'' Display" \
     3>&1 1>&2 2>&3)
