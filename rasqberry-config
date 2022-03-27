@@ -749,12 +749,12 @@ do_rasqberry_setup() {
 do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q1 Install Qiskit " "Install Qiskit (several versions)" \ 
-    "S21 Enable 4'' Display " "Setup the 4inch Display - Part 1" \
-    "S22 Enable 4'' Display " "Setup the 4inch Display - Part 2" \
-    "S3 Install Kivy" "Install needed packages for Kivy interface" \
-    "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
-    "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
-    "S9 Toggle Messages " "Toggle info message boxes on/off" \
+    #"S21 Enable 4'' Display " "Setup the 4inch Display - Part 1" \
+    #"S22 Enable 4'' Display " "Setup the 4inch Display - Part 2" \
+    #"S3 Install Kivy" "Install needed packages for Kivy interface" \
+    #"S7 Enable LED Light" "Setup LED Ring above Kryostat" \
+    #"S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
+    #"S9 Toggle Messages " "Toggle info message boxes on/off" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
