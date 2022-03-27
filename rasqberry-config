@@ -457,7 +457,7 @@ do_rasqberry_enable_desktop_vnc(){
   fi
 }
 
-do_rasqberry_enable_touch4-1(){
+do_rasqberry_enable_touch41(){
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "enable touch display\\nPArt 1 " 20 60 1
   fi 
@@ -472,7 +472,7 @@ do_rasqberry_enable_touch4-1(){
   fi
 }
 
-do_rasqberry_enable_touch4-2(){
+do_rasqberry_enable_touch42(){
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "enable touch display\\nPart 2 " 20 60 1
   fi 
@@ -564,8 +564,8 @@ do_rq_setup_bloch_autostart(){
   do_rasqberry_enable_desktop_vnc
 
   # enable touch display
-  do_rasqberry_enable_touch4-1
-  do_rasqberry_enable_touch4-2
+  do_rasqberry_enable_touch41
+  do_rasqberry_enable_touch42
 
   # check if GL2/GL3 driver is enabled
   if [ ! -f /home/pi/RasQberry/.kms-gl-enabled ]; then 
@@ -755,8 +755,8 @@ do_advanced_config() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       S1\ *) do_rasqberry_enable_desktop_vnc ;;
-      S21\ *) do_rasqberry_enable_touch4-1 ;;
-      S22\ *) do_rasqberry_enable_touch4-2 ;;
+      S21\ *) do_rasqberry_enable_touch41 ;;
+      S22\ *) do_rasqberry_enable_touch42 ;;
       S3\ *) do_install_kivy ;;
       S7\ *) do_rasqberry_enable_LED ;;
       S8\ *) do_rasqberry_toggle_LED ;;
