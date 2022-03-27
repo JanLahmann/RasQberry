@@ -562,7 +562,7 @@ do_rq_setup_bloch_autostart(){
     fi
     echo "@/home/pi/RasQberry/demos/bin/rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
     touch /home/pi/RasQberry/.bloch_autorun_enabled
-    touch /home/pi/RasQberry/.bloch_autorun_asked
+    touch /home/pi/RasQberry/.bloch_autorun_askedf
     ASK_TO_REBOOT=1
   fi
   
@@ -714,8 +714,8 @@ do_rasqberry_setup() {
     "G0 System Update " "Update the system and create swapfile" \
     "G1 Initial Config " "Basic configurations (PATH, etc)" \
     "G2 Install Qiskit" "Install Qiskit 0.34" \
+    "G3 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "D0 Display Config" "Configure Display, VNC, etc" \
-    "D2 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "S0 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
     3>&1 1>&2 2>&3)
   RET=$?
@@ -726,8 +726,8 @@ do_rasqberry_setup() {
       G0\ *) do_rasqberry_update ;;
       G1\ *) do_rq_initial_config ;;
       G2\ *) do_rasqberry_install_034 ;;
+      G3\ *) do_rasqberry_config_demos ;;
       D0\ *) do_rq_display_config ;;
-      D2\ *) do_rasqberry_config_demos ;;
       S0\ *) do_rq_setup_SenseHAT ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
