@@ -748,7 +748,7 @@ do_rasqberry_setup() {
 
 do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "G2 Install Qiskit" "Install Qiskit (several versions)" \ 
+    "Q1 Install Qiskit" "Install Qiskit (several versions)" \ 
     "S21 Enable 4'' Display " "Setup the 4'' Display - Part 1" \
     "S22 Enable 4'' Display " "Setup the 4'' Display - Part 2" \
     "S3 Install Kivy" "Install needed packages for Kivy interface" \
