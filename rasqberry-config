@@ -554,8 +554,6 @@ do_rq_setup_bloch_autostart(){
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "starting do_rq_setup_bloch_autostart" 20 60 1
   fi
-  # enable vnc and configure desktop
-  do_rasqberry_enable_desktop_vnc
 
   # enable autostart
   if [ ! -f /home/pi/RasQberry/.bloch_autorun_enabled ]; then
