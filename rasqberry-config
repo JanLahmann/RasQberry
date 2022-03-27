@@ -518,7 +518,7 @@ do_rasqberry_activate_bloch_autostart(){
     RET=$?
     if [ $RET -eq 0 ]; then #selected yes
       #whiptail --msgbox "selected yes" 20 60 1
-      echo "@rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+      echo "@/home/pi/RasQberry/demos/bin/rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
       touch /home/pi/RasQberry/.bloch_autorun_enabled
       touch /home/pi/RasQberry/.bloch_autorun_asked
     else # selected no
@@ -721,8 +721,8 @@ do_rasqberry_setup() {
     "G1 Initial Config " "Basic configurations (PATH, etc)" \
     "G2 Install Qiskit" "Install Qiskit 0.34" \
     "G3 Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
-    "T21 Enable 4'' Display " "Setup the 4'' Display - Part 1" \
-    "T22 Enable 4'' Display " "Setup the 4'' Display - Part 2" \
+    "T21 Enable 4'' Display " "(OPTIONAL) Setup the 4'' Display - Part 1" \
+    "T22 Enable 4'' Display " "(OPTIONAL) Setup the 4'' Display - Part 2" \
     "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
     "D2 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "S0 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
