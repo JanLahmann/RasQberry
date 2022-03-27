@@ -436,11 +436,11 @@ do_rasqberry_enable_desktop_vnc(){
     # install virtual keyboard
     apt -y install matchbox-keyboard
 
-    # check if GL2/GL3 driver is enabled
-    rq_check_gldriver
-
     # install kivy
     sudo -u pi -H -- sh -c /home/pi/RasQberry/bin/rq_install_kivy.sh
+
+    # check if GL2/GL3 driver is enabled
+    rq_check_gldriver
 
     # enable light
     do_rasqberry_enable_LED
