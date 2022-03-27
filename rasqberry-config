@@ -562,7 +562,7 @@ do_rq_setup_bloch_autostart(){
     fi
     echo "@/home/pi/RasQberry/demos/bin/rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
     touch /home/pi/RasQberry/.bloch_autorun_enabled
-    touch /home/pi/RasQberry/.bloch_autorun_askedf
+    touch /home/pi/RasQberry/.bloch_autorun_asked
     ASK_TO_REBOOT=1
   fi
   
@@ -716,7 +716,7 @@ do_rasqberry_setup() {
     "G2 Install Qiskit" "Install Qiskit 0.34" \
     "G3 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "D0 Display Config" "Configure Display, VNC, etc" \
-    "S0 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
+    "S0 SenseHAT Config " "Configure SenseHAT with qrasp autostart" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then

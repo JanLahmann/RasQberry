@@ -7,7 +7,7 @@ cd ~
 # check if Bloch demo is installed
 if [ ! -d rasqberry-grok-bloch ]; then
    git clone https://github.com/JanLahmann/rasqberry-grok-bloch;
-   whiptail --msgbox "Bloch demo code downloaded." 20 60 1
+   # whiptail --msgbox "Bloch demo code downloaded." 20 60 1
 fi
 
 
