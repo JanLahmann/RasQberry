@@ -562,7 +562,7 @@ do_rq_setup_bloch_autostart(){
     rq_messages && whiptail --msgbox "starting do_rq_setup_bloch_autostart" 20 60 1
   fi
   # enable vnc and configure desktop
-  do_rasqberry_enable_desktop_vnc
+  #do_rasqberry_enable_desktop_vnc
 
   # enable touch display
   do_rasqberry_enable_touch41
@@ -719,9 +719,12 @@ do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "G0 System Update " "Update the system and create swapfile" \
     "G1 Initial Config " "Basic configurations (PATH, etc)" \
-    "G2 Install Qiskit" "Install Qiskit (several versions)" \
-    "D0 Bloch Autostart " "Setup Autostart for Bloch Demo" \
-    "D1 Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "G2 Install Qiskit" "Install Qiskit 0.34" \
+    "G3 Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
+    "T21 Enable 4'' Display " "Setup the 4'' Display - Part 1" \
+    "T22 Enable 4'' Display " "Setup the 4'' Display - Part 2" \
+    "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
+    "D2 Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "S0 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
     3>&1 1>&2 2>&3)
   RET=$?
@@ -731,9 +734,12 @@ do_rasqberry_setup() {
     case "$FUN" in
       G0\ *) do_rasqberry_update ;;
       G1\ *) do_rq_initial_config ;;
-      G2\ *) do_rasqberry_install_qiskit ;;
-      D0\ *) do_rq_setup_bloch_autostart ;;
-      D1\ *) do_rasqberry_config_demos ;;
+      G2\ *) do_rasqberry_install_034 ;;
+      G3\ *) do_rasqberry_enable_desktop_vnc ;;
+      T21\ *) do_rasqberry_enable_touch41 ;;
+      T22\ *) do_rasqberry_enable_touch42 ;;
+      D1\ *) do_rasqberry_run_bloch ;;
+      D2\ *) do_rasqberry_config_demos ;;
       S0\ *) do_rq_setup_SenseHAT ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
@@ -742,7 +748,7 @@ do_rasqberry_setup() {
 
 do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "S1 Enable VNC " "Enable mirrored and side-to-side VNC displays and configure desktop" \
+    "G2 Install Qiskit" "Install Qiskit (several versions)" \ 
     "S21 Enable 4'' Display " "Setup the 4'' Display - Part 1" \
     "S22 Enable 4'' Display " "Setup the 4'' Display - Part 2" \
     "S3 Install Kivy" "Install needed packages for Kivy interface" \
@@ -755,7 +761,7 @@ do_advanced_config() {
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      S1\ *) do_rasqberry_enable_desktop_vnc ;;
+      Q1\ *) do_rasqberry_install_qiskit ;;
       S21\ *) do_rasqberry_enable_touch41 ;;
       S22\ *) do_rasqberry_enable_touch42 ;;
       S3\ *) do_install_kivy ;;
