@@ -448,6 +448,7 @@ do_rasqberry_enable_desktop_vnc(){
       rq_messages && whiptail --msgbox "enabled second vnc <ip address>:5902" 20 60 1
     fi 
     echo "@/home/pi/RasQberry/bin/vnc_side-to-side.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+    reboot
   fi
 }
 
