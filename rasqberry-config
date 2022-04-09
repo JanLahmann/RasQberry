@@ -260,7 +260,7 @@ do_rasqberry_update() {
   /etc/init.d/dphys-swapfile start
   apt update
   apt -y full-upgrade
-  reboot
+  #reboot
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "Please exit and reboot" 20 60 1
   fi
@@ -292,15 +292,22 @@ do_rq_enable_docker() {
 }
 
 do_rasqberry_Qoffee_install() {
-  newgrp docker
+  #newgrp docker
   docker version
   cd /home/pi/
   git clone https://github.com/JanLahmann/Qoffee-Maker
   cd Qoffee-Maker/
-  # EDIT DockerfileArm and add "RUN npm cache clean --force" before step 3
   docker build -f DockerfileArm -t qoffee .
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
+  fi
+}
+
+do_rasqberry_Qoffee_run() {
+  cd /home/pi/Qoffee-Maker/
+  docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest
+  if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Qoffee-Maker Demo started" 20 60 1
   fi
 }
 
@@ -680,6 +687,7 @@ do_led_lights_off(){
 do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo" \
+    "Q1 Qoffee-Maker" "Start Qoffee-Maker" \
     "D2 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
     "D3 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
     "D4 Qrasp " "Install/Start/Stop the Qrasp Demo" \
@@ -694,6 +702,7 @@ do_rasqberry_demos() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       D1\ *) do_rasqberry_run_bloch ;;
+      Q1\ *) do_rasqberry_Qoffee_run ;;
       D2\ *) do_rasqberry_run_rasptie_no_network ;;
       D3\ *) do_rasqberry_run_rasptie16_no_network ;;
       D4\ *) do_rasqberry_run_qrasp ;;
