@@ -284,20 +284,22 @@ do_rq_enable_docker() {
   curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
   apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
-  usermod -aG docker $USER
+  usermod -aG docker pi
   systemctl enable docker
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "docker installed and enabled" 20 60 1
+      rq_messages && whiptail --msgbox "Please exit and reboot" 20 60 1
   fi
+  ASK_TO_REBOOT=1
 }
 
 do_rasqberry_Qoffee_install() {
   #newgrp docker
   docker version
   cd /home/pi/
-  git clone https://github.com/JanLahmann/Qoffee-Maker
+  sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker'
   cd Qoffee-Maker/
-  docker build -f DockerfileArm -t qoffee .
+  sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee .'
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
   fi
@@ -305,7 +307,7 @@ do_rasqberry_Qoffee_install() {
 
 do_rasqberry_Qoffee_run() {
   cd /home/pi/Qoffee-Maker/
-  docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest
+  sudo -u pi -H -- sh -c 'docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest'
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "Qoffee-Maker Demo started" 20 60 1
   fi
