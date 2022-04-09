@@ -260,10 +260,10 @@ do_rasqberry_update() {
   /etc/init.d/dphys-swapfile start
   apt update
   apt -y full-upgrade
+  reboot
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "Please exit and reboot" 20 60 1
   fi
-
   ASK_TO_REBOOT=1
 }
 
@@ -273,8 +273,39 @@ do_rq_initial_config() {
   ) >> /home/pi/.bashrc && . /home/pi/.bashrc
   #install bluetooth manager blueman
   apt -y install blueman
+  # fix locale
+  bash -c 'cat <<EOF > /etc/default/locale
+  LANG=en_GB.UTF-8
+  LC_CTYPE=en_GB.UTF-8
+  LC_MESSAGES=en_GB.UTF-8
+  LC_ALL=en_GB.UTF-8
+  EOF'
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "initial config completed" 20 60 1
+  fi
+}
+
+do_rq_enable_docker() {
+  curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+  apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
+  usermod -aG docker $USER
+  systemctl enable docker
+  if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "docker installed and enabled" 20 60 1
+  fi
+}
+
+do_rasqberry_Qoffee_install() {
+  newgrp docker
+  docker version
+  cd /home/pi/
+  git clone https://github.com/JanLahmann/Qoffee-Maker
+  cd Qoffee-Maker/
+  # EDIT DockerfileArm and add "RUN npm cache clean --force" before step 3
+  docker build -f DockerfileArm -t qoffee .
+  if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
   fi
 }
 
@@ -717,14 +748,16 @@ do_rasqberry_install_qiskit() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "G0 System Update " "Update the system and create swapfile" \
-    "G1 Initial Config " "Basic configurations (PATH, etc)" \
+    "G0 Initial Config " "Basic configurations (PATH, LOCALE, etc)" \
+    "G1 System Update " "Update the system and create swapfile" \
     "G2 Install Qiskit" "Install Qiskit 0.34" \
     "G3 Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
     "T21 Enable 4'' Display " "(OPTIONAL) Setup the 4'' Display - Part 1" \
     "T22 Enable 4'' Display " "(OPTIONAL) Setup the 4'' Display - Part 2" \
     "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
     "D2 Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "Q1 Docker" "Install & Enable Docker" \
+    "Q2 Qoffee-Maker " "Install Qoffee-Maker Demo" \
     "S0 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
     3>&1 1>&2 2>&3)
   RET=$?
@@ -732,14 +765,16 @@ do_rasqberry_setup() {
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      G0\ *) do_rasqberry_update ;;
-      G1\ *) do_rq_initial_config ;;
+      G0\ *) do_rq_initial_config ;;
+      G1\ *) do_rasqberry_update ;;
       G2\ *) do_rasqberry_install_034 ;;
       G3\ *) do_rasqberry_enable_desktop_vnc ;;
       T21\ *) do_rasqberry_enable_touch41 ;;
       T22\ *) do_rasqberry_enable_touch42 ;;
       D1\ *) do_rasqberry_run_bloch ;;
       D2\ *) do_rasqberry_config_demos ;;
+      Q1\ *) do_rq_enable_docker ;;
+      Q2\ *) do_rasqberry_Qoffee_install ;; 
       S0\ *) do_rq_setup_SenseHAT ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
