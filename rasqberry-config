@@ -274,12 +274,7 @@ do_rq_initial_config() {
   #install bluetooth manager blueman
   apt -y install blueman
   # fix locale
-  bash -c 'cat <<EOF > /etc/default/locale
-  LANG=en_GB.UTF-8
-  LC_CTYPE=en_GB.UTF-8
-  LC_MESSAGES=en_GB.UTF-8
-  LC_ALL=en_GB.UTF-8
-  EOF'
+  echo "LANG=en_GB.UTF-8\nLC_CTYPE=en_GB.UTF-8\nLC_MESSAGES=en_GB.UTF-8\nLC_ALL=en_GB.UTF-8" > /etc/default/locale  
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "initial config completed" 20 60 1
   fi
