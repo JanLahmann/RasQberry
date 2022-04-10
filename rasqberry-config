@@ -490,6 +490,9 @@ do_rasqberry_enable_desktop_vnc(){
       rq_messages && whiptail --msgbox "enabled second vnc <ip address>:5902" 20 60 1
     fi 
     echo "@/home/pi/RasQberry/bin/vnc_side-to-side.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+    if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Desktop and VNC are enabled.\\nSystem will reboot now" 20 60 1
+    fi 
     reboot
   fi
 }
@@ -593,6 +596,7 @@ do_rasqberry_run_bloch(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_bloch.sh
 }
 
+# THIS IS NOT USED ANYMORE !
 do_rq_setup_bloch_autostart(){
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "starting do_rq_setup_bloch_autostart" 20 60 1

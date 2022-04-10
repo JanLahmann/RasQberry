@@ -4,16 +4,6 @@
 # /usr/bin/python3 /home/pi/.local/bin/Button-action.py
 #  
 
-from gpiozero import Button
-import os
-
-Button(21).wait_for_press()
-os.system("touch /home/pi/buttonpressed-rclocal")
-os.system("sleep 1")
-#os.system("sudo poweroff")
-
-
-
 from gpiozero import Button, LED
 from signal import pause
 from time import sleep
@@ -44,7 +34,7 @@ def shutdown():
     os.system("touch /home/pi/shutdown")
     sleep(10)
     led.off()
-    check_call(['touch', 'shutdown-held'])
+    check_call(['touch', '/home/pi/shutdown-held2'])
 
 button.when_pressed = say_hello
 button.when_released = say_goodbye
