@@ -293,19 +293,20 @@ do_rq_enable_docker() {
   ASK_TO_REBOOT=1
 }
 
-do_rasqberry_Qoffee_install() {
-  #newgrp docker
-  docker version
-  cd /home/pi/
-  sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker'
-  cd Qoffee-Maker/
-  sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee .'
-  if [ "$INTERACTIVE" = True ]; then
-      rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
+do_rasqberry_Qoffee() {
+  # check if Qoffee-Maker docker image needs to be build
+  if [ ! -f /home/pi/RasQberry/.Qoffee_installed ]; then  
+    #newgrp docker
+    docker version
+    cd /home/pi/
+    sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker'
+    cd Qoffee-Maker/
+    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee . && touch /home/pi/RasQberry/.Qoffee_installed'
+    if [ "$INTERACTIVE" = True ]; then
+        rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
+    fi
   fi
-}
-
-do_rasqberry_Qoffee_run() {
+  # start Qoffee-Maker docker image
   cd /home/pi/Qoffee-Maker/
   sudo -u pi -H -- sh -c 'docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest'
   if [ "$INTERACTIVE" = True ]; then
@@ -688,30 +689,30 @@ do_led_lights_off(){
 
 do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo" \
-    "Q1 Qoffee-Maker" "Start Qoffee-Maker" \
-    "D2 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
-    "D3 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
-    "D4 Qrasp " "Install/Start/Stop the Qrasp Demo" \
-    "D5 Clear SenseHAT" "Clear SenseHAT Display" \
-    "D6 Clear LED" "Clear LED Lights" \
-    "D7 Update Q Token" "Enter new IBM Quantum Experience Token" \
-    "D8 Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
+    "BS Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
+    "QM Qoffee-Maker" "Install/Start Qoffee-Maker" \
+    "RT5 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
+    "RT16 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
+    "QR Qrasp " "Install/Start/Stop the Qrasp Demo" \
+    "CS Clear SenseHAT" "Clear SenseHAT Display" \
+    "CL Clear LED" "Clear LED Lights" \
+    "UT Update Q Token" "Enter new IBM Quantum Experience Token" \
+    "DB Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      D1\ *) do_rasqberry_run_bloch ;;
-      Q1\ *) do_rasqberry_Qoffee_run ;;
-      D2\ *) do_rasqberry_run_rasptie_no_network ;;
-      D3\ *) do_rasqberry_run_rasptie16_no_network ;;
-      D4\ *) do_rasqberry_run_qrasp ;;
-      D5\ *) do_sensehat_display_off ;;
-      D6\ *) do_led_lights_off ;;
-      D7\ *) do_rasqberry_qtoken_update ;;
-      D8\ *) do_rasqberry_deactivate_bloch_autostart ;;
+      BS\ *) do_rasqberry_run_bloch ;;
+      QM\ *) do_rasqberry_Qoffee ;;
+      RT5\ *) do_rasqberry_run_rasptie_no_network ;;
+      RT16\ *) do_rasqberry_run_rasptie16_no_network ;;
+      QR\ *) do_rasqberry_run_qrasp ;;
+      CS\ *) do_sensehat_display_off ;;
+      CL\ *) do_led_lights_off ;;
+      UT\ *) do_rasqberry_qtoken_update ;;
+      DB\ *) do_rasqberry_deactivate_bloch_autostart ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
@@ -754,34 +755,26 @@ do_rasqberry_install_qiskit() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "G0 Initial Config " "Basic configurations (PATH, LOCALE, etc)" \
-    "G1 System Update " "Update the system and create swapfile" \
-    "G2 Install Qiskit" "Install Qiskit 0.34" \
-    "G3 Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
-    "T21 Enable 4'' Display " "(OPTIONAL) Setup the 4'' Display - Part 1" \
-    "T22 Enable 4'' Display " "(OPTIONAL) Setup the 4'' Display - Part 2" \
-    "D1 Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
-    "D2 Config & Demos " "Configure Qiskit and install Quantum Demos" \
-    "Q1 Docker" "Install & Enable Docker" \
-    "Q2 Qoffee-Maker " "Install Qoffee-Maker Demo" \
-    "S0 Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
+    "BC Initial Config " "Basic configurations (PATH, LOCALE, etc)" \
+    "SU System Update " "Update the system and create swapfile" \
+    "Q34 Install Qiskit" "Install Qiskit 0.34" \
+    "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
+    "CD Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "D Docker" "Install & Enable Docker" \
+    "SH Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      G0\ *) do_rq_initial_config ;;
-      G1\ *) do_rasqberry_update ;;
-      G2\ *) do_rasqberry_install_034 ;;
-      G3\ *) do_rasqberry_enable_desktop_vnc ;;
-      T21\ *) do_rasqberry_enable_touch41 ;;
-      T22\ *) do_rasqberry_enable_touch42 ;;
-      D1\ *) do_rasqberry_run_bloch ;;
-      D2\ *) do_rasqberry_config_demos ;;
-      Q1\ *) do_rq_enable_docker ;;
-      Q2\ *) do_rasqberry_Qoffee_install ;; 
-      S0\ *) do_rq_setup_SenseHAT ;;
+      BC\ *) do_rq_initial_config ;;
+      SU\ *) do_rasqberry_update ;;
+      Q34\ *) do_rasqberry_install_034 ;;
+      DV\ *) do_rasqberry_enable_desktop_vnc ;;
+      CD\ *) do_rasqberry_config_demos ;;
+      D\ *) do_rq_enable_docker ;;
+      SH\ *) do_rq_setup_SenseHAT ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
@@ -789,26 +782,26 @@ do_rasqberry_setup() {
 
 do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "Q1 Install Qiskit " "Install Qiskit (several versions)" \
-    "S21 Enable 4'' Display " "Setup the 4inch Display - Part 1" \
-    "S22 Enable 4'' Display " "Setup the 4inch Display - Part 2" \
-    "S3 Install Kivy" "Install needed packages for Kivy interface" \
-    "S7 Enable LED Light" "Setup LED Ring above Kryostat" \
-    "S8 Toggle LED Light" "Start/Stop LED above Kryostat" \
-    "S9 Toggle Messages " "Toggle info message boxes on/off" \
+    "Q Install Qiskit " "Install Qiskit (several versions)" \
+    "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
+    "4Db Enable 4'' Display " "Setup the 4inch Display - Part 2" \
+    "KV Install Kivy" "Install needed packages for Kivy interface" \
+    "LE Enable LED Light" "Setup LED Ring above Kryostat" \
+    "LT Toggle LED Light" "Start/Stop LED above Kryostat" \
+    "Msg Toggle Messages " "Toggle info message boxes on/off" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      Q1\ *) do_rasqberry_install_qiskit ;;
-      S21\ *) do_rasqberry_enable_touch41 ;;
-      S22\ *) do_rasqberry_enable_touch42 ;;
-      S3\ *) do_install_kivy ;;
-      S7\ *) do_rasqberry_enable_LED ;;
-      S8\ *) do_rasqberry_toggle_LED ;;
-      S9\ *) do_toggle_messages ;;
+      Q\ *) do_rasqberry_install_qiskit ;;
+      4Da\ *) do_rasqberry_enable_touch41 ;;
+      4Db\ *) do_rasqberry_enable_touch42 ;;
+      KV\ *) do_install_kivy ;;
+      LE\ *) do_rasqberry_enable_LED ;;
+      LT\ *) do_rasqberry_toggle_LED ;;
+      Msg\ *) do_toggle_messages ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
@@ -831,16 +824,16 @@ do_clone_fwq_start_jupyter() {
 
 do_hd_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "HD Demos" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "Q1 Qiskit Tutorials - internal browser" "Start jupyter notebook with Qiskit-Tutorials" \
-    "F1 Fun-with-Quantum - internal browser" "Start jupyter notebook with Fun-with-Quantum" \
+    "QT Qiskit Tutorials - internal browser" "Start jupyter notebook with Qiskit-Tutorials" \
+    "FwQ Fun-with-Quantum - internal browser" "Start jupyter notebook with Fun-with-Quantum" \
     3>&1 1>&2 2>&3)
   RET=$?
   if [ $RET -eq 1 ]; then
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      Q1\ *) do_clone_qiskit_start_jupyter ;;
-      F1\ *) do_clone_fwq_start_jupyter ;;
+      QT\ *) do_clone_qiskit_start_jupyter ;;
+      FwQ\ *) do_clone_fwq_start_jupyter ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
