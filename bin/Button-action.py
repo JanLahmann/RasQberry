@@ -2,7 +2,7 @@
 
 # add to /etc/rc.local with
 # /usr/bin/python3 /home/pi/.local/bin/Button-action.py
-# Botton 1: GPIO Button 16 / LED 12, RasQ-LED start / LED clear
+# Botton 1: GPIO Button 16 / LED 12, RasQ-LED clear / LED start
 # Botton 2: GPIO Button 16 / LED 12, reboot / shutdown
 # fyi: GPIO Button 24 / LED 23  works
 
@@ -27,7 +27,8 @@ def pressed1():
     print("pressed1")
     os.system("touch /home/pi/pressed1")
     #check_call(['python3', '/home/pi/RasQberry/demos/bin/RasQ-LED.py'])
-    Popen(["/usr/bin/python3", "/home/pi/RasQberry/demos/bin/RasQ-LED.py"])
+    Popen(["/usr/bin/python3", "/home/pi/.local/bin/rq_LED-off.py"])
+    sleep(3)
 
 def released1():
     led1.off()
@@ -48,7 +49,7 @@ def held1():
     print("held1")
     os.system("touch /home/pi/held1")
     #check_call(['touch', '/home/pi/held1'])
-    Popen(["/usr/bin/python3", "/home/pi/.local/bin/rq_LED-off.py"])
+    Popen(["/usr/bin/python3", "/home/pi/RasQberry/demos/bin/RasQ-LED.py"])
 
 
 def pressed2():
@@ -60,13 +61,13 @@ def pressed2():
     print("pressed2")
     os.system("touch /home/pi/pressed2")
     #check_call(['touch', '/home/pi/pressed2'])
-    os.system("/usr/sbin/reboot")
 
 def released2():
     led2.off()
     print("released2")
     os.system("touch /home/pi/released2")
     #check_call(['touch', '/home/pi/released2'])
+    os.system("/usr/sbin/reboot")
 
 def held2():
     led2.off()
@@ -82,6 +83,7 @@ def held2():
     os.system("touch /home/pi/held2")
     #check_call(['touch', '/home/pi/held2'])
     os.system("/usr/sbin/shutdown")
+    sleep(3)
 
 
 button1.when_pressed = pressed1
