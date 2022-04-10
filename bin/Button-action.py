@@ -25,7 +25,11 @@ import os
 Button.was_held = False
 
 def pressed1():
-    led1.on()
+    for x in range(2):
+      led1.off()
+      sleep(0.2)
+      led1.on()
+      sleep(0.2)
     print("pressed1")
     os.system("touch /home/pi/pressed1")
     #check_call(['python3', '/home/pi/RasQberry/demos/bin/RasQ-LED.py'])
@@ -43,19 +47,11 @@ def released1(btn):
 
 def held1(btn):
     btn.was_held = True
-    led1.off()
-    sleep(0.1)
-    led1.on()
-    sleep(0.1)
-    led1.off()
-    sleep(0.1)
-    led1.on()
-    sleep(0.1)
-    led1.off()
-    sleep(0.1)
-    led1.on()
-    sleep(0.1)
-    led1.off()
+    for x in range(5):
+      led1.off()
+      sleep(0.1)
+      led1.on()
+      sleep(0.1)
     print("held1")
     os.system("touch /home/pi/held1")
     #check_call(['touch', '/home/pi/held1'])
