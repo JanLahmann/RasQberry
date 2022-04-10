@@ -6,8 +6,8 @@
 
 from gpiozero import Button, LED
 from signal import pause
-from time import sleep
-from subprocess import check_call
+#from time import sleep
+#from subprocess import check_call
 import os
 
 button = Button(21, hold_time=2)
@@ -17,24 +17,19 @@ def say_hello():
     led.on()
     print("Hello!")
     os.system("touch /home/pi/say_hello")
-    check_call(['touch', '/home/pi/say_hello2'])
-    sleep(1)
-    led.off()
-    os.system("sleep 1")
-    led.on()
-    sleep(1)
+    #check_call(['touch', '/home/pi/say_hello'])
 
 def say_goodbye():
     led.off()
     print("Goodbye!")
     os.system("touch /home/pi/say_goodbye")
+    #check_call(['touch', '/home/pi/say_goodbye'])
 
 def shutdown():
+    led.off()
     print("shutdown-held")
     os.system("touch /home/pi/shutdown")
-    sleep(10)
-    led.off()
-    check_call(['touch', '/home/pi/shutdown-held2'])
+    #check_call(['touch', '/home/pi/shutdown-held'])
 
 button.when_pressed = say_hello
 button.when_released = say_goodbye
