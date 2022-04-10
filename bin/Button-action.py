@@ -19,7 +19,7 @@ from gpiozero import Button, LED
 from signal import pause
 from time import sleep
 from subprocess import Popen
-import os
+#import os
 
 
 Button.was_held = False
@@ -31,7 +31,7 @@ def pressed1():
       led1.on()
       sleep(0.2)
     #print("pressed1")
-    os.system("touch /home/pi/pressed1")
+    #os.system("touch /home/pi/pressed1")
     Popen(["/usr/bin/python3", "/home/pi/.local/bin/rq_LED-off.py"])
 
 def released1(btn):
@@ -40,7 +40,7 @@ def released1(btn):
     btn.was_held = False
     led1.off()
     #print("released1")
-    os.system("touch /home/pi/released1")
+    #os.system("touch /home/pi/released1")
 
 def held1(btn):
     btn.was_held = True
@@ -50,7 +50,7 @@ def held1(btn):
       led1.on()
       sleep(0.1)
     #print("held1")
-    os.system("touch /home/pi/held1")
+    #os.system("touch /home/pi/held1")
     Popen(["/usr/bin/python3", "/home/pi/RasQberry/demos/bin/RasQ-LED.py"])
 
 
