@@ -2,7 +2,7 @@
 # 
 #
 
-# test with     python3 Button-LED-test-py
+# test with     python3 Button-LED-test.py
 
 import RPi.GPIO as GPIO
 from time import sleep
