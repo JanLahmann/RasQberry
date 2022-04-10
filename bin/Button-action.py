@@ -21,8 +21,8 @@ from time import sleep
 from subprocess import check_call,Popen
 import os
 
-button1 = Button(16, hold_time=2)
-led1 = LED(12)
+
+Button.was_held = False
 
 def pressed1():
     led1.on()
@@ -30,15 +30,19 @@ def pressed1():
     os.system("touch /home/pi/pressed1")
     #check_call(['python3', '/home/pi/RasQberry/demos/bin/RasQ-LED.py'])
     Popen(["/usr/bin/python3", "/home/pi/.local/bin/rq_LED-off.py"])
-    sleep(3)
+    #sleep(3)
 
-def released1():
+def released1(btn):
+    if not btn.was_held:
+        pressed1()
+    btn.was_held = False
     led1.off()
     print("released1")
     os.system("touch /home/pi/released1")
     #check_call(['touch', '/home/pi/released1'])
 
-def held1():
+def held1(btn):
+    btn.was_held = True
     led1.off()
     sleep(0.1)
     led1.on()
@@ -94,10 +98,12 @@ def held1():
 #     os.system("sudo /usr/sbin/halt -f")
 #     sleep(3)
 
+button1 = Button(16, hold_time=2)
+led1 = LED(12)
 
-button1.when_pressed = pressed1
-button1.when_released = released1
+#button1.when_pressed = pressed1
 button1.when_held = held1
+button1.when_released = released1
 
 # button2.when_pressed = pressed2
 # button2.when_released = released2
