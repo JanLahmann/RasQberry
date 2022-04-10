@@ -67,7 +67,7 @@ def released2():
     print("released2")
     os.system("touch /home/pi/released2")
     #check_call(['touch', '/home/pi/released2'])
-    os.system("sudo /usr/sbin/reboot")
+    os.system("sudo /usr/sbin/reboot -f")
 
 def held2():
     led2.off()
@@ -82,7 +82,7 @@ def held2():
     print("held2")
     os.system("touch /home/pi/held2")
     #check_call(['touch', '/home/pi/held2'])
-    os.system("sudo /usr/sbin/shutdown")
+    os.system("sudo /usr/sbin/halt -f")
     sleep(3)
 
 
