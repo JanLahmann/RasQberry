@@ -755,7 +755,7 @@ do_rasqberry_install_qiskit() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "BC Initial Config " "Basic configurations (PATH, LOCALE, etc)" \
+    "IC Initial Config " "Basic configurations (PATH, LOCALE, etc)" \
     "SU System Update " "Update the system and create swapfile" \
     "Q34 Install Qiskit" "Install Qiskit 0.34" \
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
@@ -768,7 +768,7 @@ do_rasqberry_setup() {
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      BC\ *) do_rq_initial_config ;;
+      IC\ *) do_rq_initial_config ;;
       SU\ *) do_rasqberry_update ;;
       Q34\ *) do_rasqberry_install_034 ;;
       DV\ *) do_rasqberry_enable_desktop_vnc ;;
