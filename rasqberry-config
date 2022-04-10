@@ -725,6 +725,7 @@ do_rasqberry_demos() {
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q00 Qiskit" "Install Qiskit (latest version)" \
+    "Q36 Qiskit 0.36" "Install Qiskit v0.36" \
     "Q34 Qiskit 0.34" "Install Qiskit v0.34" \
     "Q30 Qiskit 0.30" "Install Qiskit v0.30" \
     "Q29 Qiskit 0.29" "Install Qiskit v0.29" \
@@ -751,6 +752,7 @@ do_rasqberry_install_qiskit() {
       Q29\ *) do_rasqberry_install_029 ;;
       Q30\ *) do_rasqberry_install_030 ;;
       Q34\ *) do_rasqberry_install_034 ;;
+      Q36\ *) do_rasqberry_install_036 ;;
       Q00\ *) do_rasqberry_install_latest ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
@@ -761,7 +763,7 @@ do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "IC Initial Config " "Basic configurations (PATH, LOCALE, etc)" \
     "SU System Update " "Update the system and create swapfile" \
-    "Q34 Install Qiskit" "Install Qiskit 0.34" \
+    "Q36 Install Qiskit" "Install Qiskit 0.36" \
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
     "CD Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "D Docker" "Install & Enable Docker" \
@@ -774,7 +776,7 @@ do_rasqberry_setup() {
     case "$FUN" in
       IC\ *) do_rq_initial_config ;;
       SU\ *) do_rasqberry_update ;;
-      Q34\ *) do_rasqberry_install_034 ;;
+      Q36\ *) do_rasqberry_install_036 ;;
       DV\ *) do_rasqberry_enable_desktop_vnc ;;
       CD\ *) do_rasqberry_config_demos ;;
       D\ *) do_rq_enable_docker ;;
