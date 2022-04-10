@@ -318,7 +318,7 @@ do_rq_configure_button() {
   # add Button-action.py to /etc/rc.local 
   # enable reboot overlay in /boot/config.txt
   if [ ! -f /home/pi/RasQberry/.Button_configured ]; then
-    sed -i 's/exit 0//usr/bin/python3 /home/pi/.local/bin/Button-action.py\n\nexit 0/' /etc/rc.local
+    sed -i 's/exit 0//usr/bin/python3 /home/pi/.local/bin/Button-action.py\\n\\nexit 0/' /etc/rc.local
     echo "# enable shutdown/reboot on GPIO 3; and LED power indicator on GPIO 4\ndtoverlay=gpio-shutdown,gpio_pin=3\ngpio=4=op,dh" >> /boot/config.txt
     touch /home/pi/RasQberry/.Button_configured
   fi
