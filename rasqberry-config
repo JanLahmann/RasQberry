@@ -314,6 +314,22 @@ do_rasqberry_Qoffee() {
   fi
 }
 
+do_rq_configure_button() {
+  # add Button-action.py to /etc/rc.local 
+  # enable reboot overlay in /boot/config.txt
+  if [ ! -f /home/pi/RasQberry/.Button_configured ]; then
+    sed -i 's/exit 0//usr/bin/python3 /home/pi/.local/bin/Button-action.py\n\nexit 0/' /etc/rc.local
+    echo "# enable shutdown/reboot on GPIO 3; and LED power indicator on GPIO 4\ndtoverlay=gpio-shutdown,gpio_pin=3\ngpio=4=op,dh" >> /boot/config.txt
+    touch /home/pi/RasQberry/.Button_configured
+  fi
+
+  if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Button configured" 20 60 1
+  fi
+}
+
+
+
 do_rasqberry_install_libcint() {
   echo; echo "Install libcint"; echo;
   cd /home/pi/
@@ -776,6 +792,7 @@ do_rasqberry_setup() {
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
     "CD Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "D Docker" "Install & Enable Docker" \
+    "BL Button+LED" "Configure Control-Button + LEDs" \
     "SH Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
     3>&1 1>&2 2>&3)
   RET=$?
@@ -789,6 +806,7 @@ do_rasqberry_setup() {
       DV\ *) do_rasqberry_enable_desktop_vnc ;;
       CD\ *) do_rasqberry_config_demos ;;
       D\ *) do_rq_enable_docker ;;
+      BL\ *) do_rq_configure_button ;;
       SH\ *) do_rq_setup_SenseHAT ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
