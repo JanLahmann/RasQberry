@@ -405,6 +405,15 @@ do_rasqberry_install_030() {
    fi 
  }
 
+ do_rasqberry_install_036() {
+   echo; echo "Install Qiskit 0.36"; echo;
+   apt -y install libatlas-base-dev
+   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit036.sh
+   if [ "$INTERACTIVE" = True ]; then
+     rq_messages && whiptail --msgbox "Qiskit 0.36 installed" 20 60 1
+   fi 
+ }
+
 do_rasqberry_install_latest() {
   echo; echo "Install Qiskit (latest version)"; echo;
   apt -y install libatlas-base-dev
