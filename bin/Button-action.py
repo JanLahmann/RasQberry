@@ -10,29 +10,37 @@ from signal import pause
 #from subprocess import check_call
 import os
 
-button = Button(21, hold_time=2)
-led = LED(20)
+button1 = Button(21, hold_time=2)
+led1 = LED(20)
 
-def say_hello():
+def pressed1(led):
     led.on()
-    print("Hello!")
-    os.system("touch /home/pi/say_hello")
-    #check_call(['touch', '/home/pi/say_hello'])
+    print("pressed1")
+    os.system("touch /home/pi/pressed1")
+    #check_call(['touch', '/home/pi/pressed1'])
 
-def say_goodbye():
+def released1(led):
     led.off()
-    print("Goodbye!")
-    os.system("touch /home/pi/say_goodbye")
-    #check_call(['touch', '/home/pi/say_goodbye'])
+    print("released1")
+    os.system("touch /home/pi/released1")
+    #check_call(['touch', '/home/pi/released1'])
 
-def shutdown():
+def held1(led):
     led.off()
-    print("shutdown-held")
-    os.system("touch /home/pi/shutdown")
-    #check_call(['touch', '/home/pi/shutdown-held'])
+    sleep(0.1)
+    led.on()
+    sleep(0.1)
+    led.off()
+    sleep(0.1)
+    led.on()
+    sleep(0.1)
+    led.off()
+    print("held1")
+    os.system("touch /home/pi/held1")
+    #check_call(['touch', '/home/pi/held1'])
 
-button.when_pressed = say_hello
-button.when_released = say_goodbye
-button.when_held = shutdown
+button1.when_pressed = pressed1(led1)
+button1.when_released = released1(led1)
+button1.when_held = held1(led1)
 
 pause()
