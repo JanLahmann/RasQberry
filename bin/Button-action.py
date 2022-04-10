@@ -20,10 +20,6 @@ led2 = LED(23)
 
 def pressed1():
     led1.on()
-    sleep(0.1)
-    led1.off()
-    sleep(0.1)
-    led1.on()
     print("pressed1")
     os.system("touch /home/pi/pressed1")
     #check_call(['python3', '/home/pi/RasQberry/demos/bin/RasQ-LED.py'])
@@ -37,6 +33,10 @@ def released1():
     #check_call(['touch', '/home/pi/released1'])
 
 def held1():
+    led1.off()
+    sleep(0.1)
+    led1.on()
+    sleep(0.1)
     led1.off()
     sleep(0.1)
     led1.on()
@@ -67,7 +67,7 @@ def released2():
     print("released2")
     os.system("touch /home/pi/released2")
     #check_call(['touch', '/home/pi/released2'])
-    os.system("/usr/sbin/reboot")
+    os.system("sudo /usr/sbin/reboot")
 
 def held2():
     led2.off()
@@ -82,7 +82,7 @@ def held2():
     print("held2")
     os.system("touch /home/pi/held2")
     #check_call(['touch', '/home/pi/held2'])
-    os.system("/usr/sbin/shutdown")
+    os.system("sudo /usr/sbin/shutdown")
     sleep(3)
 
 
