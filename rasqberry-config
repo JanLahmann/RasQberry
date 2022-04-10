@@ -328,8 +328,6 @@ do_rq_configure_button() {
   fi
 }
 
-
-
 do_rasqberry_install_libcint() {
   echo; echo "Install libcint"; echo;
   cd /home/pi/
