@@ -51,7 +51,7 @@ def held1(btn):
       sleep(0.1)
     #print("held1")
     #os.system("touch /home/pi/held1")
-    Popen(["/usr/bin/python3", "/home/pi/RasQberry/demos/bin/RasQ-LED.py"])
+    Popen(["/usr/bin/sudo", "-u", "pi", "-H", "/usr/bin/python3", "/home/pi/RasQberry/demos/bin/RasQ-LED.py"])
 
 
 button1 = Button(16, hold_time=2)

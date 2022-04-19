@@ -743,7 +743,7 @@ do_rasqberry_demos() {
     "BS Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
     "RL RasQ-LED" "Start RasQ-LED demo" \
     "CL Clear LED" "Clear LED Lights" \
-    "QM Qoffee-Maker" "Build/Start Qoffee-Maker demo" \
+    "QM Qoffee-Maker" "Local Build/Start Qoffee-Maker demo" \
     "QMd Qoffee-Maker" "Download/Start Qoffee-Maker image" \
     "RT5 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
     "RT16 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
