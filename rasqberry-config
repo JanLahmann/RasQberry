@@ -268,9 +268,13 @@ do_rasqberry_update() {
 }
 
 do_rq_initial_config() {
+  # set PATH
   ( echo; echo '##### added for rasqberry #####';
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
   ) >> /home/pi/.bashrc && . /home/pi/.bashrc
+  # set number of LEDs and qubits
+  echo 'LED_COUNT = 135' >> /home/pi/RasQberry/RQB-config/LEDs.py 
+  echo 'n_qbit = 127' >> /home/pi/RasQberry/RQB-config/Qubits.py
   #install bluetooth manager blueman
   apt -y install blueman
   # fix locale

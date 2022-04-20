@@ -5,7 +5,12 @@
 
 import subprocess, time, math
 
-n_qbit = 27
+import sys
+sys.path.append('/home/pi/RasQberry/RQB-config/')
+
+# n_qbit = 127
+import n_qbit from Qubits.py
+print("n_qbit: ", n_qbit)
 
 #Import Qiskit classes
 from qiskit import IBMQ, execute
