@@ -273,6 +273,7 @@ do_rq_initial_config() {
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
   ) >> /home/pi/.bashrc && . /home/pi/.bashrc
   # set number of LEDs and qubits
+  sudo -u pi -H -- sh -c 'mkdir -p /home/pi/RasQberry/RQB-config/'
   echo 'LED_COUNT = 135' >> /home/pi/RasQberry/RQB-config/LEDs.py 
   echo 'n_qbit = 127' >> /home/pi/RasQberry/RQB-config/Qubits.py
   #install bluetooth manager blueman
