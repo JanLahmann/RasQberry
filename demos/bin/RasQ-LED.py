@@ -9,7 +9,6 @@ import sys
 sys.path.append('/home/pi/RasQberry/RQB-config/')
 
 # n_qbit = 127
-import Qubits
 from Qubits import n_qbit
 print("n_qbit: ", n_qbit)
 
