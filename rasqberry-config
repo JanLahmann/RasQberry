@@ -278,7 +278,7 @@ do_rq_initial_config() {
   echo 'LED_PIN = 21' >> /home/pi/RasQberry/RQB-config/LEDs.py
   echo 'n_qbit = 127' > /home/pi/RasQberry/RQB-config/Qubits.py
   if [ "$INTERACTIVE" = True ]; then
-    rq_messages && whiptail --msgbox "Initial LED & Qubit configuration complete\n\nTo modify, please edit the files in /home/pi/RasQberry/RQB-config/" 20 60 1
+    rq_messages && whiptail --msgbox "Initial LED & Qubit configuration complete\n\nTo modify the number of LEDs/Qubits, please edit the files in /home/pi/RasQberry/RQB-config/" 20 60 1
   fi
   #install bluetooth manager blueman
   apt -y install blueman
