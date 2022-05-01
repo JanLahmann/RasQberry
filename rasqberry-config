@@ -303,13 +303,19 @@ do_rq_enable_docker() {
 }
 
 do_rasqberry_Qoffee_local() {
-  # check if Qoffee-Maker docker image needs to be build
-  if [ ! -f /home/pi/RasQberry/.Qoffee_installed ]; then  
+  # clone Qoffee-Maker github repo
+  if [ ! -f /home/pi/RasQberry/.Qoffee_cloned ]; then  
     #newgrp docker
     docker version
     cd /home/pi/
-    sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker'
-    cd Qoffee-Maker/
+    sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker && touch /home/pi/RasQberry/.Qoffee_cloned'
+    if [ "$INTERACTIVE" = True ]; then
+        rq_messages && whiptail --msgbox "Qoffee-Maker Demo cloned" 20 60 1
+    fi
+  fi
+  # check if Qoffee-Maker docker image needs to be build
+  if [ ! -f /home/pi/RasQberry/.Qoffee_installed ]; then  
+    cd /home/pi/Qoffee-Maker/
     sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee . && touch /home/pi/RasQberry/.Qoffee_installed'
     if [ "$INTERACTIVE" = True ]; then
         rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
