@@ -354,6 +354,14 @@ do_rasqberry_Qoffee_download() {
         rq_messages && whiptail --msgbox "Qoffee-Maker Demo cloned" 20 60 1
     fi
   fi
+  # check if Qoffee-Maker download and setup to be done
+  if [ ! -f /home/pi/RasQberry/.Qoffee_downloaded ]; then  
+    cd /home/pi/Qoffee-Maker/
+    sudo -u pi -H -- sh -c 'docker pull ghcr.io/tbrodbeck/qoffee-maker && cp -R /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_downloaded'
+    if [ "$INTERACTIVE" = True ]; then
+        rq_messages && whiptail --msgbox "Qoffee-Maker Demo image downloaded" 20 60 1
+    fi
+  fi
   # check if .env file exists
   cd /home/pi/Qoffee-Maker/
   if [ ! -f .env ]; then  

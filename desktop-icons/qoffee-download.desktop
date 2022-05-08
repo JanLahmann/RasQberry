@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=Qoffee Maker (dockerhub)
+Comment=Start Qoffee Maker (from dockerhub)
+Icon=/home/pi/RasQberry/icons/QuoffeeMug_vector-s128.png
+Type=Application
+Categories=Name=QoffeeMaker;
+Exec=lxterminal -e "cd /home/pi/Qoffee-Maker/ && docker pull ghcr.io/tbrodbeck/qoffee-maker && docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/tbrodbeck/qoffee-maker; /bin/bash"
+Terminal=true
