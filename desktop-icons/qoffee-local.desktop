@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=Qoffee Maker (local)
+Comment=Start Qoffee Maker (local build)
+Icon=/home/pi/RasQberry/icons/QuoffeeMug_vector-s128.png
+Type=Application
+Categories=Name=QoffeeMaker;
+Exec=lxterminal -e "cd /home/pi/Qoffee-Maker/ && docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest; /bin/bash"
+Terminal=true

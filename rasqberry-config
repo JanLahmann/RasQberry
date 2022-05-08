@@ -280,8 +280,10 @@ do_rq_initial_config() {
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "Initial LED & Qubit configuration complete\n\nTo modify the number of LEDs/Qubits, please edit the files in /home/pi/RasQberry/RQB-config/" 20 60 1
   fi
-  #install bluetooth manager blueman
+  # install bluetooth manager blueman
   apt -y install blueman
+  # install emojis for Qoffee-Maker demo
+  apt -y install fonts-noto-color-emoji
   # fix locale
   echo "LANG=en_GB.UTF-8\nLC_CTYPE=en_GB.UTF-8\nLC_MESSAGES=en_GB.UTF-8\nLC_ALL=en_GB.UTF-8" > /etc/default/locale  
   if [ "$INTERACTIVE" = True ]; then
@@ -316,7 +318,7 @@ do_rasqberry_Qoffee_local() {
   # check if Qoffee-Maker docker image needs to be build
   if [ ! -f /home/pi/RasQberry/.Qoffee_installed ]; then  
     cd /home/pi/Qoffee-Maker/
-    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee . && touch /home/pi/RasQberry/.Qoffee_installed'
+    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee . && cp -R /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
     if [ "$INTERACTIVE" = True ]; then
         rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
     fi
@@ -342,7 +344,7 @@ do_rasqberry_Qoffee_download() {
   fi
   # download & start Qoffee-Maker docker image
   cd /home/pi/Qoffee-Maker/
-  sudo -u pi -H -- sh -c 'docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/tbrodbeck/qoffee-maker .'
+  sudo -u pi -H -- sh -c 'docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/tbrodbeck/qoffee-maker'
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "Qoffee-Maker Demo downloaded & started" 20 60 1
   fi

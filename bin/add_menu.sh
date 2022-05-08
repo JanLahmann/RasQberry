@@ -32,3 +32,16 @@ sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t\t<Name>Demos</Name>' ~/../../e
 sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t<Menu>' ~/../../etc/xdg/menus/lxde-pi-applications.menu 
 sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t<!--Demos -->' ~/../../etc/xdg/menus/lxde-pi-applications.menu 
 sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t ' ~/../../etc/xdg/menus/lxde-pi-applications.menu 
+
+# Add QoffeeMaker Category
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t</Menu> <!-- End QoffeeMaker -->' ~/../../etc/xdg/menus/lxde-pi-applications.menu 
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t\t</Include>' ~/../../etc/xdg/menus/lxde-pi-applications.menu
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t\t\t</And>' ~/../../etc/xdg/menus/lxde-pi-applications.menu 
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t\t\t\t<Category>QoffeeMaker</Category>' ~/../../etc/xdg/menus/lxde-pi-applications.menu
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t\t\t<And>' ~/../../etc/xdg/menus/lxde-pi-applications.menu
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t\t<Include>' ~/../../etc/xdg/menus/lxde-pi-applications.menu  
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t\t<Directory>QoffeeMaker.directory</Directory>' ~/../../etc/xdg/menus/lxde-pi-applications.menu
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t\t<Name>QoffeeMaker</Name>' ~/../../etc/xdg/menus/lxde-pi-applications.menu
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t\t<Menu>' ~/../../etc/xdg/menus/lxde-pi-applications.menu 
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t<!--QoffeeMaker -->' ~/../../etc/xdg/menus/lxde-pi-applications.menu 
+sudo sed -i '/<\/Menu> <!-- End Other -->/a \\t ' ~/../../etc/xdg/menus/lxde-pi-applications.menu 
