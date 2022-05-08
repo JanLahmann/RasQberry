@@ -318,7 +318,12 @@ do_rasqberry_Qoffee_local() {
   # check if Qoffee-Maker docker image needs to be build
   if [ ! -f /home/pi/RasQberry/.Qoffee_installed ]; then  
     cd /home/pi/Qoffee-Maker/
-    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee . && cp -R /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
+    # sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee . && cp -R /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
+    # bulld with node 15 instead of node 14
+    sudo -u pi -H -- sh -c 'cp DockerfileArm DockerfileArm-15'
+    sed -i 's/node:14/node:15/' DockerfileArm-15
+    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -R /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
+    sudo -u pi -H -- sh -c 'rm DockerfileArm-15'
     if [ "$INTERACTIVE" = True ]; then
         rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
     fi
@@ -347,6 +352,13 @@ do_rasqberry_Qoffee_download() {
     sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker && touch /home/pi/RasQberry/.Qoffee_cloned'
     if [ "$INTERACTIVE" = True ]; then
         rq_messages && whiptail --msgbox "Qoffee-Maker Demo cloned" 20 60 1
+    fi
+  fi
+  # check if .env file exists
+  cd /home/pi/Qoffee-Maker/
+  if [ ! -f .env ]; then  
+    if [ "$INTERACTIVE" = True ]; then
+        rq_messages && whiptail --msgbox ".env file does not exist. Please crete it based on the env-template" 20 60 1
     fi
   fi
   # download & start Qoffee-Maker docker image
