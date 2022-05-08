@@ -323,6 +323,13 @@ do_rasqberry_Qoffee_local() {
         rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
     fi
   fi
+  # check if .env file exists
+  cd /home/pi/Qoffee-Maker/
+  if [ ! -f .env ]; then  
+    if [ "$INTERACTIVE" = True ]; then
+        rq_messages && whiptail --msgbox ".env file does not exist. Please crete it based on the env-template" 20 60 1
+    fi
+  fi
   # start Qoffee-Maker docker image
   cd /home/pi/Qoffee-Maker/
   sudo -u pi -H -- sh -c 'docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest'
@@ -344,7 +351,7 @@ do_rasqberry_Qoffee_download() {
   fi
   # download & start Qoffee-Maker docker image
   cd /home/pi/Qoffee-Maker/
-  sudo -u pi -H -- sh -c 'docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/tbrodbeck/qoffee-maker'
+  sudo -u pi -H -- sh -c 'docker pull ghcr.io/tbrodbeck/qoffee-maker && docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/tbrodbeck/qoffee-maker'
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "Qoffee-Maker Demo downloaded & started" 20 60 1
   fi
