@@ -337,6 +337,7 @@ do_rasqberry_Qoffee_local() {
   fi
   # start Qoffee-Maker docker image
   cd /home/pi/Qoffee-Maker/
+  echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest \n\n"
   sudo -u pi -H -- sh -c 'docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest'
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "Qoffee-Maker Demo started" 20 60 1
@@ -372,6 +373,7 @@ do_rasqberry_Qoffee_download() {
   # download & start Qoffee-Maker docker image
   cd /home/pi/Qoffee-Maker/
   sudo -u pi -H -- sh -c 'docker pull ghcr.io/tbrodbeck/qoffee-maker && docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/tbrodbeck/qoffee-maker'
+  echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/tbrodbeck/qoffee-maker \n\n"
   if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "Qoffee-Maker Demo downloaded & started" 20 60 1
   fi
