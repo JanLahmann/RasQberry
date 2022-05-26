@@ -322,7 +322,7 @@ do_rasqberry_Qoffee_local() {
     # bulld with node 15 instead of node 14
     sudo -u pi -H -- sh -c 'cp DockerfileArm DockerfileArm-15'
     sed -i 's/node:14/node:15/' DockerfileArm-15
-    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -R /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
+    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
     sudo -u pi -H -- sh -c 'rm DockerfileArm-15'
     if [ "$INTERACTIVE" = True ]; then
         rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
@@ -344,6 +344,21 @@ do_rasqberry_Qoffee_local() {
   fi
 }
 
+do_rasqberry_Qoffee_rebuild_local() {
+  # pull/update Qoffee-Maker github repo
+  if [ -f /home/pi/RasQberry/.Qoffee_cloned ]; then  
+    cd /home/pi/Qoffee-Maker
+    sudo -u pi -H -- sh -c 'git pull origin $BRANCH'
+    if [ "$INTERACTIVE" = True ]; then
+        rq_messages && whiptail --msgbox "Qoffee-Maker Demo pulled/updated" 20 60 1
+    fi
+  fi
+  # remove .Qoffee_installed to force a rebuild
+  if [ -f /home/pi/RasQberry/.Qoffee_installed ]; then  
+    sudo -u pi -H -- sh -c 'rm /home/pi/RasQberry/.Qoffee_installed'
+  fi
+}
+
 do_rasqberry_Qoffee_download() {
   # clone Qoffee-Maker github repo
   if [ ! -f /home/pi/RasQberry/.Qoffee_cloned ]; then  
@@ -358,7 +373,7 @@ do_rasqberry_Qoffee_download() {
   # check if Qoffee-Maker download and setup to be done
   if [ ! -f /home/pi/RasQberry/.Qoffee_downloaded ]; then  
     cd /home/pi/Qoffee-Maker/
-    sudo -u pi -H -- sh -c 'docker pull ghcr.io/tbrodbeck/qoffee-maker && cp -R /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_downloaded'
+    sudo -u pi -H -- sh -c 'docker pull ghcr.io/tbrodbeck/qoffee-maker && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_downloaded'
     if [ "$INTERACTIVE" = True ]; then
         rq_messages && whiptail --msgbox "Qoffee-Maker Demo image downloaded" 20 60 1
     fi
@@ -888,6 +903,7 @@ do_rasqberry_setup() {
 do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q Install Qiskit " "Install Qiskit (several versions)" \
+    "QMr Qoffee-Maker rebuild " "force local rebuild of Qoffee-Maker" \
     "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
     "4Db Enable 4'' Display " "Setup the 4inch Display - Part 2" \
     "KV Install Kivy" "Install needed packages for Kivy interface" \
@@ -901,6 +917,7 @@ do_advanced_config() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       Q\ *) do_rasqberry_install_qiskit ;;
+      QMr\ *) do_rasqberry_Qoffee_rebuild_local ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;
       4Db\ *) do_rasqberry_enable_touch42 ;;
       KV\ *) do_install_kivy ;;
