@@ -304,11 +304,11 @@ do_rq_enable_docker() {
   ASK_TO_REBOOT=1
 }
 
-do_rasqberry_Qoffee_local() {
+do_rasqberry_Qoffee_clone() {
   # clone Qoffee-Maker github repo
   if [ ! -f /home/pi/RasQberry/.Qoffee_cloned ]; then  
     #newgrp docker
-    docker version
+    #docker version
     cd /home/pi/
     sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker && touch /home/pi/RasQberry/.Qoffee_cloned'
     if [ "$INTERACTIVE" = True ]; then
@@ -318,9 +318,33 @@ do_rasqberry_Qoffee_local() {
     cd /home/pi/Qoffee-Maker
     sudo -u pi -H -- sh -c 'git pull origin $BRANCH'
   fi
+  # check if .env file exists
+  if [ ! -f .env ]; then  
+    echo "/home/pi/Qoffee-Maker/.env file does not exist. Please crete it based on the env-template"
+    if [ "$INTERACTIVE" = True ]; then
+        rq_messages && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file does not exist. Please crete it based on the env-template" 20 60 1
+    fi
+    exit 1
+  fi
+}
+
+do_rasqberry_Qoffee_stop() {
+# stop all qoffee docker containers
+  sudo -u pi -H -- sh -c 'docker stop $(docker ps -q --filter name=qoffee )'
+}
+
+do_rasqberry_Qoffee_rebuild() {
+# stop all qoffee docker containers
+  sudo -u pi -H -- sh -c 'docker stop $(docker ps -q --filter name=qoffee )'
+  sudo -u pi -H -- sh -c 'rm -f /home/pi/RasQberry/.Qoffee_downloaded /home/pi/RasQberry/.Qoffee_installed'
+}
+
+do_rasqberry_Qoffee_local() {
+  # clone Qoffee-Maker github repo
+  do_rasqberry_Qoffee_clone
+  cd /home/pi/Qoffee-Maker/
   # check if Qoffee-Maker docker image needs to be build
   if [ ! -f /home/pi/RasQberry/.Qoffee_installed ]; then  
-    cd /home/pi/Qoffee-Maker/
     # sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee . && cp -R /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
     # bulld with node 15 instead of node 14
     sudo -u pi -H -- sh -c 'cp DockerfileArm DockerfileArm-15'
@@ -328,76 +352,36 @@ do_rasqberry_Qoffee_local() {
     sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
     sudo -u pi -H -- sh -c 'rm DockerfileArm-15'
     if [ "$INTERACTIVE" = True ]; then
-        rq_messages && whiptail --msgbox "Qoffee-Maker Demo installed" 20 60 1
+        rq_messages && whiptail --msgbox "Qoffee-Maker container build locally" 20 60 1
     fi
   fi
-  # check if .env file exists
-  cd /home/pi/Qoffee-Maker/
-  if [ ! -f .env ]; then  
-    if [ "$INTERACTIVE" = True ]; then
-        rq_messages && whiptail --msgbox ".env file does not exist. Please crete it based on the env-template" 20 60 1
-    fi
-  fi
-  # start Qoffee-Maker docker image
-  cd /home/pi/Qoffee-Maker/
-  echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest \n\n"
-  sudo -u pi -H -- sh -c 'docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env qoffee:latest && chromium-browser http://127.0.0.1:8887/?token=super-secret-token; docker stop $(docker ps -q --filter name=qoffee )'
-  # chromium-browser --enable-webgl --ignore-gpu-blacklist
+  # start Qoffee-Maker docker container
   if [ "$INTERACTIVE" = True ]; then
-      rq_messages && whiptail --msgbox "Qoffee-Maker Demo started" 20 60 1
+      rq_messages && whiptail --msgbox "will start Qoffee-Maker Demo. Please close Chrome at the end." 20 60 1
   fi
-}
-
-do_rasqberry_Qoffee_rebuild_local() {
-  # remove .Qoffee_installed to force a rebuild
-  if [ -f /home/pi/RasQberry/.Qoffee_installed ]; then  
-    sudo -u pi -H -- sh -c 'rm /home/pi/RasQberry/.Qoffee_installed'
-  fi
-}
-
-do_rasqberry_Qoffee_rebuild_download() {
-  # remove .Qoffee_downloaded to force new download
-  if [ -f /home/pi/RasQberry/.Qoffee_downloaded ]; then  
-    sudo -u pi -H -- sh -c 'rm /home/pi/RasQberry/.Qoffee_downloaded'
-  fi
+  echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest \n\n"
+  sudo -u pi -H -- sh -c 'docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env qoffee:latest && chromium-browser http://127.0.0.1:8887/?token=super-secret-token'
+  do_rasqberry_Qoffee_stop
 }
 
 do_rasqberry_Qoffee_download() {
   # clone Qoffee-Maker github repo
-  if [ ! -f /home/pi/RasQberry/.Qoffee_cloned ]; then  
-    #newgrp docker
-    docker version
-    cd /home/pi/
-    sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker && touch /home/pi/RasQberry/.Qoffee_cloned'
-    if [ "$INTERACTIVE" = True ]; then
-        rq_messages && whiptail --msgbox "Qoffee-Maker Demo cloned" 20 60 1
-    fi
-  else 
-    cd /home/pi/Qoffee-Maker
-    sudo -u pi -H -- sh -c 'git pull origin $BRANCH'
-  fi
+  do_rasqberry_Qoffee_clone
+  cd /home/pi/Qoffee-Maker/
   # check if Qoffee-Maker download and setup to be done
   if [ ! -f /home/pi/RasQberry/.Qoffee_downloaded ]; then  
-    cd /home/pi/Qoffee-Maker/
-    sudo -u pi -H -- sh -c 'docker pull ghcr.io/tbrodbeck/qoffee-maker && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_downloaded'
+    sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-maker && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_downloaded'
     if [ "$INTERACTIVE" = True ]; then
         rq_messages && whiptail --msgbox "Qoffee-Maker Demo image downloaded" 20 60 1
     fi
   fi
-  # check if .env file exists
-  cd /home/pi/Qoffee-Maker/
-  if [ ! -f .env ]; then  
-    if [ "$INTERACTIVE" = True ]; then
-        rq_messages && whiptail --msgbox ".env file does not exist. Please crete it based on the env-template" 20 60 1
-    fi
-  fi
   # download & start Qoffee-Maker docker image
-  cd /home/pi/Qoffee-Maker/
-  sudo -u pi -H -- sh -c 'docker pull ghcr.io/tbrodbeck/qoffee-maker && docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env ghcr.io/tbrodbeck/qoffee-maker && chromium-browser http://127.0.0.1:8887/?token=super-secret-token; docker stop $(docker ps -q --filter name=qoffee )'
-  echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/tbrodbeck/qoffee-maker \n\n"
   if [ "$INTERACTIVE" = True ]; then
-      rq_messages && whiptail --msgbox "Qoffee-Maker Demo downloaded & started" 20 60 1
+      rq_messages && whiptail --msgbox "will download and start Qoffee-Maker Demo. Please close Chrome at the end." 20 60 1
   fi
+  echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/janlahmann/qoffee-maker \n\n"
+  sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-maker && docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env ghcr.io/janlahmann/qoffee-maker && chromium-browser http://127.0.0.1:8887/?token=super-secret-token'
+  do_rasqberry_Qoffee_stop
 }
 
 do_rq_configure_button() {
@@ -909,8 +893,8 @@ do_rasqberry_setup() {
 do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q Install Qiskit " "Install Qiskit (several versions)" \
-    "QMr Qoffee-Maker rebuild " "force local rebuild of Qoffee-Maker" \
-    "QMdf Qoffee-Maker reset " "force new download of Qoffee-Maker" \
+    "QMst stop Qoffee-Maker " "stop all Qoffee-Maker containers" \
+    "QMrb Qoffee-Maker rebuild " "force rebuild of Qoffee-Maker images" \
     "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
     "4Db Enable 4'' Display " "Setup the 4inch Display - Part 2" \
     "KV Install Kivy" "Install needed packages for Kivy interface" \
@@ -924,8 +908,8 @@ do_advanced_config() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       Q\ *) do_rasqberry_install_qiskit ;;
-      QMr\ *) do_rasqberry_Qoffee_rebuild_local ;;
-      QMdf\ *) do_rasqberry_Qoffee_rebuild_download ;;
+      QMst\ *) do_rasqberry_Qoffee_stop ;;
+      QMrb\ *) do_rasqberry_Qoffee_rebuild ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;
       4Db\ *) do_rasqberry_enable_touch42 ;;
       KV\ *) do_install_kivy ;;
