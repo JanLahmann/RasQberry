@@ -910,6 +910,7 @@ do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q Install Qiskit " "Install Qiskit (several versions)" \
     "QMr Qoffee-Maker rebuild " "force local rebuild of Qoffee-Maker" \
+    "QMdf Qoffee-Maker reset " "force new download of Qoffee-Maker" \
     "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
     "4Db Enable 4'' Display " "Setup the 4inch Display - Part 2" \
     "KV Install Kivy" "Install needed packages for Kivy interface" \
@@ -924,6 +925,7 @@ do_advanced_config() {
     case "$FUN" in
       Q\ *) do_rasqberry_install_qiskit ;;
       QMr\ *) do_rasqberry_Qoffee_rebuild_local ;;
+      QMdf\ *) do_rasqberry_Qoffee_rebuild_download ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;
       4Db\ *) do_rasqberry_enable_touch42 ;;
       KV\ *) do_install_kivy ;;
