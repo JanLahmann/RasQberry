@@ -5,6 +5,6 @@
 #
 
 cd ~
-
+echo; echo  "default password for juopyter notebook is 'RasQberry'"; echo
 nohup jupyter notebook Fun-with-Quantum --port 8889 &
 sleep 5
