@@ -330,7 +330,7 @@ do_rasqberry_Qoffee_clone() {
 
 do_rasqberry_Qoffee_stop() {
 # stop all qoffee docker containers
-  echo "stopping all qoffee coontainers"
+  echo "stopping all qoffee containers"
   sudo -u pi -H -- sh -c 'docker stop $(docker ps -q --filter name=qoffee )'
 }
 
