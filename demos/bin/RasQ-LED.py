@@ -121,6 +121,11 @@ def action():
             print("Please type \'1\', \'2\', \'3\' or \'q\'")
 
 def loop(duration):
+  print()
+  print("RasQ-LED creates groups of entangled Qubits and displays the measurment result using colors of the LEDs.")
+  print("A H(adamard) gate is applied to the first Qubit of each group; then CNOT gates to create entanglement of the whole group.")
+  print("The size of the groups starts with 1, then in steps up to all Qubits.")
+  print()
   for i in range(duration):
     factors = get_factors(n_qbit)
     for factor in factors: 
