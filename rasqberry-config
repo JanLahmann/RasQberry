@@ -341,7 +341,7 @@ do_rasqberry_switch_branch() {
   branch_array1=$(echo "$branches_menu" | sed 's/\(.*\)\(\/.*\)/\1/' | sed 's/\//\n/g')
   branch_array2=$(echo "$branches_menu" | sed 's/\(.*\)\(\/.*\)/\2/' | sed 's/\//\n/g' | sed 's/\\//g')
   #create branch_array with the branch names
-  for ((i=0; i<$branch_counter; i++)); do
+  for ((i=0; i<branch_counter; i++)); do
     array[$i]=${branch_array2[$i]}
   done
   branch_choice=$(whiptail --title "Select branch" --menu "Choose a branch" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT "${array[@]}" 3>&1 1>&2 2>&3)
