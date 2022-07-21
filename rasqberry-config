@@ -330,7 +330,7 @@ do_rasqberry_Qoffee_clone() {
 
 do_rasqberry_switch_branch() {
   # switch to branch
-  cd /home/pi/
+  cd /home/pi/RasQberry/
   #count the number of branches
   number_branches=$(git branch -r | wc -l)
   #create whiptail menu with the branches
