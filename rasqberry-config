@@ -332,11 +332,14 @@ do_rasqberry_switch_branch() {
   # switch to branch
   cd /home/pi/RasQberry/
   #count the number of branches
-  number_branches=$(git branch -r | wc -l)
   #create whiptail menu with the branches
   branches=$(git branch -r | sed 's/\(.*\) -> \(.*\)/\2/')
   branches_menu=$(echo $branches | sed 's/ /\n/g')
-  branch_choice=$(whiptail --title "Select branch" --menu "Choose a branch" $((number_branches+1)) $((number_branches+1)) 0 "$branches_menu" 3>&1 1>&2 2>&3)
+  #get everything after the last '/' in the every line of the branches_menu and the every '/' in the branches_menu
+  #create branch array
+  mapfile -t branch_array1 < <((echo "$branches_menu" | sed 's/\(.*\)\(\/.*\)/\1/' | sed 's/\//\n/g'))
+  mapfile -t branch_array2 < <((echo "$branches_menu" | sed 's/\(.*\)\(\/.*\)/\2/' | sed 's/\//\n/g') | sed 's/\\//g')
+  branch_choice=$(whiptail --title "Select branch" --menu "Choose a branch" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT "${branch_array2[@]}" 3>&1 1>&2 2>&3)
   #get the branch name
   branch_name=$(echo $branch_choice | sed 's/\(.*\) -> \(.*\)/\2/')
   #switch to branch
