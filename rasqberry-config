@@ -336,11 +336,7 @@ do_rasqberry_switch_branch() {
   #create whiptail menu with the branches
   branches=$(git branch -r | sed 's/\(.*\) -> \(.*\)/\2/')
   branches_menu=$(echo $branches | sed 's/ /\n/g')
-  #get everything after the last '/' in the every line of the branches_menu and the every '/' in the branches_menu
-  #create branch array
-  branch_array1=$(echo "$branches_menu" | sed 's/\(.*\)\(\/.*\)/\1/' | sed 's/\//\n/g')
-  branch_array2=$(echo "$branches_menu" | sed 's/\(.*\)\(\/.*\)/\2/' | sed 's/\//\n/g' | sed 's/\\//g' | sed '/^$/d')
-  branch_choice=$(whiptail --inputbox "$branches" $WT_HEIGHT $WT_WIDTH Blue --title "Type in the new branch (without 'origin')" 3>&1 1>&2 2>&3)
+  branch_choice=$(whiptail --inputbox "$branches_menu" $WT_HEIGHT $WT_WIDTH --title "Type in the new branch (without 'origin/')" 3>&1 1>&2 2>&3)
   #get the branch name
   branch_name=$(echo "$branch_choice" | sed 's/\(.*\) -> \(.*\)/\2/')
   #switch to branch
