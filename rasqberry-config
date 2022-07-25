@@ -1017,6 +1017,9 @@ do
   esac
 done
 
+do_test() {
+  whiptail --msgbox $IBM_Q_API_TOKEN 20 60 1
+}
 
 #
 # Interactive use loop
@@ -1069,6 +1072,3 @@ if [ "$INTERACTIVE" = True ]; then
   done
 fi
 
-do_test() {
-  whiptail --msgbox $IBM_Q_API_TOKEN 20 60 1
-}
