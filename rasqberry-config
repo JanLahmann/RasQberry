@@ -2,7 +2,7 @@
 # Derived from raspi-config https://github.com/RPi-Distro/raspi-config
 #
 
-. ./env-config.sh
+./env-config.sh
 
 INTERACTIVE=True
 ASK_TO_REBOOT=0
