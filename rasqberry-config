@@ -2,6 +2,8 @@
 # Derived from raspi-config https://github.com/RPi-Distro/raspi-config
 #
 
+. ./env-config.sh
+
 INTERACTIVE=True
 ASK_TO_REBOOT=0
 CONFIG=/boot/config.txt
@@ -1035,6 +1037,7 @@ if [ "$INTERACTIVE" = True ]; then
         "H HD Demos" "Install and run HD Demos" \
         "A Advanced Config" "Advanced Config" \
         "9 About rasqberry-config " "Information about this configuration tool" \
+        "X TEST " "TEST ENV" \
         3>&1 1>&2 2>&3)
     else
       FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
@@ -1052,6 +1055,7 @@ if [ "$INTERACTIVE" = True ]; then
           H\ *) do_hd_demos ;;
           A\ *) do_advanced_config ;;
           9\ *) do_rasqberry_about ;;
+          X\ *) do_test ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
       else
@@ -1064,3 +1068,7 @@ if [ "$INTERACTIVE" = True ]; then
     fi
   done
 fi
+
+do_test() {
+  whiptail --msgbox $IBM_Q_API_TOKEN 20 60 1
+}
