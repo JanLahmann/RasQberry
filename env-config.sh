@@ -1,8 +1,7 @@
 #!/bin/sh
 
-SCRIPT=$(readlink -f "$0")
-# Absolute path this script is in, thus /home/user/bin
-RASQ_PATH=$(dirname "$SCRIPT")
+# Absolute path this script
+RASQ_PATH=$(realpath $0)
 echo "$RASQ_PATH"
 export RASQ_PATH
 
