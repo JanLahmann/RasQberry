@@ -5,9 +5,12 @@
 
 import subprocess, time, math
 
-import sys
-sys.path.append('/home/pi/RasQberry/RQB-config/')
-from Qubits import n_qbit
+#import sys
+#sys.path.append('/home/pi/RasQberry/RQB-config/')
+#from LEDs import LED_COUNT, LED_PIN
+from dotenv import dotenv_values
+config = dotenv_values("/home/pi/RasQberry/environment.env")
+n_qbit = config["N_QUBIT"]
 # n_qbit = 127
 # print("n_qbit: ", n_qbit)
 

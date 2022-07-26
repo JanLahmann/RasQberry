@@ -286,6 +286,8 @@ do_rq_initial_config() {
   apt -y install blueman
   # install emojis for Qoffee-Maker demo
   apt -y install fonts-noto-color-emoji
+  # install python package dotenv
+  pip install python-dotenv
   # fix locale
   echo "LANG=en_GB.UTF-8\nLC_CTYPE=en_GB.UTF-8\nLC_MESSAGES=en_GB.UTF-8\nLC_ALL=en_GB.UTF-8" > /etc/default/locale  
   if [ "$INTERACTIVE" = True ]; then
@@ -851,7 +853,7 @@ do_rasqberry_demos() {
   fi
 }
 
-do_rasqberry_install_qiskit() {
+do_rasqberry_() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q00 Qiskit" "Install Qiskit (latest version)" \
     "Q36 Qiskit 0.36" "Install Qiskit v0.36" \
@@ -1017,10 +1019,6 @@ do
   esac
 done
 
-do_test() {
-  whiptail --msgbox $IBM_Q_API_TOKEN 20 60 1
-}
-
 #
 # Interactive use loop
 #
@@ -1040,7 +1038,6 @@ if [ "$INTERACTIVE" = True ]; then
         "H HD Demos" "Install and run HD Demos" \
         "A Advanced Config" "Advanced Config" \
         "9 About rasqberry-config " "Information about this configuration tool" \
-        "X TEST " "TEST ENV" \
         3>&1 1>&2 2>&3)
     else
       FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
@@ -1058,7 +1055,6 @@ if [ "$INTERACTIVE" = True ]; then
           H\ *) do_hd_demos ;;
           A\ *) do_advanced_config ;;
           9\ *) do_rasqberry_about ;;
-          X\ *) do_test ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
       else
