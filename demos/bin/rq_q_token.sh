@@ -3,7 +3,6 @@
 #source ~/rasqberry/bin/activate
 
 [ -f ~/.qiskit/qiskitrc ] && rm ~/.qiskit/qiskitrc
-[ -f ~/.Qconfig_IBMQ_experience.py ] && rm ~/.Qconfig_IBMQ_experience.py
 
 echo; echo; echo "store IBM Q Experience access token";
 echo "Get access to your IBM Q Experience token as decribed here:";
@@ -17,5 +16,3 @@ token=$( (echo "from qiskit import IBMQ";
  echo "IBMQ.save_account(token)") | python3 )
 
 sed -i "s/IBM_Q_API_TOKEN=.*/$token/gm" /home/pi/RasQberry/environment.env
-
-[ -f ~/qrasp/Qconfig_IBMQ_experience.py ] && ~/RasQberry/demos/bin/rq_qrasp_token.sh
