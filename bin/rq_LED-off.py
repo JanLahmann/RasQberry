@@ -20,13 +20,13 @@ config = dotenv_values("/home/pi/RasQberry/environment.env")
 # for testing reasons
 print(config)
 
-LED_COUNT = config["LED_COUNT"]
-LED_PIN = config["LED_PIN"]
-LED_FREQ_HZ = config["LED_FREQ_HZ"]  # LED signal frequency in hertz (usually 800khz)
-LED_DMA = config["LED_DMA"]          # DMA channel to use for generating signal (try 10)
-LED_BRIGHTNESS = config["LED_BRIGHTNESS"]  # Set to 0 for darkest and 255 for brightest
-LED_INVERT = config["LED_INVERT"]    # True to invert the signal (when using NPN transistor level shift)
-LED_CHANNEL = config["LED_CHANNEL"]       # set to '1' for GPIOs 13, 19, 41, 45 or 53
+LED_COUNT = int(config["LED_COUNT"])
+LED_PIN = int(config["LED_PIN"])
+LED_FREQ_HZ = int(config["LED_FREQ_HZ"])  # LED signal frequency in hertz (usually 800khz)
+LED_DMA = int(config["LED_DMA"])          # DMA channel to use for generating signal (try 10)
+LED_BRIGHTNESS = int(config["LED_BRIGHTNESS"])  # Set to 0 for darkest and 255 for brightest
+LED_INVERT = bool(config["LED_INVERT"])    # True to invert the signal (when using NPN transistor level shift)
+LED_CHANNEL = int(config["LED_CHANNEL"])       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
 
 # Define functions which animate LEDs in various ways.
