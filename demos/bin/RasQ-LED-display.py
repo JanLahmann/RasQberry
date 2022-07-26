@@ -20,6 +20,8 @@ config = dotenv_values("/home/pi/RasQberry/environment.env")
 # for testing reasons
 print(config)
 
+LED_COUNT = config["LED_COUNT"]
+LED_PIN = config["LED_PIN"]
 LED_FREQ_HZ = config["LED_FREQ_HZ"]  # LED signal frequency in hertz (usually 800khz)
 LED_DMA = config["LED_DMA"]          # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = config["LED_BRIGHTNESS"]  # Set to 0 for darkest and 255 for brightest
