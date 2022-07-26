@@ -1,2 +1,2 @@
 #!/bin/sh
-export $(grep -v "^#" "$RASQ_PATH/environment.env" | xargs -d "\n")
+export $(grep -v "^#" "/home/pi/RasQberry/environment.env" | xargs -d "\n")

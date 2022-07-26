@@ -12,11 +12,6 @@ update_environment_file () {
   . /home/pi/RasQberry/env-config.sh
 }
 
-SCRIPT=$(readlink -f "$0")
-# Absolute path this script is in, thus /home/user/bin
-RASQ_PATH=$(dirname "$SCRIPT")
-echo "DERIVED PATH: $RASQ_PATH"
-
 is_pi () {
   ARCH=$(dpkg --print-architecture)
   if [ "$ARCH" = "armhf" ] || [ "$ARCH" = "arm64" ] ; then
