@@ -147,36 +147,20 @@ fi
 
 ############# RasQberry  #############
 
-rq_messages() {
-  [ ! -f /home/pi/.rq_no_messages ]
-}
-
 rq_check_tft4() {
-  [ `tvservice -n` == "device_name=ADA-MPI4008" ] && touch /home/pi/.rq_is_tft4 || rm -f /home/pi/.rq_is_tft4
-}
-
-rq_is_tft4() {
-  [ -f /home/pi/.rq_is_tft4 ]
+  [ `tvservice -n` == "device_name=ADA-MPI4008" ] && update_environment_file "RQ_IS_TFT4" "true" || update_environment_file "RQ_IS_TFT4" "false"
 }
 
 rq_check_hat() {
-  [ -d /proc/device-tree/hat/ ] && touch /home/pi/.rq_is_hat || rm -f /home/pi/.rq_is_hat
-}
-
-rq_is_hat() {
-  [ -f /home/pi/.rq_is_hat ]
+  [ -d /proc/device-tree/hat/ ] && update_environment_file "RQ_IS_HAT" "true" || update_environment_file "RQ_IS_HAT" "false"
 }
 
 rq_check_internet() {
-  [ `ping -q -w 1 -c 1 8.8.8.8` ] && touch /home/pi/.rq_is_internet || rm -f /home/pi/.rq_is_internet
-}
-
-rq_is_internet() {
-  [ -f /home/pi/.rq_is_internet ]
+  [ `ping -q -w 1 -c 1 8.8.8.8` ] && update_environment_file "RQ_IS_INTERNET" "true" || update_environment_file "RQ_IS_INTERNET" "false"
 }
 
 do_toggle_messages() {
-  [ ! -f /home/pi/.rq_no_messages ] && touch /home/pi/.rq_no_messages || rm -f /home/pi/.rq_no_messages
+  [ "$RQ_NO_MESSAGES" = false ] && update_environment_file "RQ_NO_MESSAGES" "true" || update_environment_file "RQ_NO_MESSAGES" "false"
 }
 
 rq_enable_gldriver() {
@@ -207,7 +191,7 @@ rq_enable_gldriver() {
       printf "[all]\ndtoverlay=vc4-fkms-v3d\n" >> $CONFIG
     fi
     STATUS="The fake KMS GL driver is enabled."
-    touch /home/pi/RasQberry/.kms-gl-enabled
+    update_environment_file "KMS_GL_ENABLED" "true"
   else
     if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-kms-v3d" ; then
       ASK_TO_REBOOT=1
@@ -218,7 +202,7 @@ rq_enable_gldriver() {
       printf "[all]\ndtoverlay=vc4-kms-v3d\n" >> $CONFIG
     fi
     STATUS="The full KMS GL driver is enabled."
-    touch /home/pi/RasQberry/.kms-gl-enabled
+    update_environment_file "KMS_GL_ENABLED" "true"
   fi
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "$STATUS \\nIt will become active after next reboot" 20 60 1
@@ -226,7 +210,7 @@ rq_enable_gldriver() {
 }
 
 rq_check_gldriver() {
-  if [ -f /home/pi/RasQberry/.kms-gl-enabled ]; then 
+  if [ "$KMS_GL_ENABLED" = true ]; then
     return 0
   else
     rq_enable_gldriver
@@ -417,7 +401,7 @@ do_rq_configure_button() {
     sed -i 's/exit 0//' /etc/rc.local
     echo "/usr/bin/python3 /home/pi/.local/bin/Button-action.py\n\nexit 0" >> /etc/rc.local
     echo "\n# enable shutdown/reboot on GPIO 3; and LED power indicator on GPIO 4\ndtoverlay=gpio-shutdown,gpio_pin=3\ngpio=4=op,dh" >> /boot/config.txt
-    sed -i "s/BUTTON_CONFIGURED=.*/BUTTON_CONFIGURED=true/gm" /home/pi/RasQberry/environment.env
+    update_environment_file "BUTTON_CONFIGURED" "true"
   fi
 
   if [ "$INTERACTIVE" = True ]; then
@@ -560,7 +544,7 @@ do_rasqberry_enable_desktop_vnc(){
   if [ "$INTERACTIVE" = True ]; then
     rq_messages && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
   fi 
-  if [ ! -f /home/pi/RasQberry/.is_enabled_desktopvnc ]; then
+  if [ "$DESKTOPVNC_ENABLED" = false ]; then
     # setup wallpaper
     sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
     sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
@@ -603,7 +587,7 @@ do_rasqberry_enable_desktop_vnc(){
       rq_messages && whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
     fi 
     ASK_TO_REBOOT=1
-    touch /home/pi/RasQberry/.is_enabled_desktopvnc
+    update_environment_file "DESKTOPVNC_ENABLED" "true"
     # enable second vnc display (side-to-side)
     sudo -u pi /home/pi/RasQberry/bin/vnc_side-to-side.sh
     if [ "$INTERACTIVE" = True ]; then
@@ -623,7 +607,7 @@ do_rasqberry_enable_touch41(){
   fi 
 
   # enable 4'' touch display
-  if [ ! -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
+  if [ "$IS_ENABLED_TOUCH4" = false ]; then
     sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
     ASK_TO_REBOOT=1
     if [ "$INTERACTIVE" = True ]; then
@@ -638,8 +622,8 @@ do_rasqberry_enable_touch42(){
   fi 
 
   # check touchscreen calibration
-  if [ ! -f /home/pi/RasQberry/.is_tft_calibrated ] && [ -f /home/pi/RasQberry/.is_enabled_touch4 ]; then
-    cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && touch /home/pi/RasQberry/.is_tft_calibrated
+  if [ "$IS_TFT_CALIBRATED" = false ] && [ "$IS_ENABLED_TOUCH4" = true ]; then
+    cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && update_environment_file "IS_TFT_CALIBRATED" "true"
     if [ "$INTERACTIVE" = True ]; then
       rq_messages && whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\nPlease exit and reboot" 20 60 1
     fi 
@@ -678,9 +662,8 @@ do_rasqberry_activate_bloch_autostart(){
     if [ $RET -eq 0 ]; then #selected yes
       #whiptail --msgbox "selected yes" 20 60 1
       echo "@/home/pi/RasQberry/demos/bin/rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
-      sed -i "s/BLOCH_AUTORUN_ENABLED=.*/BLOCH_AUTORUN_ENABLED=true/gm" /home/pi/RasQberry/environment.env
-      sed -i "s/BLOCH_AUTORUN_ASKED=.*/BLOCH_AUTORUN_ASKED=true/gm" /home/pi/RasQberry/environment.env
-      . /home/pi/RasQberry/env-config.sh
+      update_environment_file "BLOCH_AUTORUN_ENABLED" "true"
+      update_environment_file "BLOCH_AUTORUN_ASKED" "true"
     else # selected no
       #whiptail --msgbox "selected no" 20 60 1
       DEFAULT=--defaultno
@@ -688,9 +671,7 @@ do_rasqberry_activate_bloch_autostart(){
         "Would you like to be asked again to activate autostart?" $DEFAULT 20 60 2
       RET=$?
       if [ $RET -eq 1 ]; then #selected no
-        #whiptail --msgbox "selected no" 20 60 1
-        sed -i "s/BLOCH_AUTORUN_ASKED=.*/BLOCH_AUTORUN_ASKED=true/gm" /home/pi/RasQberry/environment.env
-        . /home/pi/RasQberry/env-config.sh
+        update_environment_file "BLOCH_AUTORUN_ASKED" "true"
       fi
     fi
   fi
@@ -700,8 +681,7 @@ do_rasqberry_deactivate_bloch_autostart(){
 # enable bloch autostart ?
   if [ "$BLOCH_AUTORUN_ENABLED" = true ]; then
     sed -i 's/@rq_bloch_autostart.sh//' /etc/xdg/lxsession/LXDE-pi/autostart
-    sed -i "s/BLOCH_AUTORUN_ENABLED=.*/BLOCH_AUTORUN_ENABLED=false/gm" /home/pi/RasQberry/environment.env
-    . /home/pi/RasQberry/env-config.sh
+    update_environment_file "BLOCH_AUTORUN_ENABLED" "false"
   fi
 }
 
@@ -739,7 +719,7 @@ do_rq_setup_SenseHAT(){
   cd ~
 
   # disable messages
-  touch /home/pi/.rq_no_messages
+  update_environment_file "RQ_NO_MESSAGES" "true"
 
   # Additional SenseHAT libraries (not sure if they are needed)
   # apt -y install python3-sense-emu sense-emu-tools
