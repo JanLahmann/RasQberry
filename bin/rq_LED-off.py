@@ -10,15 +10,8 @@ import time
 from rpi_ws281x import PixelStrip, Color
 import argparse
 
-#import sys
-#sys.path.append('/home/pi/RasQberry/RQB-config/')
-#from LEDs import LED_COUNT, LED_PIN
 from dotenv import dotenv_values
 config = dotenv_values("/home/pi/RasQberry/environment.env")
-#print("LED_COUNT_init: ", LED_COUNT_init)
-
-# for testing reasons
-print(config)
 
 LED_COUNT = int(config["LED_COUNT"])
 LED_PIN = int(config["LED_PIN"])
