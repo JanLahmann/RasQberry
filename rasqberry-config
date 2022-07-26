@@ -244,7 +244,7 @@ do_rasqberry_switch_branch() {
   #switch to branch
   git checkout "$branch_name"
   if [ "$INTERACTIVE" = True ]; then
-      rq_messages && whiptail --msgbox "Switched to branch: $branch_name" 20 60 1
+      whiptail --msgbox "Switched to branch: $branch_name" 20 60 1
   fi
 }
 
