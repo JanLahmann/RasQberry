@@ -10,7 +10,10 @@ CONFIG=/boot/config.txt
 
 USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
 
-
+update_environment_file () {
+  sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/environment.env
+  . /home/pi/RasQberry/env-config.sh
+}
 
 is_pi () {
   ARCH=$(dpkg --print-architecture)
