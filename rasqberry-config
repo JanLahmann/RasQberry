@@ -4,12 +4,9 @@
 
 . /home/pi/RasQberry/env-config.sh
 
-INTERACTIVE=True
-ASK_TO_REBOOT=0
-CONFIG=/boot/config.txt
-
 USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
 
+# Function to update values stored in the environment.env file
 update_environment_file () {
   sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/environment.env
   . /home/pi/RasQberry/env-config.sh
@@ -231,6 +228,54 @@ rq_do_vnc() {
   fi
 }
 
+do_rasqberry_switch_branch() {
+  # switch to branch
+  cd /home/pi/RasQberry/
+  #count the number of branches
+  branch_counter=$(git branch -r| wc -l)
+  #create whiptail menu with the branches
+  branches=$(git branch -r | sed 's/\(.*\) -> \(.*\)/\2/')
+  branches_menu=$(echo $branches | sed 's/ /\n/g')
+  current_branch=$(git branch --show-current)
+  #create whiptail menu with the branches, default value is current branch
+  branch_choice=$(whiptail --inputbox "$branches_menu" $WT_HEIGHT $WT_WIDTH "$current_branch" --title "Type in the new branch (without 'origin/')" 3>&1 1>&2 2>&3)
+  #get the branch name
+  branch_name=$(echo "$branch_choice" | sed 's/\(.*\) -> \(.*\)/\2/')
+  #switch to branch
+  git checkout "$branch_name"
+  if [ "$INTERACTIVE" = True ]; then
+      rq_messages && whiptail --msgbox "Switched to branch: $branch_name" 20 60 1
+  fi
+}
+
+do_rasqberry_change_environment_file() {
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Change environment file" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "I IBM-Q API Token " "Change your IBM-Q API Token" \
+    "Q N_QUBITS " "Change the number of qubits" \
+    "L LED_COUNT " "Change the number of LED Pixels" \
+    "P LED_PIN " "Change the GPIO Pin connected to pixels" \
+    "O Other " "Change other environment variables" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return 0
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      I\ *) do_menu_update_environment_file IBM_Q_API_TOKEN ;;
+      Q\ *) do_menu_update_environment_file N_QUBIT ;;
+      L\ *) do_menu_update_environment_file LED_COUNT ;;
+      P\ *) do_menu_update_environment_file LED_PIN ;;
+      O\ *) nano /home/pi/RasQberry/environment.env ;;
+      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
+    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
+  fi
+}
+
+do_menu_update_environment_file() {
+  new_value=$(whiptail --inputbox "$1" $WT_HEIGHT $WT_WIDTH --title "Type in the new value" 3>&1 1>&2 2>&3)
+  update_environment_file "$1" "$new_value"
+}
+
 do_rasqberry_about() {
   whiptail --msgbox "\
 This tool provides a straight-forward way of doing initial \
@@ -310,26 +355,6 @@ do_rasqberry_Qoffee_clone() {
         rq_messages && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file does not exist. Please crete it based on the env-template" 20 60 1
     fi
     exit 1
-  fi
-}
-
-do_rasqberry_switch_branch() {
-  # switch to branch
-  cd /home/pi/RasQberry/
-  #count the number of branches
-  branch_counter=$(git branch -r| wc -l)
-  #create whiptail menu with the branches
-  branches=$(git branch -r | sed 's/\(.*\) -> \(.*\)/\2/')
-  branches_menu=$(echo $branches | sed 's/ /\n/g')
-  current_branch=$(git branch --show-current)
-  #create whiptail menu with the branches, default value is current branch
-  branch_choice=$(whiptail --inputbox "$branches_menu" $WT_HEIGHT $WT_WIDTH "$current_branch" --title "Type in the new branch (without 'origin/')" 3>&1 1>&2 2>&3)
-  #get the branch name
-  branch_name=$(echo "$branch_choice" | sed 's/\(.*\) -> \(.*\)/\2/')
-  #switch to branch
-  git checkout "$branch_name"
-  if [ "$INTERACTIVE" = True ]; then
-      rq_messages && whiptail --msgbox "Switched to branch: $branch_name" 20 60 1
   fi
 }
 
@@ -858,6 +883,7 @@ do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q Install Qiskit " "Install Qiskit (several versions)" \
     "B Switch Branches " "Switch to a different branch of RasQberry" \
+    "E Change environment-file" "Change the contents of the environment-file" \
     "QMst stop Qoffee-Maker " "stop all Qoffee-Maker containers" \
     "QMrb Qoffee-Maker rebuild " "force rebuild of Qoffee-Maker images" \
     "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
@@ -874,6 +900,7 @@ do_advanced_config() {
     case "$FUN" in
       Q\ *) do_rasqberry_install_qiskit ;;
       B\ *) do_rasqberry_switch_branch ;;
+      E\ *) do_rasqberry_change_environment_file ;;
       QMst\ *) do_rasqberry_Qoffee_stop ;;
       QMrb\ *) do_rasqberry_Qoffee_rebuild ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;
