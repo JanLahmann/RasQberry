@@ -131,7 +131,8 @@ The Jupyter Notebook boots in the background, and you can access it over your br
 If you want to start the jupyter notebook with the cloned Fun-with-Quantum or Qiskit-Tutorials Repository you can open the Rasqberry-Configuration Tool and select `H - HD Demos` and then choose the demo you want to access.<br/>
 <br/>
 When you are on your Raspberry you can access the Jupyter Notebook by opening http://raspberrypi:8888/ in your browser. When you want to access the Jupyter Notebook on your Laptop you can open it by typing http://{ip address}:{port}. The Default port is *8888*. You can find the corresponding port number in the messagebox.
-The password is *RasQberry*.<br/>
+</br>
+<h7 style="color:red"> Password: **RasQberry**. </h7> <br/>
 You can now use the Jupyter notebook.
 
 [Go back to: Content](./README.md) <br/>
