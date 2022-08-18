@@ -6,7 +6,7 @@
 import subprocess, time, math
 from dotenv import dotenv_values
 
-config = dotenv_values("/home/pi/RasQberry/rasqberry_environment.env")
+config = dotenv_values("/home/pi/RasQberry/environment.env")
 n_qbit = int(config["N_QUBIT"])
 LED_COUNT = int(config["LED_COUNT"])
 LED_PIN = int(config["LED_PIN"])

@@ -15,4 +15,4 @@ token=$( (echo "from qiskit import IBMQ";
  echo "print ('IBM_Q_API_TOKEN=\"' + str(token) + '\"')";
  echo "IBMQ.save_account(token)") | python3 )
 
-sed -i "s/IBM_Q_API_TOKEN=.*/$token/gm" /home/pi/RasQberry/rasqberry_environment.env
+sed -i "s/IBM_Q_API_TOKEN=.*/$token/gm" /home/pi/RasQberry/environment.env
