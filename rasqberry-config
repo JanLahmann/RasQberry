@@ -12,10 +12,12 @@ update_environment_file () {
   if [ -z "$2" ]||[ -z "$1" ]; then
     # whiptail message box to show error
     whiptail --title "Error" --msgbox "Error: No value provided. Environment variable not updated" 8 78
-    exit 0
+  else
+    # update environment file
+    sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/rasqberry_environment.env
+    # reload environment file
+    . /home/pi/RasQberry/env-config.sh
   fi
-  sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/rasqberry_environment.env
-  . /home/pi/RasQberry/env-config.sh
 }
 
 is_pi () {
