@@ -11,7 +11,7 @@ update_environment_file () {
   #check wheter string is empty
   if [ -z "$2" ]||[ -z "$1" ]; then
     # whiptail message box to show error
-    whiptail --title "Error" --msgbox "Error: No value provided. Environment variable not updated" 8 32
+    whiptail --title "Error" --msgbox "Error: No value provided. Environment variable not updated" 8 78
     exit 0
   fi
   sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/rasqberry_environment.env
