@@ -6,9 +6,14 @@
 
 USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
 
-# Function to update values stored in the environment.env file
+# Function to update values stored in the rasqberry_environment.env file
 update_environment_file () {
-  sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/environment.env
+  #check wheter string is empty
+  if [ -z "$2" -a -z "$1" ]; then
+    echo "Error: No value provided. Environment variable not updated."
+    exit 1
+  fi
+  sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/rasqberry_environment.env
   . /home/pi/RasQberry/env-config.sh
 }
 
@@ -265,7 +270,7 @@ do_rasqberry_change_environment_file() {
       Q\ *) do_menu_update_environment_file N_QUBIT ;;
       L\ *) do_menu_update_environment_file LED_COUNT ;;
       P\ *) do_menu_update_environment_file LED_PIN ;;
-      O\ *) nano /home/pi/RasQberry/environment.env ;;
+      O\ *) nano /home/pi/RasQberry/rasqberry_environment.env ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
@@ -336,12 +341,13 @@ do_rq_enable_docker() {
 
 do_rasqberry_Qoffee_clone() {
   # clone Qoffee-Maker github repo
-  if [ ! -f /home/pi/RasQberry/.Qoffee_cloned ]; then  
+  if [ "$QOFFEE_CLONED" = false ]; then
     #newgrp docker
     #docker version
     cd /home/pi/
-    sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker && touch /home/pi/RasQberry/.Qoffee_cloned'
-    if [ "$INTERACTIVE" = True ]; then
+    sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker'
+    update_environment_file "QOFFEE_CLONED" "true"
+    if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker Demo cloned" 20 60 1
     fi
   else 
@@ -351,7 +357,7 @@ do_rasqberry_Qoffee_clone() {
   # check if .env file exists
   if [ ! -f .env ]; then  
     echo "/home/pi/Qoffee-Maker/.env file does not exist. Please crete it based on the env-template"
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file does not exist. Please crete it based on the env-template" 20 60 1
     fi
     exit 1
@@ -367,7 +373,8 @@ do_rasqberry_Qoffee_stop() {
 do_rasqberry_Qoffee_rebuild() {
 # stop all qoffee docker containers
   sudo -u pi -H -- sh -c 'docker stop $(docker ps -q --filter name=qoffee )'
-  sudo -u pi -H -- sh -c 'rm -f /home/pi/RasQberry/.Qoffee_downloaded /home/pi/RasQberry/.Qoffee_installed'
+  update_environment_file "QOFFEE_DOWNLOADED" "false"
+  update_environment_file "QOFFEE_INSTALLED" "false"
 }
 
 do_rasqberry_Qoffee_local() {
@@ -375,12 +382,12 @@ do_rasqberry_Qoffee_local() {
   do_rasqberry_Qoffee_clone
   cd /home/pi/Qoffee-Maker/
   # check if Qoffee-Maker docker image needs to be build
-  if [ ! -f /home/pi/RasQberry/.Qoffee_installed ]; then  
-    # sudo -u pi -H -- sh -c 'docker build -f DockerfileArm -t qoffee . && cp -R /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
-    # bulld with node 15 instead of node 14
+  if [ "$QOFFEE_INSTALLED" = false ]; then
+    # build with node 15 instead of node 14
     sudo -u pi -H -- sh -c 'cp DockerfileArm DockerfileArm-15'
     sed -i 's/node:14/node:15/' DockerfileArm-15
-    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_installed'
+    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/'
+    update_environment_file "QOFFEE_INSTALLED" "true"
     sudo -u pi -H -- sh -c 'rm DockerfileArm-15'
     if [ "$INTERACTIVE" = True ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker container build locally" 20 60 1
@@ -402,8 +409,9 @@ do_rasqberry_Qoffee_download() {
   do_rasqberry_Qoffee_clone
   cd /home/pi/Qoffee-Maker/
   # check if Qoffee-Maker download and setup to be done
-  if [ ! -f /home/pi/RasQberry/.Qoffee_downloaded ]; then  
-    sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-maker && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/ && touch /home/pi/RasQberry/.Qoffee_downloaded'
+  if [ "$QOFFEE_DOWNLOADED" = false ]; then
+    sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-maker && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/'
+    update_environment_file "QOFFEE_DOWNLOADED" "true"
     if [ "$INTERACTIVE" = True ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker Demo image downloaded" 20 60 1
     fi
