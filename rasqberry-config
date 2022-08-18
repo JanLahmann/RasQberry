@@ -9,7 +9,7 @@ USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
 # Function to update values stored in the rasqberry_environment.env file
 update_environment_file () {
   #check wheter string is empty
-  if [ -z "$2" -a -z "$1" ]; then
+  if [ -z "$2" ]||[ -z "$1" ]; then
     echo "Error: No value provided. Environment variable not updated."
     exit 1
   fi
