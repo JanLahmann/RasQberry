@@ -3,7 +3,7 @@
 If you already have a raspberry pi with the latest version of Raspbian you can start at step 2.
 
 ## Step 1: Get your Raspberry Pi ready
-With the Raspberry Pi Imager (https://www.raspberrypi.org/software/ ) write the Raspberry Pi OS Raspian on an (empty) SD-Card. You can either choose the Image right from the Raspberry Pi Imager or you can first download Raspian at https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit.
+With the Raspberry Pi Imager (https://www.raspberrypi.org/software/ ) write the Raspberry Pi OS Raspbian on an (empty) SD-Card. You can either choose the Image right from the Raspberry Pi Imager or you can first download Raspbian at https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit.
 
 <p align="center"> 
 <img src="../Artwork/RPi.png" alt="drawing" width="350"/> <img src="../Artwork/RPi_OS.png" alt="drawing" width="350"/> <br/>
@@ -13,14 +13,14 @@ With the Raspberry Pi Imager (https://www.raspberrypi.org/software/ ) write the 
 ```python 
 sudo raspi-config
 ```
- For this you will need an Display or for an headless set up you’ll need to enable SSH.
+ For this you will need a Display or for a headless setup you’ll need to enable SSH.
 
 <br/>
 
 ## Step 2: Enable SSH (optional)
 You can enable SSH in different ways:  
 + 	**Headless (add file):**  
-After you wrote the Raspian Image on your SD-Card you need to add a file named “*ssh*” in your boot partition (boot register) of your SD-Card, which you can access on your personal computer.
+After you wrote the Raspbian Image on your SD-Card you need to add a file named “*ssh*” in your boot partition (boot register) of your SD-Card, which you can access on your personal computer.
 When you added the file, you can now boot your Raspberry Pi.
 
 * **Headless (with Imager):** <br/>
@@ -33,7 +33,7 @@ When you write the Raspberry Pi OS on your SD-Card you can enable SSH with the w
 You can enable SSH and enter your password or public-key to make the authenticating process while connecting easier.
 
 * 	**With Display:**  
-Open the terminal on your Raspberry Pi.	You can find the terminal in the applicatin menu, under *Accessories*.
+Open the terminal on your Raspberry Pi.	You can find the terminal in the application menu, under *Accessories*.
 ```python
 sudo raspi-config
 ```
@@ -72,7 +72,7 @@ in your terminal/ssh window.
 <br/>
 
 ## Step 4: RasQberry Setup
-You can assemble your Hardware either with an (touch) display or with an senseHAT. It is not possible to use the senseHAT and the touch display on the same Raspberry Pi, because the senseHAT isn’t working with the installation process from the touch display.
+You can assemble your Hardware either with a (touch) display or with an senseHAT. It is not possible to use the senseHAT and the touch display on the same Raspberry Pi, because the senseHAT isn’t working with the installation process from the touch display.
 <br/>
 
 ### With touch display
@@ -87,7 +87,7 @@ With this step you will install Qiskit. You can choose between a few versions of
 With this step you Raspberry will start the Bloch Sphere Demo automatically whenever you start your device.<br/>
 After your first the executing `D0` your Raspberry will reboot automatically. After the reboot you should execute `D0` again. This time there is no automatic reboot, but one is recommended.
 1. Select `D1 – Config & Demos` (optional)<br/>
-With this step you will configurate Qiskit automatically and install the Quantum Demos. Also this step will configurate jupyter notebook.
+With this step you will configurate Qiskit automatically and install the Quantum Demos. Also, this step will configurate jupyter notebook.
 
 ### With Sense HAT
 Before the Raspberry Pi can boot with the SenseHAT attached you need to do some changes in the **config.txt**-file.<br/>
@@ -110,7 +110,7 @@ With this step you will configurate the SenseHAT and the qrasp demo will autosta
 
 <br/>
 
-The above installation procedure used pre-compiled wheel files for most of the python packages. These are downloaded automatically from https://www.piwheels.org. For the packages retworkx and qiskit-aer, currently there are no whl files available. Total install with local compile takes 10 minutes on RPi 4.
+The above installation procedure used pre-compiled wheel files for most of the python packages. These are downloaded automatically from https://www.piwheels.org. For the packages retworkx and qiskit-aer, currently there are no whl files available. Total installation with local compile takes 10 minutes on RPi 4.
 
 <br/>
 
@@ -124,7 +124,7 @@ In the terminal you can now enter your new API Token.
 ## Cloning the Git-Repository with the Qiskit-tutorials 
 By executing the following instructions you clone a repository (https://github.com/Qiskit/qiskit-tutorials) with a collection of jupyter notebooks aimed at teaching people who want to use Qiskit for writing quantum computing programs, and executing them on one of several backends (online quantum processors, online simulators, and local simulators).
 
-If you want to clone the Git Repository to access the with the Qiskit-Tutorials, you need to open the RasQberry Configuration Tool. First select `H - HD Demos` and second `Q1 - Qiskit Tutorials` (Jupyter Notebokk starts automatically).<br/>
+If you want to clone the Git Repository to access the with the Qiskit-Tutorials, you need to open the RasQberry Configuration Tool. First select `H - HD Demos` and second `Q1 - Qiskit Tutorials` (Jupyter Notebook starts automatically).<br/>
 This will take a moment to clone and as the case may be to open the jupyter notebook.
  
  <br/>
@@ -137,9 +137,9 @@ The autostart is now disabled.
 <br/>
 
 ## Changing WIFI Settings
-If you got handed an SD-Card where the above described installation already is made and you want to connect the Raspberry with your network you can do this in different ways.<br/>
+If you got handed an SD-Card where the above described installation already is made and you want to connect the Raspberry with your network, you can do this in different ways.<br/>
 * **Raspberry Pi Imager**<br/>
-When you write the Raspberry Pi OS on your SD-Card you can set your WIFI Settings with the writing process. You can access the extended menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
+When you write the Raspberry Pi OS on your SD-Card you can set your WI-FI Settings with the writing process. You can access the extended menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
 <br/>
 <p align="center"> 
 <img src="../Artwork/RPi_WIFI.png" alt="drawing" width="350"/> <br/>
@@ -147,8 +147,8 @@ When you write the Raspberry Pi OS on your SD-Card you can set your WIFI Setting
 
 <br/>
 
-In this panel you can enter your SSID and your wifi-password and select your Wifi country.<br/>
-When your boot your Raspberry Pi it should automatically connect to your wifi of choice. <br/>
+In this panel you can enter your SSID and your wifi-password and select your Wi-Fi country.<br/>
+When your boot your Raspberry Pi it should automatically connect to your Wi-Fi of choice. <br/>
 
 <br/>
 
@@ -162,12 +162,12 @@ Sudo raspi-config
 <br/>
 
 * **With the `wpa_supplicant.conf`-File before first boot** <br/>
-Before you first boot your Raspberry Pi you can change the wpa_supplicant.conf-File on your SD-Card. In this File you can set your SSID ans the password.<br/>
+Before you first boot your Raspberry Pi you can change the wpa_supplicant.conf-File on your SD-Card. In this File you can set your SSID and the password.<br/>
 Save the changes and exit the file.<br/>
 <br/>
 
 * **With the `wpa_supplicant.conf`-File after first boot** <br/>
-Open your termins/ssh window.
+Open your terminal/ssh window.
 ```python
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 ```
@@ -176,14 +176,15 @@ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 <br> 
 
 * **With the display and a (virtual) keyboard**<br/>
-First click on the WIFI-Icon in the top right corner of the screen and activate the WIFI and select your WIFI of choice.<br/> 
+First click on the WIFI-Icon in the top right corner of the screen and activate the WI-FI and select your WIFI of choice.<br/> 
 If you don't have a keyboard with you, you can use a virtual keyboard that comes with the Raspberry Pi OS. You can find it in the menu under `Accessories`.<br/>
 With the virtual keyboard you can enter the wpa-key.
 
 <br/>
 
-## Install VNC Viewer
+## Install VNC and VNC Viewer
 To remotely access the screen of your Raspberry Pi you need to have a VNC Viewer installed on a different computer. VNC has been tested using the realVNC Viewer (https://www.realvnc.com/de/connect/download/viewer/) <br/>
+Enable VNC by choosing the "DV Configure Desktop and VNC"-Option in the RasQberry Setup menu. </br>
 To connect to your Raspberry Pi you need to open your VNC Viewer.  
 In the VNC Viewer you enter the VNC server-address from your Raspberry. After that you will need to enter a username (default: pi) and a password (default: raspberry).  <br/>
 Your VNC Viewer will now connect to your Raspberry Pi.
@@ -211,7 +212,7 @@ Open your terminal/ssh window and type
 ```python 
 sudo python3 .local/bin/rq_LED-test.py -c
 ```
-Your LED Light should now be turned on. To turn it of press ctl + c.
+Your LED Light should now be turned on. To turn it off press ctl + c.
 
 If this method doesn’t work, you can also open the RasQberry Configuration Tool. Select `S – RasQberry Setup`, then `S7 – Enable LED Light` and finally `S8 – Toggle LED Light`.  
 Your LED Light should now be turned on. To turn it off again select `S8 – Toggle LED Light` again.

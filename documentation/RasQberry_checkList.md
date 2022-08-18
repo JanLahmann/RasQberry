@@ -5,7 +5,7 @@ With this checklist you can test if everything works fine and is installed corre
 - [ ] The menu points in the RasQberry Configuration Tool can be executed without an error message.<br/>
 - [ ] After executing menu point S1 the Rasqberry is accessible with the VNC Viewer.<br/>
     - [Instructions for checking if the VNC Viewer works](./RasQberry_Setup.md#install-vnc-viewer).<br/>
-- [ ] After executing menu point S2 the touch display is useable.<br/>
+- [ ] After executing menu point S2 the touch display is usable.<br/>
 - [ ] After executing menu point Q1 Qiskit is installed.<br/>
 &emsp;&emsp;To check if Qiskit is installed open your terminal and type<br/> 
 ```python
@@ -35,7 +35,7 @@ pip3 list installed | grep jupyter
 - [ ] the Fun-with-Quantum and Qiskit-tutorials Repositories are cloned and on the RasQberry available.<br/>
     - If cloned correctly you can find the Repositories in your file directory under `/home/pi/`<br/>
 - [ ] jupyter notebook autostart is enabled on ports 8888 and 8889. <br/>
-    - To test if the jupyter notebook starts correctly automaticaly after the reboot go in the browser on your PC and type in the URL window: {ip address RasQberry}:{portnumber} with the portnumbers 8888 and 8889.<br/>
+    - To test if the jupyter notebook starts correctly automatically after the reboot go in the browser on your PC and type in the URL window: {ip address RasQberry}:{portnumber} with the portnumbers 8888 and 8889.<br/>
 - [ ] all needed packages for the SenseHAT demos are installed (Sense HAT und Sense HAT Emulator). <br/>
     - To check if all senseHAT related packages are installed open your terminal and type<br>
 
@@ -53,9 +53,9 @@ The touch display demos are executable:<br/>
 You can access these demos with the desktop-icons.<br/>
 - [ ] Bloch Sphere Demo<br/>
 - [ ] Quantum Composer<br/>
-- [ ] Lights (Toogle)<br/>
+- [ ] Lights (Toggle)<br/>
 - [ ] RasQ-LED <br/>
-- [ ] Cyrostat Ambilights (Toggle)<br/>
+- [ ] Cryostat Ambilights (Toggle)<br/>
 - [ ] Clear LED Lights<br/>
 <br/>
 
