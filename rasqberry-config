@@ -280,7 +280,7 @@ do_rasqberry_change_environment_file() {
 }
 
 do_menu_update_environment_file() {
-  new_value=$(whiptail --inputbox "$1 = $$1" $WT_HEIGHT $WT_WIDTH --title "Type in the new value" 3>&1 1>&2 2>&3)
+  new_value=$(whiptail --inputbox "$1 = $("$1")" $WT_HEIGHT $WT_WIDTH --title "Type in the new value" 3>&1 1>&2 2>&3)
   update_environment_file "$1" "$new_value"
 }
 
