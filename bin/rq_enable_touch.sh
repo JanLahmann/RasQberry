@@ -3,7 +3,7 @@
 
 . /home/pi/RasQberry/env-config.sh
 update_environment_file () {
-  sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/environment.env
+  sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/rasqberry_environment.env
   . /home/pi/RasQberry/env-config.sh
 }
 

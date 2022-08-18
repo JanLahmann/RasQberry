@@ -6,14 +6,14 @@
 
 USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
 
-# Function to update values stored in the environment.env file
+# Function to update values stored in the rasqberry_environment.env file
 update_environment_file () {
   #check wheter string is empty
   if [ -z "$2" -a -z "$1" ]; then
     echo "Error: No value provided. Environment variable not updated."
     exit 1
   fi
-  sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/environment.env
+  sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/rasqberry_environment.env
   . /home/pi/RasQberry/env-config.sh
 }
 
@@ -270,7 +270,7 @@ do_rasqberry_change_environment_file() {
       Q\ *) do_menu_update_environment_file N_QUBIT ;;
       L\ *) do_menu_update_environment_file LED_COUNT ;;
       P\ *) do_menu_update_environment_file LED_PIN ;;
-      O\ *) nano /home/pi/RasQberry/environment.env ;;
+      O\ *) nano /home/pi/RasQberry/rasqberry_environment.env ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
