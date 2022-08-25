@@ -836,6 +836,7 @@ do_rasqberry_demos() {
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q00 Qiskit" "Install Qiskit (latest version)" \
+    "Q37 Qiskit 0.37" "Install Qiskit v0.37" \
     "Q36 Qiskit 0.36" "Install Qiskit v0.36" \
     "Q34 Qiskit 0.34" "Install Qiskit v0.34" \
     "Q30 Qiskit 0.30" "Install Qiskit v0.30" \
@@ -864,6 +865,7 @@ do_rasqberry_install_qiskit() {
       Q30\ *) do_rasqberry_install_030 ;;
       Q34\ *) do_rasqberry_install_034 ;;
       Q36\ *) do_rasqberry_install_036 ;;
+      Q37\ *) do_rasqberry_install_037 ;;
       Q00\ *) do_rasqberry_install_latest ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
