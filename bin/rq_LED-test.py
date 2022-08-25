@@ -28,6 +28,10 @@ print("LED_DMA: {}".format(LED_DMA))
 print("LED_INVERT: {}".format(LED_INVERT))
 print("LED_CHANNEL: {}".format(LED_CHANNEL))
 
+#Testing:
+CONFIG = str(config["CONFIG"])
+print("CONFIG: {}".format(CONFIG))
+
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=150):
     """Wipe color across display a pixel at a time."""
