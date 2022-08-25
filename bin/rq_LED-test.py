@@ -20,18 +20,6 @@ LED_BRIGHTNESS = int(config["LED_BRIGHTNESS"])  # Set to 0 for darkest and 255 f
 LED_INVERT = bool(config["LED_INVERT"])    # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL = int(config["LED_CHANNEL"])       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
-# print all above variables
-print("LED_COUNT: {}".format(LED_COUNT))
-print("LED_PIN: {}".format(LED_PIN))
-print("LED_FREQ_HZ: {}".format(LED_FREQ_HZ))
-print("LED_DMA: {}".format(LED_DMA))
-print("LED_INVERT: {}".format(LED_INVERT))
-print("LED_CHANNEL: {}".format(LED_CHANNEL))
-
-#Testing:
-CONFIG = str(config["CONFIG"])
-print("CONFIG: {}".format(CONFIG))
-
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=150):
     """Wipe color across display a pixel at a time."""
