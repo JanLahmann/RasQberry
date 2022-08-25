@@ -545,6 +545,15 @@ do_rasqberry_install_030() {
    fi 
  }
 
+ do_rasqberry_install_037() {
+  echo; echo "Install Qiskit 0.37"; echo;
+  apt -y install libatlas-base-dev
+  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit037.sh
+  if [ "$INTERACTIVE" = True ]; then
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit 0.37 installed" 20 60 1
+  fi
+}
+
 do_rasqberry_install_latest() {
   echo; echo "Install Qiskit (latest version)"; echo;
   apt -y install libatlas-base-dev
@@ -824,7 +833,7 @@ do_rasqberry_demos() {
   fi
 }
 
-do_rasqberry_() {
+do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q00 Qiskit" "Install Qiskit (latest version)" \
     "Q36 Qiskit 0.36" "Install Qiskit v0.36" \
@@ -992,12 +1001,6 @@ do
   esac
 done
 
-do_test() {
-  whiptail --msgbox "$TEST" 20 60 1
-  update_environment_file TEST "CHANGED!"
-  whiptail --msgbox "$TEST" 20 60 1
-}
-
 #
 # Interactive use loop
 #
@@ -1017,7 +1020,6 @@ if [ "$INTERACTIVE" = True ]; then
         "H HD Demos" "Install and run HD Demos" \
         "A Advanced Config" "Advanced Config" \
         "9 About rasqberry-config " "Information about this configuration tool" \
-        "X Test" "Test" \
         3>&1 1>&2 2>&3)
     else
       FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
@@ -1035,7 +1037,6 @@ if [ "$INTERACTIVE" = True ]; then
           H\ *) do_hd_demos ;;
           A\ *) do_advanced_config ;;
           9\ *) do_rasqberry_about ;;
-          X\ *) do_test ;;
           *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
         esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
       else
