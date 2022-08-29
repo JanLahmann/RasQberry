@@ -1,7 +1,7 @@
 #!/bin/sh
 # Derived from raspi-config https://github.com/RPi-Distro/raspi-config
-#
 
+# Load environment variables
 . /home/pi/RasQberry/env-config.sh
 
 USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
@@ -19,6 +19,8 @@ update_environment_file () {
     . /home/pi/RasQberry/env-config.sh
   fi
 }
+
+############# CHECK GENERAL INFORMATION ABOUT PI #############
 
 is_pi () {
   ARCH=$(dpkg --print-architecture)
@@ -113,6 +115,8 @@ is_installed() {
       return 0
     fi
 }
+
+############# CONFIGURATION METHODS #############
 
 disable_raspi_config_at_boot() {
   if [ -e /etc/profile.d/raspi-config.sh ]; then
@@ -435,113 +439,6 @@ do_rasqberry_install_libcint() {
   #whiptail --msgbox "libcint is installed" 20 60 1
 }
 
-do_rasqberry_install_019() {
-  echo; echo "Install Qiskit 0.19"; echo;
-  do_rasqberry_install_libcint;
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit019.sh
-  whiptail --msgbox "Qiskit 0.19 installed" 20 60 1
-}
-
-do_rasqberry_install_020() {
-  echo; echo "Install Qiskit 0.20"; echo;
-  do_rasqberry_install_libcint;
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit020.sh
-  whiptail --msgbox "Qiskit 0.20 installed" 20 60 1
-}
-
-do_rasqberry_install_023() {
-  echo; echo "Install Qiskit 0.23"; echo;
-  apt -y install libatlas-base-dev
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit023.sh
-  whiptail --msgbox "Qiskit 0.23 installed" 20 60 1
-}
-
-do_rasqberry_install_024() {
-  echo; echo "Install Qiskit 0.24"; echo;
-  apt -y install libatlas-base-dev
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit024.sh
-  whiptail --msgbox "Qiskit 0.24 installed" 20 60 1
-}
-
-do_rasqberry_install_025() {
-  echo; echo "Install Qiskit 0.25"; echo;
-  apt -y install libatlas-base-dev llvm-9
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit025.sh
-  whiptail --msgbox "Qiskit 0.25 installed" 20 60 1
-}
-
-do_rasqberry_install_027() {
-  echo; echo "Install Qiskit 0.27"; echo;
-  apt -y install libatlas-base-dev llvm-9
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit027.sh
-  whiptail --msgbox "Qiskit 0.27 installed" 20 60 1
-}
-
-do_rasqberry_install_028() {
-  echo; echo "Install Qiskit 0.28"; echo;
-  apt -y install libatlas-base-dev
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit028.sh
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
-  fi 
-}
-
-do_rasqberry_install_029() {
-  echo; echo "Install Qiskit 0.29"; echo;
-  apt -y install libatlas-base-dev
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit029.sh
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit 0.28 installed" 20 60 1
-  fi 
-}
-
-do_rasqberry_install_030() {
-   echo; echo "Install Qiskit 0.30"; echo;
-   apt -y install libatlas-base-dev
-   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit030.sh
-   if [ "$INTERACTIVE" = True ]; then
-     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit 0.30 installed" 20 60 1
-   fi 
- }
-
- do_rasqberry_install_034() {
-   echo; echo "Install Qiskit 0.34"; echo;
-   apt -y install libatlas-base-dev
-   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit034.sh
-   if [ "$INTERACTIVE" = True ]; then
-     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit 0.34 installed" 20 60 1
-   fi 
- }
-
- do_rasqberry_install_036() {
-   echo; echo "Install Qiskit 0.36"; echo;
-   apt -y install libatlas-base-dev
-   sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit036.sh
-   if [ "$INTERACTIVE" = True ]; then
-     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit 0.36 installed" 20 60 1
-   fi 
- }
-
- do_rasqberry_install_037() {
-  echo; echo "Install Qiskit 0.37"; echo;
-  apt -y install libatlas-base-dev
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit037.sh
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit 0.37 installed" 20 60 1
-  fi
-}
-
-
-
-do_rasqberry_install_latest() {
-  echo; echo "Install Qiskit (latest version)"; echo;
-  apt -y install libatlas-base-dev
-  sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_install_Qiskit_latest.sh
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit (latest version) installed" 20 60 1
-  fi 
-}
-
 do_rasqberry_install_general() {
     echo; echo "Install Qiskit $1"; echo;
     #check if version equals 019 or 020
@@ -791,42 +688,23 @@ do_RasQ_LED(){
   sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/RasQ-LED.py'
 }
 
+do_clone_qiskit_start_jupyter() {
+  if [ "$INTERACTIVE" = True ]; then
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  fi
+  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_qiskit_tutorial.sh --port 8888 &
+}
+
+do_clone_fwq_start_jupyter() {
+  if [ "$INTERACTIVE" = True ]; then
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  fi
+  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh --port 8889 &
+}
+
 ############# GRAPHICAL WHIPTAIL MENUS #############
 
-do_rasqberry_demos() {
-  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "BS Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
-    "RL RasQ-LED" "Start RasQ-LED demo" \
-    "CL Clear LED" "Clear LED Lights" \
-    "QM Qoffee-Maker" "Local Build/Start Qoffee-Maker demo" \
-    "QMd Qoffee-Maker" "Download/Start Qoffee-Maker image" \
-    "RT5 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
-    "RT16 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
-    "QR Qrasp " "Install/Start/Stop the Qrasp Demo" \
-    "CS Clear SenseHAT" "Clear SenseHAT Display" \
-    "UT Update Q Token" "Enter new IBM Quantum Experience Token" \
-    "DB Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
-    3>&1 1>&2 2>&3)
-  RET=$?
-  if [ $RET -eq 1 ]; then
-    return 0
-  elif [ $RET -eq 0 ]; then
-    case "$FUN" in
-      BS\ *) do_rasqberry_run_bloch ;;
-      RL\ *) do_RasQ_LED ;;
-      CL\ *) do_led_lights_off ;;
-      QM\ *) do_rasqberry_Qoffee_local ;;
-      QMd\ *) do_rasqberry_Qoffee_download ;;
-      RT5\ *) do_rasqberry_run_rasptie_no_network ;;
-      RT16\ *) do_rasqberry_run_rasptie16_no_network ;;
-      QR\ *) do_rasqberry_run_qrasp ;;
-      CS\ *) do_sensehat_display_off ;;
-      UT\ *) do_rasqberry_qtoken_update ;;
-      DB\ *) do_rasqberry_deactivate_bloch_autostart ;;
-      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
-    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
-  fi
-}
+## 3rd LEVEL MENUS ##
 
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
@@ -890,6 +768,8 @@ do_rasqberry_change_environment_file() {
   fi
 }
 
+## 2nd LEVEL MENUS ##
+
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "IC Initial Config " "Basic configurations (PATH, LOCALE, etc)" \
@@ -914,6 +794,58 @@ do_rasqberry_setup() {
       D\ *) do_rq_enable_docker ;;
       BL\ *) do_rq_configure_button ;;
       SH\ *) do_rq_setup_SenseHAT ;;
+      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
+    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
+  fi
+}
+
+do_rasqberry_demos() {
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "BS Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
+    "RL RasQ-LED" "Start RasQ-LED demo" \
+    "CL Clear LED" "Clear LED Lights" \
+    "QM Qoffee-Maker" "Local Build/Start Qoffee-Maker demo" \
+    "QMd Qoffee-Maker" "Download/Start Qoffee-Maker image" \
+    "RT5 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
+    "RT16 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
+    "QR Qrasp " "Install/Start/Stop the Qrasp Demo" \
+    "CS Clear SenseHAT" "Clear SenseHAT Display" \
+    "UT Update Q Token" "Enter new IBM Quantum Experience Token" \
+    "DB Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return 0
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      BS\ *) do_rasqberry_run_bloch ;;
+      RL\ *) do_RasQ_LED ;;
+      CL\ *) do_led_lights_off ;;
+      QM\ *) do_rasqberry_Qoffee_local ;;
+      QMd\ *) do_rasqberry_Qoffee_download ;;
+      RT5\ *) do_rasqberry_run_rasptie_no_network ;;
+      RT16\ *) do_rasqberry_run_rasptie16_no_network ;;
+      QR\ *) do_rasqberry_run_qrasp ;;
+      CS\ *) do_sensehat_display_off ;;
+      UT\ *) do_rasqberry_qtoken_update ;;
+      DB\ *) do_rasqberry_deactivate_bloch_autostart ;;
+      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
+    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
+  fi
+}
+
+do_hd_demos() {
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "HD Demos" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "QT Qiskit Tutorials - internal browser" "Start jupyter notebook with Qiskit-Tutorials" \
+    "FwQ Fun-with-Quantum - internal browser" "Start jupyter notebook with Fun-with-Quantum" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return 0
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      QT\ *) do_clone_qiskit_start_jupyter ;;
+      FwQ\ *) do_clone_fwq_start_jupyter ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
@@ -954,39 +886,7 @@ do_advanced_config() {
   fi
 }
 
-
-do_clone_qiskit_start_jupyter() {
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
-  fi
-  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_qiskit_tutorial.sh --port 8888 & 
-}
-
-do_clone_fwq_start_jupyter() {
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
-  fi
-  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh --port 8889 &
-}
-
-do_hd_demos() {
-  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "HD Demos" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "QT Qiskit Tutorials - internal browser" "Start jupyter notebook with Qiskit-Tutorials" \
-    "FwQ Fun-with-Quantum - internal browser" "Start jupyter notebook with Fun-with-Quantum" \
-    3>&1 1>&2 2>&3)
-  RET=$?
-  if [ $RET -eq 1 ]; then
-    return 0
-  elif [ $RET -eq 0 ]; then
-    case "$FUN" in
-      QT\ *) do_clone_qiskit_start_jupyter ;;
-      FwQ\ *) do_clone_fwq_start_jupyter ;;
-      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
-    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
-  fi
-}
-
-############# RasQberry  #############
+## 1st LEVEL MENU ##
 
 #
 # Command line options for non-interactive use
