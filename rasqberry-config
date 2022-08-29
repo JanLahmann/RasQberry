@@ -256,29 +256,6 @@ do_rasqberry_switch_branch() {
   fi
 }
 
-do_rasqberry_change_environment_file() {
-  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Change environment file" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "I IBM-Q API Token " "Change your IBM-Q API Token" \
-    "Q N_QUBITS " "Change the number of qubits" \
-    "L LED_COUNT " "Change the number of LED Pixels" \
-    "P LED_PIN " "Change the GPIO Pin connected to pixels" \
-    "O Other " "Change other environment variables" \
-    3>&1 1>&2 2>&3)
-  RET=$?
-  if [ $RET -eq 1 ]; then
-    return 0
-  elif [ $RET -eq 0 ]; then
-    case "$FUN" in
-      I\ *) do_menu_update_environment_file IBM_Q_API_TOKEN ;;
-      Q\ *) do_menu_update_environment_file N_QUBIT ;;
-      L\ *) do_menu_update_environment_file LED_COUNT ;;
-      P\ *) do_menu_update_environment_file LED_PIN ;;
-      O\ *) nano /home/pi/RasQberry/rasqberry_environment.env ;;
-      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
-    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
-  fi
-}
-
 do_menu_update_environment_file() {
   new_value=$(whiptail --inputbox "$1" $WT_HEIGHT $WT_WIDTH --title "Type in the new value" 3>&1 1>&2 2>&3)
   update_environment_file "$1" "$new_value"
@@ -359,9 +336,9 @@ do_rasqberry_Qoffee_clone() {
   fi
   # check if .env file exists
   if [ ! -f .env ]; then  
-    echo "/home/pi/Qoffee-Maker/.env file does not exist. Please crete it based on the env-template"
+    echo "/home/pi/Qoffee-Maker/.env file does not exist. Please create it based on the env-template"
     if [ "$INTERACTIVE" = True ]; then
-        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file does not exist. Please crete it based on the env-template" 20 60 1
+        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file does not exist. Please create it based on the env-template" 20 60 1
     fi
     exit 1
   fi
@@ -554,6 +531,8 @@ do_rasqberry_install_030() {
   fi
 }
 
+
+
 do_rasqberry_install_latest() {
   echo; echo "Install Qiskit (latest version)"; echo;
   apt -y install libatlas-base-dev
@@ -562,6 +541,20 @@ do_rasqberry_install_latest() {
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit (latest version) installed" 20 60 1
   fi 
 }
+
+do_rasqberry_install_general() {
+    echo; echo "Install Qiskit $1"; echo;
+    #check if version equals 019 or 020
+    if [ "$1" = "019" ] || [ "$1" = "020" ]; then
+      do_rasqberry_install_libcint;
+    else
+      apt -y install libatlas-base-dev
+    fi
+    sudo -u pi -H -- sh -c "/home/pi/.local/bin/rq_install_Qiskit$1.sh"
+    if [ "$INTERACTIVE" = True ]; then
+      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit $1 installed" 20 60 1
+    fi
+  }
 
 do_install_kivy() {
   sudo -u pi -H -- sh -c /home/pi/RasQberry/bin/rq_install_kivy.sh
@@ -796,7 +789,9 @@ do_led_lights_off(){
 
 do_RasQ_LED(){
   sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/RasQ-LED.py'
-} 
+}
+
+############# GRAPHICAL WHIPTAIL MENUS #############
 
 do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
@@ -854,19 +849,42 @@ do_rasqberry_install_qiskit() {
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
-      Q19\ *) do_rasqberry_install_019 ;;
-      Q20\ *) do_rasqberry_install_020 ;;
-      Q23\ *) do_rasqberry_install_023 ;;
-      Q24\ *) do_rasqberry_install_024 ;;
-      Q25\ *) do_rasqberry_install_025 ;;
-      Q27\ *) do_rasqberry_install_027 ;;
-      Q28\ *) do_rasqberry_install_028 ;;
-      Q29\ *) do_rasqberry_install_029 ;;
-      Q30\ *) do_rasqberry_install_030 ;;
-      Q34\ *) do_rasqberry_install_034 ;;
-      Q36\ *) do_rasqberry_install_036 ;;
-      Q37\ *) do_rasqberry_install_037 ;;
-      Q00\ *) do_rasqberry_install_latest ;;
+      Q19\ *) do_rasqberry_install_general 019 ;;
+      Q20\ *) do_rasqberry_install_general 020 ;;
+      Q23\ *) do_rasqberry_install_general 023 ;;
+      Q24\ *) do_rasqberry_install_general 024 ;;
+      Q25\ *) do_rasqberry_install_general 025 ;;
+      Q27\ *) do_rasqberry_install_general 027 ;;
+      Q28\ *) do_rasqberry_install_general 028 ;;
+      Q29\ *) do_rasqberry_install_general 029 ;;
+      Q30\ *) do_rasqberry_install_general 030 ;;
+      Q34\ *) do_rasqberry_install_general 034 ;;
+      Q36\ *) do_rasqberry_install_general 036 ;;
+      Q37\ *) do_rasqberry_install_general 037 ;;
+      Q00\ *) do_rasqberry_install_general _latest ;;
+      *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
+    esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
+  fi
+}
+
+do_rasqberry_change_environment_file() {
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Change environment file" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    "I IBM-Q API Token " "Change your IBM-Q API Token" \
+    "Q N_QUBITS " "Change the number of qubits" \
+    "L LED_COUNT " "Change the number of LED Pixels" \
+    "P LED_PIN " "Change the GPIO Pin connected to pixels" \
+    "O Other " "Change other environment variables" \
+    3>&1 1>&2 2>&3)
+  RET=$?
+  if [ $RET -eq 1 ]; then
+    return 0
+  elif [ $RET -eq 0 ]; then
+    case "$FUN" in
+      I\ *) do_menu_update_environment_file IBM_Q_API_TOKEN ;;
+      Q\ *) do_menu_update_environment_file N_QUBIT ;;
+      L\ *) do_menu_update_environment_file LED_COUNT ;;
+      P\ *) do_menu_update_environment_file LED_PIN ;;
+      O\ *) nano /home/pi/RasQberry/rasqberry_environment.env ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
