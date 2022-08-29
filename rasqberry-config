@@ -3,22 +3,13 @@
 
 # Load environment variables
 . /home/pi/RasQberry/env-config.sh
+# Load external methods
+. /home/pi/RasQberry/config/setup.sh
+. /home/pi/RasQberry/config/demos.sh
+. /home/pi/RasQberry/config/qoffee-maker.sh
+. /home/pi/RasQberry/config/getinfo.sh
 
 USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
-
-# Function to update values stored in the rasqberry_environment.env file
-update_environment_file () {
-  #check whether string is empty
-  if [ -z "$2" ]||[ -z "$1" ]; then
-    # whiptail message box to show error
-    whiptail --title "Error" --msgbox "Error: No value provided. Environment variable not updated" 8 78
-  else
-    # update environment file
-    sed -i "s/^$1=.*/$1=$2/gm" /home/pi/RasQberry/rasqberry_environment.env
-    # reload environment file
-    . /home/pi/RasQberry/env-config.sh
-  fi
-}
 
 ############# CHECK GENERAL INFORMATION ABOUT PI #############
 
@@ -37,110 +28,6 @@ else
   CMDLINE=/proc/cmdline
 fi
 
-is_pione() {
-   if grep -q "^Revision\s*:\s*00[0-9a-fA-F][0-9a-fA-F]$" /proc/cpuinfo; then
-      return 0
-   elif grep -q "^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]0[0-36][0-9a-fA-F]$" /proc/cpuinfo ; then
-      return 0
-   else
-      return 1
-   fi
-}
-
-is_pitwo() {
-   grep -q "^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]04[0-9a-fA-F]$" /proc/cpuinfo
-   return $?
-}
-
-is_pizero() {
-   grep -q "^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]0[9cC][0-9a-fA-F]$" /proc/cpuinfo
-   return $?
-}
-
-is_pifour() {
-   grep -q "^Revision\s*:\s*[ 123][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]11[0-9a-fA-F]$" /proc/cpuinfo
-   return $?
-}
-
-get_pi_type() {
-   if is_pione; then
-      echo 1
-   elif is_pitwo; then
-      echo 2
-   else
-      echo 0
-   fi
-}
-
-is_live() {
-    grep -q "boot=live" $CMDLINE
-    return $?
-}
-
-is_ssh() {
-  if pstree -p | egrep --quiet --extended-regexp ".*sshd.*\($$\)"; then
-    return 0
-  else
-    return 1
-  fi
-}
-
-calc_wt_size() {
-  # NOTE: it's tempting to redirect stderr to /dev/null, so supress error 
-  # output from tput. However in this case, tput detects neither stdout or 
-  # stderr is a tty and so only gives default 80, 24 values
-  WT_HEIGHT=18
-  WT_WIDTH=$(tput cols)
-
-  if [ -z "$WT_WIDTH" ] || [ "$WT_WIDTH" -lt 60 ]; then
-    WT_WIDTH=80
-  fi
-  if [ "$WT_WIDTH" -gt 178 ]; then
-    WT_WIDTH=120
-  fi
-  WT_MENU_HEIGHT=$(($WT_HEIGHT-7))
-}
-
-is_number() {
-  case $1 in
-    ''|*[!0-9]*) return 0 ;;
-    *) return 1 ;;
-  esac
-}
-
-is_installed() {
-    if [ "$(dpkg -l "$1" 2> /dev/null | tail -n 1 | cut -d ' ' -f 1)" != "ii" ]; then
-      return 1
-    else
-      return 0
-    fi
-}
-
-############# CONFIGURATION METHODS #############
-
-disable_raspi_config_at_boot() {
-  if [ -e /etc/profile.d/raspi-config.sh ]; then
-    rm -f /etc/profile.d/raspi-config.sh
-    if [ -e /etc/systemd/system/getty@tty1.service.d/raspi-config-override.conf ]; then
-      rm /etc/systemd/system/getty@tty1.service.d/raspi-config-override.conf
-    fi
-    telinit q
-  fi
-}
-
-do_finish() {
-  disable_raspi_config_at_boot
-  if [ $ASK_TO_REBOOT -eq 1 ]; then
-    whiptail --yesno "Would you like to reboot now?" 20 60 2
-    if [ $? -eq 0 ]; then # yes
-      sync
-      reboot
-    fi
-  fi
-  exit 0
-}
-
-
 # Everything else needs to be run as root
 if [ $(id -u) -ne 0 ]; then
   printf "Script must be run as root. Try 'sudo rasqberry-config'\n"
@@ -152,38 +39,6 @@ if [ -n "${OPT_MEMORY_SPLIT:-}" ]; then
   set_memory_split "${OPT_MEMORY_SPLIT}"
   exit 0
 fi
-
-
-############# RasQberry  #############
-
-rq_check_tft4() {
-  [ `tvservice -n` == "device_name=ADA-MPI4008" ] && update_environment_file "RQ_IS_TFT4" "true" || update_environment_file "RQ_IS_TFT4" "false"
-}
-
-rq_check_hat() {
-  [ -d /proc/device-tree/hat/ ] && update_environment_file "RQ_IS_HAT" "true" || update_environment_file "RQ_IS_HAT" "false"
-}
-
-rq_check_internet() {
-  [ `ping -q -w 1 -c 1 8.8.8.8` ] && update_environment_file "RQ_IS_INTERNET" "true" || update_environment_file "RQ_IS_INTERNET" "false"
-}
-
-do_toggle_messages() {
-  [ "$RQ_NO_MESSAGES" = false ] && update_environment_file "RQ_NO_MESSAGES" "true" || update_environment_file "RQ_NO_MESSAGES" "false"
-}
-
-rq_do_vnc() {  
-  if is_installed realvnc-vnc-server || apt-get install realvnc-vnc-server; then
-    systemctl enable vncserver-x11-serviced.service &&
-    systemctl start vncserver-x11-serviced.service &&
-    STATUS=enabled  
-  fi
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "The VNC Server is $STATUS" 20 60 1
-  fi
-}
-
-
 
 do_rasqberry_about() {
   whiptail --msgbox "\
@@ -198,119 +53,6 @@ Select either Qiskit version 0.20 or version 0.23 to be installed.
 'Quantum Demos' offers several Quantum demos - suitable for a \
 TFT touchscreen display or a SenseHAT 8x8 LED matrix. " 20 70 1
 }
-
-do_rasqberry_enable_desktop_vnc(){
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
-  fi 
-  if [ "$DESKTOPVNC_ENABLED" = false ]; then
-    # setup wallpaper
-    sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/pcmanfm/LXDE-pi/'
-    sudo -u pi -H -- sh -c 'cp /home/pi/RasQberry/bin/rq_desktop-items-0.conf /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf'
-    # add desktop icons and menu entries
-    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/kivy.desktop /home/pi/Desktop/'
-    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/bloch.desktop /home/pi/Desktop/'
-    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/composer.desktop /home/pi/Desktop/'
-    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/.local/share/applications/'
-    desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
-    # add menu categories
-    sudo -u pi -i /home/pi/RasQberry/bin/add_menu.sh
-    # add menu directories
-    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/directory-entries/* /home/pi/.local/share/desktop-directories'
-    # file manager config
-    if [ -f /home/pi/.config/libfm/libfm.conf ]; then
-      sed -i 's/quick_exec=0/quick_exec=1/' /home/pi/.config/libfm/libfm.conf
-    else 
-      sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/libfm/; echo "[config]\nquick_exec=1\nsingle_click=1" > /home/pi/.config/libfm/libfm.conf'
-    fi
-    # desktop panel config
-    [ ! -f /home/pi/.config/lxpanel/LXDE-pi/panels/panel ] \
-      && sudo -u pi -H -- sh -c 'mkdir -p /home/pi/.config/lxpanel/LXDE-pi/panels/; cat /home/pi/RasQberry/bin/rq_lxpanel.conf > /home/pi/.config/lxpanel/LXDE-pi/panels/panel'
-    # remove warning for unchanged password
-    apt -y purge libpam-chksshpwd
-    # fix missing xterm when using desktop icons
-    ln -s /usr/bin/lxterminal /usr/bin/xterm
-    # prevent welcome wizard to start. (run manually with "sudo piwiz", if needed)
-    rm /etc/xdg/autostart/piwiz.desktop
-
-    # install virtual keyboard
-    apt -y install matchbox-keyboard
-
-    # enable light
-    do_rasqberry_enable_LED
-
-    # enable VNC
-    rq_do_vnc
-    
-    if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
-    fi 
-    ASK_TO_REBOOT=1
-    update_environment_file "DESKTOPVNC_ENABLED" "true"
-    # enable second vnc display (side-to-side)
-    sudo -u pi /home/pi/RasQberry/bin/vnc_side-to-side.sh
-    if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enabled second vnc <ip address>:5902" 20 60 1
-    fi 
-    echo "@/home/pi/RasQberry/bin/vnc_side-to-side.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
-    if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Desktop and VNC are enabled.\\nSystem will reboot now" 20 60 1
-    fi 
-    reboot
-  fi
-}
-
-do_rasqberry_enable_LED() {
-  # enable rpi_ws281x python library
-  cd /home/pi/
-  pip3 install rpi_ws281x
-  [ ! -d rpi-ws281x-python ] && sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python' || return 0
-}
-
-do_rasqberry_toggle_LED() {
-  # turn on or off the LED light ring above the cryostat
-  if [ -f /home/pi/RasQberry/.is_running_LED ]; then
-    kill -15 `cat /home/pi/RasQberry/.is_running_LED`
-    rm /home/pi/RasQberry/.is_running_LED
-    python3 .local/bin/rq_LED-off.py -c
-  else
-    nohup python3 .local/bin/rq_LED-test.py -c &
-    echo $! > /home/pi/RasQberry/.is_running_LED
-  fi
-}
-
-do_rasqberry_activate_bloch_autostart(){
-# enable bloch autostart ?
-  [ "$BLOCH_AUTORUN_ENABLED" = true ] && return 0;
-  if [ "$BLOCH_AUTORUN_ASKED" = false ]; then
-    DEFAULT=--defaultno
-    whiptail --yesno \
-      "Would you like to enable the BlochSphere autostart?" $DEFAULT 20 60 2
-    RET=$?
-    if [ $RET -eq 0 ]; then #selected yes
-      #whiptail --msgbox "selected yes" 20 60 1
-      echo "@/home/pi/RasQberry/demos/bin/rq_bloch_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
-      update_environment_file "BLOCH_AUTORUN_ENABLED" "true"
-      update_environment_file "BLOCH_AUTORUN_ASKED" "true"
-    else # selected no
-      #whiptail --msgbox "selected no" 20 60 1
-      DEFAULT=--defaultno
-      whiptail --yesno \
-        "Would you like to be asked again to activate autostart?" $DEFAULT 20 60 2
-      RET=$?
-      if [ $RET -eq 1 ]; then #selected no
-        update_environment_file "BLOCH_AUTORUN_ASKED" "true"
-      fi
-    fi
-  fi
-}
-
-# Load external methods
-. /home/pi/RasQberry/config/setup.sh
-. /home/pi/RasQberry/config/demos.sh
-. /home/pi/RasQberry/config/qoffee-maker.sh
-. /home/pi/RasQberry/config/hddemos.sh
-. /home/pi/RasQberry/config/advanced.sh
 
 ############# GRAPHICAL WHIPTAIL MENUS #############
 
@@ -376,11 +118,6 @@ do_rasqberry_change_environment_file() {
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
   fi
-}
-
-do_menu_update_environment_file() {
-  new_value=$(whiptail --inputbox "$1" $WT_HEIGHT $WT_WIDTH --title "Type in the new value" 3>&1 1>&2 2>&3)
-  update_environment_file "$1" "$new_value"
 }
 
 ## 2nd LEVEL MENUS ##

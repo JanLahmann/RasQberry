@@ -1,69 +1,6 @@
 #!/bin/sh
 
-rq_enable_gldriver() {
-  if [ ! -e /boot/overlays/vc4-kms-v3d.dtbo ]; then
-    if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Driver and kernel not present on your system. Please update" 20 60 2
-    fi
-    return 1
-  fi
-  for package in gldriver-test libgl1-mesa-dri; do
-    if [ "$(dpkg -l "$package" 2> /dev/null | tail -n 1 | cut -d ' ' -f 1)" != "ii" ]; then
-      missing_packages="$package $missing_packages"
-    fi
-  done
-  if [ -n "$missing_packages" ] && ! apt-get install $missing_packages; then
-    if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Required packages not found, please install: ${missing_packages}" 20 60 2
-    fi
-    return 1
-  fi
-  if is_pifour ; then
-    if ! grep -q -E "^dtoverlay=vc4-fkms-v3d" $CONFIG; then
-      ASK_TO_REBOOT=1
-    fi
-    sed $CONFIG -i -e "s/^dtoverlay=vc4-kms-v3d/#dtoverlay=vc4-kms-v3d/g"
-    sed $CONFIG -i -e "s/^#dtoverlay=vc4-fkms-v3d/dtoverlay=vc4-fkms-v3d/g"
-    if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-fkms-v3d" ; then
-      printf "[all]\ndtoverlay=vc4-fkms-v3d\n" >> $CONFIG
-    fi
-    STATUS="The fake KMS GL driver is enabled."
-    update_environment_file "KMS_GL_ENABLED" "true"
-  else
-    if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-kms-v3d" ; then
-      ASK_TO_REBOOT=1
-    fi
-    sed $CONFIG -i -e "s/^dtoverlay=vc4-fkms-v3d/#dtoverlay=vc4-fkms-v3d/g"
-    sed $CONFIG -i -e "s/^#dtoverlay=vc4-kms-v3d/dtoverlay=vc4-kms-v3d/g"
-    if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-kms-v3d" ; then
-      printf "[all]\ndtoverlay=vc4-kms-v3d\n" >> $CONFIG
-    fi
-    STATUS="The full KMS GL driver is enabled."
-    update_environment_file "KMS_GL_ENABLED" "true"
-  fi
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "$STATUS \\nIt will become active after next reboot" 20 60 1
-  fi
-}
-
-rq_check_gldriver() {
-  if [ "$KMS_GL_ENABLED" = true ]; then
-    return 0
-  else
-    rq_enable_gldriver
-    reboot
-    ASK_TO_REBOOT=1
-    return 1
-  fi
-}
-
-do_rasqberry_deactivate_bloch_autostart(){
-# enable bloch autostart ?
-  if [ "$BLOCH_AUTORUN_ENABLED" = true ]; then
-    sed -i 's/@rq_bloch_autostart.sh//' /etc/xdg/lxsession/LXDE-pi/autostart
-    update_environment_file "BLOCH_AUTORUN_ENABLED" "false"
-  fi
-}
+#Demos
 
 do_rasqberry_run_bloch(){
   if [ "$INTERACTIVE" = True ]; then
@@ -101,4 +38,19 @@ do_rasqberry_run_qrasp(){
 
 do_sensehat_display_off(){
   sudo -H -- sh -c /home/pi/.local/bin/clear_sense.py
+}
+
+#HD Demos
+do_clone_qiskit_start_jupyter() {
+  if [ "$INTERACTIVE" = True ]; then
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  fi
+  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_qiskit_tutorial.sh --port 8888 &
+}
+
+do_clone_fwq_start_jupyter() {
+  if [ "$INTERACTIVE" = True ]; then
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
+  fi
+  sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh --port 8889 &
 }
