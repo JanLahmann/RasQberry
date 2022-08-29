@@ -172,63 +172,6 @@ do_toggle_messages() {
   [ "$RQ_NO_MESSAGES" = false ] && update_environment_file "RQ_NO_MESSAGES" "true" || update_environment_file "RQ_NO_MESSAGES" "false"
 }
 
-rq_enable_gldriver() {
-  if [ ! -e /boot/overlays/vc4-kms-v3d.dtbo ]; then
-    if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Driver and kernel not present on your system. Please update" 20 60 2
-    fi
-    return 1
-  fi
-  for package in gldriver-test libgl1-mesa-dri; do
-    if [ "$(dpkg -l "$package" 2> /dev/null | tail -n 1 | cut -d ' ' -f 1)" != "ii" ]; then
-      missing_packages="$package $missing_packages"
-    fi
-  done
-  if [ -n "$missing_packages" ] && ! apt-get install $missing_packages; then
-    if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Required packages not found, please install: ${missing_packages}" 20 60 2
-    fi
-    return 1
-  fi
-  if is_pifour ; then
-    if ! grep -q -E "^dtoverlay=vc4-fkms-v3d" $CONFIG; then
-      ASK_TO_REBOOT=1
-    fi
-    sed $CONFIG -i -e "s/^dtoverlay=vc4-kms-v3d/#dtoverlay=vc4-kms-v3d/g"
-    sed $CONFIG -i -e "s/^#dtoverlay=vc4-fkms-v3d/dtoverlay=vc4-fkms-v3d/g"
-    if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-fkms-v3d" ; then
-      printf "[all]\ndtoverlay=vc4-fkms-v3d\n" >> $CONFIG
-    fi
-    STATUS="The fake KMS GL driver is enabled."
-    update_environment_file "KMS_GL_ENABLED" "true"
-  else
-    if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-kms-v3d" ; then
-      ASK_TO_REBOOT=1
-    fi
-    sed $CONFIG -i -e "s/^dtoverlay=vc4-fkms-v3d/#dtoverlay=vc4-fkms-v3d/g"
-    sed $CONFIG -i -e "s/^#dtoverlay=vc4-kms-v3d/dtoverlay=vc4-kms-v3d/g"
-    if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-kms-v3d" ; then
-      printf "[all]\ndtoverlay=vc4-kms-v3d\n" >> $CONFIG
-    fi
-    STATUS="The full KMS GL driver is enabled."
-    update_environment_file "KMS_GL_ENABLED" "true"
-  fi
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "$STATUS \\nIt will become active after next reboot" 20 60 1
-  fi
-}
-
-rq_check_gldriver() {
-  if [ "$KMS_GL_ENABLED" = true ]; then
-    return 0
-  else
-    rq_enable_gldriver
-    reboot
-    ASK_TO_REBOOT=1
-    return 1
-  fi
-}
-
 rq_do_vnc() {  
   if is_installed realvnc-vnc-server || apt-get install realvnc-vnc-server; then
     systemctl enable vncserver-x11-serviced.service &&
@@ -277,94 +220,6 @@ Select either Qiskit version 0.20 or version 0.23 to be installed.
 
 'Quantum Demos' offers several Quantum demos - suitable for a \
 TFT touchscreen display or a SenseHAT 8x8 LED matrix. " 20 70 1
-}
-
-do_rasqberry_Qoffee_clone() {
-  # clone Qoffee-Maker github repo
-  if [ "$QOFFEE_CLONED" = false ]; then
-    #newgrp docker
-    #docker version
-    cd /home/pi/
-    sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker'
-    update_environment_file "QOFFEE_CLONED" "true"
-    if [ "$INTERACTIVE" = True ]; then
-        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker Demo cloned" 20 60 1
-    fi
-  else 
-    cd /home/pi/Qoffee-Maker
-    sudo -u pi -H -- sh -c 'git pull origin $BRANCH'
-  fi
-  # check if .env file exists
-  if [ ! -f .env ]; then  
-    echo "/home/pi/Qoffee-Maker/.env file does not exist. Please create it based on the env-template"
-    if [ "$INTERACTIVE" = True ]; then
-        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file does not exist. Please create it based on the env-template" 20 60 1
-    fi
-    exit 1
-  fi
-}
-
-do_rasqberry_Qoffee_stop() {
-# stop all qoffee docker containers
-  echo "stopping all qoffee containers"
-  sudo -u pi -H -- sh -c 'docker stop $(docker ps -q --filter name=qoffee )'
-}
-
-do_rasqberry_Qoffee_rebuild() {
-# stop all qoffee docker containers
-  sudo -u pi -H -- sh -c 'docker stop $(docker ps -q --filter name=qoffee )'
-  update_environment_file "QOFFEE_DOWNLOADED" "false"
-  update_environment_file "QOFFEE_INSTALLED" "false"
-}
-
-do_rasqberry_Qoffee_local() {
-  # clone Qoffee-Maker github repo
-  do_rasqberry_Qoffee_clone
-  cd /home/pi/Qoffee-Maker/
-  # check if Qoffee-Maker docker image needs to be build
-  if [ "$QOFFEE_INSTALLED" = false ]; then
-    # build with node 15 instead of node 14
-    sudo -u pi -H -- sh -c 'cp DockerfileArm DockerfileArm-15'
-    sed -i 's/node:14/node:15/' DockerfileArm-15
-    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/'
-    update_environment_file "QOFFEE_INSTALLED" "true"
-    sudo -u pi -H -- sh -c 'rm DockerfileArm-15'
-    if [ "$INTERACTIVE" = True ]; then
-        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker container build locally" 20 60 1
-    fi
-  fi
-  # start Qoffee-Maker docker container
-  if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "will start Qoffee-Maker Demo. Please close Chrome at the end." 20 60 1
-  fi
-  echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest \n\n"
-  sudo -u pi -H -- sh -c 'docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env qoffee:latest && sleep 5 && chromium-browser http://127.0.0.1:8887/?token=super-secret-token'
-  echo "please wait for cleanup before closing the terminal"
-  do_rasqberry_Qoffee_stop
-  echo "Termminal can now be closed"
-}
-
-do_rasqberry_Qoffee_download() {
-  # clone Qoffee-Maker github repo
-  do_rasqberry_Qoffee_clone
-  cd /home/pi/Qoffee-Maker/
-  # check if Qoffee-Maker download and setup to be done
-  if [ "$QOFFEE_DOWNLOADED" = false ]; then
-    sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-maker && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/'
-    update_environment_file "QOFFEE_DOWNLOADED" "true"
-    if [ "$INTERACTIVE" = True ]; then
-        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker Demo image downloaded" 20 60 1
-    fi
-  fi
-  # download & start Qoffee-Maker docker image
-  if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "will download and start Qoffee-Maker Demo. Please close Chrome at the end." 20 60 1
-  fi
-  echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/janlahmann/qoffee-maker \n\n"
-  sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-maker && docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env ghcr.io/janlahmann/qoffee-maker && sleep 5 && chromium-browser http://127.0.0.1:8887/?token=super-secret-token'
-  echo "please wait for cleanup before closing the terminal"
-  do_rasqberry_Qoffee_stop
-  echo "Termminal can now be closed"
 }
 
 do_rasqberry_enable_desktop_vnc(){
@@ -504,52 +359,6 @@ do_rasqberry_activate_bloch_autostart(){
   fi
 }
 
-do_rasqberry_deactivate_bloch_autostart(){
-# enable bloch autostart ?
-  if [ "$BLOCH_AUTORUN_ENABLED" = true ]; then
-    sed -i 's/@rq_bloch_autostart.sh//' /etc/xdg/lxsession/LXDE-pi/autostart
-    update_environment_file "BLOCH_AUTORUN_ENABLED" "false"
-  fi
-}
-
-do_rasqberry_run_bloch(){
-  if [ "$INTERACTIVE" = True ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "starting run_bloch" 20 60 1
-  fi 
-  # check if GL2/GL3 driver is enabled
-  rq_check_gldriver
-
-  # enable autostart ?
-  do_rasqberry_activate_bloch_autostart
-
-  # run the bloch demo
-  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_bloch.sh
-}
-
-do_rasqberry_run_rasptie_no_network(){
-  sudo -u pi -H -- sh -c "/home/pi/RasQberry/demos/bin/rq_rasptie.sh -local"
-}
-
-do_rasqberry_run_rasptie16_no_network(){
-  sudo -u pi -H -- sh -c "/home/pi/RasQberry/demos/bin/rq_rasptie16.sh -local"
-}
-
-do_rasqberry_run_qrasp(){
-  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_qrasp.sh
-}
-
-do_sensehat_display_off(){
-  sudo -H -- sh -c /home/pi/.local/bin/clear_sense.py
-}
-
-do_led_lights_off(){
-  sudo -H -- sh -c /home/pi/.local/bin/rq_LED-off.py
-}
-
-do_RasQ_LED(){
-  sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/RasQ-LED.py'
-}
-
 do_clone_qiskit_start_jupyter() {
   if [ "$INTERACTIVE" = True ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
@@ -566,6 +375,8 @@ do_clone_fwq_start_jupyter() {
 
 # Load external methods
 . /home/pi/RasQberry/config/setup.sh
+. /home/pi/RasQberry/config/demos.sh
+. /home/pi/RasQberry/config/qoffee-maker.sh
 
 ############# GRAPHICAL WHIPTAIL MENUS #############
 
