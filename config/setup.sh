@@ -92,7 +92,7 @@ do_rq_enable_docker() {
 do_rq_configure_button() {
   # add Button-action.py to /etc/rc.local
   # enable reboot overlay in /boot/config.txt
-  echo "Test"
+  echo $BUTTON_CONFIGURED
   if [ $"BUTTON_CONFIGURED" = false ]; then
     echo "Hallloo"
     sed -i 's/exit 0//' /etc/rc.local
