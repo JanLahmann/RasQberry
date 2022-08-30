@@ -16,4 +16,4 @@ fi
 ############### DIDNT WORK ###############
 
 # start jupyter notebook
-sudo -u pi -i nohup jupyter notebook Visualizing-Quantum-Computing-using-fractals --port 8889 --ip=127.0.0.1 &
+sudo -u pi -i jupyter notebook Visualizing-Quantum-Computing-using-fractals --port 8889 --ip=127.0.0.1 &
