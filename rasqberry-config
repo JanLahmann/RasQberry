@@ -1,15 +1,13 @@
 #!/bin/sh
 # Derived from raspi-config https://github.com/RPi-Distro/raspi-config
 
-RASQ_PATH=/home/pi/RasQberry
-
 # Load environment variables
-. "$RASQ_PATH/env-config.sh"
-# Load external methods"
-. "$RASQ_PATH/config/setup.sh"
-. "$RASQ_PATH/config/demos.sh"
-. "$RASQ_PATH/config/qoffee-maker.sh"
-. "$RASQ_PATH/config/getinfo.sh"
+. /home/pi/RasQberry/env-config.sh
+# Load external methods
+. /home/pi/RasQberry/config/setup.sh
+. /home/pi/RasQberry/config/demos.sh
+. /home/pi/RasQberry/config/qoffee-maker.sh
+. /home/pi/RasQberry/config/getinfo.sh
 
 USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
 
