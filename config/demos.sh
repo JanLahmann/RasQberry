@@ -17,7 +17,7 @@ do_rasqberry_run_bloch(){
 }
 
 do_rasqberry_run_fractals(){
-  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/star_jupyter_fractals.sh
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/start_jupyter_fractals.sh
 }
 
 do_RasQ_LED(){
