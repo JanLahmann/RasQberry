@@ -154,6 +154,7 @@ do_rasqberry_setup() {
 do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "BS Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
+    "FR Fractals" "Install/Start the Fractals Demo" \
     "RL RasQ-LED" "Start RasQ-LED demo" \
     "CL Clear LED" "Clear LED Lights" \
     "QM Qoffee-Maker" "Local Build/Start Qoffee-Maker demo" \
@@ -171,6 +172,7 @@ do_rasqberry_demos() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       BS\ *) do_rasqberry_run_bloch ;;
+      FR\ *) do_rasqberry_run_fractals ;;
       RL\ *) do_RasQ_LED ;;
       CL\ *) do_led_lights_off ;;
       QM\ *) do_rasqberry_Qoffee_local ;;

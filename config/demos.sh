@@ -16,6 +16,10 @@ do_rasqberry_run_bloch(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_bloch.sh
 }
 
+do_rasqberry_run_fractals(){
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/star_jupyter_fractals.sh
+}
+
 do_RasQ_LED(){
   sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/RasQ-LED.py'
 }
