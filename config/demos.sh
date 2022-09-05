@@ -20,7 +20,8 @@ do_rasqberry_run_fractals(){
   pip install -U numpy
   pip install celluloid
   pip install selenium
-  python3 /home/pi/RasQberry/demos/bin/fractals.py > /dev/null 2>/dev/null &
+  pip install --upgrade --force-reinstall chromedriver-binary-auto
+  python3 /home/pi/RasQberry/demos/bin/fractal_files/fractals.py
 }
 
 do_RasQ_LED(){

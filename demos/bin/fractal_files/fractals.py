@@ -23,13 +23,15 @@ from ibm_quantum_widgets import *  # CircuitComposer
 # import libraries
 from selenium import webdriver
 import selenium
+from pathlib import Path
+cwd = Path.cwd()
 import chromedriver_binary  # Adds chromedriver binary to path
 
 # open selenium browser driver
 driver = webdriver.Chrome()
 driver.maximize_window()
-folder_path = "file:///Users/bengtwegner/PycharmProjects/Visualizing-Quantum-Computing-using-fractals/quantum-fractals-multiple-complex-numbers"
-pic_url = f"{folder_path}/2cn2.png"
+browser_file_path = f"file://{cwd}"
+pic_url = f"{browser_file_path}/2cn2.png"
 
 # Start with a one qubit quantum circuit yielding a nice fractal. Change the circuit as you like.
 circuit = QuantumCircuit(1, 1)
@@ -38,6 +40,7 @@ editor = CircuitComposer(circuit=circuit)
 
 # Generate a Bloch sphere based on the quantum circuit.
 qc1 = editor.circuit
+plot_bloch_multivector(qc1)
 
 # Run the circuit with the state vector simulator to obtain a noise-free fractal.
 backend = Aer.get_backend('statevector_simulator')
@@ -48,7 +51,7 @@ out = execute(qc1, backend).result().get_statevector()
 z0 = out.data[0]
 z1 = out.data[1]
 
-# Goal: One complex number for the Julia set fractal. 
+# Goal: One complex number for the Julia set fractal.
 if z1.real != 0 or z1.imag != 0:
     z = z0 / z1
     z = round(z.real, 2) + round(z.imag, 2) * 1j
@@ -186,7 +189,7 @@ class QuantumFractalImages:
 
     def qfanimations(self):
         # Secondly (a), generate the images based on the Julia set results
-        plot_bloch_multivector(ccircuit, filename='../../Visualizing-Quantum-Computing-using-fractals/quantum-fractals-multiple-complex-numbers/H.png')
+        plot_bloch_multivector(ccircuit, filename=f'{cwd}/H.png')
         ax[0].imshow(mpimg.imread('H.png'))
         ax[0].axis('off')
         ax[1].imshow(self.res_1cn, cmap='magma')
@@ -206,7 +209,7 @@ class QuantumFractalImages:
         print("Loop i =", i, " One complex no =", round(cno.real, 2) + round(cno.imag, 2) * 1j,
               "    Complex amplitude one:", round(cc1.real, 2) + round(cc1.imag, 2) * 1j, "and two:",
               round(cc2.real, 2) + round(cc2.imag, 2) * 1j)  # round(num.real, 2) + round(num.imag, 2) * 1j
-        plot_bloch_multivector(ccircuit, filename='../../Visualizing-Quantum-Computing-using-fractals/quantum-fractals-multiple-complex-numbers/H.png')
+        plot_bloch_multivector(ccircuit, filename=f'{cwd}/H.png')
         ax[0].imshow(mpimg.imread('H.png'))
         ax[0].axis('off')
         ax[1].imshow(self.res_1cn, cmap='magma')
@@ -252,7 +255,7 @@ driver.quit()
 interval = 1000 / frameps
 anim = camera.animate(blit=True, interval=interval)
 anim.save(f'1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif', writer='pillow')
-gif_url = f"{folder_path}/1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif"
+gif_url = f"{browser_file_path}/1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif"
 driver2 = webdriver.Chrome()
 driver2.maximize_window()
 driver2.get(gif_url)
