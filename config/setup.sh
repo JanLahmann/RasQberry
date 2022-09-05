@@ -64,7 +64,12 @@ do_rasqberry_install_autohotspot() {
   fi
   sudo Autohotspot/autohotspot-setup.sh
   cd
-  echo "Rebooting..."
+  #ask for yes/no to install crontab
+  if (whiptail --title "Install crontab" --yesno "Do you want to install a crontab to check for network connection every 5 minutes and run hotspot if necessary?" 8 78); then
+    #install crontab
+    (crontab -l 2>/dev/null; echo "*/5 * * * * sudo /usr/bin/autohotspotN >/dev/null 2>&1") | crontab -
+  fi
+  echo "Rebooting... Please wait and reconnect to the RasQberry"
   sudo reboot
 }
 
