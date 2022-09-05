@@ -60,10 +60,12 @@ do_rasqberry_install_autohotspot() {
   curl "https://www.raspberryconnect.com/images/hsinstaller/Autohotspot-Setup.tar.xz" -o AutoHotspot-Setup.tar.xz
   tar -xvJf AutoHotspot-Setup.tar.xz
   if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script. When prompted to enter a number choose accordingly (most cases option 1).\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
+      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script. When prompted to enter a number choose accordingly (in most cases option 1, exit with 8).\nThe RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
   fi
   sudo Autohotspot/autohotspot-setup.sh
   cd
+  echo "Rebooting..."
+  sudo reboot
 }
 
 do_rasqberry_install_libcint() {
