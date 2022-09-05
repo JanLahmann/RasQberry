@@ -127,6 +127,7 @@ do_rasqberry_setup() {
     "IC Initial Config " "Basic configurations (PATH, LOCALE, etc)" \
     "SU System Update " "Update the system and create swapfile" \
     "Q36 Install Qiskit" "Install Qiskit 0.36" \
+    "AH Install AutoHotspot" "Install an automated Wifi Hotspot" \
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
     "CD Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "D Docker" "Install & Enable Docker" \
