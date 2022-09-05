@@ -54,6 +54,16 @@ do_rasqberry_update() {
   ASK_TO_REBOOT=1
 }
 
+do_rasqberry_install_autohotspot() {
+  echo "installing autohotspot, credits: https://www.raspberryconnect.com/, find project on github: https://github.com/RaspberryConnect/AutoHotspot-Installer"
+  curl "https://www.raspberryconnect.com/images/hsinstaller/Autohotspot-Setup.tar.xz" -o AutoHotspot-Setup.tar.xz
+  tar -xvJf AutoHotspot-Setup.tar.xz
+  if [ "$INTERACTIVE" = True ]; then
+      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script. When prompted to enter a number choose accordingly (most cases option 1)." 20 60 1
+  fi
+  sudo AutoHotspot/autohotspot-setup.sh
+}
+
 do_rasqberry_install_libcint() {
   echo; echo "Install libcint"; echo;
   cd /home/pi/
