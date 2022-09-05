@@ -17,7 +17,10 @@ do_rasqberry_run_bloch(){
 }
 
 do_rasqberry_run_fractals(){
-  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/start_jupyter_fractals.sh
+  pip install -U numpy
+  pip install celluloid
+  pip install selenium
+  nohup python3 /home/pi/RasQberry/demos/bin/fractals.py > /dev/null 2>/dev/null &
 }
 
 do_RasQ_LED(){
