@@ -248,7 +248,7 @@ for i in range(frameno):
         QFI = QuantumFractalImages(i=i, cno=cno, cc1=cc1, cc2=cc2, ccircuit=ccircuit)
         QFI.qfanimations()
         QFI.qfimages()
-    except selenium.common.exceptions.NoSuchWindowException:
+    except (selenium.common.exceptions.NoSuchWindowException, selenium.common.exceptions.WebDriverException):
         print("Error, Browser window closed during generation of images")
         driver.quit()
         break
@@ -266,7 +266,7 @@ driver2.get(gif_url)
 while True:
     try:
         driver2.find_element(By.TAG_NAME, 'body')
-    except selenium.common.exceptions.NoSuchWindowException:
+    except (selenium.common.exceptions.NoSuchWindowException, selenium.common.exceptions.WebDriverException):
         print("Error, Browser window closed, quitting the program")
         driver2.quit()
         break
