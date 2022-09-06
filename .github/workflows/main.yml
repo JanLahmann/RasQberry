@@ -12,5 +12,5 @@ jobs:
 
         # Put an example of mandatory inputs here
         with:
-          PROJECT_PATH: ./demos/bin/fractal_files  #default is the root of the repository
+          PROJECT_PATH: .  #default is the root of the repository
           REQUIREMENT_PATH: requirements.txt  #default is requirement.txt in the root of your repository
