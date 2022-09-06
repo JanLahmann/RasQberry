@@ -21,8 +21,8 @@ do_rasqberry_run_fractals(){
   pip install -U numpy
   pip install celluloid
   pip install selenium
-  pip install --upgrade --force-reinstall chromedriver-binary-auto
   pip install ipython
+  sudo apt-get install chromium-chromedriver
   sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/fractal_files/fractals.py'
 }
 

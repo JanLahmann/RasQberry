@@ -25,10 +25,9 @@ from selenium import webdriver
 import selenium
 from pathlib import Path
 cwd = Path.cwd()
-import chromedriver_binary  # Adds chromedriver binary to path
 
 # open selenium browser driver
-driver = webdriver.Chrome()
+driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver')
 driver.maximize_window()
 browser_file_path = f"file://{cwd}"
 pic_url = f"{browser_file_path}/2cn2.png"
