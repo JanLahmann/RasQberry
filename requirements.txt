@@ -1,0 +1,7 @@
+celluloid==0.2.0
+ibm_quantum_widgets==1.0.3
+ipython==8.5.0
+matplotlib==3.5.3
+numpy==1.23.2
+qiskit==0.37.2
+selenium==4.4.3
