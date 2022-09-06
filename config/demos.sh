@@ -17,6 +17,7 @@ do_rasqberry_run_bloch(){
 }
 
 do_rasqberry_run_fractals(){
+  sudo apt-get install libatlas-base-dev
   pip install -U numpy
   pip install celluloid
   pip install selenium
