@@ -32,10 +32,11 @@ pic_url = f"{browser_file_path}/2cn2.png"
 
 # open selenium browser driver
 options = webdriver.ChromeOptions()
+# Disable "Chrome is being controlled by automated test software" message
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_argument(f"--app={pic_url}")
 options.add_argument('--start-maximized')
 driver = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=options)
-#driver.maximize_window()
 
 
 # Start with a one qubit quantum circuit yielding a nice fractal. Change the circuit as you like.
