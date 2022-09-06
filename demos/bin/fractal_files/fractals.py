@@ -66,7 +66,6 @@ else:
 
 # Define the JuliaSet class
 
-
 class JuliaSet:
     def __init__(self, esc_val: int = 2, height: int = 200, width: int = 200, zoom: int = 1, x: int = 0, y: int = 0):
         # Escape value boundary for the magnitude of z
