@@ -23,6 +23,7 @@ from ibm_quantum_widgets import *  # CircuitComposer
 # import libraries
 from selenium import webdriver
 import selenium
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from pathlib import Path
 
@@ -36,7 +37,8 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_argument(f"--app={pic_url}")
 options.add_argument('--start-maximized')
-driver = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=options)
+service = Service('/usr/lib/chromium-browser/chromedriver')
+driver = webdriver.Chrome(service=service, options=options)
 
 
 # Start with a one qubit quantum circuit yielding a nice fractal. Change the circuit as you like.
@@ -263,7 +265,7 @@ interval = 1000 / frameps
 anim = camera.animate(blit=True, interval=interval)
 anim.save(f'1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif', writer='pillow')
 gif_url = f"{browser_file_path}/1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif"
-driver2 = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=options)
+driver2 = webdriver.Chrome(service=service, options=options)
 driver2.get(gif_url)
 
 # check if the browser window is closed
