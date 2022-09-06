@@ -27,12 +27,16 @@ from selenium.webdriver.common.by import By
 from pathlib import Path
 
 cwd = Path.cwd()
-
-# open selenium browser driver
-driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver')
-driver.maximize_window()
 browser_file_path = f"file://{cwd}"
 pic_url = f"{browser_file_path}/2cn2.png"
+
+# open selenium browser driver
+options = webdriver.ChromeOptions()
+options.add_argument(f"--app={pic_url}")
+options.add_argument('--start-maximized')
+driver = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=options)
+#driver.maximize_window()
+
 
 # Start with a one qubit quantum circuit yielding a nice fractal. Change the circuit as you like.
 circuit = QuantumCircuit(1, 1)
@@ -220,6 +224,7 @@ class QuantumFractalImages:
         ax[3].figure.set_size_inches(16, 5)
         ax[3].imshow(self.res_2cn2, cmap='magma')
         ax[3].figure.savefig('2cn2.png')
+        # Open in browser
         driver.get(pic_url)
         ax[3].axis('off')
         # plt.show()
