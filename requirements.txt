@@ -1,0 +1,4 @@
+LEDs==3.5.1
+qiskit==0.37.2
+Qubits==0.3.4
+rpi_ws281x==4.3.4
