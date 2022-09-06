@@ -23,7 +23,7 @@ do_rasqberry_run_fractals(){
   pip install selenium
   pip install --upgrade --force-reinstall chromedriver-binary-auto
   pip install ipython
-  python3 /home/pi/RasQberry/demos/bin/fractal_files/fractals.py
+  sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/fractal_files/fractals.py'
 }
 
 do_RasQ_LED(){

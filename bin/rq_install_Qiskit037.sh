@@ -4,7 +4,7 @@
 #
 
 export STARTDATE=`date`
-echo; echo; echo "Install Qiskit (latest version)"; echo;
+echo; echo; echo "Install Qiskit 0.37"; echo;
 
 # install current version of rust; needed for retworkx
 curl -o get_rustup.sh -s https://sh.rustup.rs
