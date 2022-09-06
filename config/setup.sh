@@ -39,6 +39,7 @@ do_rq_initial_config() {
     do_rasqberry_install_general 037 silent
     # install python requirements
     pip install -r /home/pi/RasQberry/requirements.txt
+    update_environment_file "INITIAL_CONFIG" "true"
     if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config completed" 20 60 1
     fi
