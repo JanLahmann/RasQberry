@@ -13,4 +13,4 @@ jobs:
         # Put an example of mandatory inputs here
         with:
           PROJECT_PATH: ./demos/bin/  #default is the root of the repository
-          REQUIREMENT_PATH: project_folder/requirements.txt  #default is requirement.txt in the root of your repository 
+          REQUIREMENT_PATH: requirements.txt  #default is requirement.txt in the root of your repository 
