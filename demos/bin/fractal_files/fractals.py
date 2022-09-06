@@ -23,7 +23,9 @@ from ibm_quantum_widgets import *  # CircuitComposer
 # import libraries
 from selenium import webdriver
 import selenium
+from selenium.webdriver.common.by import By
 from pathlib import Path
+
 cwd = Path.cwd()
 
 # open selenium browser driver
@@ -247,10 +249,11 @@ for i in range(frameno):
         QFI.qfanimations()
         QFI.qfimages()
     except selenium.common.exceptions.NoSuchWindowException:
-        print("Error, Browser window closed during generation, saving the current animation state in GIF")
+        print("Error, Browser window closed during generation of images")
         driver.quit()
         break
 driver.quit()
+print("Saving the current animation state in GIF")
 interval = 1000 / frameps
 anim = camera.animate(blit=True, interval=interval)
 anim.save(f'1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif', writer='pillow')
@@ -262,7 +265,7 @@ driver2.get(gif_url)
 # check if the browser window is closed
 while True:
     try:
-        driver2.find_element_by_tag_name('body')
+        driver2.find_element(By.TAG_NAME, 'body')
     except selenium.common.exceptions.NoSuchWindowException:
         print("Error, Browser window closed, quitting the program")
         driver2.quit()
