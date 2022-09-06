@@ -1,7 +1,13 @@
 celluloid==0.2.0
+ewmh==0.1.6
+gpiozero==1.6.2
 ibm_quantum_widgets==1.0.3
 ipython==8.5.0
+kivy==2.1.0
 matplotlib==3.5.3
 numpy==1.23.2
+python-dotenv==0.21.0
 qiskit==0.37.2
+rpi_ws281x==4.3.4
 selenium==4.4.3
+sense_hat==2.4.0
