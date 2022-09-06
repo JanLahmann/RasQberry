@@ -67,6 +67,7 @@ do_rasqberry_install_libcint() {
   #whiptail --msgbox "libcint is installed" 20 60 1
 }
 
+# install any version of qiskit $1 parameter is the version, set $2=silent for one-time silent install
 do_rasqberry_install_general() {
     echo; echo "Install Qiskit $1"; echo;
     #check if version equals 019 or 020
@@ -76,7 +77,7 @@ do_rasqberry_install_general() {
       apt -y install libatlas-base-dev
     fi
     sudo -u pi -H -- sh -c "/home/pi/.local/bin/rq_install_Qiskit$1.sh"
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = True ] && ! [ "$2" = silent ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit $1 installed" 20 60 1
     fi
   }

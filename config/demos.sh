@@ -17,7 +17,7 @@ do_rasqberry_run_bloch(){
 }
 
 do_rasqberry_run_fractals(){
-  do_rasqberry_install_general 037
+  do_rasqberry_install_general 037 silent
   pip install -U numpy
   pip install celluloid
   pip install selenium
