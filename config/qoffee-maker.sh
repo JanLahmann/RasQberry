@@ -10,7 +10,7 @@ do_rasqberry_Qoffee_clone() {
     cd /home/pi/
     sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker'
     update_environment_file "QOFFEE_CLONED" "true"
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker Demo cloned" 20 60 1
     fi
   else
@@ -20,7 +20,7 @@ do_rasqberry_Qoffee_clone() {
   # check if .env file exists
   if [ ! -f .env ]; then
     echo "/home/pi/Qoffee-Maker/.env file does not exist. Please create it based on the env-template"
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file does not exist. Please create it based on the env-template" 20 60 1
     fi
     exit 1
@@ -35,12 +35,12 @@ do_rasqberry_Qoffee_download() {
   if [ "$QOFFEE_DOWNLOADED" = false ]; then
     sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-maker && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/'
     update_environment_file "QOFFEE_DOWNLOADED" "true"
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker Demo image downloaded" 20 60 1
     fi
   fi
   # download & start Qoffee-Maker docker image
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "will download and start Qoffee-Maker Demo. Please close Chrome at the end." 20 60 1
   fi
   echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env ghcr.io/janlahmann/qoffee-maker \n\n"
@@ -62,12 +62,12 @@ do_rasqberry_Qoffee_local() {
     sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/'
     update_environment_file "QOFFEE_INSTALLED" "true"
     sudo -u pi -H -- sh -c 'rm DockerfileArm-15'
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker container build locally" 20 60 1
     fi
   fi
   # start Qoffee-Maker docker container
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "will start Qoffee-Maker Demo. Please close Chrome at the end." 20 60 1
   fi
   echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest \n\n"

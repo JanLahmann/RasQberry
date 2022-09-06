@@ -124,7 +124,7 @@ do_rasqberry_change_environment_file() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
-    "IC Initial Config " "Basic configurations (PATH, LOCALE, etc)" \
+    "IC Initial Config " "Basic configurations (PATH, LOCALE, Python Packages, etc)" \
     "SU System Update " "Update the system and create swapfile" \
     "Q36 Install Qiskit" "Install Qiskit 0.36" \
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
@@ -278,7 +278,7 @@ done
 #
 # Interactive use loop
 #
-if [ "$INTERACTIVE" = True ]; then
+if [ "$INTERACTIVE" = true ]; then
   [ -e $CONFIG ] || touch $CONFIG
   calc_wt_size
   while [ "$USER" = "root" ] || [ -z "$USER" ]; do

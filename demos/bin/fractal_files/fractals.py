@@ -263,8 +263,7 @@ interval = 1000 / frameps
 anim = camera.animate(blit=True, interval=interval)
 anim.save(f'1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif', writer='pillow')
 gif_url = f"{browser_file_path}/1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif"
-driver2 = webdriver.Chrome()
-driver2.maximize_window()
+driver2 = webdriver.Chrome(executable_path='/usr/lib/chromium-browser/chromedriver', options=options)
 driver2.get(gif_url)
 
 # check if the browser window is closed

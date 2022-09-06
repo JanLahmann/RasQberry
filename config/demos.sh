@@ -3,7 +3,7 @@
 #Demos
 
 do_rasqberry_run_bloch(){
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "starting run_bloch" 20 60 1
   fi
   # check if GL2/GL3 driver is enabled
@@ -17,11 +17,9 @@ do_rasqberry_run_bloch(){
 }
 
 do_rasqberry_run_fractals(){
-  do_rasqberry_install_general 037 silent
-  pip install -U numpy
-  pip install celluloid
-  pip install selenium
-  pip install ipython
+  if [ "$INITIAL_CONFIG" = false ]; then
+    do_rq_initial_config
+  fi
   sudo apt-get install chromium-chromedriver
   sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/fractal_files/fractals.py'
 }
@@ -52,14 +50,14 @@ do_sensehat_display_off(){
 
 #HD Demos
 do_clone_qiskit_start_jupyter() {
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
   fi
   sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_qiskit_tutorial.sh --port 8888 &
 }
 
 do_clone_fwq_start_jupyter() {
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Starting jupyter notebook server..." 20 60 1
   fi
   sudo -u pi -i nohup /home/pi/RasQberry/demos/bin/rq_clone_FwQ.sh --port 8889 &

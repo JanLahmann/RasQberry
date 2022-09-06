@@ -131,3 +131,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .DS_Store
+/demos/bin/fractal_files/2cn2.png
+/demos/bin/fractal_files/1qubit_simulator_4animations_H_60_steps_200.0ms_interval.gif
+/demos/bin/fractal_files/H.png

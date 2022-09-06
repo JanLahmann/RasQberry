@@ -24,20 +24,28 @@ do_menu_update_environment_file() {
 }
 
 do_rq_initial_config() {
-  # set PATH
-  ( echo; echo '##### added for rasqberry #####';
-  echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
-  ) >> /home/pi/.bashrc && . /home/pi/.bashrc
-  # install bluetooth manager blueman
-  apt -y install blueman
-  # install emojis for Qoffee-Maker demo
-  apt -y install fonts-noto-color-emoji
-  # install python package dotenv
-  pip install python-dotenv
-  # fix locale
-  echo "LANG=en_GB.UTF-8\nLC_CTYPE=en_GB.UTF-8\nLC_MESSAGES=en_GB.UTF-8\nLC_ALL=en_GB.UTF-8" > /etc/default/locale
-  if [ "$INTERACTIVE" = True ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config completed" 20 60 1
+  if [ "$INITIAL_CONFIG" = false ]; then
+    # set PATH
+    ( echo; echo '##### added for rasqberry #####';
+    echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
+    # fix locale
+    echo "LANG=en_GB.UTF-8\nLC_CTYPE=en_GB.UTF-8\nLC_MESSAGES=en_GB.UTF-8\nLC_ALL=en_GB.UTF-8" > /etc/default/locale
+    ) >> /home/pi/.bashrc && . /home/pi/.bashrc
+    # install bluetooth manager blueman
+    apt -y install blueman
+    # install emojis for Qoffee-Maker demo
+    apt -y install fonts-noto-color-emoji
+    # install Qiskit (this has to be done before installing via requirements.txt)
+    do_rasqberry_install_general 037 silent
+    # install python requirements
+    pip install -r /home/pi/RasQberry/requirements.txt
+    if [ "$INTERACTIVE" = true ]; then
+        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config completed" 20 60 1
+    fi
+  else
+    if [ "$INTERACTIVE" = true ]; then
+        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config already done" 20 60 1
+    fi
   fi
 }
 
@@ -48,7 +56,7 @@ do_rasqberry_update() {
   apt update
   apt -y full-upgrade
   #reboot
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
   fi
   ASK_TO_REBOOT=1
@@ -77,7 +85,7 @@ do_rasqberry_install_general() {
       apt -y install libatlas-base-dev
     fi
     sudo -u pi -H -- sh -c "/home/pi/.local/bin/rq_install_Qiskit$1.sh"
-    if [ "$INTERACTIVE" = True ] && ! [ "$2" = silent ]; then
+    if [ "$INTERACTIVE" = true ] && ! [ "$2" = silent ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit $1 installed" 20 60 1
     fi
   }
@@ -94,7 +102,7 @@ do_rasqberry_config_demos(){
   # install kivy
   do_install_kivy
   # enable jupyter notebook autostart
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enabled jupyter notebook autostart on port 8888 and 8889" 20 60 1
   fi
   echo "@/home/pi/RasQberry/demos/bin/start_jupyter_notebooks.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
@@ -106,7 +114,7 @@ do_rq_enable_docker() {
   apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
   usermod -aG docker pi
   systemctl enable docker
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "docker installed and enabled" 20 60 1
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
   fi
@@ -136,7 +144,7 @@ do_rasqberry_switch_branch() {
   branch_name=$(echo "$branch_choice" | sed 's/\(.*\) -> \(.*\)/\2/')
   #switch to branch
   git checkout "$branch_name"
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
       whiptail --msgbox "Switched to branch: $branch_name" 20 60 1
   fi
 }
@@ -205,13 +213,13 @@ rq_do_vnc() {
     systemctl start vncserver-x11-serviced.service &&
     STATUS=enabled
   fi
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "The VNC Server is $STATUS" 20 60 1
   fi
 }
 
 do_rasqberry_enable_desktop_vnc(){
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
   fi
   if [ "$DESKTOPVNC_ENABLED" = false ]; then
@@ -253,18 +261,18 @@ do_rasqberry_enable_desktop_vnc(){
     # enable VNC
     rq_do_vnc
 
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
     fi
     ASK_TO_REBOOT=1
     update_environment_file "DESKTOPVNC_ENABLED" "true"
     # enable second vnc display (side-to-side)
     sudo -u pi /home/pi/RasQberry/bin/vnc_side-to-side.sh
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enabled second vnc <ip address>:5902" 20 60 1
     fi
     echo "@/home/pi/RasQberry/bin/vnc_side-to-side.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Desktop and VNC are enabled.\\nSystem will reboot now" 20 60 1
     fi
     reboot
@@ -282,7 +290,7 @@ do_rq_configure_button() {
     update_environment_file "BUTTON_CONFIGURED" "true"
   fi
 
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Button configured" 20 60 1
   fi
 }
@@ -338,14 +346,14 @@ do_rq_setup_SenseHAT(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_rasptie_install.sh
 
   # reboot to activate crontab entry for sense_menu
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
   fi
   ASK_TO_REBOOT=1
 }
 
 do_rasqberry_enable_touch41(){
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enable touch display\\nPart 1 " 20 60 1
   fi
 
@@ -353,21 +361,21 @@ do_rasqberry_enable_touch41(){
   if [ "$IS_ENABLED_TOUCH4" = false ]; then
     sudo -u pi -H -- sh -c /home/pi/.local/bin/rq_enable_touch.sh
     ASK_TO_REBOOT=1
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
     fi
   fi
 }
 
 do_rasqberry_enable_touch42(){
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enable touch display\\nPart 2 " 20 60 1
   fi
 
   # check touchscreen calibration
   if [ "$IS_TFT_CALIBRATED" = false ] && [ "$IS_ENABLED_TOUCH4" = true ]; then
     cat /home/pi/RasQberry/bin/rq_99-calibration.conf > /etc/X11/xorg.conf.d/99-calibration.conf && update_environment_file "IS_TFT_CALIBRATED" "true"
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Touchscreen recalibrated for Bloch Demo\\nPlease exit and reboot" 20 60 1
     fi
     reboot
@@ -378,7 +386,7 @@ do_rasqberry_enable_touch42(){
 #Drivers
 rq_enable_gldriver() {
   if [ ! -e /boot/overlays/vc4-kms-v3d.dtbo ]; then
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Driver and kernel not present on your system. Please update" 20 60 2
     fi
     return 1
@@ -389,7 +397,7 @@ rq_enable_gldriver() {
     fi
   done
   if [ -n "$missing_packages" ] && ! apt-get install $missing_packages; then
-    if [ "$INTERACTIVE" = True ]; then
+    if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Required packages not found, please install: ${missing_packages}" 20 60 2
     fi
     return 1
@@ -417,7 +425,7 @@ rq_enable_gldriver() {
     STATUS="The full KMS GL driver is enabled."
     update_environment_file "KMS_GL_ENABLED" "true"
   fi
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "$STATUS \\nIt will become active after next reboot" 20 60 1
   fi
 }
