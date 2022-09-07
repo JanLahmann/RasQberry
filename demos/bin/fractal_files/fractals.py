@@ -6,6 +6,8 @@
 # Importing standard python libraries
 from math import pi
 from threading import *
+import os
+from pathlib import Path
 
 # Import additional python libraries
 from IPython.display import clear_output
@@ -15,21 +17,25 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
 
+from selenium import webdriver
+import selenium
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+
 # Importing standard Qiskit libraries
 from qiskit import QuantumCircuit, Aer, execute
 from qiskit.visualization import *  # plot_bloch_multivector
 from ibm_quantum_widgets import *  # CircuitComposer
 
-# import libraries
-from selenium import webdriver
-import selenium
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from pathlib import Path
-
 cwd = Path.cwd()
 browser_file_path = f"file://{cwd}"
 pic_url = f"{browser_file_path}/2cn2.png"
+
+# Try to remove previously generated files
+try:
+    os.remove(f"{cwd}/2cn2.png")
+except:
+    print("Error while deleting 2cn2.png file")
 
 # open selenium browser driver
 options = webdriver.ChromeOptions()
