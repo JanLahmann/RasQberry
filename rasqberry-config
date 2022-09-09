@@ -129,6 +129,7 @@ do_rasqberry_setup() {
     "Q36 Install Qiskit" "Install Qiskit 0.36" \
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
     "CD Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "CS Change Splash Screen " "Change the splash screen IBM<->Standard" \
     "D Docker" "Install & Enable Docker" \
     "BL Button+LED" "Configure Control-Button + LEDs" \
     "SH Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
@@ -143,6 +144,7 @@ do_rasqberry_setup() {
       Q36\ *) do_rasqberry_install_general 036 ;;
       DV\ *) do_rasqberry_enable_desktop_vnc ;;
       CD\ *) do_rasqberry_config_demos ;;
+      CS\ *) do_change_splash_screen ;;
       D\ *) do_rq_enable_docker ;;
       BL\ *) do_rq_configure_button ;;
       SH\ *) do_rq_setup_SenseHAT ;;

@@ -31,6 +31,8 @@ do_rq_initial_config() {
     # fix locale
     echo "LANG=en_GB.UTF-8\nLC_CTYPE=en_GB.UTF-8\nLC_MESSAGES=en_GB.UTF-8\nLC_ALL=en_GB.UTF-8" > /etc/default/locale
     ) >> /home/pi/.bashrc && . /home/pi/.bashrc
+    # change splash screen
+    do_change_splash_screen
     # install bluetooth manager blueman
     apt -y install blueman
     # install emojis for Qoffee-Maker demo
@@ -90,6 +92,19 @@ do_rasqberry_install_general() {
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qiskit $1 installed" 20 60 1
     fi
   }
+
+do_change_splash_screen() {
+  if [ ! -f /usr/share/plymouth/themes/pix/splash.png.bk ]; then
+    mv /usr/share/plymouth/themes/pix/splash.png /usr/share/plymouth/themes/pix/splash.png.bk
+    cp /home/pi/RasQberry/wallpapers/ibmqantumTwoGlowScaled.png /usr/share/plymouth/themes/pix/
+    mv /usr/share/plymouth/themes/pix/ibmqantumTwoGlowScaled.png /usr/share/plymouth/themes/pix/splash.png
+  else
+    mv /usr/share/plymouth/themes/pix/splash.png.bk /usr/share/plymouth/themes/pix/splash_help.
+    mv /usr/share/plymouth/themes/pix/splash.png /usr/share/plymouth/themes/pix/splash.png.bk
+    mv /usr/share/plymouth/themes/pix/splash_help. /usr/share/plymouth/themes/pix/splash.png
+    rm /usr/share/plymouth/themes/pix/splash_help.
+  fi
+}
 
 do_install_kivy() {
   sudo -u pi -H -- sh -c /home/pi/RasQberry/bin/rq_install_kivy.sh
