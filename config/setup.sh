@@ -99,7 +99,7 @@ do_change_splash_screen() {
     cp "/home/pi/RasQberry/wallpapers/ibmqantumTwoGlowScaled.png" "/usr/share/plymouth/themes/pix/"
     mv "/usr/share/plymouth/themes/pix/ibmqantumTwoGlowScaled.png" "/usr/share/plymouth/themes/pix/splash.png"
   else
-    mv "/usr/share/plymouth/themes/pix/splash.png.bk" "/usr/share/plymouth/themes/pix/splash_help.png"
+    cp "/usr/share/plymouth/themes/pix/splash.png.bk" "/usr/share/plymouth/themes/pix/splash_help.png"
     mv "/usr/share/plymouth/themes/pix/splash.png" "/usr/share/plymouth/themes/pix/splash.png.bk"
     mv "/usr/share/plymouth/themes/pix/splash_help.png" "/usr/share/plymouth/themes/pix/splash.png"
     rm "/usr/share/plymouth/themes/pix/splash_help.png"
