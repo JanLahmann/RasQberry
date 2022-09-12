@@ -3,7 +3,7 @@
 If you already have a Raspberry Pi with the latest version of Raspberry Pi OS you can start at step 2.
 
 ## Step 1: Get your Raspberry Pi ready
-With the Raspberry Pi Imager (https://www.raspberrypi.org/software/ ) write the Raspberry Pi OS Raspbian on an (empty) SD-Card. You can either choose the Image right from the Raspberry Pi Imager or you can first download Raspbian at https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit.
+With the [Raspberry Pi Imager](https://www.raspberrypi.org/software/) write the Raspberry Pi OS Raspbian on an (empty) SD-Card. You can either choose the Image right from the Raspberry Pi Imager or you can first download [Raspberry Pi OS](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit).
 
 <p align="center"> 
 <img src="../Artwork/RPi.png" alt="drawing" width="350"/> <img src="../Artwork/RPi_OS.png" alt="drawing" width="350"/> <br/>
@@ -14,6 +14,8 @@ With the Raspberry Pi Imager (https://www.raspberrypi.org/software/ ) write the 
 sudo raspi-config
 ```
  For this you will need a Display or for a headless setup you’ll need to enable SSH.
+
+__<a style="color: red"> Very important__: You have to use the standard username `pi`. Otherwise, many functionalities will not work. </a>
 
 <br/>
 
@@ -52,7 +54,20 @@ Now you should be able to use SSH.
 <br/>
 
 ## Step 3: Installing RasQberry
-Open the terminal/ssh window on your Raspberry Pi.
+Open the terminal/ssh window on your Raspberry Pi.</br>
+<a style="color:red"> Move to the home directory of the user pi (`/home/pi`). Not doing this will result in an error while installing and using the RasQberry. 
+You go there by typing `cd` in the terminal. You can check your current working directory by typing in `pwd`.</a> </br>
+
+The script can be run with parameters `. ./RasQ-init.sh devoption branch gituser`.
+
+1. The `devoption` parameter is used to install the development version of the RasQberry repository (dev=1; production=0).
+2. The `branch` parameter is used to specify the branch you want to use.
+3. The `gituser` parameter is used to specify the GitHub user to clone the RasQberry repository from.
+
+Example: `. ./RasQ-init.sh 1 master JanLahmann`
+
+Default values are: `devoption=0` `branch=master` `gituser=JanLahmann`
+
 ```python
 pip3 install getgist
 .local/bin/getgist -y JanLahmann RasQ-init.sh
@@ -110,7 +125,7 @@ With this step you will configurate the SenseHAT and the qrasp demo will autosta
 
 <br/>
 
-The above installation procedure used pre-compiled wheel files for most of the python packages. These are downloaded automatically from https://www.piwheels.org. For the packages retworkx and qiskit-aer, currently there are no whl files available. Total installation with local compile takes 10 minutes on RPi 4.
+The above installation procedure used pre-compiled wheel files for most of the python packages. These are downloaded automatically from [Piwheels](https://www.piwheels.org). For the packages retworkx and qiskit-aer, currently there are no whl files available. Total installation with local compile takes 10 minutes on RPi 4.
 
 <br/>
 
@@ -122,7 +137,7 @@ In the terminal you can now enter your new API Token.
 <br/>
 
 ## Cloning the Git-Repository with the Qiskit-tutorials 
-By executing the following instructions you clone a repository (https://github.com/Qiskit/qiskit-tutorials) with a collection of jupyter notebooks aimed at teaching people who want to use Qiskit for writing quantum computing programs, and executing them on one of several backends (online quantum processors, online simulators, and local simulators).
+By executing the following instructions you clone a [repository](https://github.com/Qiskit/qiskit-tutorials) with a collection of jupyter notebooks aimed at teaching people who want to use Qiskit for writing quantum computing programs, and executing them on one of several backends (online quantum processors, online simulators, and local simulators).
 
 If you want to clone the Git Repository to access the with the Qiskit-Tutorials, you need to open the RasQberry Configuration Tool. First select `H - HD Demos` and second `Q1 - Qiskit Tutorials` (Jupyter Notebook starts automatically).<br/>
 This will take a moment to clone and as the case may be to open the jupyter notebook.
@@ -182,8 +197,8 @@ With the virtual keyboard you can enter the wpa-key.
 
 <br/>
 
-### Configuring Autohotspot
-There is the option to configure a Hotspot which automatically activates when the configured WI-FI network (see wpa_supplicant.conf) is not available. This is done with the Autohotspot package. You can find more information about this package here: [Raspberry Pi - Auto WiFi Hotspot Switch Internet](https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/157-raspberry-pi-auto-wifi-hotspot-switch-internet).
+## Configuring Autohotspot
+There is the option to configure a Hotspot which automatically activates when the configured WI-FI network (see wpa_supplicant.conf) is not available. This is done with the Autohotspot package. You can find more information about this package here: [Raspberry Pi - Auto Wi-Fi Hotspot Switch Internet](https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/157-raspberry-pi-auto-wifi-hotspot-switch-internet).
 
 To activate and run the package, choose the options:
 
@@ -192,8 +207,10 @@ To activate and run the package, choose the options:
 3. Choose number according to your use case (in most cases option `1` is recommended)
 4. Exit with `8`
 
+<br/>
+
 ## Install VNC and VNC Viewer
-To remotely access the screen of your Raspberry Pi you need to have a VNC Viewer installed on a different computer. VNC has been tested using the realVNC Viewer (https://www.realvnc.com/de/connect/download/viewer/) <br/>
+To remotely access the screen of your Raspberry Pi you need to have a VNC Viewer installed on a different computer. VNC has been tested using the [realVNC Viewer](https://www.realvnc.com/de/connect/download/viewer/). <br/>
 Enable VNC by choosing the "DV Configure Desktop and VNC"-Option in the RasQberry Setup menu. </br>
 To connect to your Raspberry Pi you need to open your VNC Viewer.  
 In the VNC Viewer you enter the VNC server-address from your Raspberry. After that you will need to enter a username (default: pi) and a password (default: raspberry).  <br/>
