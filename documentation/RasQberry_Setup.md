@@ -1,6 +1,6 @@
 # RasQberry Installation and Setup
 
-If you already have a raspberry pi with the latest version of Raspbian you can start at step 2.
+If you already have a Raspberry Pi with the latest version of Raspberry Pi OS you can start at step 2.
 
 ## Step 1: Get your Raspberry Pi ready
 With the Raspberry Pi Imager (https://www.raspberrypi.org/software/ ) write the Raspberry Pi OS Raspbian on an (empty) SD-Card. You can either choose the Image right from the Raspberry Pi Imager or you can first download Raspbian at https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit.
@@ -100,12 +100,12 @@ Open the **config.txt**-file and **un**comment the line
 ```
 Next, open the RasQberry Configuration Tool and follow the steps below.
 1. Select `S – RasQberry Setup`
-1. Select `G0 – System Update`
-1. Select `G1 – Initial Config`<br/>
+2. Select `G0 – System Update`
+3. Select `G1 – Initial Config`<br/>
 Your Raspberry will process the basic configurations on your device.
-1. Select `G2 – Install Qiskit`<br/>
+4. Select `G2 – Install Qiskit`<br/>
 With this step you will install Qiskit. You can choose between a few versions of Qiskit to install. The latest version is recommended.
-1. Select `S0 – Config SenseHAT`<br/>
+5. Select `S0 – Config SenseHAT`<br/>
 With this step you will configurate the SenseHAT and the qrasp demo will autostart.
 
 <br/>
@@ -181,6 +181,16 @@ If you don't have a keyboard with you, you can use a virtual keyboard that comes
 With the virtual keyboard you can enter the wpa-key.
 
 <br/>
+
+### Configuring Autohotspot
+There is the option to configure a Hotspot which automatically activates when the configured WI-FI network (see wpa_supplicant.conf) is not available. This is done with the Autohotspot package. You can find more information about this package here: [Raspberry Pi - Auto WiFi Hotspot Switch Internet](https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/157-raspberry-pi-auto-wifi-hotspot-switch-internet).
+
+To activate and run the package, choose the options:
+
+1. Select `S – RasQberry Setup`
+2. Select `AH - Install AutoHotspot`
+3. Choose number according to your use case (in most cases option `1` is recommended)
+4. Exit with `8`
 
 ## Install VNC and VNC Viewer
 To remotely access the screen of your Raspberry Pi you need to have a VNC Viewer installed on a different computer. VNC has been tested using the realVNC Viewer (https://www.realvnc.com/de/connect/download/viewer/) <br/>
