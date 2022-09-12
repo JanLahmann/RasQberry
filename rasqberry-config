@@ -127,6 +127,7 @@ do_rasqberry_setup() {
     "IC Initial Config " "Basic configurations (PATH, LOCALE, Python Packages, etc)" \
     "SU System Update " "Update the system and create swapfile" \
     "Q36 Install Qiskit" "Install Qiskit 0.36" \
+    "AH Install AutoHotspot" "Install an automated Wifi Hotspot" \
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
     "CD Config & Demos " "Configure Qiskit and install Quantum Demos" \
     "CS Change Splash Screen " "Change the splash screen IBM<->Standard" \
@@ -141,6 +142,7 @@ do_rasqberry_setup() {
     case "$FUN" in
       IC\ *) do_rq_initial_config ;;
       SU\ *) do_rasqberry_update ;;
+      AH\ *) do_rasqberry_install_autohotspot ;;
       Q36\ *) do_rasqberry_install_general 036 ;;
       DV\ *) do_rasqberry_enable_desktop_vnc ;;
       CD\ *) do_rasqberry_config_demos ;;

@@ -65,6 +65,25 @@ do_rasqberry_update() {
   ASK_TO_REBOOT=1
 }
 
+do_rasqberry_install_autohotspot() {
+  echo "installing autohotspot, credits: https://www.raspberryconnect.com/, find project on github: https://github.com/RaspberryConnect/AutoHotspot-Installer"
+  cd /home/pi/RasQberry
+  curl "https://www.raspberryconnect.com/images/hsinstaller/Autohotspot-Setup.tar.xz" -o AutoHotspot-Setup.tar.xz
+  tar -xvJf AutoHotspot-Setup.tar.xz
+  if [ "$INTERACTIVE" = True ]; then
+      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script. When prompted to enter a number choose accordingly (in most cases option 1, exit with 8).\nThe RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
+  fi
+  sudo Autohotspot/autohotspot-setup.sh
+  cd
+  #ask for yes/no to install crontab
+  if (whiptail --title "Install crontab" --yesno "Do you want to install a crontab to check for network connection every 5 minutes and run hotspot if necessary?" 8 78); then
+    #install crontab
+    (crontab -l 2>/dev/null; echo "*/5 * * * * sudo /usr/bin/autohotspotN >/dev/null 2>&1") | crontab -
+  fi
+  echo "Rebooting... Please wait and reconnect to the RasQberry"
+  sudo reboot
+}
+
 do_rasqberry_install_libcint() {
   echo; echo "Install libcint"; echo;
   cd /home/pi/
