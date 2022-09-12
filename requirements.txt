@@ -5,7 +5,7 @@ ibm_quantum_widgets==1.0.3
 ipython==8.5.0
 kivy==2.1.0
 matplotlib==3.5.3
-numpy==1.23.2
+numpy==1.23.3
 python-dotenv==0.21.0
 qiskit==0.37.2
 rpi_ws281x==4.3.4
