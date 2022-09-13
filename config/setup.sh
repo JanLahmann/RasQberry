@@ -40,9 +40,9 @@ do_rq_initial_config() {
     # install Qiskit (this has to be done before installing via requirements.txt)
     do_rasqberry_install_general 037 silent
     # install python requirements
-    pip install --upgrade pip
-    export PIP_IGNORE_INSTALLED=0
-    pip install -r /home/pi/RasQberry/requirements.txt
+    runuser -l  pi -c 'pip install --upgrade pip'
+    runuser -l  pi -c 'export PIP_IGNORE_INSTALLED=0'
+    runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
     update_environment_file "INITIAL_CONFIG" "true"
     if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config completed" 20 60 1
