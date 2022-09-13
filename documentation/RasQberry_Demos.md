@@ -114,6 +114,15 @@ By pushing the joystick to the left you select the `3Q`-option.<br/>
 * **Stop**<br/>
 To stop the Qrasp demo by selecting `D4` again.
 
+## Visualizing Quantum Computing using fractals
+By choosing `D - Quantum Demos` and `FR - Fractals` you can start a demo which visualizes quantum computing using fractals.
+The demo opens a new browser window and generates a fractal in real time. After the fractal is generated the animation will be saved as a GIF which will be displayed afterwards.
+
+The GIF can be found in the folder `/RasQberry/demos/bin/fractal_files/`.<br/>
+By closing the browser window the generation will be interrupted and the current state of the animation will be saved as a GIF which also will be shown afterwards. 
+
+The old fractal will be overwritten by the new one.
+
 ## Continuative demos<br/>
 ### Qiskit-Demos<br/>
 By cloning the git-repository with the qiskit-demos you have access to new jupyter notebooks that you can run and investigate.<br/>
