@@ -123,6 +123,8 @@ By closing the browser window the generation will be interrupted and the current
 
 The old fractal will be overwritten by the new one.
 
+See more information [here](https://github.com/wmazin/Visualizing-Quantum-Computing-using-fractals).
+
 ## Continuative demos<br/>
 ### Qiskit-Demos<br/>
 By cloning the git-repository with the qiskit-demos you have access to new jupyter notebooks that you can run and investigate.<br/>
