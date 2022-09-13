@@ -13,7 +13,7 @@ import argparse
 from dotenv import dotenv_values
 config = dotenv_values("/home/pi/RasQberry/rasqberry_environment.env")
 
-LED_COUNT = int(config["LED_COUNT"])
+LED_COUNT_init = int(config["LED_COUNT"])
 LED_PIN = int(config["LED_PIN"])
 LED_FREQ_HZ = int(config["LED_FREQ_HZ"])  # LED signal frequency in hertz (usually 800khz)
 LED_DMA = int(config["LED_DMA"])          # DMA channel to use for generating signal (try 10)
