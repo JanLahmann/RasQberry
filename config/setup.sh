@@ -54,6 +54,11 @@ do_rq_initial_config() {
   fi
 }
 
+do_rasqberry_rerun_initial_config() {
+  update_environment_file "INITIAL_CONFIG" "false"
+  do_rq_initial_config
+}
+
 do_rasqberry_update() {
   sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/' /etc/dphys-swapfile
   /etc/init.d/dphys-swapfile stop

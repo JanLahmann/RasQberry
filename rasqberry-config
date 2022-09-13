@@ -231,6 +231,7 @@ do_advanced_config() {
       Q\ *) do_rasqberry_install_qiskit ;;
       B\ *) do_rasqberry_switch_branch ;;
       E\ *) do_rasqberry_change_environment_file ;;
+      RI\ *) do_rasqberry_rerun_initial_config ;;
       QMst\ *) do_rasqberry_Qoffee_stop ;;
       QMrb\ *) do_rasqberry_Qoffee_rebuild ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;
