@@ -38,12 +38,12 @@ get_pi_type() {
 }
 
 is_live() {
-    grep -q "boot=live" $CMDLINE
+    grep -q "boot=live" "$CMDLINE"
     return $?
 }
 
 is_ssh() {
-  if pstree -p | egrep --quiet --extended-regexp ".*sshd.*\($$\)"; then
+  if pstree -p | grep -E --quiet --extended-regexp ".*sshd.*\($$\)"; then
     return 0
   else
     return 1
@@ -82,5 +82,10 @@ is_installed() {
 }
 
 rq_check_internet() {
-  [ `ping -q -w 1 -c 1 8.8.8.8` ] && update_environment_file "RQ_IS_INTERNET" "true" || update_environment_file "RQ_IS_INTERNET" "false"
+  if [ "$(ping -q -w 1 -c 1 8.8.8.8)" ]
+  then
+    update_environment_file "RQ_IS_INTERNET" "true"
+  else
+    update_environment_file "RQ_IS_INTERNET" "false"
+  fi
 }

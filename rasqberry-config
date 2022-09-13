@@ -1,6 +1,10 @@
 #!/bin/sh
 # Derived from raspi-config https://github.com/RPi-Distro/raspi-config
 
+# This script is the main menu for all functionalities of the RasQberry.
+# Below you will find the different Whiptail menus (GUI).
+# Each underlying method can be found in the imported files below.
+
 # Load environment variables
 . /home/pi/RasQberry/env-config.sh
 # Load external methods
@@ -29,7 +33,7 @@ else
 fi
 
 # Everything else needs to be run as root
-if [ $(id -u) -ne 0 ]; then
+if [ "$(id -u)" -ne 0 ]; then
   printf "Script must be run as root. Try 'sudo rasqberry-config'\n"
   exit 1
 fi
@@ -59,7 +63,7 @@ TFT touchscreen display or a SenseHAT 8x8 LED matrix. " 20 70 1
 ## 3rd LEVEL MENUS ##
 
 do_rasqberry_install_qiskit() {
-  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "Q00 Qiskit" "Install Qiskit (latest version)" \
     "Q37 Qiskit 0.37" "Install Qiskit v0.37" \
     "Q36 Qiskit 0.36" "Install Qiskit v0.36" \
@@ -98,7 +102,7 @@ do_rasqberry_install_qiskit() {
 }
 
 do_rasqberry_change_environment_file() {
-  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Change environment file" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Change environment file" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "I IBM-Q API Token " "Change your IBM-Q API Token" \
     "Q N_QUBITS " "Change the number of qubits" \
     "L LED_COUNT " "Change the number of LED Pixels" \
@@ -123,7 +127,7 @@ do_rasqberry_change_environment_file() {
 ## 2nd LEVEL MENUS ##
 
 do_rasqberry_setup() {
-  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "IC Initial Config " "Basic configurations (PATH, LOCALE, Python Packages, etc)" \
     "SU System Update " "Update the system and create swapfile" \
     "Q36 Install Qiskit" "Install Qiskit 0.36" \
@@ -156,7 +160,7 @@ do_rasqberry_setup() {
 }
 
 do_rasqberry_demos() {
-  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "BS Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
     "FR Fractals" "Install/Start the Fractals Demo" \
     "RL RasQ-LED" "Start RasQ-LED demo" \
@@ -193,7 +197,7 @@ do_rasqberry_demos() {
 }
 
 do_hd_demos() {
-  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "HD Demos" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "HD Demos" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "QT Qiskit Tutorials - internal browser" "Start jupyter notebook with Qiskit-Tutorials" \
     "FwQ Fun-with-Quantum - internal browser" "Start jupyter notebook with Fun-with-Quantum" \
     3>&1 1>&2 2>&3)
@@ -210,7 +214,7 @@ do_hd_demos() {
 }
 
 do_advanced_config() {
-  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "Q Install Qiskit " "Install Qiskit (several versions)" \
     "B Switch Branches " "Switch to a different branch of RasQberry" \
     "E Change environment-file" "Change the contents of the environment-file" \
@@ -251,11 +255,11 @@ do_advanced_config() {
 #
 # Command line options for non-interactive use
 #
-for i in $*
+for i in "$@"
 do
   case $i in
   --memory-split=*)
-    OPT_MEMORY_SPLIT=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+    OPT_MEMORY_SPLIT=$(echo "$i" | sed 's/[-a-zA-Z0-9]*=//')
     printf "Not currently supported\n"
     exit 1
     ;;
@@ -285,7 +289,7 @@ done
 # Interactive use loop
 #
 if [ "$INTERACTIVE" = true ]; then
-  [ -e $CONFIG ] || touch $CONFIG
+  [ -e "$CONFIG" ] || touch "$CONFIG"
   calc_wt_size
   while [ "$USER" = "root" ] || [ -z "$USER" ]; do
     if ! USER=$(whiptail --inputbox "raspi-config could not determine the default user.\\n\\nWhat user should these settings apply to?" 20 60 pi 3>&1 1>&2 2>&3); then
@@ -294,7 +298,7 @@ if [ "$INTERACTIVE" = true ]; then
   done
   while true; do
     if is_pi ; then
-      FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
+      FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --backtitle "$(cat /proc/device-tree/model)" --menu "Setup Options" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Finish --ok-button Select \
         "S RasQberry Setup" "RasQberry initial setup and configuration" \
         "D Quantum Demos" "Install and run Quantum Demos" \
         "H HD Demos" "Install and run HD Demos" \
@@ -302,7 +306,7 @@ if [ "$INTERACTIVE" = true ]; then
         "9 About rasqberry-config " "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     else
-      FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
+      FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Setup Options" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Finish --ok-button Select \
         "9 About" "Information about this configuration tool" \
         3>&1 1>&2 2>&3)
     fi

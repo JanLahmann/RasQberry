@@ -7,14 +7,14 @@ do_rasqberry_Qoffee_clone() {
   if [ "$QOFFEE_CLONED" = false ]; then
     #newgrp docker
     #docker version
-    cd /home/pi/
+    cd /home/pi/ || exit
     sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker'
     update_environment_file "QOFFEE_CLONED" "true"
     if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker Demo cloned" 20 60 1
     fi
   else
-    cd /home/pi/Qoffee-Maker
+    cd /home/pi/Qoffee-Maker || exit
     sudo -u pi -H -- sh -c 'git pull origin $BRANCH'
   fi
   # check if .env file exists
@@ -30,7 +30,7 @@ do_rasqberry_Qoffee_clone() {
 do_rasqberry_Qoffee_download() {
   # clone Qoffee-Maker github repo
   do_rasqberry_Qoffee_clone
-  cd /home/pi/Qoffee-Maker/
+  cd /home/pi/Qoffee-Maker/ || exit
   # check if Qoffee-Maker download and setup to be done
   if [ "$QOFFEE_DOWNLOADED" = false ]; then
     sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-maker && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-download.desktop /home/pi/Desktop/'
@@ -53,7 +53,7 @@ do_rasqberry_Qoffee_download() {
 do_rasqberry_Qoffee_local() {
   # clone Qoffee-Maker github repo
   do_rasqberry_Qoffee_clone
-  cd /home/pi/Qoffee-Maker/
+  cd /home/pi/Qoffee-Maker/ || exit
   # check if Qoffee-Maker docker image needs to be build
   if [ "$QOFFEE_INSTALLED" = false ]; then
     # build with node 15 instead of node 14

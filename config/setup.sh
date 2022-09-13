@@ -2,7 +2,7 @@
 
 ############# CONFIGURATION METHODS #############
 
-# Initial
+### Initial
 
 # Function to update values stored in the rasqberry_environment.env file
 update_environment_file () {
@@ -18,11 +18,15 @@ update_environment_file () {
   fi
 }
 
+# Function to update values stored in the rasqberry_environment.env file
+# $1 = variable name, $2 = value
 do_menu_update_environment_file() {
-  new_value=$(whiptail --inputbox "$1" $WT_HEIGHT $WT_WIDTH --title "Type in the new value" 3>&1 1>&2 2>&3)
+  new_value=$(whiptail --inputbox "$1" "$WT_HEIGHT" "$WT_WIDTH" --title "Type in the new value" 3>&1 1>&2 2>&3)
   update_environment_file "$1" "$new_value"
 }
 
+# Initial setup for RasQberry
+# Sets LOCALE, changes splash screen, installs packages and qiskit
 do_rq_initial_config() {
   if [ "$INITIAL_CONFIG" = false ]; then
     # set PATH
@@ -54,11 +58,13 @@ do_rq_initial_config() {
   fi
 }
 
+# Method to run the initial setup AGAIN
 do_rasqberry_rerun_initial_config() {
   update_environment_file "INITIAL_CONFIG" "false"
   do_rq_initial_config
 }
 
+# Update RasQberry and create swapfile
 do_rasqberry_update() {
   sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/' /etc/dphys-swapfile
   /etc/init.d/dphys-swapfile stop
@@ -72,16 +78,20 @@ do_rasqberry_update() {
   ASK_TO_REBOOT=1
 }
 
+# Install the AutoHotspot package (see below for credits)
 do_rasqberry_install_autohotspot() {
   echo "installing autohotspot, credits: https://www.raspberryconnect.com/, find project on github: https://github.com/RaspberryConnect/AutoHotspot-Installer"
-  cd /home/pi/RasQberry
+  cd /home/pi/RasQberry || exit
+  # download the script
   curl "https://www.raspberryconnect.com/images/hsinstaller/Autohotspot-Setup.tar.xz" -o AutoHotspot-Setup.tar.xz
+  # extract the script
   tar -xvJf AutoHotspot-Setup.tar.xz
   if [ "$INTERACTIVE" = True ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script. When prompted to enter a number choose accordingly (in most cases option 1, exit with 8).\nThe RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
   fi
+  # run the script
   sudo Autohotspot/autohotspot-setup.sh
-  cd
+  cd || exit
   #ask for yes/no to install crontab
   if (whiptail --title "Install crontab" --yesno "Do you want to install a crontab to check for network connection every 5 minutes and run hotspot if necessary?" 8 78); then
     #install crontab
@@ -91,20 +101,21 @@ do_rasqberry_install_autohotspot() {
   sudo reboot
 }
 
+# install libcint package, necessary for Qiskit dependencies
 do_rasqberry_install_libcint() {
   echo; echo "Install libcint"; echo;
-  cd /home/pi/
+  cd /home/pi/ || exit
   apt -y install cmake libatlas-base-dev p7zip-full rustc cargo
   if [ ! -f /usr/local/lib/libcint.so ]; then
     sudo -u pi -H -- sh -c 'git clone https://github.com/sunqm/libcint.git &&
       mkdir -p libcint/build && cd libcint/build &&
       cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local/ .. '
-    cd /home/pi/libcint/build && make install && cd /home/pi/
+    cd /home/pi/libcint/build && make install && (cd /home/pi/ || exit)
   fi
   #whiptail --msgbox "libcint is installed" 20 60 1
 }
 
-# install any version of qiskit $1 parameter is the version, set $2=silent for one-time silent install
+# install any version of qiskit $1 parameter is the version, set $2=silent for one-time silent (no whiptail popup) install
 do_rasqberry_install_general() {
     echo; echo "Install Qiskit $1"; echo;
     #check if version equals 019 or 020
@@ -119,6 +130,7 @@ do_rasqberry_install_general() {
     fi
   }
 
+# change the splash screen (switches between custom IBM Quantum and standard splash screen)
 do_change_splash_screen() {
   if [ ! -f "/usr/share/plymouth/themes/pix/splash.png.bk" ]; then
     mv "/usr/share/plymouth/themes/pix/splash.png" "/usr/share/plymouth/themes/pix/splash.png.bk"
@@ -131,10 +143,12 @@ do_change_splash_screen() {
   fi
 }
 
+# Run the Kivy install script
 do_install_kivy() {
   sudo -u pi -H -- sh -c /home/pi/RasQberry/bin/rq_install_kivy.sh
 }
 
+# Configure the Demos (e.g. type in the API token)
 do_rasqberry_config_demos(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
   sudo -u pi -i /home/pi/.local/bin/rq_jupyter_conf.sh
@@ -149,6 +163,7 @@ do_rasqberry_config_demos(){
   echo "@/home/pi/RasQberry/demos/bin/start_jupyter_notebooks.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
 }
 
+# Download and enable docker
 do_rq_enable_docker() {
   curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
@@ -162,25 +177,33 @@ do_rq_enable_docker() {
   ASK_TO_REBOOT=1
 }
 
+# Update the API token
 do_rasqberry_qtoken_update(){
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
 }
 
+# Change whether user gets Whiptail messages or not
 do_toggle_messages() {
-  [ "$RQ_NO_MESSAGES" = false ] && update_environment_file "RQ_NO_MESSAGES" "true" || update_environment_file "RQ_NO_MESSAGES" "false"
+  if [ "$RQ_NO_MESSAGES" = false ]
+  then
+    update_environment_file "RQ_NO_MESSAGES" "true"
+  else
+    update_environment_file "RQ_NO_MESSAGES" "false"
+  fi
 }
 
+# Switch between branches (e.g. master, dev); only shows different branches when in development mode (see. RasQ-init.sh script)
 do_rasqberry_switch_branch() {
   # switch to branch
-  cd /home/pi/RasQberry/
+  cd /home/pi/RasQberry/ || exit
   #count the number of branches
   branch_counter=$(git branch -r| wc -l)
   #create whiptail menu with the branches
   branches=$(git branch -r | sed 's/\(.*\) -> \(.*\)/\2/')
-  branches_menu=$(echo $branches | sed 's/ /\n/g')
+  branches_menu=$(echo "$branches" | sed 's/ /\n/g')
   current_branch=$(git branch --show-current)
   #create whiptail menu with the branches, default value is current branch
-  branch_choice=$(whiptail --inputbox "$branches_menu" $WT_HEIGHT $WT_WIDTH "$current_branch" --title "Type in the new branch (without 'origin/')" 3>&1 1>&2 2>&3)
+  branch_choice=$(whiptail --inputbox "$branches_menu" "$WT_HEIGHT" "$WT_WIDTH" "$current_branch" --title "Type in the new branch (without 'origin/')" 3>&1 1>&2 2>&3)
   #get the branch name
   branch_name=$(echo "$branch_choice" | sed 's/\(.*\) -> \(.*\)/\2/')
   #switch to branch
@@ -190,7 +213,9 @@ do_rasqberry_switch_branch() {
   fi
 }
 
-# Boot
+### BOOT
+
+# Disable raspi-config at boot
 disable_raspi_config_at_boot() {
   if [ -e /etc/profile.d/raspi-config.sh ]; then
     rm -f /etc/profile.d/raspi-config.sh
@@ -201,6 +226,7 @@ disable_raspi_config_at_boot() {
   fi
 }
 
+# Enable autostart of bloch sphere demo (4inch display)
 do_rasqberry_activate_bloch_autostart(){
 # enable bloch autostart ?
   [ "$BLOCH_AUTORUN_ENABLED" = true ] && return 0;
@@ -227,6 +253,7 @@ do_rasqberry_activate_bloch_autostart(){
   fi
 }
 
+# Disable autostart of bloch sphere demo (4inch display)
 do_rasqberry_deactivate_bloch_autostart(){
 # enable bloch autostart ?
   if [ "$BLOCH_AUTORUN_ENABLED" = true ]; then
@@ -235,6 +262,7 @@ do_rasqberry_deactivate_bloch_autostart(){
   fi
 }
 
+# Ask the user to reboot
 do_finish() {
   disable_raspi_config_at_boot
   if [ $ASK_TO_REBOOT -eq 1 ]; then
@@ -247,7 +275,7 @@ do_finish() {
   exit 0
 }
 
-# VNC
+# Enable VNC server
 rq_do_vnc() {
   if is_installed realvnc-vnc-server || apt-get install realvnc-vnc-server; then
     systemctl enable vncserver-x11-serviced.service &&
@@ -259,6 +287,7 @@ rq_do_vnc() {
   fi
 }
 
+# Enable VNC Server and configure desktop icons, wallpaper etc.
 do_rasqberry_enable_desktop_vnc(){
   if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enable vnc and configure desktop" 20 60 1
@@ -320,12 +349,15 @@ do_rasqberry_enable_desktop_vnc(){
   fi
 }
 
-# Devices
+### Devices
+
+# Configure Button
 do_rq_configure_button() {
   # add Button-action.py to /etc/rc.local
   # enable reboot overlay in /boot/config.txt
   if [ "$BUTTON_CONFIGURED" = false ]; then
     sed -i 's/exit 0//' /etc/rc.local
+    # shellcheck disable=SC2028
     echo "/usr/bin/python3 /home/pi/.local/bin/Button-action.py\n\nexit 0" >> /etc/rc.local
     echo "\n# enable shutdown/reboot on GPIO 3; and LED power indicator on GPIO 4\ndtoverlay=gpio-shutdown,gpio_pin=3\ngpio=4=op,dh" >> /boot/config.txt
     update_environment_file "BUTTON_CONFIGURED" "true"
@@ -336,17 +368,22 @@ do_rq_configure_button() {
   fi
 }
 
+# enable rpi_ws281x python library
 do_rasqberry_enable_LED() {
-  # enable rpi_ws281x python library
-  cd /home/pi/
+  cd /home/pi/ || exit
   pip3 install rpi_ws281x
-  [ ! -d rpi-ws281x-python ] && sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python' || return 0
+  if [ ! -d rpi-ws281x-python ]
+  then
+    sudo -u pi -H -- sh -c 'git clone https://github.com/rpi-ws281x/rpi-ws281x-python'
+  else
+    return 0
+  fi
 }
 
+# turn on or off the LED light ring above the cryostat
 do_rasqberry_toggle_LED() {
-  # turn on or off the LED light ring above the cryostat
   if [ -f /home/pi/RasQberry/.is_running_LED ]; then
-    kill -15 `cat /home/pi/RasQberry/.is_running_LED`
+    kill -15 "$(cat /home/pi/RasQberry/.is_running_LED)"
     rm /home/pi/RasQberry/.is_running_LED
     python3 .local/bin/rq_LED-off.py -c
   else
@@ -355,16 +392,29 @@ do_rasqberry_toggle_LED() {
   fi
 }
 
+# Check if TFT4 is connected
 rq_check_tft4() {
-  [ `tvservice -n` == "device_name=ADA-MPI4008" ] && update_environment_file "RQ_IS_TFT4" "true" || update_environment_file "RQ_IS_TFT4" "false"
+  if [ "$(tvservice -n)" == "device_name=ADA-MPI4008" ]
+  then
+    update_environment_file "RQ_IS_TFT4" "true"
+  else
+    update_environment_file "RQ_IS_TFT4" "false"
+  fi
 }
 
+# Check if SenseHat is connected
 rq_check_hat() {
-  [ -d /proc/device-tree/hat/ ] && update_environment_file "RQ_IS_HAT" "true" || update_environment_file "RQ_IS_HAT" "false"
+  if [ -d /proc/device-tree/hat/ ]
+  then
+    update_environment_file "RQ_IS_HAT" "true"
+  else
+    update_environment_file "RQ_IS_HAT" "false"
+  fi
 }
 
+# Setup Sense Hat
 do_rq_setup_SenseHAT(){
-  cd ~
+  cd ~ || exit
 
   # disable messages
   update_environment_file "RQ_NO_MESSAGES" "true"
@@ -393,6 +443,7 @@ do_rq_setup_SenseHAT(){
   ASK_TO_REBOOT=1
 }
 
+# Enable Touch Display (4inch)
 do_rasqberry_enable_touch41(){
   if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enable touch display\\nPart 1 " 20 60 1
@@ -424,7 +475,9 @@ do_rasqberry_enable_touch42(){
   fi
 }
 
-#Drivers
+### Drivers
+
+# Install GL driver for 4'' touch display
 rq_enable_gldriver() {
   if [ ! -e /boot/overlays/vc4-kms-v3d.dtbo ]; then
     if [ "$INTERACTIVE" = true ]; then
@@ -437,31 +490,31 @@ rq_enable_gldriver() {
       missing_packages="$package $missing_packages"
     fi
   done
-  if [ -n "$missing_packages" ] && ! apt-get install $missing_packages; then
+  if [ -n "$missing_packages" ] && ! apt-get install "$missing_packages"; then
     if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Required packages not found, please install: ${missing_packages}" 20 60 2
     fi
     return 1
   fi
   if is_pifour ; then
-    if ! grep -q -E "^dtoverlay=vc4-fkms-v3d" $CONFIG; then
+    if ! grep -q -E "^dtoverlay=vc4-fkms-v3d" "$CONFIG"; then
       ASK_TO_REBOOT=1
     fi
-    sed $CONFIG -i -e "s/^dtoverlay=vc4-kms-v3d/#dtoverlay=vc4-kms-v3d/g"
-    sed $CONFIG -i -e "s/^#dtoverlay=vc4-fkms-v3d/dtoverlay=vc4-fkms-v3d/g"
-    if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-fkms-v3d" ; then
-      printf "[all]\ndtoverlay=vc4-fkms-v3d\n" >> $CONFIG
+    sed "$CONFIG" -i -e "s/^dtoverlay=vc4-kms-v3d/#dtoverlay=vc4-kms-v3d/g"
+    sed "$CONFIG" -i -e "s/^#dtoverlay=vc4-fkms-v3d/dtoverlay=vc4-fkms-v3d/g"
+    if ! sed -n "/\[pi4\]/,/\[/ !p" "$CONFIG" | grep -q "^dtoverlay=vc4-fkms-v3d" ; then
+      printf "[all]\ndtoverlay=vc4-fkms-v3d\n" >> "$CONFIG"
     fi
     STATUS="The fake KMS GL driver is enabled."
     update_environment_file "KMS_GL_ENABLED" "true"
   else
-    if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-kms-v3d" ; then
+    if ! sed -n "/\[pi4\]/,/\[/ !p" "$CONFIG" | grep -q "^dtoverlay=vc4-kms-v3d" ; then
       ASK_TO_REBOOT=1
     fi
-    sed $CONFIG -i -e "s/^dtoverlay=vc4-fkms-v3d/#dtoverlay=vc4-fkms-v3d/g"
-    sed $CONFIG -i -e "s/^#dtoverlay=vc4-kms-v3d/dtoverlay=vc4-kms-v3d/g"
-    if ! sed -n "/\[pi4\]/,/\[/ !p" $CONFIG | grep -q "^dtoverlay=vc4-kms-v3d" ; then
-      printf "[all]\ndtoverlay=vc4-kms-v3d\n" >> $CONFIG
+    sed "$CONFIG" -i -e "s/^dtoverlay=vc4-fkms-v3d/#dtoverlay=vc4-fkms-v3d/g"
+    sed "$CONFIG" -i -e "s/^#dtoverlay=vc4-kms-v3d/dtoverlay=vc4-kms-v3d/g"
+    if ! sed -n "/\[pi4\]/,/\[/ !p" "$CONFIG" | grep -q "^dtoverlay=vc4-kms-v3d" ; then
+      printf "[all]\ndtoverlay=vc4-kms-v3d\n" >> "$CONFIG"
     fi
     STATUS="The full KMS GL driver is enabled."
     update_environment_file "KMS_GL_ENABLED" "true"
@@ -471,6 +524,7 @@ rq_enable_gldriver() {
   fi
 }
 
+# Check for GL driver
 rq_check_gldriver() {
   if [ "$KMS_GL_ENABLED" = true ]; then
     return 0
