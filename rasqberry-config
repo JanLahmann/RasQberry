@@ -214,6 +214,7 @@ do_advanced_config() {
     "Q Install Qiskit " "Install Qiskit (several versions)" \
     "B Switch Branches " "Switch to a different branch of RasQberry" \
     "E Change environment-file" "Change the contents of the environment-file" \
+    "RI Rerun initial config" "Rerun the initial config" \
     "QMst stop Qoffee-Maker " "stop all Qoffee-Maker containers" \
     "QMrb Qoffee-Maker rebuild " "force rebuild of Qoffee-Maker images" \
     "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
