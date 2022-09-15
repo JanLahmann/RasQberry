@@ -115,7 +115,9 @@ do_rasqberry_install_libcint() {
   #whiptail --msgbox "libcint is installed" 20 60 1
 }
 
-# install any version of qiskit $1 parameter is the version, set $2=silent for one-time silent (no whiptail popup) install
+# install any version of qiskit $1 parameter is the version (e.g. 0.37 = 037), set $2=silent for one-time silent (no whiptail popup) install
+# Attention: Only works for specific Qiskit versions with predefined scripts which should be names as "rq_install_qiskitXXX.sh"
+# Install latest version of Qiskit via "rq_install_qiskit_latest.sh"
 do_rasqberry_install_general() {
     echo; echo "Install Qiskit $1"; echo;
     #check if version equals 019 or 020

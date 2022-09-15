@@ -130,7 +130,7 @@ do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "IC Initial Config " "Basic configurations (PATH, LOCALE, Python Packages, etc)" \
     "SU System Update " "Update the system and create swapfile" \
-    "Q36 Install Qiskit" "Install Qiskit 0.36" \
+    "Q37 Install Qiskit" "Install Qiskit 0.37" \
     "AH Install AutoHotspot" "Install an automated Wifi Hotspot" \
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
     "CD Config & Demos " "Configure Qiskit and install Quantum Demos" \
@@ -147,7 +147,7 @@ do_rasqberry_setup() {
       IC\ *) do_rq_initial_config ;;
       SU\ *) do_rasqberry_update ;;
       AH\ *) do_rasqberry_install_autohotspot ;;
-      Q36\ *) do_rasqberry_install_general 036 ;;
+      Q36\ *) do_rasqberry_install_general 037 ;;
       DV\ *) do_rasqberry_enable_desktop_vnc ;;
       CD\ *) do_rasqberry_config_demos ;;
       CS\ *) do_change_splash_screen ;;
