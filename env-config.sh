@@ -1,2 +1,3 @@
 #!/bin/sh
-export "$(grep -v "^#" "/home/pi/RasQberry/rasqberry_environment.env" | xargs -d "\n")"
+# shellcheck disable=SC2046
+export $(grep -v "^#" "/home/pi/RasQberry/rasqberry_environment.env" | xargs -d "\n")
