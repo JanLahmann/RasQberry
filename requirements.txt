@@ -7,7 +7,7 @@ kivy==2.1.0
 matplotlib==3.5.3
 numpy==1.23.3
 python-dotenv==0.21.0
-qiskit==0.37.2
+qiskit==0.38.0
 rpi_ws281x==4.3.4
 selenium==4.4.3
 sense_hat==2.4.0
