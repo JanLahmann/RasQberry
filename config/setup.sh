@@ -92,7 +92,7 @@ do_rasqberry_install_autohotspot() {
   curl "https://www.raspberryconnect.com/images/hsinstaller/Autohotspot-Setup.tar.xz" -o AutoHotspot-Setup.tar.xz
   # extract the script
   tar -xvJf AutoHotspot-Setup.tar.xz
-  if [ "$INTERACTIVE" = True ]; then
+  if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script. When prompted to enter a number choose accordingly (in most cases option 1, exit with 8).\nThe RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
   fi
   # run the script

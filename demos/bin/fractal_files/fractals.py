@@ -36,16 +36,19 @@ try:
     os.remove(f"{cwd}/2cn2.png")
 except:
     print("Error while deleting 2cn2.png file. This is probably normal.")
+    exit()
 
-# open selenium browser driver
-options = webdriver.ChromeOptions()
-# Disable "Chrome is being controlled by automated test software" message
-options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_argument(f"--app={pic_url}")
-options.add_argument('--start-maximized')
-service = Service('/usr/lib/chromium-browser/chromedriver')
-driver = webdriver.Chrome(service=service, options=options)
-
+try:
+    # open selenium browser driver
+    options = webdriver.ChromeOptions()
+    # Disable "Chrome is being controlled by automated test software" message
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_argument(f"--app={pic_url}")
+    options.add_argument('--start-maximized')
+    service = Service('/usr/lib/chromium-browser/chromedriver')
+    driver = webdriver.Chrome(service=service, options=options)
+except selenium.common.exceptions.WebDriverException:
+    print("Error while starting chrome. Are you using a desktop? SSH is not supported!")
 
 # Start with a one qubit quantum circuit yielding a nice fractal. Change the circuit as you like.
 circuit = QuantumCircuit(1, 1)
@@ -225,6 +228,7 @@ class QuantumFractalImages:
         plot_bloch_multivector(ccircuit, filename=f'{cwd}/H.png')
         ax[0].imshow(mpimg.imread('H.png'))
         ax[0].axis('off')
+        ax[0].set_title('Block sphere', fontsize=15)
         ax[1].imshow(self.res_1cn, cmap='magma')
         ax[1].axis('off')
         ax[2].imshow(self.res_2cn1, cmap='magma')
@@ -232,9 +236,10 @@ class QuantumFractalImages:
         ax[3].figure.set_size_inches(16, 5)
         ax[3].imshow(self.res_2cn2, cmap='magma')
         ax[3].figure.savefig('2cn2.png')
+        ax[3].axis('off')
+        ax[3].set_title('3 types of Julia set fractals based on the superposition H-gate', fontsize=15)
         # Open in browser
         driver.get(pic_url)
-        ax[3].axis('off')
         # plt.show()
         clear_output()
         plt.close()
@@ -280,5 +285,4 @@ while True:
         driver2.find_element(By.TAG_NAME, 'body')
     except (selenium.common.exceptions.NoSuchWindowException, selenium.common.exceptions.WebDriverException):
         print("Error, Browser window closed, quitting the program")
-        driver2.quit()
-        break
+        exit()

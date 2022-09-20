@@ -222,7 +222,7 @@ do_advanced_config() {
     "Q Install Qiskit " "Install Qiskit (several versions)" \
     "B Switch Branches " "Switch to a different branch of RasQberry" \
     "E Change environment-file" "Change the contents of the environment-file" \
-    "RI Rerun initial config" "Rerun the initial config" \
+    "RR Reinstall Requirements" "Rerun the requirements installation" \
     "QMst stop Qoffee-Maker " "stop all Qoffee-Maker containers" \
     "QMrb Qoffee-Maker rebuild " "force rebuild of Qoffee-Maker images" \
     "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
@@ -240,7 +240,7 @@ do_advanced_config() {
       Q\ *) do_rasqberry_install_qiskit ;;
       B\ *) do_rasqberry_switch_branch ;;
       E\ *) do_rasqberry_change_environment_file ;;
-      RI\ *) do_rasqberry_rerun_requirements ;;
+      RR\ *) do_rasqberry_rerun_requirements ;;
       QMst\ *) do_rasqberry_Qoffee_stop ;;
       QMrb\ *) do_rasqberry_Qoffee_rebuild ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;
