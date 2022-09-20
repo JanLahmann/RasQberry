@@ -35,7 +35,7 @@ pic_url = f"{browser_file_path}/2cn2.png"
 try:
     os.remove(f"{cwd}/2cn2.png")
 except:
-    print("Error while deleting 2cn2.png file")
+    print("Error while deleting 2cn2.png file. This is probably normal.")
 
 # open selenium browser driver
 options = webdriver.ChromeOptions()

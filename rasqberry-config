@@ -65,6 +65,7 @@ TFT touchscreen display or a SenseHAT 8x8 LED matrix. " 20 70 1
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "Q00 Qiskit" "Install Qiskit (latest version)" \
+    "Q38 Qiskit 0.38" "Install Qiskit v0.38" \
     "Q37 Qiskit 0.37" "Install Qiskit v0.37" \
     "Q36 Qiskit 0.36" "Install Qiskit v0.36" \
     "Q34 Qiskit 0.34" "Install Qiskit v0.34" \
@@ -95,6 +96,7 @@ do_rasqberry_install_qiskit() {
       Q34\ *) do_rasqberry_install_general 034 ;;
       Q36\ *) do_rasqberry_install_general 036 ;;
       Q37\ *) do_rasqberry_install_general 037 ;;
+      Q38\ *) do_rasqberry_install_general 038 ;;
       Q00\ *) do_rasqberry_install_general _latest ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
@@ -130,10 +132,11 @@ do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "IC Initial Config " "Basic configurations (PATH, LOCALE, Python Packages, etc)" \
     "SU System Update " "Update the system and create swapfile" \
-    "Q37 Install Qiskit" "Install Qiskit 0.37" \
+    "IR Install Requirements" "Install Qiskit and other requirements" \
     "AH Install AutoHotspot" "Install an automated Wifi Hotspot" \
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
     "CD Config & Demos " "Configure Qiskit and install Quantum Demos" \
+    "AP Configure API" "Enter you IBM Q API Token" \
     "CS Change Splash Screen " "Change the splash screen IBM<->Standard" \
     "D Docker" "Install & Enable Docker" \
     "BL Button+LED" "Configure Control-Button + LEDs" \
@@ -146,10 +149,11 @@ do_rasqberry_setup() {
     case "$FUN" in
       IC\ *) do_rq_initial_config ;;
       SU\ *) do_rasqberry_update ;;
+      IR\ *) do_rasqberry_install_requirements ;;
       AH\ *) do_rasqberry_install_autohotspot ;;
-      Q37\ *) do_rasqberry_install_general 037 ;;
       DV\ *) do_rasqberry_enable_desktop_vnc ;;
       CD\ *) do_rasqberry_config_demos ;;
+      AP\ *) do_rasqberry_configure_APITOKEN ;;
       CS\ *) do_change_splash_screen ;;
       D\ *) do_rq_enable_docker ;;
       BL\ *) do_rq_configure_button ;;
@@ -236,7 +240,7 @@ do_advanced_config() {
       Q\ *) do_rasqberry_install_qiskit ;;
       B\ *) do_rasqberry_switch_branch ;;
       E\ *) do_rasqberry_change_environment_file ;;
-      RI\ *) do_rasqberry_rerun_initial_config ;;
+      RI\ *) do_rasqberry_rerun_requirements ;;
       QMst\ *) do_rasqberry_Qoffee_stop ;;
       QMrb\ *) do_rasqberry_Qoffee_rebuild ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;

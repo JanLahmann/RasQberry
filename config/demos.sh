@@ -20,8 +20,8 @@ do_rasqberry_run_bloch(){
 # Run the fractal demo in browser
 do_rasqberry_run_fractals(){
   # check if Initial Setup is done
-  if [ "$INITIAL_CONFIG" = false ]; then
-    do_rq_initial_config
+  if [ "$REQUIREMENTS_INSTALLED" = false ]; then
+    do_rasqberry_install_requirements
   fi
   sudo apt-get install chromium-chromedriver
   sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/fractal_files/fractals.py'

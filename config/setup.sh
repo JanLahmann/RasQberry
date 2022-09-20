@@ -26,9 +26,9 @@ do_menu_update_environment_file() {
 }
 
 # Initial setup for RasQberry
-# Sets LOCALE, changes splash screen, installs packages and qiskit
+# Sets LOCALE, changes splash screen
 do_rq_initial_config() {
-  if [ "$INITIAL_CONFIG" = false ]; then
+  if [ "$REQUIREMENTS_INSTALLED" = false ]; then
     # set PATH
     ( echo; echo '##### added for rasqberry #####';
     echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
@@ -41,13 +41,8 @@ do_rq_initial_config() {
     apt -y install blueman
     # install emojis for Qoffee-Maker demo
     apt -y install fonts-noto-color-emoji
-    # install Qiskit (this has to be done before installing via requirements.txt)
-    do_rasqberry_install_general 037 silent
-    # install python requirements
-    runuser -l  pi -c 'pip install --upgrade pip'
-    runuser -l  pi -c 'export PIP_IGNORE_INSTALLED=0'
-    runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
-    update_environment_file "INITIAL_CONFIG" "true"
+    # install dotenv support
+    pip3 install dotenv
     if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config completed" 20 60 1
     fi
@@ -58,9 +53,20 @@ do_rq_initial_config() {
   fi
 }
 
-# Method to run the initial setup AGAIN
-do_rasqberry_rerun_initial_config() {
-  update_environment_file "INITIAL_CONFIG" "false"
+# Installs Qiskit and other requirements
+do_rasqberry_install_requirements() {
+    # install Qiskit (this has to be done before installing via requirements.txt)
+    do_rasqberry_install_general 038 silent
+    # install python requirements
+    runuser -l  pi -c 'pip install --upgrade pip'
+    runuser -l  pi -c 'export PIP_IGNORE_INSTALLED=0'
+    runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
+    update_environment_file "REQUIREMENTS_INSTALLED" "true"
+}
+
+# Method to run the requirements setup AGAIN
+do_rasqberry_rerun_requirements() {
+  update_environment_file "REQUIREMENTS_INSTALLED" "false"
   do_rq_initial_config
 }
 
@@ -138,10 +144,19 @@ do_change_splash_screen() {
     mv "/usr/share/plymouth/themes/pix/splash.png" "/usr/share/plymouth/themes/pix/splash.png.bk"
     cp "/home/pi/RasQberry/wallpapers/ibmqantumTwoGlowScaled.png" "/usr/share/plymouth/themes/pix/"
     mv "/usr/share/plymouth/themes/pix/ibmqantumTwoGlowScaled.png" "/usr/share/plymouth/themes/pix/splash.png"
+    update_environment_file "CUSTOM_SPLASH" "true"
   else
     cp "/usr/share/plymouth/themes/pix/splash.png.bk" "/usr/share/plymouth/themes/pix/splash_help.png"
     mv "/usr/share/plymouth/themes/pix/splash.png" "/usr/share/plymouth/themes/pix/splash.png.bk"
     mv "/usr/share/plymouth/themes/pix/splash_help.png" "/usr/share/plymouth/themes/pix/splash.png"
+    if [ "$CUSTOM_SPLASH" = true ]; then
+      update_environment_file "CUSTOM_SPLASH" "false"
+    else
+      update_environment_file "CUSTOM_SPLASH" "true"
+    fi
+    if [ "$INTERACTIVE" = true ]; then
+    whiptail --msgbox "Changed splash screen. Custom Splash Screen: $CUSTOM_SPLASH" 20 60 1
+    fi
   fi
 }
 
@@ -150,9 +165,8 @@ do_install_kivy() {
   sudo -u pi -H -- sh -c /home/pi/RasQberry/bin/rq_install_kivy.sh
 }
 
-# Configure the Demos (e.g. type in the API token)
+# Configure the Demos (e.g. enable autostart)
 do_rasqberry_config_demos(){
-  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
   sudo -u pi -i /home/pi/.local/bin/rq_jupyter_conf.sh
   # clone Git-Repositories
   sudo -u pi -i /home/pi/RasQberry/demos/bin/rq_clone_repos.sh
@@ -163,6 +177,11 @@ do_rasqberry_config_demos(){
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "enabled jupyter notebook autostart on port 8888 and 8889" 20 60 1
   fi
   echo "@/home/pi/RasQberry/demos/bin/start_jupyter_notebooks.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+}
+
+# type in the API token
+do_rasqberry_configure_APITOKEN() {
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
 }
 
 # Download and enable docker
