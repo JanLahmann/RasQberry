@@ -4,7 +4,7 @@ gpiozero==1.6.2
 ibm_quantum_widgets==1.0.3
 ipython==8.5.0
 kivy==2.1.0
-matplotlib==3.5.3
+matplotlib==3.6.0
 numpy==1.23.3
 python-dotenv==0.21.0
 qiskit==0.38.0
