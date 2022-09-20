@@ -92,6 +92,8 @@ do_rasqberry_install_autohotspot() {
   curl "https://www.raspberryconnect.com/images/hsinstaller/Autohotspot-Setup.tar.xz" -o AutoHotspot-Setup.tar.xz
   # extract the script
   tar -xvJf AutoHotspot-Setup.tar.xz
+  location_choice=$(whiptail --inputbox "Type in your country code for WI-FI configuration" "$WT_HEIGHT" "$WT_WIDTH" "DE" --title "WI-FI Location" 3>&1 1>&2 2>&3)
+  sed -i "/^network=.*/i country=$location_choice" /etc/wpa_supplicant/wpa_supplicant.conf
   if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script. When prompted to enter a number choose accordingly (in most cases option 1, exit with 8).\nThe RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
   fi
@@ -191,6 +193,7 @@ do_rq_enable_docker() {
   apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
   usermod -aG docker pi
   systemctl enable docker
+  sed -i "s/.*net.ipv4.ip_forward=.*/net.ipv4.ip_forward=1/gm" /etc/sysctl.conf
   if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "docker installed and enabled" 20 60 1
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1

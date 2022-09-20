@@ -5,7 +5,7 @@
 # Run the bloch sphere demo (on 4 inch screen)
 do_rasqberry_run_bloch(){
   if [ "$INTERACTIVE" = true ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "starting run_bloch" 20 60 1
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "starting run_bloch; If the RasQberry restarts, please run this option again" 20 60 1
   fi
   # check if GL2/GL3 driver is enabled
   rq_check_gldriver
