@@ -237,7 +237,7 @@ class QuantumFractalImages:
         ax[3].figure.set_size_inches(16, 5)
         ax[3].imshow(self.res_2cn2, cmap='magma')
         ax[3].axis('off')
-        ax[3].figure.suptitle('ibm.biz/quantum-fractals-blog    ibm.biz/quantum-fractals')
+        ax[3].figure.supxlabel('ibm.biz/quantum-fractals-blog    ibm.biz/quantum-fractals', fontsize=20)
         ax[3].figure.savefig('2cn2.png')
         # Open in browser
         driver.get(pic_url)
