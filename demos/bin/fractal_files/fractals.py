@@ -229,13 +229,13 @@ class QuantumFractalImages:
         ax[0].imshow(mpimg.imread('H.png'))
         ax[0].axis('off')
         ax[0].set_title('Bloch sphere', fontsize=15)
-        ax[0].figtext(0, -0.5, 'ibm.biz/quantum-fractals-blog', style='italic', bbox={
+        ax[0].figure.figtext(0, -0.5, 'ibm.biz/quantum-fractals-blog', style='italic', bbox={
             'facecolor': 'grey', 'alpha': 0.5, 'pad': 10})
         ax[1].imshow(self.res_1cn, cmap='magma')
         ax[1].axis('off')
         ax[2].imshow(self.res_2cn1, cmap='magma')
         ax[2].set_title('3 types of Julia set fractals based on the superposition H-gate', fontsize=15)
-        ax[2].figtext(0, -0.5, 'ibm.biz/quantum-fractals', style='italic', bbox={
+        ax[2].figure.figtext(0, -0.5, 'ibm.biz/quantum-fractals', style='italic', bbox={
             'facecolor': 'grey', 'alpha': 0.5, 'pad': 10})
         ax[2].axis('off')
         ax[3].figure.set_size_inches(16, 5)
