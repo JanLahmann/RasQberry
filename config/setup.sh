@@ -92,7 +92,7 @@ do_rasqberry_install_autohotspot() {
   curl "https://www.raspberryconnect.com/images/hsinstaller/Autohotspot-Setup.tar.xz" -o AutoHotspot-Setup.tar.xz
   # extract the script
   tar -xvJf AutoHotspot-Setup.tar.xz
-  if grep -Fxq "country" /etc/wpa_supplicant/wpa_supplicant.conf; then
+  if ! (grep -Fxq "country" /etc/wpa_supplicant/wpa_supplicant.conf); then
     location_choice=$(whiptail --inputbox "Type in your country code for WI-FI configuration" "$WT_HEIGHT" "$WT_WIDTH" "DE" --title "WI-FI Location" 3>&1 1>&2 2>&3)
     sed -i "/^network=.*/i country=$location_choice" /etc/wpa_supplicant/wpa_supplicant.conf
   fi
