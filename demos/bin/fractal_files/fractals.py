@@ -36,7 +36,6 @@ try:
     os.remove(f"{cwd}/2cn2.png")
 except:
     print("Error while deleting 2cn2.png file. This is probably normal.")
-    exit()
 
 try:
     # open selenium browser driver
@@ -49,6 +48,7 @@ try:
     driver = webdriver.Chrome(service=service, options=options)
 except selenium.common.exceptions.WebDriverException:
     print("Error while starting chrome. Are you using a desktop? SSH is not supported!")
+    exit()
 
 # Start with a one qubit quantum circuit yielding a nice fractal. Change the circuit as you like.
 circuit = QuantumCircuit(1, 1)
