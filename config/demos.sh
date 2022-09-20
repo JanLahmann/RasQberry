@@ -24,7 +24,9 @@ do_rasqberry_run_fractals(){
     do_rasqberry_install_requirements
   fi
   sudo apt-get install chromium-chromedriver
+  cd /home/pi/RasQberry/demos/bin/fractal_files || exit
   sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/fractal_files/fractals.py'
+  cd || exit
 }
 
 # Run the RasQ-LED demo for a LED Ring connected to RasQberry
