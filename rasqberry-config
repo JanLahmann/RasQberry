@@ -161,6 +161,7 @@ do_rasqberry_demos() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "BS Bloch-Sphere" "Install/Start/Stop the Bloch-Sphere Demo (rec.: enable autostart)" \
     "FR Fractals" "Install/Start the Fractals Demo" \
+    "FRA Fractals Autostart" "Activate the Fractals Autostart" \
     "RL RasQ-LED" "Start RasQ-LED demo" \
     "CL Clear LED" "Clear LED Lights" \
     "QM Qoffee-Maker" "Local Build/Start Qoffee-Maker demo" \
@@ -170,6 +171,7 @@ do_rasqberry_demos() {
     "RT16 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
     "QR Qrasp " "Install/Start/Stop the Qrasp Demo" \
     "CS Clear SenseHAT" "Clear SenseHAT Display" \
+    "DF Disable Fractal Autostart" "Disable Autostart of Fractal Demo" \
     "DB Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
     3>&1 1>&2 2>&3)
   RET=$?
@@ -179,6 +181,7 @@ do_rasqberry_demos() {
     case "$FUN" in
       BS\ *) do_rasqberry_run_bloch ;;
       FR\ *) do_rasqberry_run_fractals ;;
+      FRA\ *) do_rasqberry_activate_fractal_autostart ;;
       RL\ *) do_RasQ_LED ;;
       CL\ *) do_led_lights_off ;;
       QM\ *) do_rasqberry_Qoffee_local ;;
@@ -188,6 +191,7 @@ do_rasqberry_demos() {
       RT16\ *) do_rasqberry_run_rasptie16_no_network ;;
       QR\ *) do_rasqberry_run_qrasp ;;
       CS\ *) do_sensehat_display_off ;;
+      DF\ *) do_rasqberry_deactivate_fractal_autostart ;;
       DB\ *) do_rasqberry_deactivate_bloch_autostart ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1

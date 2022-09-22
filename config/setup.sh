@@ -58,6 +58,8 @@ do_rasqberry_install_requirements() {
     # install python requirements
     runuser -l  pi -c 'pip install --upgrade pip'
     runuser -l  pi -c 'export PIP_IGNORE_INSTALLED=0'
+    # install chromedriver for Fractals
+    sudo apt-get install chromium-chromedriver
     # install Qiskit (this has to be done before installing via requirements.txt)
     do_rasqberry_install_general 038 silent
     runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
@@ -278,10 +280,48 @@ do_rasqberry_activate_bloch_autostart(){
 
 # Disable autostart of bloch sphere demo (4inch display)
 do_rasqberry_deactivate_bloch_autostart(){
-# enable bloch autostart ?
+# disable bloch autostart ?
   if [ "$BLOCH_AUTORUN_ENABLED" = true ]; then
     sed -i 's/@rq_bloch_autostart.sh//' /etc/xdg/lxsession/LXDE-pi/autostart
     update_environment_file "BLOCH_AUTORUN_ENABLED" "false"
+  fi
+}
+
+do_rasqberry_activate_fractal_autostart(){
+# enable fractal autostart ?
+  [ "$FRACTAL_AUTORUN_ENABLED" = true ] && return 0;
+  if [ "$FRACTAL_AUTORUN_ASKED" = false ]; then
+    DEFAULT=--defaultno
+    whiptail --yesno \
+      "Would you like to enable the Fractal autostart?" $DEFAULT 20 60 2
+    RET=$?
+    if [ $RET -eq 0 ]; then #selected yes
+      #whiptail --msgbox "selected yes" 20 60 1
+      if [ "$REQUIREMENTS_INSTALLED" = false ]; then
+        do_rasqberry_install_requirements
+      fi
+      echo "@/home/pi/RasQberry/demos/bin/rq_fractal_autostart.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
+      update_environment_file "FRACTAL_AUTORUN_ENABLED" "true"
+      update_environment_file "FRACTAL_AUTORUN_ASKED" "true"
+    else # selected no
+      #whiptail --msgbox "selected no" 20 60 1
+      DEFAULT=--defaultno
+      whiptail --yesno \
+        "Would you like to be asked again to activate autostart?" $DEFAULT 20 60 2
+      RET=$?
+      if [ $RET -eq 1 ]; then #selected no
+        update_environment_file "FRACTAL_AUTORUN_ASKED" "true"
+      fi
+    fi
+  fi
+}
+
+# Disable autostart of bloch sphere demo (4inch display)
+do_rasqberry_deactivate_fractal_autostart(){
+# disable fractal autostart ?
+  if [ "$FRACTAL_AUTORUN_ENABLED" = true ]; then
+    sed -i 's/@rq_fractal_autostart.sh//' /etc/xdg/lxsession/LXDE-pi/autostart
+    update_environment_file "FRACTAL_AUTORUN_ENABLED" "false"
   fi
 }
 
