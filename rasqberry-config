@@ -133,11 +133,8 @@ do_rasqberry_setup() {
     "IC Initial Config " "Basic configurations (PATH, LOCALE, Python Packages, etc)" \
     "SU System Update " "Update the system and create swapfile" \
     "IR Install Requirements" "Install Qiskit and other requirements" \
-    "AH Install AutoHotspot" "Install an automated Wifi Hotspot" \
     "DV Configure Desktop and VNC " "Configure Desktop Layout and enable VNC displays" \
     "CD Config & Demos " "Configure Qiskit and install Quantum Demos" \
-    "AP Configure API" "Enter you IBM Q API Token" \
-    "CS Change Splash Screen " "Change the splash screen IBM<->Standard" \
     "D Docker" "Install & Enable Docker" \
     "BL Button+LED" "Configure Control-Button + LEDs" \
     "SH Config SenseHAT " "Configure SenseHAT with qrasp autostart" \
@@ -150,11 +147,8 @@ do_rasqberry_setup() {
       IC\ *) do_rq_initial_config ;;
       SU\ *) do_rasqberry_update ;;
       IR\ *) do_rasqberry_install_requirements ;;
-      AH\ *) do_rasqberry_install_autohotspot ;;
       DV\ *) do_rasqberry_enable_desktop_vnc ;;
       CD\ *) do_rasqberry_config_demos ;;
-      AP\ *) do_rasqberry_configure_APITOKEN ;;
-      CS\ *) do_change_splash_screen ;;
       D\ *) do_rq_enable_docker ;;
       BL\ *) do_rq_configure_button ;;
       SH\ *) do_rq_setup_SenseHAT ;;
@@ -171,11 +165,11 @@ do_rasqberry_demos() {
     "CL Clear LED" "Clear LED Lights" \
     "QM Qoffee-Maker" "Local Build/Start Qoffee-Maker demo" \
     "QMd Qoffee-Maker" "Download/Start Qoffee-Maker image" \
+    "AP Configure API" "Enter you IBM Q API Token" \
     "RT5 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
     "RT16 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
     "QR Qrasp " "Install/Start/Stop the Qrasp Demo" \
     "CS Clear SenseHAT" "Clear SenseHAT Display" \
-    "UT Update Q Token" "Enter new IBM Quantum Experience Token" \
     "DB Disable Bloch Autostart " "Disable Autostart of Bloch Demo" \
     3>&1 1>&2 2>&3)
   RET=$?
@@ -189,11 +183,11 @@ do_rasqberry_demos() {
       CL\ *) do_led_lights_off ;;
       QM\ *) do_rasqberry_Qoffee_local ;;
       QMd\ *) do_rasqberry_Qoffee_download ;;
+      AP\ *) do_rasqberry_configure_APITOKEN ;;
       RT5\ *) do_rasqberry_run_rasptie_no_network ;;
       RT16\ *) do_rasqberry_run_rasptie16_no_network ;;
       QR\ *) do_rasqberry_run_qrasp ;;
       CS\ *) do_sensehat_display_off ;;
-      UT\ *) do_rasqberry_qtoken_update ;;
       DB\ *) do_rasqberry_deactivate_bloch_autostart ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
@@ -220,9 +214,11 @@ do_hd_demos() {
 do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "Q Install Qiskit " "Install Qiskit (several versions)" \
+    "AH Install AutoHotspot" "Install an automated Wifi Hotspot" \
     "B Switch Branches " "Switch to a different branch of RasQberry" \
     "E Change environment-file" "Change the contents of the environment-file" \
     "RR Reinstall Requirements" "Rerun the requirements installation" \
+    "CS Change Splash Screen " "Change the splash screen IBM<->Standard" \
     "QMst stop Qoffee-Maker " "stop all Qoffee-Maker containers" \
     "QMrb Qoffee-Maker rebuild " "force rebuild of Qoffee-Maker images" \
     "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
@@ -238,9 +234,11 @@ do_advanced_config() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       Q\ *) do_rasqberry_install_qiskit ;;
+      AH\ *) do_rasqberry_install_autohotspot ;;
       B\ *) do_rasqberry_switch_branch ;;
       E\ *) do_rasqberry_change_environment_file ;;
       RR\ *) do_rasqberry_rerun_requirements ;;
+      CS\ *) do_change_splash_screen ;;
       QMst\ *) do_rasqberry_Qoffee_stop ;;
       QMrb\ *) do_rasqberry_Qoffee_rebuild ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;

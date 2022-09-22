@@ -18,7 +18,7 @@ do_rasqberry_run_bloch(){
 }
 
 # Run the fractal demo in browser
-do_rasqberry_run_fractals(){
+do_rasqberry_run_fractals_off(){
   # check if Initial Setup is done
   if [ "$REQUIREMENTS_INSTALLED" = false ]; then
     do_rasqberry_install_requirements
@@ -27,6 +27,10 @@ do_rasqberry_run_fractals(){
   cd /home/pi/RasQberry/demos/bin/fractal_files || exit
   sudo -u pi -H -- sh -c '/usr/bin/python3 /home/pi/RasQberry/demos/bin/fractal_files/fractals.py'
   cd || exit
+}
+
+do_rasqberry_run_fractals(){
+  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/fractals.sh
 }
 
 # Run the RasQ-LED demo for a LED Ring connected to RasQberry

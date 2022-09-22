@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Name=Fractals
+Comment=run the Fractals Demo
+Icon=/home/pi/RasQberry/icons/RaspberryQiskitInside.png
+Type=Application
+Categories=Demos;
+Exec=lxterminal -e ". /home/pi/RasQberry/config/demos.sh && do_rasqberry_run_fractals"
+Terminal=true

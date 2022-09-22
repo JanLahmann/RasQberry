@@ -55,11 +55,11 @@ do_rq_initial_config() {
 
 # Installs Qiskit and other requirements
 do_rasqberry_install_requirements() {
-    # install Qiskit (this has to be done before installing via requirements.txt)
-    do_rasqberry_install_general 038 silent
     # install python requirements
     runuser -l  pi -c 'pip install --upgrade pip'
     runuser -l  pi -c 'export PIP_IGNORE_INSTALLED=0'
+    # install Qiskit (this has to be done before installing via requirements.txt)
+    do_rasqberry_install_general 038 silent
     runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
     update_environment_file "REQUIREMENTS_INSTALLED" "true"
 }
@@ -98,7 +98,9 @@ do_rasqberry_install_autohotspot() {
   fi
 
   if [ "$INTERACTIVE" = true ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script. When prompted to enter a number choose accordingly (in most cases option 1, exit with 8).\nThe RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
+      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script.
+      When prompted to enter a number choose accordingly (in most cases option 1, exit with 8). After the installation you will be asked if you want to install a cronjob to check regularly for a change of the network status (in most cases choose YES).\n
+      The RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
   fi
   # run the script
   sudo Autohotspot/autohotspot-setup.sh
@@ -201,11 +203,6 @@ do_rq_enable_docker() {
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
   fi
   ASK_TO_REBOOT=1
-}
-
-# Update the API token
-do_rasqberry_qtoken_update(){
-  sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_q_token.sh
 }
 
 # Change whether user gets Whiptail messages or not
@@ -325,6 +322,7 @@ do_rasqberry_enable_desktop_vnc(){
     # add desktop icons and menu entries
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/kivy.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/bloch.desktop /home/pi/Desktop/'
+    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/fractals.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/composer.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/* /home/pi/.local/share/applications/'
     desktop-file-install /home/pi/RasQberry/desktop-entries/*.desktop
