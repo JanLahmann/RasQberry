@@ -5,5 +5,5 @@ Comment=run the Fractals Demo
 Icon=/home/pi/RasQberry/icons/RaspberryQiskitInside.png
 Type=Application
 Categories=Demos;
-Exec=lxterminal -e ". /home/pi/RasQberry/config/demos.sh && do_rasqberry_run_fractals"
+Exec=/home/pi/RasQberry/demos/bin/fractals.sh
 Terminal=true
