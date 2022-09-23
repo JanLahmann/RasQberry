@@ -9,6 +9,7 @@ do_rasqberry_Qoffee_clone() {
     #docker version
     cd /home/pi/ || exit
     sudo -u pi -H -- sh -c 'git clone https://github.com/JanLahmann/Qoffee-Maker'
+    cd /home/pi/Qoffee-Maker || exit
     update_environment_file "QOFFEE_CLONED" "true"
     if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker Demo cloned" 20 60 1
@@ -19,9 +20,10 @@ do_rasqberry_Qoffee_clone() {
   fi
   # check if .env file exists
   if [ ! -f .env ]; then
-    echo "/home/pi/Qoffee-Maker/.env file does not exist. Please create it based on the env-template"
+    cp env-template .env
+    echo "/home/pi/Qoffee-Maker/.env file did not exist. A template .env file has been created. Please modify it based on the env-template or functionalities will not work!"
     if [ "$INTERACTIVE" = true ]; then
-        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file does not exist. Please create it based on the env-template" 20 60 1
+        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file did not exist. A template .env file has been created. Please modify it based on the env-template or functionalities will not work!" 20 60 1
     fi
     exit 1
   fi
