@@ -31,7 +31,7 @@ do_rasqberry_Qoffee_clone() {
 do_rasqberry_Qoffee_download() {
   # clone Qoffee-Maker github repo
   do_rasqberry_Qoffee_clone
-  sysctl -w net.ipv4.ip_forward=1
+  sudo -u pi -H -- sh -c 'sudo sysctl -w net.ipv4.ip_forward=1'
   cd /home/pi/Qoffee-Maker/ || exit
   # check if Qoffee-Maker download and setup to be done
   if [ "$QOFFEE_DOWNLOADED" = false ]; then
@@ -55,7 +55,7 @@ do_rasqberry_Qoffee_download() {
 do_rasqberry_Qoffee_local() {
   # clone Qoffee-Maker github repo
   do_rasqberry_Qoffee_clone
-  sysctl -w net.ipv4.ip_forward=1
+  sudo -u pi -H -- sh -c 'sudo sysctl -w net.ipv4.ip_forward=1'
   cd /home/pi/Qoffee-Maker/ || exit
   # check if Qoffee-Maker docker image needs to be build
   if [ "$QOFFEE_INSTALLED" = false ]; then
