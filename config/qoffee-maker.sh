@@ -25,7 +25,6 @@ do_rasqberry_Qoffee_clone() {
     if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "/home/pi/Qoffee-Maker/.env file did not exist. A template .env file has been created. Please modify it based on the env-template or functionalities will not work!" 20 60 1
     fi
-    exit 1
   fi
 }
 
@@ -50,7 +49,7 @@ do_rasqberry_Qoffee_download() {
   sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-maker && docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env ghcr.io/janlahmann/qoffee-maker && sleep 5 && chromium-browser http://127.0.0.1:8887/?token=super-secret-token'
   echo "please wait for cleanup before closing the terminal"
   do_rasqberry_Qoffee_stop
-  echo "Termminal can now be closed"
+  echo "Terminal can now be closed"
 }
 
 do_rasqberry_Qoffee_local() {
@@ -78,7 +77,7 @@ do_rasqberry_Qoffee_local() {
   sudo -u pi -H -- sh -c 'docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env qoffee:latest && sleep 5 && chromium-browser http://127.0.0.1:8887/?token=super-secret-token'
   echo "please wait for cleanup before closing the terminal"
   do_rasqberry_Qoffee_stop
-  echo "Termminal can now be closed"
+  echo "Terminal can now be closed"
 }
 
 do_rasqberry_Qoffee_rebuild() {
