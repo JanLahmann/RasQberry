@@ -33,7 +33,8 @@ do_rasqberry_Qoffee_download() {
   do_rasqberry_Qoffee_clone
   # Save current sysctl net.ipv4.ip_forward state
   previous_sysctl_state=$(sudo -u pi -H -- sh -c 'sysctl net.ipv4.ip_forward | sed "s/ //g"')
-  sudo -u pi -H -- sh -c 'sudo sysctl -w net.ipv4.ip_forward=1'
+  sudo -u pi -H -- sh -c 'sudo sed -i "s/.*net.ipv4.ip_forward=.*/net.ipv4.ip_forward=1/gm" /etc/sysctl.conf'
+  sudo -u pi -H -- sh -c 'sudo sysctl --system'
   cd /home/pi/Qoffee-Maker/ || exit
   # check if Qoffee-Maker download and setup to be done
   if [ "$QOFFEE_DOWNLOADED" = false ]; then
@@ -59,7 +60,8 @@ do_rasqberry_Qoffee_local() {
   do_rasqberry_Qoffee_clone
   # Save current sysctl net.ipv4.ip_forward state
   previous_sysctl_state=$(sudo -u pi -H -- sh -c 'sysctl net.ipv4.ip_forward | sed "s/ //g"')
-  sudo -u pi -H -- sh -c 'sudo sysctl -w net.ipv4.ip_forward=1'
+  sudo -u pi -H -- sh -c 'sudo sed -i "s/.*net.ipv4.ip_forward=.*/net.ipv4.ip_forward=1/gm" /etc/sysctl.conf'
+  sudo -u pi -H -- sh -c 'sudo sysctl --system'
   cd /home/pi/Qoffee-Maker/ || exit
   # check if Qoffee-Maker docker image needs to be build
   if [ "$QOFFEE_INSTALLED" = false ]; then
@@ -94,7 +96,8 @@ do_rasqberry_Qoffee_rebuild() {
 do_rasqberry_Qoffee_stop() {
   # stop all qoffee docker containers
   # Restore previous sysctl net.ipv4.ip_forward state
-  sysctl -w "$previous_sysctl_state"
+  sudo -u pi -H -- sh -c "sudo sed -i "s/.*net.ipv4.ip_forward=.*/$previous_sysctl_state/gm" /etc/sysctl.conf"
+  sudo -u pi -H -- sh -c 'sudo sysctl --system'
   echo "stopping all qoffee containers"
   sudo -u pi -H -- sh -c 'docker stop $(docker ps -q --filter name=qoffee )'
 }
