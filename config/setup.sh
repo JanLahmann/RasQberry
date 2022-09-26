@@ -25,45 +25,54 @@ do_menu_update_environment_file() {
   update_environment_file "$1" "$new_value"
 }
 
+do_rq_one_click_install() {
+  INTERACTIVE=false
+  do_rasqberry_update
+  do_rq_initial_config
+  do_rasqberry_install_requirements
+  do_rasqberry_enable_desktop_vnc
+  do_rasqberry_config_demos
+  do_rq_enable_docker
+  INTERACTIVE=true
+  if [ "$INTERACTIVE" = true ]; then
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
+  fi
+  ASK_TO_REBOOT=1
+}
+
 # Initial setup for RasQberry
 # Sets LOCALE, changes splash screen
 do_rq_initial_config() {
-  if [ "$REQUIREMENTS_INSTALLED" = false ]; then
-    # set PATH
-    ( echo; echo '##### added for rasqberry #####';
-    echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
-    # fix locale
-    echo "LANG=en_GB.UTF-8\nLC_CTYPE=en_GB.UTF-8\nLC_MESSAGES=en_GB.UTF-8\nLC_ALL=en_GB.UTF-8" > /etc/default/locale
-    ) >> /home/pi/.bashrc && . /home/pi/.bashrc
-    # change splash screen
-    do_change_splash_screen
-    # install bluetooth manager blueman
-    apt -y install blueman
-    # install emojis for Qoffee-Maker demo
-    apt -y install fonts-noto-color-emoji
-    # install dotenv support
-    pip3 install dotenv
-    if [ "$INTERACTIVE" = true ]; then
-        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config completed" 20 60 1
-    fi
-  else
-    if [ "$INTERACTIVE" = true ]; then
-        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config already done" 20 60 1
-    fi
+  # set PATH
+  ( echo; echo '##### added for rasqberry #####';
+  echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
+  # fix locale
+  echo "LANG=en_GB.UTF-8\nLC_CTYPE=en_GB.UTF-8\nLC_MESSAGES=en_GB.UTF-8\nLC_ALL=en_GB.UTF-8" > /etc/default/locale
+  ) >> /home/pi/.bashrc && . /home/pi/.bashrc
+  # change splash screen
+  do_change_splash_screen
+  # install bluetooth manager blueman
+  apt -y install blueman
+  # install emojis for Qoffee-Maker demo
+  apt -y install fonts-noto-color-emoji
+  # install dotenv support
+  pip3 install dotenv
+  if [ "$INTERACTIVE" = true ]; then
+      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config completed" 20 60 1
   fi
 }
 
 # Installs Qiskit and other requirements
 do_rasqberry_install_requirements() {
-    # install python requirements
-    runuser -l  pi -c 'pip install --upgrade pip'
-    runuser -l  pi -c 'export PIP_IGNORE_INSTALLED=0'
-    # install chromedriver for Fractals
-    sudo apt-get install chromium-chromedriver
-    # install Qiskit (this has to be done before installing via requirements.txt)
-    do_rasqberry_install_general 038 silent
-    runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
-    update_environment_file "REQUIREMENTS_INSTALLED" "true"
+  # install python requirements
+  runuser -l  pi -c 'pip install --upgrade pip'
+  runuser -l  pi -c 'export PIP_IGNORE_INSTALLED=0'
+  # install chromedriver for Fractals
+  sudo apt-get install chromium-chromedriver
+  # install Qiskit (this has to be done before installing via requirements.txt)
+  do_rasqberry_install_general 038 silent
+  runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
+  update_environment_file "REQUIREMENTS_INSTALLED" "true"
 }
 
 # Method to run the requirements setup AGAIN
@@ -79,18 +88,13 @@ do_rasqberry_update() {
   /etc/init.d/dphys-swapfile start
   apt update
   apt -y full-upgrade
-  #reboot
-  if [ "$INTERACTIVE" = true ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
-  fi
-  ASK_TO_REBOOT=1
 }
 
 # Install the AutoHotspot package (see below for credits)
 do_rasqberry_install_autohotspot() {
   if [ "$INTERACTIVE" = true ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --yesno \ "The AutoHotspot is known to cause problems when running docker.
-      If you are experiencing trouble while using docker, try to uninstall the AutoHotspot by choosing option 4 during the installation.
+      [ "$RQ_NO_MESSAGES" = false ] && whiptail --yesno \ "The AutoHotspot is known to cause problems when running docker.\\n
+      If you are experiencing trouble while using docker, try to uninstall the AutoHotspot by choosing option 4 during the installation.\\n
       Would you like to continue the installation?" $DEFAULT 20 60 2
       RET=$?
   fi
@@ -108,7 +112,8 @@ do_rasqberry_install_autohotspot() {
 
     if [ "$INTERACTIVE" = true ]; then
         [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script.
-        When prompted to enter a number choose accordingly (in most cases option 1, exit with 8). After the installation you will be asked if you want to install a cronjob to check regularly for a change of the network status (in most cases choose YES).\n
+        When prompted to enter a number choose accordingly (in most cases option 1, exit with 8).\\n
+        After the installation you will be asked if you want to install a cronjob to check regularly for a change of the network status (in most cases choose YES).\\n
         The RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
     fi
     # run the script
@@ -210,9 +215,7 @@ do_rq_enable_docker() {
   systemctl enable docker
   if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "docker installed and enabled" 20 60 1
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
   fi
-  ASK_TO_REBOOT=1
 }
 
 # Change whether user gets Whiptail messages or not
@@ -403,10 +406,6 @@ do_rasqberry_enable_desktop_vnc(){
     # enable VNC
     rq_do_vnc
 
-    if [ "$INTERACTIVE" = true ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Desktop settings will become active after next reboot" 20 60 1
-    fi
-    ASK_TO_REBOOT=1
     update_environment_file "DESKTOPVNC_ENABLED" "true"
     # enable second vnc display (side-to-side)
     sudo -u pi /home/pi/RasQberry/bin/vnc_side-to-side.sh
@@ -415,9 +414,8 @@ do_rasqberry_enable_desktop_vnc(){
     fi
     echo "@/home/pi/RasQberry/bin/vnc_side-to-side.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
     if [ "$INTERACTIVE" = true ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Desktop and VNC are enabled.\\nSystem will reboot now" 20 60 1
+      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Desktop and VNC are enabled." 20 60 1
     fi
-    reboot
   fi
 }
 
