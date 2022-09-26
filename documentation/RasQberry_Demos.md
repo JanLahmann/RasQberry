@@ -1,7 +1,7 @@
 # RasQberry Demos
-In this repository you can find different demos which also work with diferent hardware components.<br/>
+In this repository you can find different demos which also work with different hardware components.<br/>
 
-You can access the different demos with the main menu from the Raspberry under the categpries `Demos` and `HD Demos`. When you use your RasQberry with an display you can access the demos with the Kivy Interface aswell.<br> 
+You can access the different demos with the main menu from the Raspberry under the categories `Demos` and `HD Demos`. When you use your RasQberry with a display you can access the demos with the Kivy Interface as well.<br> 
 You can start the Kivy Interface by clicking the desktop-icon on your Desktop.
 
 ## Demos using a (touch) display
@@ -20,7 +20,7 @@ Enter fullscreen-mode by clicking on the icon on the right.<br/>
 </p>
 
 * **Usage**<br/>
-You can click on the Bloch Sphere and use the bottons on the left and right side to change equation on the top.<br/>
+You can click on the Bloch Sphere and use the buttons on the left and right side to change equation on the top.<br/>
 You can turn the bloch sphere itself and view it from different angle.
 
 * **Stop**<br/>
@@ -36,7 +36,7 @@ You can use the quantum composer only while connected to a network.
 
 * **Start**<br/>
 You can start the IBM Quantum Composer by clicking on the desktop icon *IBM Quantum Composer*.<br/>
-The Quantum Compser will be started in fullscreen-mode.
+The Quantum Composer will be started in fullscreen-mode.
 
 <p align="center"> 
     <img src="../Artwork/Quantum_Composer.png" alt="drawing" width="400"/> 
@@ -50,7 +50,7 @@ You can exit fullscreen-mode by tipping with your pen on or by moving your mouse
 Now you can exit the quantum composer by closing the window.
 
 ### Lights<br/>
-You can connect LED Lightts to your Raspberry Pi. This demo starts a programm which lets the LED Lights shine in different colors and pattern.
+You can connect LED Lights to your Raspberry Pi. This demo starts a program which lets the LED Lights shine in different colors and pattern.
 
 <p align="center"> 
     <img src="../Artwork/LED_purple.png" alt="drawing" width="300"/> <img src="../Artwork/LED_rainbow.png" alt="drawing" width="300"/> <br/>
@@ -74,7 +74,7 @@ To start the RasQ-LED Demo you need to click on the desktop icon *RasQ-LED*.
 </p>
 
 * **Stop**<br/>
-You can stop the RasQ-LED demo by closing the window and than clicking on the *Turn LEDs off*-desktop icon. This will turn all LED lights, that are still turn on, off.s
+You can stop the RasQ-LED demo by closing the window and then clicking on the *Turn LEDs off*-desktop icon. This will turn all LED lights, that are still turn on, off.s
 
 ## Demos using a SenseHAT
 
@@ -105,7 +105,7 @@ If not installed, you can install, start and stop this demo by opening the Rasqb
 <br/>
 
 * **Usage**<br/>
-You can controll the demo with the little joystick on th senseHAT.<br/>
+You can control the demo with the little joystick on th senseHAT.<br/>
 By pushing the joystick to the top you select the `GHZ`-option.<br/>
 By pushing the joystick to the bottom you select the `Bell`-option.<br/>
 By pushing the joystick to the right you select the `2Q`-option.<br/>
@@ -114,24 +114,36 @@ By pushing the joystick to the left you select the `3Q`-option.<br/>
 * **Stop**<br/>
 To stop the Qrasp demo by selecting `D4` again.
 
+## Visualizing Quantum Computing using fractals
+By choosing `D - Quantum Demos` and `FR - Fractals` you can start a demo which visualizes quantum computing using fractals.
+The demo opens a new browser window and generates a fractal in real time. After the fractal is generated the animation will be saved as a GIF which will be displayed afterwards.
+
+The GIF can be found in the folder `/RasQberry/demos/bin/fractal_files/`.<br/>
+By closing the browser window the generation will be interrupted and the current state of the animation will be saved as a GIF which also will be shown afterwards. 
+
+The old fractal will be overwritten by the new one.
+
+See more information [here](https://github.com/wmazin/Visualizing-Quantum-Computing-using-fractals).
+
 ## Continuative demos<br/>
 ### Qiskit-Demos<br/>
 By cloning the git-repository with the qiskit-demos you have access to new jupyter notebooks that you can run and investigate.<br/>
 
 ### Jupyter Notebooks<br/>
-In your Jupyter Notebook you can invastigate demos (e.g. the qiskit tutorials and demos) or can run your own code.<br/>
-By executing `D1 - Config & Demos` (under `S - RasQerry Setup`) in the Rasqberry Configuration Tool you have acces to more demos that you can run in jupyter notebooks on your Raspberry Pi. You need to provide your API Token and the jupyter notebook will be configurated.
+In your Jupyter Notebook you can investigate demos (e.g. the qiskit tutorials and demos) or can run your own code.<br/>
+By executing `D1 - Config & Demos` (under `S - RasQerry Setup`) in the Rasqberry Configuration Tool you have access to more demos that you can run in jupyter notebooks on your Raspberry Pi. You need to provide your API Token and the jupyter notebook will be configurated.
 <br/>
 
 * **Start**<br/>
-To start the Jupyter Notebook you need to open the Rasqberry Configuration Tool. You can start it automatically with the Qiskit demos or with the Fun-qith-Quantum Demos. <br/>
+To start the Jupyter Notebook you need to open the Rasqberry Configuration Tool. You can start it automatically with the Qiskit demos or with the Fun-with-Quantum Demos. <br/>
 You need to select `H - HD Demos` and then the option you want.<br/>
-The Jupyter Noebook boots in the background ans you can access it over your browser or it will open on your RasQberry.<br/> 
+The Jupyter Notebook boots in the background, and you can access it over your browser, or it will open on your RasQberry.<br/> 
 <br/>
 If you want to start the jupyter notebook with the cloned Fun-with-Quantum or Qiskit-Tutorials Repository you can open the Rasqberry-Configuration Tool and select `H - HD Demos` and then choose the demo you want to access.<br/>
 <br/>
-When you are on your Raspberry you can access the Jupyter Notebook by opening http://raspberrypi:8888/ in your browser. When you want to access the Jupyter Notebook on your Laptop you can open it by typing http://{ip address}:{port}. The Default port is *8888*. You can find the corresponding portnumber in the messagebox.
-The password is *RasQberry*.<br/>
+When you are on your Raspberry you can access the Jupyter Notebook by opening http://raspberrypi:8888/ in your browser. When you want to access the Jupyter Notebook on your Laptop you can open it by typing http://{ip address}:{port}. The Default port is *8888*. You can find the corresponding port number in the messagebox.
+</br>
+<h7 style="color:red"> Password: **RasQberry**. </h7> <br/>
 You can now use the Jupyter notebook.
 
 [Go back to: Content](./README.md) <br/>
