@@ -26,14 +26,14 @@ do_menu_update_environment_file() {
 }
 
 do_rq_one_click_install() {
-  INTERACTIVE=false
+  update_environment_file "INTERACTIVE" "false"
   do_rasqberry_update
   do_rq_initial_config
   do_rasqberry_install_requirements
   do_rasqberry_enable_desktop_vnc
   do_rasqberry_config_demos
   do_rq_enable_docker
-  INTERACTIVE=true
+  update_environment_file "INTERACTIVE" "true"
   if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
   fi
@@ -177,7 +177,7 @@ do_change_splash_screen() {
       update_environment_file "CUSTOM_SPLASH" "true"
     fi
     if [ "$INTERACTIVE" = true ]; then
-    whiptail --msgbox "Changed splash screen. Custom Splash Screen: $CUSTOM_SPLASH" 20 60 1
+      whiptail --msgbox "Changed splash screen. Custom Splash Screen: $CUSTOM_SPLASH" 20 60 1
     fi
   fi
 }
