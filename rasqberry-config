@@ -328,26 +328,6 @@ do_rasqberry_Qoffee_clone() {
   fi
 }
 
-do_rasqberry_switch_branch() {
-  # switch to branch
-  cd /home/pi/RasQberry/
-  #count the number of branches
-  branch_counter=$(git branch -r| wc -l)
-  #create whiptail menu with the branches
-  branches=$(git branch -r | sed 's/\(.*\) -> \(.*\)/\2/')
-  branches_menu=$(echo $branches | sed 's/ /\n/g')
-  current_branch=$(git branch --show-current)
-  #create whiptail menu with the branches, default value is current branch
-  branch_choice=$(whiptail --inputbox "$branches_menu" $WT_HEIGHT $WT_WIDTH "$current_branch" --title "Type in the new branch (without 'origin/')" 3>&1 1>&2 2>&3)
-  #get the branch name
-  branch_name=$(echo "$branch_choice" | sed 's/\(.*\) -> \(.*\)/\2/')
-  #switch to branch
-  git checkout "$branch_name"
-  if [ "$INTERACTIVE" = True ]; then
-      rq_messages && whiptail --msgbox "Switched to branch: $branch_name" 20 60 1
-  fi
-}
-
 do_rasqberry_Qoffee_stop() {
 # stop all qoffee docker containers
   echo "stopping all qoffee containers"
@@ -918,7 +898,6 @@ do_rasqberry_setup() {
 do_advanced_config() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Advanced Config" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "Q Install Qiskit " "Install Qiskit (several versions)" \
-    "B Switch Branches " "Switch to a different branch of RasQberry" \
     "QMst stop Qoffee-Maker " "stop all Qoffee-Maker containers" \
     "QMrb Qoffee-Maker rebuild " "force rebuild of Qoffee-Maker images" \
     "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
@@ -934,7 +913,6 @@ do_advanced_config() {
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
       Q\ *) do_rasqberry_install_qiskit ;;
-      B\ *) do_rasqberry_switch_branch ;;
       QMst\ *) do_rasqberry_Qoffee_stop ;;
       QMrb\ *) do_rasqberry_Qoffee_rebuild ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;
