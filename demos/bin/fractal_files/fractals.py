@@ -290,4 +290,4 @@ while True:
         driver2.find_element(By.TAG_NAME, 'body')
     except (selenium.common.exceptions.NoSuchWindowException, selenium.common.exceptions.WebDriverException):
         print("Error, Browser window closed, quitting the program")
-        exit()
+        sys.exit()
