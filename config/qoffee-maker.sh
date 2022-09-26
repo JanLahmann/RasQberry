@@ -3,10 +3,18 @@
 # ############# Qoffee Maker methods #############
 
 do_rasqberry_Qoffee_clone() {
-  # clone Qoffee-Maker github repo
+  #check for docker
+  if docker version | grep -q 'command not found'; then
+    whiptail --yesno \ "It seems that docker is not installed. Would you like to install it now? If you choose not to, the start will probably fail." $DEFAULT 20 60 2
+    RET=$?
+    if [ $RET -eq 0 ]; then # selected yes
+      do_rq_enable_docker
+    fi
+  fi
 
+  # clone Qoffee-Maker github repo
   if [ "$INTERACTIVE" = true ]; then
-    [ "$RQ_NO_MESSAGES" = false ] && whiptail --yesno \ "Docker is known to cause problems when running the AutoHotspot.
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --yesno \ "Docker containers are known to cause problems when running the AutoHotspot.
     If you are experiencing trouble while using docker, try to uninstall the AutoHotspot by choosing option 4 during the installation.
     Would you like to continue the installation?" $DEFAULT 20 60 2
     RET=$?
