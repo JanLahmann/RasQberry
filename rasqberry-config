@@ -130,6 +130,7 @@ do_rasqberry_change_environment_file() {
 
 do_rasqberry_setup() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "RasQberry setup and configuration" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
+    "OCI One-Click Install" "Run options SU, IC, IR, DV, CD and D in one go" \
     "IC Initial Config " "Basic configurations (PATH, LOCALE, Python Packages, etc)" \
     "SU System Update " "Update the system and create swapfile" \
     "IR Install Requirements" "Install Qiskit and other requirements" \
@@ -144,6 +145,7 @@ do_rasqberry_setup() {
     return 0
   elif [ $RET -eq 0 ]; then
     case "$FUN" in
+      OCI\ *) do_rq_one_click_install ;;
       IC\ *) do_rq_initial_config ;;
       SU\ *) do_rasqberry_update ;;
       IR\ *) do_rasqberry_install_requirements ;;
