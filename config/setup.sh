@@ -88,32 +88,40 @@ do_rasqberry_update() {
 
 # Install the AutoHotspot package (see below for credits)
 do_rasqberry_install_autohotspot() {
-  echo "installing autohotspot, credits: https://www.raspberryconnect.com/, find project on github: https://github.com/RaspberryConnect/AutoHotspot-Installer"
-  cd /home/pi/RasQberry || exit
-  # download the script
-  curl "https://www.raspberryconnect.com/images/hsinstaller/Autohotspot-Setup.tar.xz" -o AutoHotspot-Setup.tar.xz
-  # extract the script
-  tar -xvJf AutoHotspot-Setup.tar.xz
-  if ! grep -Fq "country=" /etc/wpa_supplicant/wpa_supplicant.conf; then
-    location_choice=$(whiptail --inputbox "Type in your country code for WI-FI configuration" "$WT_HEIGHT" "$WT_WIDTH" "DE" --title "WI-FI Location" 3>&1 1>&2 2>&3)
-    sed -i "/^network=.*/i country=$location_choice" /etc/wpa_supplicant/wpa_supplicant.conf
-  fi
-
   if [ "$INTERACTIVE" = true ]; then
-      [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script.
-      When prompted to enter a number choose accordingly (in most cases option 1, exit with 8). After the installation you will be asked if you want to install a cronjob to check regularly for a change of the network status (in most cases choose YES).\n
-      The RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
+      [ "$RQ_NO_MESSAGES" = false ] && whiptail --yesno \ "The AutoHotspot is known to cause problems when running docker.
+      If you are experiencing trouble while using docker, try to uninstall the AutoHotspot by choosing option 4 during the installation.
+      Would you like to continue the installation?" $DEFAULT 20 60 2
+      RET=$?
   fi
-  # run the script
-  sudo Autohotspot/autohotspot-setup.sh
-  cd || exit
-  #ask for yes/no to install crontab
-  if (whiptail --title "Install crontab" --yesno "Do you want to install a crontab to check for network connection every 5 minutes and run hotspot if necessary?" 8 78); then
-    #install crontab
-    (crontab -l 2>/dev/null; echo "*/5 * * * * sudo /usr/bin/autohotspotN >/dev/null 2>&1") | crontab -
+  if [ $RET -eq 0 ]; then # selected yes
+    echo "installing autohotspot, credits: https://www.raspberryconnect.com/, find project on github: https://github.com/RaspberryConnect/AutoHotspot-Installer"
+    cd /home/pi/RasQberry || exit
+    # download the script
+    curl "https://www.raspberryconnect.com/images/hsinstaller/Autohotspot-Setup.tar.xz" -o AutoHotspot-Setup.tar.xz
+    # extract the script
+    tar -xvJf AutoHotspot-Setup.tar.xz
+    if ! grep -Fq "country=" /etc/wpa_supplicant/wpa_supplicant.conf; then
+      location_choice=$(whiptail --inputbox "Type in your country code for WI-FI configuration" "$WT_HEIGHT" "$WT_WIDTH" "DE" --title "WI-FI Location" 3>&1 1>&2 2>&3)
+      sed -i "/^network=.*/i country=$location_choice" /etc/wpa_supplicant/wpa_supplicant.conf
+    fi
+
+    if [ "$INTERACTIVE" = true ]; then
+        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Running AutoHotspot installer script.
+        When prompted to enter a number choose accordingly (in most cases option 1, exit with 8). After the installation you will be asked if you want to install a cronjob to check regularly for a change of the network status (in most cases choose YES).\n
+        The RaspberryPi will reboot after the configuration.\n\nCredits: https://www.raspberryconnect.com/\nFind project on GitHub: https://github.com/RaspberryConnect/AutoHotspot-Installer" 20 60 1
+    fi
+    # run the script
+    sudo Autohotspot/autohotspot-setup.sh
+    cd || exit
+    #ask for yes/no to install crontab
+    if (whiptail --title "Install crontab" --yesno "Do you want to install a crontab to check for network connection every 5 minutes and run hotspot if necessary?" 8 78); then
+      #install crontab
+      (crontab -l 2>/dev/null; echo "*/5 * * * * sudo /usr/bin/autohotspotN >/dev/null 2>&1") | crontab -
+    fi
+    echo "Rebooting... Please wait and reconnect to the RasQberry"
+    sudo reboot
   fi
-  echo "Rebooting... Please wait and reconnect to the RasQberry"
-  sudo reboot
 }
 
 # install libcint package, necessary for Qiskit dependencies

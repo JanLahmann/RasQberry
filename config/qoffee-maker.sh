@@ -4,6 +4,16 @@
 
 do_rasqberry_Qoffee_clone() {
   # clone Qoffee-Maker github repo
+
+  if [ "$INTERACTIVE" = true ]; then
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --yesno \ "Docker is known to cause problems when running the AutoHotspot.
+    If you are experiencing trouble while using docker, try to uninstall the AutoHotspot by choosing option 4 during the installation.
+    Would you like to continue the installation?" $DEFAULT 20 60 2
+    RET=$?
+  fi
+  if [ $RET -eq 1 ]; then # selected no
+    exit
+  fi
   if [ "$QOFFEE_CLONED" = false ]; then
     #newgrp docker
     #docker version
@@ -72,7 +82,7 @@ do_rasqberry_Qoffee_local() {
     update_environment_file "QOFFEE_INSTALLED" "true"
     sudo -u pi -H -- sh -c 'rm DockerfileArm-15'
     if [ "$INTERACTIVE" = true ]; then
-        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker container build locally" 20 60 1
+        [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Qoffee-Maker container built locally" 20 60 1
     fi
   fi
   # start Qoffee-Maker docker container
