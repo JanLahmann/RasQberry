@@ -58,7 +58,8 @@ do_rq_initial_config() {
   # install emojis for Qoffee-Maker demo
   apt -y install fonts-noto-color-emoji
   # install dotenv support
-  pip3 install dotenv
+  pip3 install python-dotenv==0.21.0
+  sudo /usr/bin/python3 -m pip install python-dotenv==0.21.0
   if [ "$INTERACTIVE" = true ]; then
       [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "initial config completed" 20 60 1
   fi
