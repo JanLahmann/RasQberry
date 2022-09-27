@@ -4,12 +4,12 @@
 # start with python3 RasQ-LED.py 
 
 import subprocess, time, math
-from dotenv import dotenv_values
 
-config = dotenv_values("/home/pi/RasQberry/rasqberry_environment.env")
-n_qbit = int(config["N_QUBIT"])
-LED_COUNT = int(config["LED_COUNT"])
-LED_PIN = int(config["LED_PIN"])
+import sys
+sys.path.append('/home/pi/RasQberry/RQB-config/')
+from Qubits import n_qbit
+# n_qbit = 127
+# print("n_qbit: ", n_qbit)
 
 #Import Qiskit classes
 from qiskit import IBMQ, execute
