@@ -5,12 +5,12 @@
 
 [Quantum Computing](https://en.wikipedia.org/wiki/Quantum_computing) - which is based on Quantum Mechanics - is a complex technology that is hard to understand for most people. Completely new algorithms - and even new thinking - is needed to exploit the potential power of upcoming quantum computers. This requires new approaches to teach Quantum Computing in engaging and understandable ways for IT experts, developers and young academics.
 
-RasQberry integrates [Qiskit](https://qiskit.org/), a Raspberry Pi (the full range from Pi 4 down to a Pi Zero) and a 3D printed model of [IBM Q System One](https://www.research.ibm.com/quantum-computing/system-one/) to explore various state of the art technologies and create a tool that can be used in meetings, meetups, demo booths, etc. A spectrum of Quantum Computing demos and Serious Games for Quantum Computing (that illustrate superposition, interference and entanglement) will be made available on this device for an engaging introduction to Quantum Computing. 
+RasQberry integrates [Qiskit](https://qiskit.org/), a Raspberry Pi (the full range from Pi 4 down to a Pi Zero) and a 3D printed model of [IBM Q System One](https://www.research.ibm.com/quantum-computing/system-one/) to explore various state-of-the-art technologies and create a tool that can be used in meetings, meetups, demo booths, etc. A spectrum of Quantum Computing demos and Serious Games for Quantum Computing (that illustrate superposition, interference and entanglement) will be made available on this device for an engaging introduction to Quantum Computing. 
 
 <img src="./wallpapers/ibmqantumTwoGlowScaled.png" alt="drawing" /> <br/>
 
 ## Qiskit on Raspberry Pi
-A first discription how to install Qiskit on a Raspberry Pi is available at http://ibm.biz/Qiskit-Raspberry-Medium. It also includes a description how to setup some quantum demos (Qrasp, Raspberry-Tie) based on a Sense Hat 8x8 LED display.
+A first description how to install Qiskit on a Raspberry Pi is available at http://ibm.biz/Qiskit-Raspberry-Medium. It also includes a description how to set up some quantum demos (Qrasp, Raspberry-Tie) based on a Sense Hat 8x8 LED display.
 
 A summary of that article has been published at hackster.io: https://www.hackster.io/news/jan-and-robert-lahmann-get-a-quantum-computer-running-on-your-raspberry-pi-in-under-30-minutes-4b972010009d
 
@@ -21,15 +21,15 @@ A summary of that article has been published at hackster.io: https://www.hackste
 When you want your own RasQberry this repository is the right place!
 
 * **If you want to build your very own RasQberry**<br/> 
-Here you can find all the information to the [3D Model](https://janlahmann.github.io/RasQberry/documentation/3DModel.html) you can see above itself and the [bill of material](https://janlahmann.github.io/RasQberry/documentation/3DModel_BillOfMaterial.html) you will need, aswell as the [instructions](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Setup.html) for the setup and informations to the available [demos](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Demos.html).
+Here you can find all the information to the [3D Model](https://janlahmann.github.io/RasQberry/documentation/3DModel.html) you can see above itself and the [bill of material](https://janlahmann.github.io/RasQberry/documentation/3DModel_BillOfMaterial.html) you will need, as well as the [instructions](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Setup.html) for the setup and information to the available [demos](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Demos.html).
 
 * **If you get an RasQberry**<br/>
-Here you can find all the information on [how to use your RasQberry](https://janlahmann.github.io/RasQberry/documentation/HowToUse.html) and informations to the available [demos](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Demos.html).
+Here you can find all the information on [how to use your RasQberry](https://janlahmann.github.io/RasQberry/documentation/HowToUse.html) and information to the available [demos](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Demos.html).
 
 * **If you want to work with the repository**<br/>
-Here you can find all the informations on [how to contribute to the RasQberry-Repository](https://janlahmann.github.io/RasQberry/documentation/HowToContribute.html)
+Here you can find all the information on [how to contribute to the RasQberry-Repository](https://janlahmann.github.io/RasQberry/documentation/HowToContribute.html)
 
-You can find andy further informations [here](https://janlahmann.github.io/RasQberry/).
+You can find andy further information [here](https://janlahmann.github.io/RasQberry/).
 
 ***
 
