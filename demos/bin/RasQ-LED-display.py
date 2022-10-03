@@ -19,7 +19,8 @@ LED_FREQ_HZ = int(config["LED_FREQ_HZ"])  # LED signal frequency in hertz (usual
 LED_DMA = int(config["LED_DMA"])          # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = int(config["LED_BRIGHTNESS"])  # Set to 0 for darkest and 255 for brightest
 #LED_INVERT = bool(config["LED_INVERT"])    # True to invert the signal (when using NPN transistor level shift)
-LED_INVERT = config["LED_INVERT"]    # True to invert the signal (when using NPN transistor level shift)
+#LED_INVERT = config["LED_INVERT"]    # True to invert the signal (when using NPN transistor level shift)
+LED_INVERT = False
 LED_CHANNEL = int(config["LED_CHANNEL"])       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_BRIGHTNESS = 100  # Set to 0 for darkest and 255 for brightest
 
