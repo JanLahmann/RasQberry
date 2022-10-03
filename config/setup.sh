@@ -35,6 +35,18 @@ do_rq_one_click_install() {
   do_rasqberry_enable_desktop_vnc
   do_rasqberry_config_demos
   do_rq_enable_docker
+  do_rq_configure_button
+  update_environment_file "INTERACTIVE" "true"
+  if [ "$INTERACTIVE" = true ]; then
+    [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
+  fi
+  ASK_TO_REBOOT=1
+}
+
+do_rq_one_click_demo_install() {
+  update_environment_file "INTERACTIVE" "false"
+  do_rasqberry_run_bloch
+  do_rasqberry_Qoffee_local
   update_environment_file "INTERACTIVE" "true"
   if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
@@ -268,6 +280,7 @@ disable_raspi_config_at_boot() {
 # Enable autostart of bloch sphere demo (4inch display)
 do_rasqberry_activate_bloch_autostart(){
 # enable bloch autostart ?
+  [ "$INTERACTIVE" = false ] && return 0; # skip if not an interactive session
   [ "$BLOCH_AUTORUN_ENABLED" = true ] && return 0;
   if [ "$BLOCH_AUTORUN_ASKED" = false ]; then
     DEFAULT=--defaultno
@@ -603,7 +616,7 @@ rq_check_gldriver() {
     return 0
   else
     rq_enable_gldriver
-    reboot
+    #reboot
     ASK_TO_REBOOT=1
     return 1
   fi
