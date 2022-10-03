@@ -11,7 +11,7 @@ do_rasqberry_run_bloch(){
   rq_check_gldriver
 
   # enable autostart ?
-  do_rasqberry_activate_bloch_autostart
+  [ "$INTERACTIVE" = true ] && do_rasqberry_activate_bloch_autostart # only ask in interactive session
 
   # run the bloch demo
   sudo -u pi -H -- sh -c /home/pi/RasQberry/demos/bin/rq_bloch.sh
