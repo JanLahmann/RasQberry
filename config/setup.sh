@@ -390,7 +390,8 @@ do_rasqberry_enable_desktop_vnc(){
     if [ ! -d /home/pi/Desktop/ ]; then
       sudo -u pi -H -- sh -c 'mkdir /home/pi/Desktop/'
     fi
-    sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/kivy.desktop /home/pi/Desktop/'
+    # kivy setup to be finalized before including by default on the desktop
+    #sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/kivy.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/bloch.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/fractals.desktop /home/pi/Desktop/'
     sudo -u pi -H -- sh -c 'cp -R /home/pi/RasQberry/desktop-icons/composer.desktop /home/pi/Desktop/'
