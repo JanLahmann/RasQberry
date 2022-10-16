@@ -1,192 +1,139 @@
 #!/usr/bin/env python
 # coding: utf-8
-
 # Credits: https://github.com/wmazin/Visualizing-Quantum-Computing-using-fractals
 
+# |
+# | Library imports
+# └───────────────────────────────────────────────────────────────────────────────────────────────────────
 # Importing standard python libraries
-from math import pi
-from threading import *
-import os
 from pathlib import Path
+from threading import *
+import traceback
+import copy
+import timeit
 
 # Import additional python libraries
-from IPython.display import clear_output
-from celluloid import Camera
-
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
 
-from selenium import webdriver
-import selenium
-from selenium.webdriver.chrome.service import Service
+from selenium.common.exceptions import WebDriverException, NoSuchWindowException
 from selenium.webdriver.common.by import By
+from celluloid import Camera
+from numpy import complex_
 
 # Importing standard Qiskit libraries
 from qiskit import QuantumCircuit, Aer, execute
 from qiskit.visualization import *  # plot_bloch_multivector
-from ibm_quantum_widgets import *  # CircuitComposer
 
-cwd = Path.cwd()
-browser_file_path = f"file://{cwd}"
-pic_url = f"{browser_file_path}/2cn2.png"
+# self-coded libraries
+from fractal_webclient import WebClient
+from fractal_julia_calculations import set_1cn, set_2cn1, set_2cn2
+from fractal_quantum_circuit import FractalQuantumCircuit
 
-# Try to remove previously generated files
-try:
-    os.remove(f"{cwd}/2cn2.png")
-except:
-    print("Error while deleting 2cn2.png file. This is probably normal.")
+# |
+# | Global settings for the script
+# └───────────────────────────────────────────────────────────────────────────────────────────────────────
+# Julia set calculation values
+julia_iterations: int = 100
+julia_escape_val: int = 2
 
-try:
-    # open selenium browser driver
-    options = webdriver.ChromeOptions()
-    # Disable "Chrome is being controlled by automated test software" message
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_argument(f"--app={pic_url}")
-    options.add_argument('--start-maximized')
-    service = Service('/usr/lib/chromium-browser/chromedriver')
-    driver = webdriver.Chrome(service=service, options=options)
-except selenium.common.exceptions.WebDriverException:
-    print("Error while starting chrome. Are you using a desktop? SSH is not supported!")
-    exit()
+# Image generation and animation values
+GIF_ms_intervals: int = 200  # 200ms = 5 fps
+number_of_frames: int = 60  # Total number of frames to generate
 
-# Start with a one qubit quantum circuit yielding a nice fractal. Change the circuit as you like.
-circuit = QuantumCircuit(1, 1)
-circuit.h(0)
-editor = CircuitComposer(circuit=circuit)
+# Coordinate values in the Julia Set fractal image/frame
+frame_resolution: int = 200  # Height and width
+height: int = frame_resolution
+width: int = frame_resolution
+zoom: float = 1.0
 
-# Generate a Bloch sphere based on the quantum circuit.
-qc1 = editor.circuit
-plot_bloch_multivector(qc1)
+x_start: float = 0
+x_width: float = 1.5
+x_min: float = x_start - x_width / zoom
+x_max: float = x_start + x_width / zoom
 
-# Run the circuit with the state vector simulator to obtain a noise-free fractal.
-backend = Aer.get_backend('statevector_simulator')
-out = execute(qc1, backend).result().get_statevector()
-# print(out)
+y_start: float = 0
+y_width: float = 1.5
+y_min: float = y_start - y_width / zoom
+y_max: float = y_start + y_width / zoom
 
-# Extract the first element of the state vector as z0 and the second element as z1.
-z0 = out.data[0]
-z1 = out.data[1]
+# Create the basis 2D array for the fractal
+x_array = np.linspace(start=x_min, stop=x_max, num=width).reshape((1, width))
+y_array = np.linspace(start=y_min, stop=y_max, num=height).reshape((height, 1))
+z_array = (x_array + 1j * y_array)
 
-# Goal: One complex number for the Julia set fractal.
-if z1.real != 0 or z1.imag != 0:
-    z = z0 / z1
-    z = round(z.real, 2) + round(z.imag, 2) * 1j
+# Create array to keep track in which iteration the points have diverged
+diverge_array = np.full(z_array.shape, julia_iterations - 1, dtype='int64')
+
+# Create Array to keep track on which points have not converged
+converge_array = np.full(z_array.shape, True, dtype=np.bool_)
+
+# Dictionary to keep track of time pr. loop
+timer = {"QuantumCircuit": 0.0, "Julia_calculations": 0.0, "Animation": 0.0, "Image": 0.0}
+
+# |
+# | Pathing, default folder and generated files, webclient
+# └───────────────────────────────────────────────────────────────────────────────────────────────────────
+# Set default path values
+temp_image_folder = Path(Path.cwd(), "img")
+browser_file_path = f"file://{temp_image_folder}"
+default_image_url = f"{browser_file_path}/2cn2.png"
+
+# Start the Chromedriver and redirect to default image before removal
+driver = WebClient(default_image_url=default_image_url).get_driver()  # ChromeDriver
+
+# Remove previously generated files
+if temp_image_folder.exists():
+    for image in temp_image_folder.glob("*.*"):
+        Path(image).unlink()
 else:
-    z = 0
+    temp_image_folder.mkdir(parents=True, exist_ok=True)
 
-# Define the JuliaSet class
 
+# |
+# | Defining the JuliaSet class to run the Julia Set Calculations
+# └───────────────────────────────────────────────────────────────────────────────────────────────────────
 class JuliaSet:
-    def __init__(self, esc_val: int = 2, height: int = 200, width: int = 200, zoom: int = 1, x: int = 0, y: int = 0):
-        # Escape value boundary for the magnitude of z
-        self.escape_value = esc_val
-
-        # To make navigation easier we calculate the ...
-        x_width = 1.5
-        x_from = x - x_width / zoom
-        x_to = x + x_width / zoom
-
-        y_height = 1.5 * height / width
-        y_from = y - y_height / zoom
-        y_to = y + y_height / zoom
-
-        # Image coordinates used for the initial z value in each Julia set class function
-        self.x = np.linspace(x_from, x_to, width).reshape((1, width))
-        self.y = np.linspace(y_from, y_to, height).reshape((height, 1))
-        self.z = self.x + self.y * 1j
-
-        # Values kept as class variables to reduce compute power
-        # -------------------------------------------------------------
-        # div_time: To keep track in which iteration the point diverged
-        self.div_time = np.zeros(self.z.shape, dtype=int)
-
-        # m: To keep track on which points did not converge so far
-        self.m = np.full(self.z.shape, True, dtype=bool)
+    def __init__(self):
+        # Define key-word arguments to pass on to the individual threads
+        self.function_kwargs = {
+            "z": z_array.copy(),
+            "con": converge_array.copy(),
+            "div": diverge_array.copy(),
+            "max_iterations": julia_iterations,
+            "escape_number": julia_escape_val,
+            "frame_resolution": frame_resolution,
+        }
 
         # Class values to get the resulting Julia sets
-        # -------------------------------------------------------------
         self.res_1cn = None
         self.res_2cn1 = None
         self.res_2cn2 = None
 
-    def set_1cn(self, c: np.complex128, max_iterations: int = 100) -> np.ndarray:
-        # Initialize z as x + yi and initialize c to all zero
-        z = self.z.copy()
-        c = np.full(z.shape, c)
+    def set_1cn(self, cno_1cn: complex_):
+        self.res_1cn = set_1cn(c=cno_1cn, **copy.deepcopy(self.function_kwargs))
 
-        # Create a copy of the default arrays
-        div_time = self.div_time.copy()
-        m = self.m.copy()
+    def set_2cn1(self, c0_2cn1: complex_, c1_2cn1: complex_):
+        self.res_2cn1 = set_2cn1(c0=c0_2cn1, c1=c1_2cn1, **copy.deepcopy(self.function_kwargs))
 
-        # Run the iterative transformation for 1cn
-        for i in range(max_iterations):
-            z[m] = z[m] ** 2 + c[m]
-            m[np.abs(z) > self.escape_value] = False
-            div_time[m] = i
-        self.res_1cn = div_time
-
-    def set_2cn1(self, c0: np.complex128, c1: np.complex128, max_iterations: int = 100) -> np.ndarray:
-        # Initialize z as x + yi and initialize c0 and c1 to all zero
-        z = self.z.copy()
-        c0 = np.full(z.shape, c0)
-        c1 = np.full(z.shape, c1)
-
-        # Create a copy of the default arrays
-        div_time = self.div_time.copy()
-        m = self.m.copy()
-
-        for i in range(max_iterations):
-            z[m] = (z[m] ** 2 + c0[m]) / (z[m] ** 2 + c1[m])  # Julia set mating 1
-            m[np.abs(z) > self.escape_value] = False  # 2
-            div_time[m] = i
-        self.res_2cn1 = div_time
-
-    def set_2cn2(self, c0: np.complex128, c1: np.complex128, max_iterations: int = 100) -> np.ndarray:
-        # Initialize z as x + yi and initialize c0 and c1 to all zero
-        z = self.z.copy()
-        c0 = np.full(z.shape, c0)
-        c1 = np.full(z.shape, c1)
-
-        # Create a copy of the default arrays
-        div_time = self.div_time.copy()
-        m = self.m.copy()
-
-        for i in range(max_iterations):
-            z[m] = (c0[m] * z[m] ** 2 + 1 - c0[m]) / (c1[m] * z[m] ** 2 + 1 - c1[m])  # julia set mating 2
-            m[np.abs(z) > self.escape_value] = False  # 2
-            div_time[m] = i
-        self.res_2cn2 = div_time
+    def set_2cn2(self, c0_2cn2: complex_, c1_2cn2: complex_):
+        self.res_2cn2 = set_2cn2(c0=c0_2cn2, c1=c1_2cn2, **copy.deepcopy(self.function_kwargs))
 
 
-def complexcircuit(tt):
-    lqc1 = qc1.copy()
-    phl = tt * 2 * pi / frameno
-    lqc1.rz(phl, 0)
-
-    lout = execute(lqc1, backend).result().get_statevector()
-    lz0 = lout.data[0]
-    lz1 = lout.data[1]
-
-    if lz1.real != 0 or lz1.imag != 0:
-        lz = lz0 / lz1
-        lz = round(lz.real, 2) + round(lz.imag, 2) * 1j
-    else:
-        lz = 0
-
-    return lz, lqc1, lz0, lz1
-
-
-# Define the animations class
+# |
+# | Defining the animation class to generate the images for the Quantum Fractal
+# └───────────────────────────────────────────────────────────────────────────────────────────────────────
 class QuantumFractalImages:
-    def __init__(self, i: int, cno: np.complex128, cc1: np.complex128, cc2: np.complex128, ccircuit: QuantumCircuit):
+    def __init__(self, cno_i: complex_, cc1_i: complex_, cc2_i: complex_, circ_i: QuantumCircuit):
         # Firstly, calculate the three types of Julia Sets
         # Create the threads based on each function the Julia Set Class
+        timer['Julia_calculations'] = timeit.default_timer()
         self.Julia = JuliaSet()
         threads = [
-            Thread(target=self.Julia.set_1cn, kwargs={"c": cno}),
-            Thread(target=self.Julia.set_2cn1, kwargs={"c0": cc1, "c1": cc2}),
-            Thread(target=self.Julia.set_2cn2, kwargs={"c0": cc1, "c1": cc2})
+            Thread(target=self.Julia.set_1cn, kwargs={"cno_1cn": cno_i}),
+            Thread(target=self.Julia.set_2cn1, kwargs={"c0_2cn1": cc1_i, "c1_2cn1": cc2_i}),
+            Thread(target=self.Julia.set_2cn2, kwargs={"c0_2cn2": cc1_i, "c1_2cn2": cc2_i})
         ]
 
         # Start the threads
@@ -198,96 +145,130 @@ class QuantumFractalImages:
             thread.join()
 
         # Define the results from the three calculations
-        self.i = i
+        self.circuit = circ_i
         self.res_1cn = self.Julia.res_1cn
         self.res_2cn1 = self.Julia.res_2cn1
         self.res_2cn2 = self.Julia.res_2cn2
+        timer['Julia_calculations'] = timeit.default_timer() - timer['Julia_calculations']
 
-    def qfanimations(self):
+    def qf_animations(self, ax):
         # Secondly (a), generate the images based on the Julia set results
-        plot_bloch_multivector(ccircuit, filename=f'{cwd}/H.png')
-        ax[0].imshow(mpimg.imread('H.png'))
+        timer['Animation'] = timeit.default_timer()
+
+        # Plot Bloch sphere
+        plot_bloch_multivector(self.circuit, filename=Path(temp_image_folder, "H.png"))
+        ax[0].imshow(mpimg.imread(Path(temp_image_folder, "H.png")))
         ax[0].axis('off')
         ax[0].set_title('Bloch sphere', fontsize=20, pad=15.0)
+
+        # Plot 1st Julia Fractal
         ax[1].imshow(self.res_1cn, cmap='magma')
         ax[1].axis('off')
+
+        # Plot 2nd Julia Fractal
         ax[2].imshow(self.res_2cn1, cmap='magma')
         ax[2].set_title('3 types of Julia set fractals based on the superposition H-gate', fontsize=20, pad=15.0)
         ax[2].axis('off')
+
+        # Plot 3rd Julia Fractal
         ax[3].figure.set_size_inches(16, 5)
         ax[3].imshow(self.res_2cn2, cmap='magma')
         ax[3].axis('off')
         ax[3].figure.supxlabel('ibm.biz/quantum-fractals-blog            ibm.biz/quantum-fractals', fontsize=20)
+
+        # Snap a picture of the image outcome and close the plt object
         camera.snap()
         plt.close()
+        timer['Animation'] = timeit.default_timer() - timer['Animation']
 
-    def qfimages(self):
+    def qf_images(self, ax):
         # Secondly (b), generate the images based on the Julia set results
-        clear_output(wait=True)  # remove if you want to see all images in a loop
-        fig, ax = plt.subplots(1, 4, figsize=(20, 20))
+        timer['Image'] = timeit.default_timer()
 
-        print("Loop i =", i, " One complex no =", round(cno.real, 2) + round(cno.imag, 2) * 1j,
-              "    Complex amplitude one:", round(cc1.real, 2) + round(cc1.imag, 2) * 1j, "and two:",
-              round(cc2.real, 2) + round(cc2.imag, 2) * 1j)  # round(num.real, 2) + round(num.imag, 2) * 1j
-        plot_bloch_multivector(ccircuit, filename=f'{cwd}/H.png')
-        ax[0].imshow(mpimg.imread('H.png'))
+        # Plot Bloch sphere
+        ax[0].imshow(mpimg.imread(Path(temp_image_folder, "H.png")))
         ax[0].axis('off')
         ax[0].set_title('Bloch sphere', fontsize=20, pad=15.0)
+
+        # Plot 1st Julia Fractal
         ax[1].imshow(self.res_1cn, cmap='magma')
         ax[1].axis('off')
+
+        # Plot 2nd Julia Fractal
         ax[2].imshow(self.res_2cn1, cmap='magma')
         ax[2].set_title('3 types of Julia set fractals based on the superposition H-gate', fontsize=20, pad=15.0)
         ax[2].axis('off')
+
+        # Plot 3rd Julia Fractal
         ax[3].figure.set_size_inches(16, 5)
         ax[3].imshow(self.res_2cn2, cmap='magma')
         ax[3].axis('off')
         ax[3].figure.supxlabel('ibm.biz/quantum-fractals-blog            ibm.biz/quantum-fractals', fontsize=20)
-        ax[3].figure.savefig('2cn2.png')
+        ax[3].figure.savefig(Path(temp_image_folder, "2cn2.png"))
+
         # Open in browser
-        driver.get(pic_url)
-        # plt.show()
-        clear_output()
+        driver.get(default_image_url)
         plt.close()
+        timer['Image'] = timeit.default_timer() - timer['Image']
 
 
-fig, ax = plt.subplots(1, 4, figsize=(20, 5))
-camera = Camera(fig)
+# |
+# | Running the script
+# └───────────────────────────────────────────────────────────────────────────────────────────────────────
+Fractal_quantum_circuit = FractalQuantumCircuit()
 
-frameps = 5  # used below to calculate interval between images
-frameno = 60
+gif_fig, gif_ax = plt.subplots(1, 4, figsize=(20, 5))
+camera = Camera(gif_fig)
 
-for i in range(frameno):
+for i in range(number_of_frames):
     try:
         # Firstly, get the complex numbers from the complex circuit
-        ccc = complexcircuit(i)
+        timer['QuantumCircuit'] = timeit.default_timer()
+        ccc = Fractal_quantum_circuit.get_quantum_circuit(frame_iteration=i)
 
         # Secondly, for the sake of transparency, the elements from the list are defined as separate variables
+        circuit = ccc[1]
         cno = ccc[0]
-        ccircuit = ccc[1]
         cc1 = ccc[2]
         cc2 = ccc[3]
+        timer['QuantumCircuit'] = timeit.default_timer() - timer['QuantumCircuit']
 
         # Thirdly, run the animation and image creation
-        QFI = QuantumFractalImages(i=i, cno=cno, cc1=cc1, cc2=cc2, ccircuit=ccircuit)
-        QFI.qfanimations()
-        QFI.qfimages()
-    except (selenium.common.exceptions.NoSuchWindowException, selenium.common.exceptions.WebDriverException):
+        img_fig, img_ax = plt.subplots(1, 4, figsize=(20, 5))
+        QFI = QuantumFractalImages(cno_i=cno, cc1_i=cc1, cc2_i=cc2, circ_i=circuit)
+        QFI.qf_animations(ax=gif_ax)
+        QFI.qf_images(ax=img_ax)
+
+        # Console logging output:
+        complex_numb = round(cno.real, 2) + round(cno.imag, 2) * 1j
+        complex_amp1 = round(cc1.real, 2) + round(cc1.imag, 2) * 1j
+        complex_amp2 = round(cc2.real, 2) + round(cc2.imag, 2) * 1j
+        print(f"Loop i = {i:>2} | One complex no = {complex_numb:>13} | "
+              f"Complex amplitude one: {complex_amp1:>13} and two {complex_amp2:>13} | "
+              f"QuantumCircuit: {round(timer['QuantumCircuit'], 4):>6} | "
+              f"Julia_calculations: {round(timer['Julia_calculations'], 4):>6} | "
+              f"Animation: {round(timer['Animation'], 4):>6} | Image: {round(timer['Image'], 4):>6} |")
+    except (NoSuchWindowException, WebDriverException):
         print("Error, Browser window closed during generation of images")
-        driver.quit()
-        break
+        raise traceback.format_exc()
+
+# Quit the currently running driver and prepare for the animation
 driver.quit()
 print("Saving the current animation state in GIF")
-interval = 1000 / frameps
-anim = camera.animate(blit=True, interval=interval)
-anim.save(f'1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif', writer='pillow')
-gif_url = f"{browser_file_path}/1qubit_simulator_4animations_H_{frameno}_steps_{interval}ms_interval.gif"
-driver2 = webdriver.Chrome(service=service, options=options)
-driver2.get(gif_url)
+
+anim = camera.animate(blit=True, interval=GIF_ms_intervals)
+anim.save(f'{temp_image_folder}/1qubit_simulator_4animations_H_{number_of_frames}.gif', writer='pillow')
+gif_url = f"{browser_file_path}/1qubit_simulator_4animations_H_{number_of_frames}.gif"
+
+# Define a fresh instance of the ChromeDriver to retrieve the image
+driver = WebClient(default_image_url).get_driver()  # ChromeDriver
+driver.get(gif_url)
 
 # check if the browser window is closed
 while True:
     try:
-        driver2.find_element(By.TAG_NAME, 'body')
-    except (selenium.common.exceptions.NoSuchWindowException, selenium.common.exceptions.WebDriverException):
+        driver.find_element(By.TAG_NAME, 'body')
+    except (NoSuchWindowException, WebDriverException):
         print("Error, Browser window closed, quitting the program")
+        driver.quit()
         sys.exit()
