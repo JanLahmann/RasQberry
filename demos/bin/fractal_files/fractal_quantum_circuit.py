@@ -4,7 +4,7 @@
 
 #############################################################
 # Importing standard python libraries
-from typing import Tuple
+from typing import Tuple, List
 from math import pi
 
 # Importing standard Qiskit libraries
@@ -22,7 +22,7 @@ class FractalQuantumCircuit:
         self.backend = Aer.get_backend('statevector_simulator')
 
     # noinspection PyUnresolvedReferences
-    def get_quantum_circuit(self, frame_iteration:int = 0, total_number_of_frames:int = 60) -> Tuple[np.complex128, QuantumCircuit, np.complex128, np.complex128]:
+    def get_quantum_circuit(self, frame_iteration:int = 0, total_number_of_frames:int = 60) -> Tuple[np.complex128, QuantumCircuit, List[np.complex128]]:
         # In case quantum_circuit is already defined, delete the variable before assigning
         # it again to prevent multiple copies of the class variable being saved in memory
         if "quantum_circuit" in globals():
@@ -37,6 +37,7 @@ class FractalQuantumCircuit:
 
         # Simulate the Quantum Circuit and extract the statevector
         statevector_array = execute(quantum_circuit, self.backend).result().get_statevector()
+        statevector_idx_n = statevector_array.data
         statevector_idx_0 = statevector_array.data[0]
         statevector_idx_1 = statevector_array.data[1]
 
@@ -47,4 +48,4 @@ class FractalQuantumCircuit:
         else:
             statevector_new = 0
 
-        return statevector_new, quantum_circuit, statevector_idx_0, statevector_idx_1
+        return statevector_new, quantum_circuit, statevector_idx_n

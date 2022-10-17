@@ -21,7 +21,7 @@ def set_1cn(c:nb.complex128, z:np.ndarray[nb.complex128, nb.complex128], con:np.
     return div
 
 
-@jit(nopython=True, cache=False, parallel=False)
+@jit(nopython=True, cache=False, parallel=False, error_model='numpy')
 def set_2cn1(c0:nb.complex128, c1:nb.complex128, z:np.ndarray[nb.complex128, nb.complex128], con:np.ndarray[nb.bool_, nb.bool_], div:np.ndarray[nb.int_, nb.int_], max_iterations: nb.int64 = 100, escape_number: nb.int64 = 2, frame_resolution: nb.int64 = 200):
     for j in range(max_iterations):
         for x in range(frame_resolution):

@@ -8,6 +8,7 @@
 # Importing standard python libraries
 from pathlib import Path
 from threading import *
+from typing import List
 import traceback
 import copy
 import timeit
@@ -59,15 +60,15 @@ y_min: float = y_start - y_width / zoom
 y_max: float = y_start + y_width / zoom
 
 # Create the basis 2D array for the fractal
-x_array = np.linspace(start=x_min, stop=x_max, num=width).reshape((1, width))
-y_array = np.linspace(start=y_min, stop=y_max, num=height).reshape((height, 1))
-z_array = (x_array + 1j * y_array)
+x_arr = np.linspace(start=x_min, stop=x_max, num=width).reshape((1, width))
+y_arr = np.linspace(start=y_min, stop=y_max, num=height).reshape((height, 1))
+z_arr = (x_arr + 1j * y_arr)
 
 # Create array to keep track in which iteration the points have diverged
-diverge_array = np.full(z_array.shape, julia_iterations - 1, dtype='int64')
+div_arr = np.full(z_arr.shape, julia_iterations - 1, dtype='int64')
 
 # Create Array to keep track on which points have not converged
-converge_array = np.full(z_array.shape, True, dtype=np.bool_)
+con_arr = np.full(z_arr.shape, True, dtype=np.bool_)
 
 # Dictionary to keep track of time pr. loop
 timer = {"QuantumCircuit": 0.0, "Julia_calculations": 0.0, "Animation": 0.0, "Image": 0.0}
@@ -90,65 +91,18 @@ if temp_image_folder.exists():
 else:
     temp_image_folder.mkdir(parents=True, exist_ok=True)
 
-
-# |
-# | Defining the JuliaSet class to run the Julia Set Calculations
-# └───────────────────────────────────────────────────────────────────────────────────────────────────────
-class JuliaSet:
-    def __init__(self):
-        # Define key-word arguments to pass on to the individual threads
-        self.function_kwargs = {
-            "z": z_array.copy(),
-            "con": converge_array.copy(),
-            "div": diverge_array.copy(),
-            "max_iterations": julia_iterations,
-            "escape_number": julia_escape_val,
-            "frame_resolution": frame_resolution,
-        }
-
-        # Class values to get the resulting Julia sets
-        self.res_1cn = None
-        self.res_2cn1 = None
-        self.res_2cn2 = None
-
-    def set_1cn(self, cno_1cn: complex_):
-        self.res_1cn = set_1cn(c=cno_1cn, **copy.deepcopy(self.function_kwargs))
-
-    def set_2cn1(self, c0_2cn1: complex_, c1_2cn1: complex_):
-        self.res_2cn1 = set_2cn1(c0=c0_2cn1, c1=c1_2cn1, **copy.deepcopy(self.function_kwargs))
-
-    def set_2cn2(self, c0_2cn2: complex_, c1_2cn2: complex_):
-        self.res_2cn2 = set_2cn2(c0=c0_2cn2, c1=c1_2cn2, **copy.deepcopy(self.function_kwargs))
-
-
 # |
 # | Defining the animation class to generate the images for the Quantum Fractal
 # └───────────────────────────────────────────────────────────────────────────────────────────────────────
 class QuantumFractalImages:
-    def __init__(self, cno_i: complex_, cc1_i: complex_, cc2_i: complex_, circ_i: QuantumCircuit):
+    def __init__(self, sv_custom: complex_, sv_list: List[complex_], circ: QuantumCircuit):
         # Firstly, calculate the three types of Julia Sets
         # Create the threads based on each function the Julia Set Class
+        self.circuit = circ
         timer['Julia_calculations'] = timeit.default_timer()
-        self.Julia = JuliaSet()
-        threads = [
-            Thread(target=self.Julia.set_1cn, kwargs={"cno_1cn": cno_i}),
-            Thread(target=self.Julia.set_2cn1, kwargs={"c0_2cn1": cc1_i, "c1_2cn1": cc2_i}),
-            Thread(target=self.Julia.set_2cn2, kwargs={"c0_2cn2": cc1_i, "c1_2cn2": cc2_i})
-        ]
-
-        # Start the threads
-        for thread in threads:
-            thread.start()
-
-        # Wait for all threads to complete:
-        for thread in threads:
-            thread.join()
-
-        # Define the results from the three calculations
-        self.circuit = circ_i
-        self.res_1cn = self.Julia.res_1cn
-        self.res_2cn1 = self.Julia.res_2cn1
-        self.res_2cn2 = self.Julia.res_2cn2
+        self.res_1cn = set_1cn(c=sv_custom, z=z_arr.copy(), con=con_arr.copy(), div=div_arr.copy())
+        self.res_2cn1 = set_2cn1(c0=sv_list[0], c1=sv_list[1], z=z_arr.copy(), con=con_arr.copy(), div=div_arr.copy())
+        self.res_2cn2 = set_2cn2(c0=sv_list[0], c1=sv_list[1], z=z_arr.copy(), con=con_arr.copy(), div=div_arr.copy())
         timer['Julia_calculations'] = timeit.default_timer() - timer['Julia_calculations']
 
     def qf_animations(self, ax):
@@ -228,21 +182,20 @@ for i in range(number_of_frames):
 
         # Secondly, for the sake of transparency, the elements from the list are defined as separate variables
         circuit = ccc[1]
-        cno = ccc[0]
-        cc1 = ccc[2]
-        cc2 = ccc[3]
+        statevector_custom = ccc[0]
+        statevector_n_list = ccc[2]
         timer['QuantumCircuit'] = timeit.default_timer() - timer['QuantumCircuit']
 
         # Thirdly, run the animation and image creation
         img_fig, img_ax = plt.subplots(1, 4, figsize=(20, 5))
-        QFI = QuantumFractalImages(cno_i=cno, cc1_i=cc1, cc2_i=cc2, circ_i=circuit)
+        QFI = QuantumFractalImages(sv_custom=statevector_custom, sv_list=statevector_n_list, circ=circuit)
         QFI.qf_animations(ax=gif_ax)
         QFI.qf_images(ax=img_ax)
 
         # Console logging output:
-        complex_numb = round(cno.real, 2) + round(cno.imag, 2) * 1j
-        complex_amp1 = round(cc1.real, 2) + round(cc1.imag, 2) * 1j
-        complex_amp2 = round(cc2.real, 2) + round(cc2.imag, 2) * 1j
+        complex_numb = round(ccc[0].real, 2) + round(ccc[0].imag, 2) * 1j
+        complex_amp1 = round(ccc[2][0].real, 2) + round(ccc[2][0].imag, 2) * 1j
+        complex_amp2 = round(ccc[2][1].real, 2) + round(ccc[2][1].imag, 2) * 1j
         print(f"Loop i = {i:>2} | One complex no = {complex_numb:>13} | "
               f"Complex amplitude one: {complex_amp1:>13} and two {complex_amp2:>13} | "
               f"QuantumCircuit: {round(timer['QuantumCircuit'], 4):>6} | "
