@@ -13,7 +13,7 @@ import traceback
 import copy
 import timeit
 
-# Import additional python libraries
+# Externally installed libraries
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
@@ -29,7 +29,7 @@ from qiskit.visualization import *  # plot_bloch_multivector
 
 # self-coded libraries
 from fractal_webclient import WebClient
-from fractal_julia_calculations import set_1cn, set_2cn1, set_2cn2
+from fractal_julia_calculations import JuliaSet
 from fractal_quantum_circuit import FractalQuantumCircuit
 
 # |
@@ -65,7 +65,7 @@ y_arr = np.linspace(start=y_min, stop=y_max, num=height).reshape((height, 1))
 z_arr = (x_arr + 1j * y_arr)
 
 # Create array to keep track in which iteration the points have diverged
-div_arr = np.full(z_arr.shape, julia_iterations - 1, dtype='int64')
+div_arr = np.zeros(z_arr.shape, dtype=np.int_)
 
 # Create Array to keep track on which points have not converged
 con_arr = np.full(z_arr.shape, True, dtype=np.bool_)
@@ -91,6 +91,7 @@ if temp_image_folder.exists():
 else:
     temp_image_folder.mkdir(parents=True, exist_ok=True)
 
+
 # |
 # | Defining the animation class to generate the images for the Quantum Fractal
 # └───────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -98,12 +99,30 @@ class QuantumFractalImages:
     def __init__(self, sv_custom: complex_, sv_list: List[complex_], circ: QuantumCircuit):
         # Firstly, calculate the three types of Julia Sets
         # Create the threads based on each function the Julia Set Class
-        self.circuit = circ
         timer['Julia_calculations'] = timeit.default_timer()
-        self.res_1cn = set_1cn(c=sv_custom, z=z_arr.copy(), con=con_arr.copy(), div=div_arr.copy())
-        self.res_2cn1 = set_2cn1(c0=sv_list[0], c1=sv_list[1], z=z_arr.copy(), con=con_arr.copy(), div=div_arr.copy())
-        self.res_2cn2 = set_2cn2(c0=sv_list[0], c1=sv_list[1], z=z_arr.copy(), con=con_arr.copy(), div=div_arr.copy())
+        self.Julia = JuliaSet(sv_custom=sv_custom, sv_list=sv_list, z=z_arr, con=con_arr, div=div_arr)
+        threads = [
+            Thread(target=self.Julia.set_1cn),
+            Thread(target=self.Julia.set_2cn1),
+            Thread(target=self.Julia.set_2cn2)
+        ]
+
+        # Start the threads
+        for thread in threads:
+            thread.start()
+
+        # Wait for all threads to complete:
+        for thread in threads:
+            thread.join()
+
+        # Define the results from the three calculations
+        self.res_1cn = self.Julia.res_1cn
+        self.res_2cn1 = self.Julia.res_2cn1
+        self.res_2cn2 = self.Julia.res_2cn2
         timer['Julia_calculations'] = timeit.default_timer() - timer['Julia_calculations']
+
+        # Save the QuantumCircuit as class variable
+        self.circuit = circ
 
     def qf_animations(self, ax):
         # Secondly (a), generate the images based on the Julia set results
