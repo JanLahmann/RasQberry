@@ -32,12 +32,11 @@ class JuliaSet:
         self.res_2cn2: Union[np.ndarray[int_, int_], None] = None
 
     def set_1cn(self):
+        # Run the iterative transformation for 1cn
         con = self.converge.copy()
         div = self.diverge.copy()
         z = self.z.copy()
         c = self.sv_custom
-
-        # Run the iterative transformation for 1cn
         for i in range(self.max_iterations):
             z[con] = z[con] ** 2 + c
             con[np.abs(z) > self.escape_value] = False

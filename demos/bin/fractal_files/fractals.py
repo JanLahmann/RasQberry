@@ -8,9 +8,10 @@
 # Importing standard python libraries
 from pathlib import Path
 from threading import *
-from typing import List
+from typing import List, Union
+from copy import deepcopy
+from io import BytesIO
 import traceback
-import copy
 import timeit
 
 # Externally installed libraries
@@ -22,15 +23,16 @@ from selenium.common.exceptions import WebDriverException, NoSuchWindowException
 from selenium.webdriver.common.by import By
 from celluloid import Camera
 from numpy import complex_
+from PIL import Image
 
 # Importing standard Qiskit libraries
-from qiskit import QuantumCircuit, Aer, execute
+from qiskit import QuantumCircuit
 from qiskit.visualization import *  # plot_bloch_multivector
 
 # self-coded libraries
 from fractal_webclient import WebClient
 from fractal_julia_calculations import JuliaSet
-from fractal_quantum_circuit import FractalQuantumCircuit
+from fractal_quantum_circuit import QuantumFractalCircuit
 
 # |
 # | Global settings for the script
@@ -71,7 +73,7 @@ div_arr = np.zeros(z_arr.shape, dtype=np.int_)
 con_arr = np.full(z_arr.shape, True, dtype=np.bool_)
 
 # Dictionary to keep track of time pr. loop
-timer = {"QuantumCircuit": 0.0, "Julia_calculations": 0.0, "Animation": 0.0, "Image": 0.0}
+timer = {"QuantumCircuit": 0.0, "Julia_calculations": 0.0, "Animation": 0.0, "Image": 0.0, "Bloch_data": 0.0}
 
 # |
 # | Pathing, default folder and generated files, webclient
@@ -86,8 +88,11 @@ driver = WebClient(default_image_url=default_image_url).get_driver()  # ChromeDr
 
 # Remove previously generated files
 if temp_image_folder.exists():
-    for image in temp_image_folder.glob("*.*"):
-        Path(image).unlink()
+    try:
+        for image in temp_image_folder.glob("*.*"):
+            Path(image).unlink()
+    except FileNotFoundError:
+        pass
 else:
     temp_image_folder.mkdir(parents=True, exist_ok=True)
 
@@ -96,108 +101,121 @@ else:
 # | Defining the animation class to generate the images for the Quantum Fractal
 # └───────────────────────────────────────────────────────────────────────────────────────────────────────
 class QuantumFractalImages:
-    def __init__(self, sv_custom: complex_, sv_list: List[complex_], circ: QuantumCircuit):
-        # Firstly, calculate the three types of Julia Sets
-        # Create the threads based on each function the Julia Set Class
-        timer['Julia_calculations'] = timeit.default_timer()
-        self.Julia = JuliaSet(sv_custom=sv_custom, sv_list=sv_list, z=z_arr, con=con_arr, div=div_arr)
-        threads = [
-            Thread(target=self.Julia.set_1cn),
-            Thread(target=self.Julia.set_2cn1),
-            Thread(target=self.Julia.set_2cn2)
-        ]
-
-        # Start the threads
-        for thread in threads:
-            thread.start()
-
-        # Wait for all threads to complete:
-        for thread in threads:
-            thread.join()
-
-        # Define the results from the three calculations
-        self.res_1cn = self.Julia.res_1cn
-        self.res_2cn1 = self.Julia.res_2cn1
-        self.res_2cn2 = self.Julia.res_2cn2
-        timer['Julia_calculations'] = timeit.default_timer() - timer['Julia_calculations']
+    def __init__(self):
+        # Define the result variables for the three Julia Set calculations
+        self.res_1cn: Union[np.ndarray[np.int_, np.int_], None] = None
+        self.res_2cn1: Union[np.ndarray[np.int_, np.int_], None] = None
+        self.res_2cn2: Union[np.ndarray[np.int_, np.int_], None] = None
 
         # Save the QuantumCircuit as class variable
-        self.circuit = circ
+        self.circuit: Union[BytesIO, None] = None
 
-    def qf_animations(self, ax):
+        # Save the GIF variables in class variables to keep the state for the lifetime of this class
+        # in contrary to qf_images which requires the variables to be defined for each iteration
+        self.gif_fig, self.gif_ax = plt.subplots(1, 4, figsize=(20, 5))
+        self.gif_cam = Camera(self.gif_fig)
+
+    def qfi_julia_calculation(self, sv_custom: complex_, sv_list: List[complex_]):
+        timer['Julia_calculations'] = timeit.default_timer()
+        calc_julia = JuliaSet(sv_custom=sv_custom, sv_list=sv_list, z=z_arr, con=con_arr, div=div_arr)
+        threads = [
+            Thread(target=calc_julia.set_1cn),
+            Thread(target=calc_julia.set_2cn1),
+            Thread(target=calc_julia.set_2cn2)
+        ]
+
+        # Start the threads and wait for threads to complete
+        [thread.start() for thread in threads]
+        [thread.join() for thread in threads]
+
+        # Define the results from the three calculations
+        self.res_1cn = calc_julia.res_1cn
+        self.res_2cn1 = calc_julia.res_2cn1
+        self.res_2cn2 = calc_julia.res_2cn2
+        timer['Julia_calculations'] = timeit.default_timer() - timer['Julia_calculations']
+
+    def qfi_quantum_circuit(self, quantum_circuit: Union[QuantumCircuit, None] = None):
+        timer['Bloch_data'] = timeit.default_timer()
+        bloch_data = BytesIO()
+        plot_bloch_multivector(quantum_circuit).savefig(bloch_data, format='png')
+        bloch_data.seek(0)
+        self.circuit = bloch_data
+        timer['Bloch_data'] = timeit.default_timer() - timer['Bloch_data']
+
+    def qf_animations(self):
         # Secondly (a), generate the images based on the Julia set results
         timer['Animation'] = timeit.default_timer()
 
         # Plot Bloch sphere
-        plot_bloch_multivector(self.circuit, filename=Path(temp_image_folder, "H.png"))
-        ax[0].imshow(mpimg.imread(Path(temp_image_folder, "H.png")))
-        ax[0].axis('off')
-        ax[0].set_title('Bloch sphere', fontsize=20, pad=15.0)
+        self.gif_ax[0].imshow(Image.open(deepcopy(self.circuit)))
+        self.gif_ax[0].set_title('Bloch sphere', fontsize=20, pad=15.0)
 
         # Plot 1st Julia Fractal
-        ax[1].imshow(self.res_1cn, cmap='magma')
-        ax[1].axis('off')
+        self.gif_ax[1].imshow(self.res_1cn, cmap='magma')
 
         # Plot 2nd Julia Fractal
-        ax[2].imshow(self.res_2cn1, cmap='magma')
-        ax[2].set_title('3 types of Julia set fractals based on the superposition H-gate', fontsize=20, pad=15.0)
-        ax[2].axis('off')
+        self.gif_ax[2].imshow(self.res_2cn1, cmap='magma')
+        self.gif_ax[2].set_title('3 types of Julia set fractals based on the superposition H-gate', fontsize=20, pad=15.0)
 
         # Plot 3rd Julia Fractal
-        ax[3].figure.set_size_inches(16, 5)
-        ax[3].imshow(self.res_2cn2, cmap='magma')
-        ax[3].axis('off')
-        ax[3].figure.supxlabel('ibm.biz/quantum-fractals-blog            ibm.biz/quantum-fractals', fontsize=20)
+        self.gif_ax[3].figure.set_size_inches(16, 5)
+        self.gif_ax[3].imshow(self.res_2cn2, cmap='magma')
+        self.gif_ax[3].figure.supxlabel('ibm.biz/quantum-fractals-blog            ibm.biz/quantum-fractals', fontsize=20)
+
+        # Turn off axis values for all columns of images
+        for col in range(0, self.gif_ax[0].get_gridspec().ncols):
+            self.gif_ax[col].axis('off')
 
         # Snap a picture of the image outcome and close the plt object
-        camera.snap()
+        self.gif_cam.snap()
         plt.close()
         timer['Animation'] = timeit.default_timer() - timer['Animation']
 
-    def qf_images(self, ax):
+    def qf_images(self):
+        img_fig, img_ax = plt.subplots(1, 4, figsize=(20, 5))
         # Secondly (b), generate the images based on the Julia set results
         timer['Image'] = timeit.default_timer()
 
         # Plot Bloch sphere
-        ax[0].imshow(mpimg.imread(Path(temp_image_folder, "H.png")))
-        ax[0].axis('off')
-        ax[0].set_title('Bloch sphere', fontsize=20, pad=15.0)
+        img_ax[0].imshow(Image.open(deepcopy(self.circuit)))
+        img_ax[0].set_title('Bloch sphere', fontsize=20, pad=15.0)
 
         # Plot 1st Julia Fractal
-        ax[1].imshow(self.res_1cn, cmap='magma')
-        ax[1].axis('off')
+        img_ax[1].imshow(self.res_1cn, cmap='magma')
 
         # Plot 2nd Julia Fractal
-        ax[2].imshow(self.res_2cn1, cmap='magma')
-        ax[2].set_title('3 types of Julia set fractals based on the superposition H-gate', fontsize=20, pad=15.0)
-        ax[2].axis('off')
+        img_ax[2].imshow(self.res_2cn1, cmap='magma')
+        img_ax[2].set_title('3 types of Julia set fractals based on the superposition H-gate', fontsize=20, pad=15.0)
 
         # Plot 3rd Julia Fractal
-        ax[3].figure.set_size_inches(16, 5)
-        ax[3].imshow(self.res_2cn2, cmap='magma')
-        ax[3].axis('off')
-        ax[3].figure.supxlabel('ibm.biz/quantum-fractals-blog            ibm.biz/quantum-fractals', fontsize=20)
-        ax[3].figure.savefig(Path(temp_image_folder, "2cn2.png"))
+        img_ax[3].figure.set_size_inches(16, 5)
+        img_ax[3].imshow(self.res_2cn2, cmap='magma')
+        img_ax[3].figure.supxlabel('ibm.biz/quantum-fractals-blog            ibm.biz/quantum-fractals', fontsize=20)
 
-        # Open in browser
+        # Turn off axis values for all columns of images
+        for col in range(0, img_ax[0].get_gridspec().ncols):
+            img_ax[col].axis('off')
+
+        # Save image locally and open image in browser and close the plt object
+        img_ax[3].figure.savefig(Path(temp_image_folder, "2cn2.png"))
         driver.get(default_image_url)
         plt.close()
+        del img_fig, img_ax
         timer['Image'] = timeit.default_timer() - timer['Image']
 
 
 # |
 # | Running the script
 # └───────────────────────────────────────────────────────────────────────────────────────────────────────
-Fractal_quantum_circuit = FractalQuantumCircuit()
+QFC = QuantumFractalCircuit(number_of_qubits=1, number_of_frames=number_of_frames)
+QFI = QuantumFractalImages()
 
-gif_fig, gif_ax = plt.subplots(1, 4, figsize=(20, 5))
-camera = Camera(gif_fig)
 
 for i in range(number_of_frames):
     try:
         # Firstly, get the complex numbers from the complex circuit
         timer['QuantumCircuit'] = timeit.default_timer()
-        ccc = Fractal_quantum_circuit.get_quantum_circuit(frame_iteration=i)
+        ccc = QFC.get_quantum_circuit(frame_iteration=i)
 
         # Secondly, for the sake of transparency, the elements from the list are defined as separate variables
         circuit = ccc[1]
@@ -206,10 +224,10 @@ for i in range(number_of_frames):
         timer['QuantumCircuit'] = timeit.default_timer() - timer['QuantumCircuit']
 
         # Thirdly, run the animation and image creation
-        img_fig, img_ax = plt.subplots(1, 4, figsize=(20, 5))
-        QFI = QuantumFractalImages(sv_custom=statevector_custom, sv_list=statevector_n_list, circ=circuit)
-        QFI.qf_animations(ax=gif_ax)
-        QFI.qf_images(ax=img_ax)
+        QFI.qfi_julia_calculation(sv_custom=statevector_custom, sv_list=statevector_n_list)
+        QFI.qfi_quantum_circuit(quantum_circuit=circuit)
+        QFI.qf_animations()
+        QFI.qf_images()
 
         # Console logging output:
         complex_numb = round(ccc[0].real, 2) + round(ccc[0].imag, 2) * 1j
@@ -219,18 +237,20 @@ for i in range(number_of_frames):
               f"Complex amplitude one: {complex_amp1:>13} and two {complex_amp2:>13} | "
               f"QuantumCircuit: {round(timer['QuantumCircuit'], 4):>6} | "
               f"Julia_calculations: {round(timer['Julia_calculations'], 4):>6} | "
-              f"Animation: {round(timer['Animation'], 4):>6} | Image: {round(timer['Image'], 4):>6} |")
+              f"Animation: {round(timer['Animation'], 4):>6} | Image: {round(timer['Image'], 4):>6} | "
+              f"Bloch_data: {round(timer['Bloch_data'], 4):>6} |")
     except (NoSuchWindowException, WebDriverException):
         print("Error, Browser window closed during generation of images")
         raise traceback.format_exc()
 
 # Quit the currently running driver and prepare for the animation
 driver.quit()
-print("Saving the current animation state in GIF")
 
-anim = camera.animate(blit=True, interval=GIF_ms_intervals)
+print("Starting - Saving the current animation state in GIF")
+anim = QFI.gif_cam.animate(blit=True, interval=GIF_ms_intervals)
 anim.save(f'{temp_image_folder}/1qubit_simulator_4animations_H_{number_of_frames}.gif', writer='pillow')
 gif_url = f"{browser_file_path}/1qubit_simulator_4animations_H_{number_of_frames}.gif"
+print("Finished - Saving the current animation state in GIF")
 
 # Define a fresh instance of the ChromeDriver to retrieve the image
 driver = WebClient(default_image_url).get_driver()  # ChromeDriver
