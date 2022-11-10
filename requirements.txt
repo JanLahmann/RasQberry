@@ -12,5 +12,4 @@ rpi_ws281x==4.3.4
 selenium==4.4.3
 sense_hat==2.4.0
 webdriver-manager==3.8.3
-numba==0.56.2
 Pillow==9.2.0
