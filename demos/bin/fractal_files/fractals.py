@@ -6,28 +6,28 @@
 # | Library imports
 # └───────────────────────────────────────────────────────────────────────────────────────────────────────
 # Importing standard python libraries
+from threading import Thread
 from pathlib import Path
-from threading import *
-from typing import List, Union
+from typing import Optional
 from copy import deepcopy
 from io import BytesIO
 import traceback
 import timeit
+import sys
 
 # Externally installed libraries
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import numpy as np
 
 from selenium.common.exceptions import WebDriverException, NoSuchWindowException
 from selenium.webdriver.common.by import By
 from celluloid import Camera
-from numpy import complex_
+from numpy import complex_, complex64, ndarray, ushort, bool_
 from PIL import Image
 
 # Importing standard Qiskit libraries
 from qiskit import QuantumCircuit
-from qiskit.visualization import *  # plot_bloch_multivector
+from qiskit.visualization import plot_bloch_multivector
 
 # self-coded libraries
 from fractal_webclient import WebClient
@@ -64,13 +64,13 @@ y_max: float = y_start + y_width / zoom
 # Create the basis 2D array for the fractal
 x_arr = np.linspace(start=x_min, stop=x_max, num=width).reshape((1, width))
 y_arr = np.linspace(start=y_min, stop=y_max, num=height).reshape((height, 1))
-z_arr = (x_arr + 1j * y_arr)
+z_arr = np.array(x_arr + 1j * y_arr, dtype=complex64)
 
 # Create array to keep track in which iteration the points have diverged
-div_arr = np.zeros(z_arr.shape, dtype=np.int_)
+div_arr = np.zeros(z_arr.shape, dtype=ushort)
 
 # Create Array to keep track on which points have not converged
-con_arr = np.full(z_arr.shape, True, dtype=np.bool_)
+con_arr = np.full(z_arr.shape, True, dtype=bool_)
 
 # Dictionary to keep track of time pr. loop
 timer = {"QuantumCircuit": 0.0, "Julia_calculations": 0.0, "Animation": 0.0, "Image": 0.0, "Bloch_data": 0.0}
@@ -101,49 +101,51 @@ else:
 # | Defining the animation class to generate the images for the Quantum Fractal
 # └───────────────────────────────────────────────────────────────────────────────────────────────────────
 class QuantumFractalImages:
+    """Calculate and generate Quantum Fractal Images using Julia Set formulas"""
     def __init__(self):
         # Define the result variables for the three Julia Set calculations
-        self.res_1cn: Union[np.ndarray[np.int_, np.int_], None] = None
-        self.res_2cn1: Union[np.ndarray[np.int_, np.int_], None] = None
-        self.res_2cn2: Union[np.ndarray[np.int_, np.int_], None] = None
+        self.res_1cn: Optional[np.ndarray[np.int_, np.int_]] = None
+        self.res_2cn1: Optional[np.ndarray[np.int_, np.int_]] = None
+        self.res_2cn2: Optional[np.ndarray[np.int_, np.int_]] = None
 
         # Save the QuantumCircuit as class variable
-        self.circuit: Union[BytesIO, None] = None
+        self.circuit: Optional[BytesIO] = None
 
         # Save the GIF variables in class variables to keep the state for the lifetime of this class
         # in contrary to qf_images which requires the variables to be defined for each iteration
         self.gif_fig, self.gif_ax = plt.subplots(1, 4, figsize=(20, 5))
         self.gif_cam = Camera(self.gif_fig)
 
-    def qfi_julia_calculation(self, sv_custom: complex_, sv_list: List[complex_]):
+    def qfi_julia_calculation(self, sv_custom: complex_, sv_list: ndarray[complex_]) -> None:
+        """Calculate the results for all three of the Julia-set formulas"""
         timer['Julia_calculations'] = timeit.default_timer()
-        calc_julia = JuliaSet(sv_custom=sv_custom, sv_list=sv_list, z=z_arr, con=con_arr, div=div_arr)
-        threads = [
-            Thread(target=calc_julia.set_1cn),
-            Thread(target=calc_julia.set_2cn1),
-            Thread(target=calc_julia.set_2cn2)
-        ]
+        julia = JuliaSet(sv_custom=sv_custom, sv_list=sv_list, z=z_arr, con=con_arr, div=div_arr)
+
+        # Define the three julia-set formulas for each of their own threads
+        threads = [Thread(target=julia.set_1cn), Thread(target=julia.set_2cn1), Thread(target=julia.set_2cn2)]
 
         # Start the threads and wait for threads to complete
         [thread.start() for thread in threads]
         [thread.join() for thread in threads]
 
         # Define the results from the three calculations
-        self.res_1cn = calc_julia.res_1cn
-        self.res_2cn1 = calc_julia.res_2cn1
-        self.res_2cn2 = calc_julia.res_2cn2
+        self.res_1cn = julia.res_1cn
+        self.res_2cn1 = julia.res_2cn1
+        self.res_2cn2 = julia.res_2cn2
         timer['Julia_calculations'] = timeit.default_timer() - timer['Julia_calculations']
 
-    def qfi_quantum_circuit(self, quantum_circuit: Union[QuantumCircuit, None] = None):
+    def qfi_quantum_circuit(self, quantum_circuit: Optional[QuantumCircuit] = None) -> None:
+        """Generate the Bloch Sphere image from the Quantum Circuit and convert to Bytes"""
         timer['Bloch_data'] = timeit.default_timer()
         bloch_data = BytesIO()
         plot_bloch_multivector(quantum_circuit).savefig(bloch_data, format='png')
         bloch_data.seek(0)
         self.circuit = bloch_data
+        del bloch_data
         timer['Bloch_data'] = timeit.default_timer() - timer['Bloch_data']
 
-    def qf_animations(self):
-        # Secondly (a), generate the images based on the Julia set results
+    def qfi_animations(self) -> None:
+        """Generate Animation of the Quantum Fractal Images"""
         timer['Animation'] = timeit.default_timer()
 
         # Plot Bloch sphere
@@ -171,7 +173,8 @@ class QuantumFractalImages:
         plt.close()
         timer['Animation'] = timeit.default_timer() - timer['Animation']
 
-    def qf_images(self):
+    def qfi_images(self) -> None:
+        """Generate an image for each iteration of the Quantum Fractals"""
         img_fig, img_ax = plt.subplots(1, 4, figsize=(20, 5))
         # Secondly (b), generate the images based on the Julia set results
         timer['Image'] = timeit.default_timer()
@@ -199,7 +202,7 @@ class QuantumFractalImages:
         # Save image locally and open image in browser and close the plt object
         img_ax[3].figure.savefig(Path(temp_image_folder, "2cn2.png"))
         driver.get(default_image_url)
-        plt.close()
+        plt.close('all')
         del img_fig, img_ax
         timer['Image'] = timeit.default_timer() - timer['Image']
 
@@ -210,35 +213,29 @@ class QuantumFractalImages:
 QFC = QuantumFractalCircuit(number_of_qubits=1, number_of_frames=number_of_frames)
 QFI = QuantumFractalImages()
 
-
 for i in range(number_of_frames):
     try:
         # Firstly, get the complex numbers from the complex circuit
         timer['QuantumCircuit'] = timeit.default_timer()
         ccc = QFC.get_quantum_circuit(frame_iteration=i)
-
-        # Secondly, for the sake of transparency, the elements from the list are defined as separate variables
-        circuit = ccc[1]
-        statevector_custom = ccc[0]
-        statevector_n_list = ccc[2]
         timer['QuantumCircuit'] = timeit.default_timer() - timer['QuantumCircuit']
 
-        # Thirdly, run the animation and image creation
-        QFI.qfi_julia_calculation(sv_custom=statevector_custom, sv_list=statevector_n_list)
-        QFI.qfi_quantum_circuit(quantum_circuit=circuit)
-        QFI.qf_animations()
-        QFI.qf_images()
+        # Secondly, run the animation and image creation
+        QFI.qfi_julia_calculation(sv_custom=ccc[0], sv_list=ccc[2])
+        QFI.qfi_quantum_circuit(quantum_circuit=ccc[1])
+        QFI.qfi_animations()
+        QFI.qfi_images()
 
         # Console logging output:
         complex_numb = round(ccc[0].real, 2) + round(ccc[0].imag, 2) * 1j
         complex_amp1 = round(ccc[2][0].real, 2) + round(ccc[2][0].imag, 2) * 1j
         complex_amp2 = round(ccc[2][1].real, 2) + round(ccc[2][1].imag, 2) * 1j
-        print(f"Loop i = {i:>2} | One complex no = {complex_numb:>13} | "
-              f"Complex amplitude one: {complex_amp1:>13} and two {complex_amp2:>13} | "
-              f"QuantumCircuit: {round(timer['QuantumCircuit'], 4):>6} | "
-              f"Julia_calculations: {round(timer['Julia_calculations'], 4):>6} | "
-              f"Animation: {round(timer['Animation'], 4):>6} | Image: {round(timer['Image'], 4):>6} | "
-              f"Bloch_data: {round(timer['Bloch_data'], 4):>6} |")
+        print(f"Loop i = {i:>2} | One complex no: ({complex_numb:>11.2f}) | "
+              f"Complex amplitude one: ({complex_amp1:>11.2f}) and two: ({complex_amp2:>11.2f}) | "
+              f"QuantumCircuit: {round(timer['QuantumCircuit'], 4):>6.4f} | "
+              f"Julia_calc: {round(timer['Julia_calculations'], 4):>6.4f} | "
+              f"Anim: {round(timer['Animation'], 4):>6.4f} | Img: {round(timer['Image'], 4):>6.4f} | "
+              f"Bloch: {round(timer['Bloch_data'], 4):>6.4f} |")
     except (NoSuchWindowException, WebDriverException):
         print("Error, Browser window closed during generation of images")
         raise traceback.format_exc()

@@ -8,8 +8,9 @@ from typing import Tuple, List
 from math import pi
 
 # Importing standard Qiskit libraries
-from qiskit import QuantumCircuit, Aer
+from qiskit import QuantumCircuit
 from qiskit.quantum_info import Statevector
+from numpy import complex64, ndarray
 import numpy as np
 
 
@@ -23,7 +24,7 @@ class QuantumFractalCircuit:
         self.quantum_circuit.h(0)
 
     # noinspection PyUnresolvedReferences
-    def get_quantum_circuit(self, frame_iteration:int = 0) -> Tuple[np.complex128, QuantumCircuit, List[np.complex128]]:
+    def get_quantum_circuit(self, frame_iteration:int = 0) -> Tuple[complex64, QuantumCircuit, ndarray[complex64]]:
         # Create a fresh copy of the Quantum Circuit
         quantum_circuit = self.quantum_circuit.copy()
 
@@ -33,9 +34,9 @@ class QuantumFractalCircuit:
 
         # Simulate the Quantum Circuit and extract the statevector
         statevector_array = Statevector(quantum_circuit)
-        statevector_idx_n = statevector_array.data
-        statevector_idx_0 = statevector_array.data[0]
-        statevector_idx_1 = statevector_array.data[1]
+        statevector_idx_n = statevector_array.data.astype(complex64)
+        statevector_idx_0 = statevector_array.data[0].astype(complex64)
+        statevector_idx_1 = statevector_array.data[1].astype(complex64)
 
         # Check statevector values and calculate a new statevector
         if statevector_idx_1.real != 0 or statevector_idx_1.imag != 0:
@@ -44,4 +45,4 @@ class QuantumFractalCircuit:
         else:
             statevector_new = 0
 
-        return statevector_new, quantum_circuit, statevector_idx_n
+        return statevector_new.astype(complex64), quantum_circuit, statevector_idx_n
