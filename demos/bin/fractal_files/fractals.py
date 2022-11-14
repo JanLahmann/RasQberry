@@ -67,14 +67,14 @@ y_arr = np.linspace(start=y_min, stop=y_max, num=height).reshape((height, 1))
 z_arr = np.array(x_arr + 1j * y_arr, dtype=complex64)
 
 # Create array to keep track in which iteration the points have diverged
-div_arr = np.zeros(z_arr.shape, dtype=ushort)
+div_arr = np.zeros(z_arr.shape, dtype=np.uint8)
 
 # Create Array to keep track on which points have not converged
 con_arr = np.full(z_arr.shape, True, dtype=bool_)
 
 # Dictionary to keep track of time pr. loop
 timer = {"QuantumCircuit": 0.0, "Julia_calculations": 0.0, "Animation": 0.0, "Image": 0.0, "Bloch_data": 0.0}
-
+acc_timer = timer
 # |
 # | Pathing, default folder and generated files, webclient
 # └───────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -236,14 +236,18 @@ for i in range(number_of_frames):
               f"Julia_calc: {round(timer['Julia_calculations'], 4):>6.4f} | "
               f"Anim: {round(timer['Animation'], 4):>6.4f} | Img: {round(timer['Image'], 4):>6.4f} | "
               f"Bloch: {round(timer['Bloch_data'], 4):>6.4f} |")
+        acc_timer = {key: acc_timer[key] + val for key, val in timer.items()}
     except (NoSuchWindowException, WebDriverException):
         print("Error, Browser window closed during generation of images")
         raise traceback.format_exc()
 
+# Print the accumulated time
+print("Accumulated time:", ", ".join([f"{key}: {value:.3f} seconds" for key, value in acc_timer.items()]))
+
 # Quit the currently running driver and prepare for the animation
 driver.quit()
 
-print("Starting - Saving the current animation state in GIF")
+print("\nStarting - Saving the current animation state in GIF")
 anim = QFI.gif_cam.animate(blit=True, interval=GIF_ms_intervals)
 anim.save(f'{temp_image_folder}/1qubit_simulator_4animations_H_{number_of_frames}.gif', writer='pillow')
 gif_url = f"{browser_file_path}/1qubit_simulator_4animations_H_{number_of_frames}.gif"
