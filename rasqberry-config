@@ -65,7 +65,8 @@ TFT touchscreen display or a SenseHAT 8x8 LED matrix. " 20 70 1
 do_rasqberry_install_qiskit() {
   FUN=$(whiptail --title "RasQberry Configuration Tool (rasqberry-config)" --menu "Install Qiskit" "$WT_HEIGHT" "$WT_WIDTH" "$WT_MENU_HEIGHT" --cancel-button Back --ok-button Select \
     "Q00 Qiskit" "Install Qiskit (latest version)" \
-    "Q39 Qiskit 0.38" "Install Qiskit v0.39" \
+    "Q41 Qiskit 0.41" "Install Qiskit v0.41" \
+    "Q39 Qiskit 0.39" "Install Qiskit v0.39" \
     "Q37 Qiskit 0.37" "Install Qiskit v0.37" \
     "Q36 Qiskit 0.36" "Install Qiskit v0.36" \
     "Q34 Qiskit 0.34" "Install Qiskit v0.34" \
@@ -97,6 +98,7 @@ do_rasqberry_install_qiskit() {
       Q36\ *) do_rasqberry_install_general 036 ;;
       Q37\ *) do_rasqberry_install_general 037 ;;
       Q39\ *) do_rasqberry_install_general 039 ;;
+      Q41\ *) do_rasqberry_install_general 041 ;;
       Q00\ *) do_rasqberry_install_general _latest ;;
       *) whiptail --msgbox "Programmer error: unrecognized option" 20 60 1 ;;
     esac || whiptail --msgbox "There was an error running option $FUN" 20 60 1
