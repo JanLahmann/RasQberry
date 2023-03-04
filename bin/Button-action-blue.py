@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 # add to /etc/rc.local with
-# /usr/bin/python3 /home/pi/.local/bin/Button-action.py
-# Button 1: GPIO Button 16 / LED 12, RasQ-LED clear / LED start
-# fyi: GPIO Button 24 / LED 23  also works
+# /usr/bin/python3 /home/pi/.local/bin/Button-action-blue.py
+# Button 1 (blue): GPIO Button 16 / LED 12, RasQ-LED clear / LED start
+# Button 2 (green): GPIO Button 24 / LED 23  also works
 
 # pressed / held logic can be improved according to https://gpiozero.readthedocs.io/en/stable/faq.html#how-do-i-use-button-when-pressed-and-button-when-held-together
 
@@ -24,41 +24,42 @@ from subprocess import Popen
 
 Button.was_held = False
 
-def pressed1():
+button = Button(16, hold_time=2)
+led = LED(12)
+
+
+def pressed():
     for x in range(2):
-      led1.off()
+      led.off()
       sleep(0.2)
-      led1.on()
+      led.on()
       sleep(0.2)
-    #print("pressed1")
-    #os.system("touch /home/pi/pressed1")
+    #print("pressed")
+    #os.system("touch /home/pi/pressed")
     Popen(["/usr/bin/python3", "/home/pi/.local/bin/rq_LED-off.py"])
 
-def released1(btn):
+def released(btn):
     if not btn.was_held:
-        pressed1()
+        pressed()
     btn.was_held = False
-    led1.off()
-    #print("released1")
-    #os.system("touch /home/pi/released1")
+    led.off()
+    #print("released")
+    #os.system("touch /home/pi/released")
 
-def held1(btn):
+def held(btn):
     btn.was_held = True
     for x in range(5):
-      led1.off()
+      led.off()
       sleep(0.1)
-      led1.on()
+      led.on()
       sleep(0.1)
-    #print("held1")
-    #os.system("touch /home/pi/held1")
+    #print("held")
+    #os.system("touch /home/pi/held")
     Popen(["/usr/bin/sudo", "-u", "pi", "-H", "/usr/bin/python3", "/home/pi/RasQberry/demos/bin/RasQ-LED.py"])
 
 
-button1 = Button(16, hold_time=2)
-led1 = LED(12)
-
-#button1.when_pressed = pressed1
-button1.when_held = held1
-button1.when_released = released1
+#button.when_pressed = pressed
+button.when_held = held
+button.when_released = released
 
 pause()
