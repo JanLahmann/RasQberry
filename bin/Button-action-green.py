@@ -54,7 +54,7 @@ def held(btn):
       sleep(0.1)
     #print("held")
     #os.system("touch /home/pi/held")
-    Popen(["/usr/bin/sudo", "-u", "pi", "-H", "/usr/bin/python3", "/home/pi/RasQberry/demos/bin/RasQ-LED.py"])
+    Popen(["/usr/bin/python3", "/home/pi/luma.examples/examples/neopixel_demo2.py"])
 
 
 #button.when_pressed = pressed
