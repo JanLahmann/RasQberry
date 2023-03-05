@@ -18,7 +18,7 @@ sed -i "s/conan>=1.40.0/conan<2.0.0/" pyproject.toml
 pip install .
 
 
-pip3 install --no-warn-script-location --prefer-binary 'qiskit[visualization,all]==0.39'
+pip3 install --no-warn-script-location --prefer-binary 'qiskit[visualization,all]==0.39.*'
 pip3 install --prefer-binary ibm-quantum-widgets
 
 pip3 list | grep qiskit
