@@ -15,7 +15,7 @@ source $HOME/.cargo/env
 git clone https://github.com/Qiskit/qiskit-aer/ --branch 0.11.2
 cd qiskit-aer
 sed -i "s/conan>=1.40.0/conan<2.0.0/" pyproject.toml
-pip install .
+pip install --prefer-binary .
 
 
 pip3 install --no-warn-script-location --prefer-binary 'qiskit[visualization,all]==0.41'
