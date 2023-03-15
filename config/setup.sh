@@ -85,7 +85,7 @@ do_rasqberry_install_requirements() {
   # install chromedriver for Fractals
   sudo apt-get install chromium-chromedriver
   # install Qiskit (this has to be done before installing via requirements.txt)
-  do_rasqberry_install_general 038 silent
+  do_rasqberry_install_general 042 silent
   runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
   update_environment_file "REQUIREMENTS_INSTALLED" "true"
 }
@@ -448,7 +448,8 @@ do_rq_configure_button() {
   if [ "$BUTTON_CONFIGURED" = false ]; then
     sed -i 's/exit 0//' /etc/rc.local
     # shellcheck disable=SC2028
-    echo "/usr/bin/python3 /home/pi/.local/bin/Button-action.py\n\nexit 0" >> /etc/rc.local
+    echo "/usr/bin/python3 /home/pi/.local/bin/Button-action-blue.py &" >> /etc/rc.local
+    echo "/usr/bin/python3 /home/pi/.local/bin/Button-action-green.py &\n\nexit 0" >> /etc/rc.local
     echo "\n# enable shutdown/reboot on GPIO 3; and LED power indicator on GPIO 4\ndtoverlay=gpio-shutdown,gpio_pin=3\ngpio=4=op,dh" >> /boot/config.txt
     update_environment_file "BUTTON_CONFIGURED" "true"
   fi
