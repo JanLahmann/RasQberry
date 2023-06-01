@@ -10,7 +10,6 @@
 # Load external methods
 . /home/pi/RasQberry/config/setup.sh
 . /home/pi/RasQberry/config/demos.sh
-. /home/pi/RasQberry/config/qoffee-maker.sh
 . /home/pi/RasQberry/config/getinfo.sh
 
 USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
@@ -166,8 +165,6 @@ do_rasqberry_demos() {
     "FRA Fractals Autostart" "Activate the Fractals Autostart" \
     "RL RasQ-LED" "Start RasQ-LED demo" \
     "CL Clear LED" "Clear LED Lights" \
-    "QM Qoffee-Maker" "Local Build/Start Qoffee-Maker demo" \
-    "QMd Qoffee-Maker" "Download/Start Qoffee-Maker image" \
     "AP Configure API" "Enter you IBM Q API Token" \
     "RT5 Raspberry-Tie 5" "Install/Start/Stop the Raspberry-Tie Demo" \
     "RT16 Raspberry-Tie 16 " "Raspberry-Tie 16 Qubit Demo" \
@@ -186,8 +183,6 @@ do_rasqberry_demos() {
       FRA\ *) do_rasqberry_activate_fractal_autostart ;;
       RL\ *) do_RasQ_LED ;;
       CL\ *) do_led_lights_off ;;
-      QM\ *) do_rasqberry_Qoffee_local ;;
-      QMd\ *) do_rasqberry_Qoffee_download ;;
       AP\ *) do_rasqberry_configure_APITOKEN ;;
       RT5\ *) do_rasqberry_run_rasptie_no_network ;;
       RT16\ *) do_rasqberry_run_rasptie16_no_network ;;
@@ -225,8 +220,6 @@ do_advanced_config() {
     "E Change environment-file" "Change the contents of the environment-file" \
     "RR Reinstall Requirements" "Rerun the requirements installation" \
     "CS Change Splash Screen " "Change the splash screen IBM<->Standard" \
-    "QMst stop Qoffee-Maker " "stop all Qoffee-Maker containers" \
-    "QMrb Qoffee-Maker rebuild " "force rebuild of Qoffee-Maker images" \
     "4Da Enable 4'' Display " "Setup the 4inch Display - Part 1" \
     "4Db Enable 4'' Display " "Setup the 4inch Display - Part 2" \
     "KV Install Kivy" "Install needed packages for Kivy interface" \
@@ -246,8 +239,6 @@ do_advanced_config() {
       E\ *) do_rasqberry_change_environment_file ;;
       RR\ *) do_rasqberry_rerun_requirements ;;
       CS\ *) do_change_splash_screen ;;
-      QMst\ *) do_rasqberry_Qoffee_stop ;;
-      QMrb\ *) do_rasqberry_Qoffee_rebuild ;;
       4Da\ *) do_rasqberry_enable_touch41 ;;
       4Db\ *) do_rasqberry_enable_touch42 ;;
       KV\ *) do_install_kivy ;;
