@@ -82,7 +82,9 @@ do_rasqberry_Qoffee_local() {
   sudo -u pi -H -- sh -c 'sudo sysctl --system'
   cd /home/pi/Qoffee-Maker/ || exit
   # check if Qoffee-Maker docker image needs to be build
-  if [ "$QOFFEE_INSTALLED" = false ]; then
+  # do not build qoffee-maker, but instead use downloaded image from ghcr.io. see https://github.com/JanLahmann/Qoffee-Maker/issues/47
+  #if [ "$QOFFEE_INSTALLED" = false ]; then
+  if [ false ]; then
     # build with node 15 instead of node 14
     sudo -u pi -H -- sh -c 'cp DockerfileArm DockerfileArm-15'
     sed -i 's/node:14/node:15/' DockerfileArm-15
@@ -94,7 +96,9 @@ do_rasqberry_Qoffee_local() {
     fi
   fi
   # start Qoffee-Maker docker container
-  if [ "$INTERACTIVE" = true ]; then
+  # do not start locally build qoffee-maker, but instead use desktop icon and downloaded image from ghcr.io. see https://github.com/JanLahmann/Qoffee-Maker/issues/47
+  #if [ "$INTERACTIVE" = true ]; then
+  if [ false ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "will start Qoffee-Maker Demo. Please close Chrome at the end." 20 60 1
     echo "\n\nStart Qoffee-Maker on command line in /home/pi/Qoffee-Maker/ with\n  docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest \n\n"
     sudo -u pi -H -- sh -c 'docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env qoffee:latest && sleep 5 && chromium-browser http://127.0.0.1:8887/?token=super-secret-token'
