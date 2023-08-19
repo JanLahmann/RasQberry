@@ -82,13 +82,13 @@ do_rasqberry_Qoffee_local() {
   sudo -u pi -H -- sh -c 'sudo sysctl --system'
   cd /home/pi/Qoffee-Maker/ || exit
   # check if Qoffee-Maker docker image needs to be build
-  # do not build qoffee-maker, but instead use downloaded image from ghcr.io. see https://github.com/JanLahmann/Qoffee-Maker/issues/47
-  #if [ "$QOFFEE_INSTALLED" = false ]; then
-  if false ; then
+  if [ "$QOFFEE_INSTALLED" = false ]; then
     # build with node 15 instead of node 14
     sudo -u pi -H -- sh -c 'cp DockerfileArm DockerfileArm-15'
     sed -i 's/node:14/node:15/' DockerfileArm-15
-    sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/'
+    # do not build qoffee-maker, but instead use downloaded image from ghcr.io. see https://github.com/JanLahmann/Qoffee-Maker/issues/47
+    #sudo -u pi -H -- sh -c 'docker build -f DockerfileArm-15 -t qoffee . && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/'
+    sudo -u pi -H -- sh -c 'docker pull ghcr.io/janlahmann/qoffee-local && cp -uR /home/pi/RasQberry/desktop-icons/qoffee-local.desktop /home/pi/Desktop/'
     update_environment_file "QOFFEE_INSTALLED" "true"
     sudo -u pi -H -- sh -c 'rm DockerfileArm-15'
     if [ "$INTERACTIVE" = true ]; then
