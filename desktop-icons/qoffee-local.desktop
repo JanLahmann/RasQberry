@@ -7,5 +7,6 @@ Type=Application
 Categories=Demos;
 #Exec=lxterminal -e "cd /home/pi/Qoffee-Maker/ && docker run --name qoffee --rm -itp 8887:8887 --env-file .env qoffee:latest; /bin/bash"
 #Exec=lxterminal -e "cd /home/pi/Qoffee-Maker/ && docker run --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env qoffee:latest && chromium-browser --kiosk --app=http://127.0.0.1:8887/?token=super-secret-token; /bin/bash"
-Exec=lxterminal -e "cd /home/pi/Qoffee-Maker/ && docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env qoffee:latest && sleep 5 && chromium-browser http://127.0.0.1:8887/?token=super-secret-token; docker stop $(docker ps -q --filter name=qoffee ); /bin/bash"
+#Exec=lxterminal -e "cd /home/pi/Qoffee-Maker/ && docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env qoffee:latest && sleep 5 && chromium-browser http://127.0.0.1:8887/?token=super-secret-token; docker stop $(docker ps -q --filter name=qoffee ); /bin/bash"
+Exec=lxterminal -e "cd /home/pi/Qoffee-Maker/ && docker pull ghcr.io/janlahmann/qoffee-local && docker run -d --name qoffee --rm -itp 8887:8887 --env JUPYTER_TOKEN=super-secret-token --env-file .env ghcr.io/janlahmann/qoffee-local && sleep 5 & chromium-browser http://127.0.0.1:8887/?token=super-secret-token; docker stop $(docker ps -q --filter name=qoffee ); /bin/bash"
 Terminal=true
