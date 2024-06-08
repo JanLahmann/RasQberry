@@ -31,11 +31,11 @@ do_rq_one_click_install() {
   update_environment_file "INTERACTIVE" "false"
   do_rasqberry_update
   do_rq_initial_config
-  do_rasqberry_install_requirements
   do_rasqberry_enable_desktop_vnc
-  do_rasqberry_config_demos
   do_rq_enable_docker
   do_rq_configure_button
+  do_rasqberry_install_requirements
+  do_rasqberry_config_demos
   update_environment_file "INTERACTIVE" "true"
   if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
