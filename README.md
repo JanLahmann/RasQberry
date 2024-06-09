@@ -38,8 +38,7 @@ Here you can find all the information on [how to contribute to the RasQberry-Rep
 When you already have a Raspberry Pi that you can use you can install RasQberry in just a very few moments.<br/>
 Open the terminal/ssh window on your Raspberry Pi.
 ```python
-pip3 install getgist
-.local/bin/getgist -y JanLahmann RasQ-init.sh
+wget https://github.com/JanLahmann/RasQberry/raw/master/RasQ-init.sh
 . ./RasQ-init.sh
 ```
 <p align="center"> 
