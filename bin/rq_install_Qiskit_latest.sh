@@ -6,6 +6,8 @@
 export STARTDATE=`date`
 echo; echo; echo "Install Qiskit (latest version)"; echo;
 
+echo "OS_VERSION" $OS_VERSION
+
 if [ "$OS_VERSION" == "bookworm" ]; then
   echo "bookworm 64-bit OS detected. Installing Qiskit 1.0"
   pip install --prefer-binary --break-system-packages 'qiskit[all]==1.0.*'
