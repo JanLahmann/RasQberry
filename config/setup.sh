@@ -57,6 +57,9 @@ do_rq_one_click_demo_install() {
 # Initial setup for RasQberry
 # Sets LOCALE, changes splash screen
 do_rq_initial_config() {
+  # identify OS version
+  if grep -q -E "bullseye" /etc/os-release ; then update_environment_file "OS_VERSION" "bullseye"; fi
+  if grep -q -E "bookworm" /etc/os-release ; then update_environment_file "OS_VERSION" "bookworm"; fi
   # set PATH
   ( echo; echo '##### added for rasqberry #####';
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';

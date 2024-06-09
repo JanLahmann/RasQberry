@@ -63,7 +63,7 @@ fi
 
 # force 32 bit kernel  being used on Bullseye OS. Stay with 64-bit on Bookworm and later OS.
 
-if if grep -q -E "bullseye" /etc/os-release ; then  
+if grep -q -E "bullseye" /etc/os-release ; then  
   if ! grep -q -E "^arm_64bit=0" /boot/config.txt; then
     echo; echo;
     echo "**********************************************************************"

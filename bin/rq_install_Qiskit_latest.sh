@@ -6,6 +6,12 @@
 export STARTDATE=`date`
 echo; echo; echo "Install Qiskit (latest version)"; echo;
 
+if [ $OS_VERSION -eq "bookworm "]; then
+  echo "bookworm 64-bit OS detected. Installing Qiskit 1.0"
+  pip install --prefer-binary --break-system-packages 'qiskit[all]==1.0.*'
+  exit
+fi
+
 # install current version of rust; needed for retworkx
 curl -o get_rustup.sh -s https://sh.rustup.rs
 sh ./get_rustup.sh -y
