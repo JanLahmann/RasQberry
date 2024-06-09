@@ -3,6 +3,9 @@
 # installation of Qiskit (latest version)
 #
 
+# Load environment variables
+. /home/pi/RasQberry/env-config.sh
+
 export STARTDATE=`date`
 echo; echo; echo "Install Qiskit (latest version)"; echo;
 
