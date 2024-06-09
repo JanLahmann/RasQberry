@@ -61,18 +61,20 @@ fi
 #[ ! -d ~/Desktop ] && mkdir ~/Desktop
 #[ -d RasQberry/desktop-icons ] && cp RasQberry/desktop-icons/*.desktop ~/Desktop
 
-# force 32 bit kernel  being used
+# force 32 bit kernel  being used on Bullseye OS. Stay with 64-bit on Bookworm and later OS.
 
-if ! grep -q -E "^arm_64bit=0" /boot/config.txt; then
-  echo; echo;
-  echo "**********************************************************************"
-  echo "/boot/config.txt will be modified to ensure 32 bit kernel being used"
-  sudo -H -- sh -c 'echo "\n# ensure 32 bit kernel being used\narm_64bit=0\n" >> /boot/config.txt'
-  echo "rebooting after modification of /boot/config.txt"
-  echo "After reboot, please login and restart the script RasQ-init.sh"
-  echo "**********************************************************************"
-  echo;
-  sudo reboot
+if if grep -q -E "bullseye" /etc/os-release ; then  
+  if ! grep -q -E "^arm_64bit=0" /boot/config.txt; then
+    echo; echo;
+    echo "**********************************************************************"
+    echo "bookworm OS detected. Forcing 32-bit mode."
+    echo "/boot/config.txt will be modified to ensure 32 bit kernel being used"
+    sudo -H -- sh -c 'echo "\n# ensure 32 bit kernel being used\narm_64bit=0\n" >> /boot/config.txt'
+    echo "rebooting after modification of /boot/config.txt"
+    echo "After reboot, please login and restart the script RasQ-init.sh"
+    echo "**********************************************************************"
+    echo;
+    sudo reboot
+  fi
 fi
-
 sudo rasqberry-config
