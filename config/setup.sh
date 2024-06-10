@@ -4,6 +4,9 @@
 
 ### Initial
 
+# Load environment variables
+. /home/pi/RasQberry/env-config.sh
+
 # Function to update values stored in the rasqberry_environment.env file
 update_environment_file () {
   #check whether string is empty
