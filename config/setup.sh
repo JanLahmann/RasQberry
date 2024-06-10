@@ -29,13 +29,26 @@ do_menu_update_environment_file() {
 
 do_rq_one_click_install() {
   update_environment_file "INTERACTIVE" "false"
-  do_rasqberry_update
-  do_rq_initial_config
-  do_rasqberry_enable_desktop_vnc
-  do_rq_enable_docker
-  do_rq_configure_button
-  do_rasqberry_install_requirements
-  do_rasqberry_config_demos
+  echo "OS_VERSION" $OS_VERSION; echo
+
+  if [ "$OS_VERSION" == "bookworm" ]
+  then
+    echo "bookworm 64-bit OS detected. Installing Qiskit 1.0"
+    do_rasqberry_update
+    do_rq_initial_config
+    do_rasqberry_enable_desktop_vnc
+    do_rasqberry_install_general _latest
+    do_rq_enable_docker
+  else
+    do_rasqberry_update
+    do_rq_initial_config
+    do_rasqberry_enable_desktop_vnc
+    do_rq_enable_docker
+    do_rq_configure_button
+    do_rasqberry_install_requirements
+    do_rasqberry_config_demos
+  fi
+  
   update_environment_file "INTERACTIVE" "true"
   if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
