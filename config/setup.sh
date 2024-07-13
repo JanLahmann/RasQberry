@@ -4,6 +4,9 @@
 
 ### Initial
 
+# Load environment variables
+. /home/pi/RasQberry/env-config.sh
+
 # Function to update values stored in the rasqberry_environment.env file
 update_environment_file () {
   #check whether string is empty
@@ -29,13 +32,26 @@ do_menu_update_environment_file() {
 
 do_rq_one_click_install() {
   update_environment_file "INTERACTIVE" "false"
-  do_rasqberry_update
-  do_rq_initial_config
-  do_rasqberry_install_requirements
-  do_rasqberry_enable_desktop_vnc
-  do_rasqberry_config_demos
-  do_rq_enable_docker
-  do_rq_configure_button
+  echo "OS_VERSION" $OS_VERSION; echo
+
+  if [ "$OS_VERSION" == "bookworm" ]
+  then
+    echo "bookworm 64-bit OS detected. Installing Qiskit 1.0"
+    do_rasqberry_update
+    do_rq_initial_config
+    do_rasqberry_enable_desktop_vnc
+    do_rasqberry_install_general _latest
+    do_rq_enable_docker
+  else
+    do_rasqberry_update
+    do_rq_initial_config
+    do_rasqberry_enable_desktop_vnc
+    do_rq_enable_docker
+    do_rq_configure_button
+    do_rasqberry_install_requirements
+    do_rasqberry_config_demos
+  fi
+  
   update_environment_file "INTERACTIVE" "true"
   if [ "$INTERACTIVE" = true ]; then
     [ "$RQ_NO_MESSAGES" = false ] && whiptail --msgbox "Please exit and reboot" 20 60 1
@@ -57,6 +73,9 @@ do_rq_one_click_demo_install() {
 # Initial setup for RasQberry
 # Sets LOCALE, changes splash screen
 do_rq_initial_config() {
+  # identify OS version
+  if grep -q -E "bullseye" /etc/os-release ; then update_environment_file "OS_VERSION" "bullseye"; fi
+  if grep -q -E "bookworm" /etc/os-release ; then update_environment_file "OS_VERSION" "bookworm"; fi
   # set PATH
   ( echo; echo '##### added for rasqberry #####';
   echo 'export PATH=/home/pi/.local/bin:/home/pi/RasQberry/demos/bin:$PATH';
@@ -85,7 +104,7 @@ do_rasqberry_install_requirements() {
   # install chromedriver for Fractals
   sudo apt-get install chromium-chromedriver
   # install Qiskit (this has to be done before installing via requirements.txt)
-  do_rasqberry_install_general 042 silent
+  do_rasqberry_install_general 044 silent
   runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
   update_environment_file "REQUIREMENTS_INSTALLED" "true"
 }
