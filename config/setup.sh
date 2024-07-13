@@ -104,7 +104,7 @@ do_rasqberry_install_requirements() {
   # install chromedriver for Fractals
   sudo apt-get install chromium-chromedriver
   # install Qiskit (this has to be done before installing via requirements.txt)
-  do_rasqberry_install_general 042 silent
+  do_rasqberry_install_general 044 silent
   runuser -l  pi -c 'pip install -r /home/pi/RasQberry/requirements.txt'
   update_environment_file "REQUIREMENTS_INSTALLED" "true"
 }

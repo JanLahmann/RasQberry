@@ -1,8 +1,7 @@
 #!/bin/bash
 #
 # usage (in RPi terminal):
-# pip3 install getgist
-# .local/bin/getgist -y JanLahmann RasQ-init.sh
+# wget https://github.com/JanLahmann/RasQberry/raw/master/RasQ-init.sh
 # . ./RasQ-init.sh
 # also use the previous command to start the rasqberry-config tool again,
 # or   sudo rasqberry-config
