@@ -76,4 +76,5 @@ if grep -q -E "bullseye" /etc/os-release ; then
     sudo reboot
   fi
 fi
+
 sudo rasqberry-config
