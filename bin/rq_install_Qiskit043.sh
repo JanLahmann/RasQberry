@@ -13,7 +13,7 @@ source $HOME/.cargo/env
 
 
 pip3 install --no-warn-script-location --prefer-binary 'qiskit[visualization,all]==0.43'
-pip3 install --prefer-binary ibm-quantum-widgets
+pip3 install ~/RasQberry/whl/ibm_quantum_widgets-1.0.3-py2.py3-none-any.whl
 
 pip3 list | grep qiskit
 
