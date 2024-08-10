@@ -93,11 +93,31 @@ You can assemble your Hardware either with a (touch) display or with an senseHAT
 ### With touch display
 Open the RasQberry Configuration Tool and follow the steps below.
 1. Select `S – RasQberry Setup`
-1. Select `G0 – System Update`
-1. Select `G1 - Initial Config`<br/>
+   
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-1.png" alt="drawing" height="250"/> 
+</p>
+
+1. Select `SU – System Update`
+
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-3.png" alt="drawing" height="250"/> 
+</p>
+
+1. Select `IC - Initial Config`<br/>
 Your Raspberry will process the basic configurations on your device.
-1. Select `G2 – Install Qiskit`<br/>
+
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-1.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-4.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-5.png" alt="drawing" height="250"/>
+</p>
+
+1. Select `A – Advanced Config` then `Q – Install Qiskit`<br/>
 With this step you will install Qiskit. You can choose between a few versions of Qiskit to install. The latest version is recommended.
+
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-6.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-7.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-8.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-9.png" alt="drawing" height="250"/>
+</p>
+
 1. Select `D0 – Bloch Autostart`<br/>
 With this step you Raspberry will start the Bloch Sphere Demo automatically whenever you start your device.<br/>
 After your first the executing `D0` your Raspberry will reboot automatically. After the reboot you should execute `D0` again. This time there is no automatic reboot, but one is recommended.
