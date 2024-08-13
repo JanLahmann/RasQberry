@@ -93,16 +93,50 @@ You can assemble your Hardware either with a (touch) display or with an senseHAT
 ### With touch display
 Open the RasQberry Configuration Tool and follow the steps below.
 1. Select `S – RasQberry Setup`
-1. Select `G0 – System Update`
-1. Select `G1 - Initial Config`<br/>
+   
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-1.png" alt="drawing" height="250"/> 
+</p>
+
+1. Select `SU – System Update`
+
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-3.png" alt="drawing" height="250"/> 
+</p>
+
+2. Select `IC - Initial Config`<br/>
 Your Raspberry will process the basic configurations on your device.
-1. Select `G2 – Install Qiskit`<br/>
+
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-1.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-4.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-5.png" alt="drawing" height="250"/>
+</p>
+
+3. Select `A – Advanced Config` then `Q – Install Qiskit`<br/>
 With this step you will install Qiskit. You can choose between a few versions of Qiskit to install. The latest version is recommended.
-1. Select `D0 – Bloch Autostart`<br/>
+
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-6.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-7.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-8.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-9.png" alt="drawing" height="250"/>
+</p>
+
+4. Select `D – Quantum Demos` then run `BS – Bloch Sphere` and enable `BlockSphere Autostart` <br/>
 With this step you Raspberry will start the Bloch Sphere Demo automatically whenever you start your device.<br/>
-After your first the executing `D0` your Raspberry will reboot automatically. After the reboot you should execute `D0` again. This time there is no automatic reboot, but one is recommended.
-1. Select `D1 – Config & Demos` (optional)<br/>
+
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-10.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-11.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-12.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-13.png" alt="drawing" height="250"/>
+</p>
+
+After your first the executing `D` then `BS` your Raspberry will reboot automatically. After the reboot you should execute `D` then `BS` again. This time there is no automatic reboot, but one is recommended.
+
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-14.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-15.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-16.png" alt="drawing" height="250"/> 
+</p>
+
+5. Select `S - Rasberry Setup` then `CD – Config & Demos` (optional)<br/>
 With this step you will configurate Qiskit automatically and install the Quantum Demos. Also, this step will configurate jupyter notebook.
+
+<p align="center"> 
+    <img src="../Artwork/rasqberry_config-17.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-18.png" alt="drawing" height="250"/> <img src="../Artwork/rasqberry_config-19.png" alt="drawing" height="250"/>  
+</p>
 
 ### With Sense HAT
 Before the Raspberry Pi can boot with the SenseHAT attached you need to do some changes in the **config.txt**-file.<br/>
