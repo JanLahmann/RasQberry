@@ -41,24 +41,61 @@ There are several ways to find out which IP your Raspberry Pi received. For this
 sudo raspi-config
 ```
 
+This command brings up menu options to choose from. 
+
 1. Select `1 – System Options` 
 2. Select `S1 – Wireless LAN` 
 3. Fill in your WLAN network name under `Please enter SSID` 
 4. Fill in your WLAN Password under `Please enter passphrase` 
 
 <p align="center"> 
-<img src="../Artwork/raspi-config_02.png" alt="drawing" width="500"/> <img src="../Artwork/raspi-config_03.png" alt="drawing" width="500"/> <img src="../Artwork/raspi-config_04.pn" alt="drawing" width="500"/> <img src="../Artwork/raspi-config_05.pn" alt="drawing" width="500"/> <br/>
+<img src="../Artwork/raspi-config_02.png" alt="drawing" width="500"/> <img src="../Artwork/raspi-config_03.png" alt="drawing" width="500"/> <img src="../Artwork/raspi-config_04.png" alt="drawing" width="500"/> <img src="../Artwork/raspi-config_05.png" alt="drawing" width="500"/> <br/>
 </p>
 
 Apply the settings and select `Finish`. To view the IP address of your device, go back to the terminal and type `ifconfig` can be used. 
 
 ```python
-sudo raspi-config
+ifconfig 
 ```
 
 ## Step 2: Enable SSH (optional) 
 
+There are a couple of ways you can use to enable SSH for remote administration. 
 
+**Option A: Headless (with Imager)** 
 
+As we saw in `option A of step 1` above, when you write the Raspberry Pi OS on your SD-Card you can enable SSH during the writing process. You can access the extended menu by entering **shift + command + X** (windows: **shift + control + X**)<br/>
 
+<br/>
+<p align="center"> 
+<img src="../Artwork/imager-13.png" alt="drawing" width="500"/> <br/>
+</p>
+<br/>
 
+From this interface, you can enable SSH and enter your password or public-key to make the authenticating process while connecting easier.
+
+**Option B: With Display** 
+
+When using a display, to access the terminal on your Raspberry Pi,  navigate to the application menu, under *Accessories > Terminal*.
+
+```python
+sudo raspi-config
+```
+1. Select `3 – Interface options`  
+2. Select `I2 – SSH`
+3. Click `Yes`
+
+<br/>
+<p align="center"> 
+<img src="../Artwork/ssh_01.png" alt="drawing" width="500"/> <img src="../Artwork/ssh_04.png" alt="drawing" width="500"/> <img src="../Artwork/ssh_03.png" alt="drawing" width="500"/> <img src="../Artwork/ssh_02.png" alt="drawing" width="500"/><br/>
+</p>
+<br/>
+
+**Option C: Headless (add file)** 
+
+After you wrote the Raspbian Image on your SD-Card you need to add a file named “*ssh*” in your boot partition (boot register) of your SD-Card, which you can access on your personal computer.
+When you added the file, you can now boot your Raspberry Pi.
+
+__<a style="color: red"> NOTE__: Added this option simply for completeness. This particular option was not tested for this particular report </a>
+
+<br/>
