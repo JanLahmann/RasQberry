@@ -18,7 +18,7 @@ Settings
 1. Download and Install Raspberry Pi Imager from the (official website)[https://www.raspberrypi.com/software/] and use that to write the Raspberry Pi OS (Legacy 32 bit) on an (empty) SD-Card. As seen in the images below, you can select the OS straight from the imager itself. 
 
 <p align="center"> 
-<img src="../Artwork/imager-02.png" alt="drawing" width="350"/> <img src="../Artwork/imager-03.png" alt="drawing" width="350"/> <img src="../Artwork/imager-04.png" alt="drawing" width="350"/> <img src="../Artwork/imager-05.png" alt="drawing" width="350"/> <img src="../Artwork/imager-06.png" alt="drawing" width="350"/> <img src="../Artwork/imager-07.png" alt="drawing" width="350"/> <img src="../Artwork/imager-08.png" alt="drawing" width="350"/> <img src="../Artwork/imager-09.png" alt="drawing" width="350"/> <img src="../Artwork/imager-10.png" alt="drawing" width="350"/> <img src="../Artwork/imager-11.png" alt="drawing" width="350"/> <img src="../Artwork/imager-12.png" alt="drawing" width="350"/> <img src="../Artwork/imager-13.png" alt="drawing" width="350"/> <img src="../Artwork/imager-14.png" alt="drawing" width="350"/> <img src="../Artwork/imager-15.png" alt="drawing" width="350"/> <img src="../Artwork/imager-16.png" alt="drawing" width="350"/> <br/>
+<img src="../Artwork/imager-02.png" alt="drawing" width="500"/> <img src="../Artwork/imager-03.png" alt="drawing" width="500"/> <img src="../Artwork/imager-04.png" alt="drawing" width="500"/> <img src="../Artwork/imager-05.png" alt="drawing" width="500"/> <img src="../Artwork/imager-06.png" alt="drawing" width="500"/> <img src="../Artwork/imager-07.png" alt="drawing" width="500"/> <img src="../Artwork/imager-08.png" alt="drawing" width="500"/> <img src="../Artwork/imager-09.png" alt="drawing" width="500"/> <img src="../Artwork/imager-10.png" alt="drawing" width="500"/> <img src="../Artwork/imager-11.png" alt="drawing" width="500"/> <img src="../Artwork/imager-12.png" alt="drawing" width="500"/> <img src="../Artwork/imager-13.png" alt="drawing" width="500"/> <img src="../Artwork/imager-14.png" alt="drawing" width="500"/> <img src="../Artwork/imager-15.png" alt="drawing" width="500"/> <img src="../Artwork/imager-16.png" alt="drawing" width="500"/> <br/>
 </p>
 
 **(Option A: Settings Using Imager)** Using the Raspberry Pi Imager, you can choose to customize the wifi settings, username and password and enable ssh as shown below. 
@@ -28,7 +28,7 @@ __<a style="color: red"> NOTE__: You have to use the standard username `pi`. Oth
 <br/>
 
 <p align="center"> 
-<img src="../Artwork/imager-11.png" alt="drawing" width="350"/> <img src="../Artwork/imager-12.png" alt="drawing" width="350"/> <img src="../Artwork/imager-13.png" alt="drawing" width="350"/> <img src="../Artwork/imager-14.png" alt="drawing" width="350"/> <img src="../Artwork/imager-15.png" alt="drawing" width="350"/> <img src="../Artwork/imager-16.png" alt="drawing" width="350"/> <br/>
+<img src="../Artwork/imager-11.png" alt="drawing" width="500"/> <img src="../Artwork/imager-12.png" alt="drawing" width="500"/> <img src="../Artwork/imager-13.png" alt="drawing" width="500"/> <img src="../Artwork/imager-14.png" alt="drawing" width="500"/> <img src="../Artwork/imager-15.png" alt="drawing" width="500"/> <img src="../Artwork/imager-16.png" alt="drawing" width="500"/> <br/>
 </p>
 
 Once the OS and settings have been saved to the SD card, you can now boot your Raspberry Pi and connect it. 
@@ -50,9 +50,11 @@ Select `S1 – Wireless LAN`
 ![raspi-config_03](raspi-config_03.png)
 
 Fill in your WLAN network name under `Please enter SSID` 
+
 ![raspi-config_04](raspi-config_04.png)
 
 Fill in your WLAN Password under `Please enter passphrase` 
+
 ![raspi-config_05](raspi-config_05.png)
 
 Apply the settings and select `Finish`. To view the IP address of your device, go back to the terminal and type `ifconfig` can be used. 
