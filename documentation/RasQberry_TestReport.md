@@ -10,8 +10,20 @@ Software used
 - Raspberry Pi OS (Legacy 32 bit) with desktop
 - Raspberry Pi Imager 1.8.5
 
+```python
+pi@raspberrypi:~ $ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Raspbian
+Description:	Raspbian GNU/Linux 11 (bullseye)
+Release:	11
+Codename:	bullseye
+pi@raspberrypi:~ $ uname -a
+Linux raspberrypi 6.1.21-v8+ #1642 SMP PREEMPT Mon Apr  3 17:24:16 BST 2023 aarch64 GNU/Linux
+```
+
 Settings
-- Username: pi 
+- Default Username `pi` is used
+- RasQberry is installed in the home directory of the default user `pi`
 
 ## Step 1: Preparing the Raspberry Pi 
 
@@ -93,9 +105,28 @@ sudo raspi-config
 
 **Option C: Headless (add file)** 
 
-After you wrote the Raspbian Image on your SD-Card you need to add a file named “*ssh*” in your boot partition (boot register) of your SD-Card, which you can access on your personal computer.
+After writing the Raspberry Pi Image on your SD-Card you'll need to add a file named “*ssh*” in your boot partition (boot register) of your SD-Card, which you can access on your personal computer.
 When you added the file, you can now boot your Raspberry Pi.
 
-__<a style="color: red"> NOTE__: Added this option simply for completeness. This particular option was not tested for this particular report </a>
+__<a style="color: red"> NOTE__: Added this option simply for completeness. This particular option was not tested for this report </a>
 
 <br/>
+
+Let's now get the IP address from the Raspberry Pi so that we can connect. You can find the address in your Router’s DHCP lease allocation table or if you use a display, you can get your IP address by typing ifconfig in your terminal.
+
+```python
+ifconfig
+```
+
+With the IP address, we are now ready to connect remotely to the Raspberry Pi. Open a terminal on your remote device and type 
+
+```python
+ssh pi@/{your IP address}
+```
+
+You are presented with a dialogue. You need to agree that you want to connect your devices and enter your Raspberry Pi password. By default, the password is `raspberry`.
+Now you should be able to use SSH moving forward.
+
+<br/>
+
+## Step 3: Installing RasQberry
