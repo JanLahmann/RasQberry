@@ -241,3 +241,79 @@ This starts the RasQberry Configuration Tool (rasqberry-config) in the terminal.
 From the RasQberry Configuration Tool (rasqberry-config):
 
 1. Select `OI – One-Click Install`. This will run options SU, IC, IR, DV, CD, D and BL in one go. 
+
+The script ran for around 15 or so minutes. Here is a sample of some of the output that is seen when the script runs showing versions that were installed. 
+
+```
+...
+Successfully installed python-dotenv-0.21.0
+...
+Successfully installed rpi-ws281x-5.0.0
+...
+Successfully installed pip-24.2
+...
+Successfully installed arraylias-0.1.1 asteval-1.0.2 asttokens-2.4.1 beautifulsoup4-4.12.3 charset-normalizer-3.3.2 comm-0.2.2 contourpy-1.2.1 cycler-0.12.1 decorator-5.1.1 dill-0.3.8 docplex-2.28.240 exceptiongroup-1.2.2 executing-2.0.1 fastdtw-0.3.4 fonttools-4.53.1 frozendict-2.4.4 h5py-3.11.0 importlib-resources-6.4.3 inflection-0.5.1 ipython-8.18.1 ipywidgets-8.1.3 joblib-1.4.2 jupyterlab-widgets-3.0.11 kiwisolver-1.4.5 lmfit-1.3.2 lxml-5.3.0 matplotlib-3.9.2 matplotlib-inline-0.1.7 more-itertools-10.4.0 mpmath-1.3.0 multiset-3.1.0 multitasking-0.0.11 nasdaq-data-link-1.0.4 networkx-3.2.1 numpy-2.0.1 packaging-24.1 pandas-2.2.2 pbr-6.0.0 peewee-3.17.6 platformdirs-4.2.2 ply-3.11 prompt-toolkit-3.0.47 pure-eval-0.2.3 pydot-3.0.1 pylatexenc-2.10 pyparsing-3.1.2 pyspnego-0.11.1 python-dateutil-2.9.0.post0 pytz-2024.1 pyyaml-6.0.2 qiskit-0.44.0 qiskit-algorithms-0.3.0 qiskit-dynamics-0.5.1 qiskit-experiments-0.5.4 qiskit-finance-0.4.0 qiskit-ibm-experiment-0.4.7 qiskit-machine-learning-0.7.2 qiskit-nature-0.7.2 qiskit-optimization-0.6.1 qiskit-terra-0.25.0 requests-2.32.3 requests-ntlm-1.3.0 rustworkx-0.15.0 scikit-learn-1.4.2 scipy-1.13.1 seaborn-0.13.2 stack-data-0.6.3 stevedore-5.2.0 sympy-1.13.2 threadpoolctl-3.5.0 traitlets-5.14.3 typing-extensions-4.12.2 tzdata-2024.1 uncertainties-3.2.2 wcwidth-0.2.13 websocket-client-1.8.0 widgetsnbextension-4.0.11 yfinance-0.2.41 zipp-3.20.0
+...
+Successfully installed ibm-quantum-widgets-1.0.3
+qiskit                  0.44.0
+qiskit-algorithms       0.3.0
+qiskit-dynamics         0.5.1
+qiskit-experiments      0.5.4
+qiskit-finance          0.4.0
+qiskit-ibm-experiment   0.4.7
+qiskit-machine-learning 0.7.2
+qiskit-nature           0.7.2
+qiskit-optimization     0.6.1
+qiskit-terra            0.25.0
+...
+Successfully installed Kivy-Garden-0.1.5 Pillow-9.2.0 PySocks-1.7.1 attrs-24.2.0 backcall-0.2.0 celluloid-0.2.0 certifi-2024.7.4 ewmh-0.1.6 h11-0.14.0 ipython-8.5.0 kivy-2.1.0 matplotlib-3.6.0 numpy-1.23.3 outcome-1.3.0.post0 pickleshare-0.7.5 python-xlib-0.33 rpi_ws281x-4.3.4 selenium-4.4.3 sense_hat-2.4.0 sniffio-1.3.1 sortedcontainers-2.4.0 tqdm-4.66.5 trio-0.26.2 trio-websocket-0.11.1 webdriver-manager-3.8.3 wsproto-1.2.0
+...
+Successfully installed anyio-4.4.0 argon2-cffi-23.1.0 argon2-cffi-bindings-21.2.0 arrow-1.3.0 async-lru-2.0.4 babel-2.16.0 bleach-6.1.0 cffi-1.17.0 debugpy-1.8.5 defusedxml-0.7.1 fastjsonschema-2.20.0 fqdn-1.5.1 httpcore-1.0.5 httpx-0.27.0 importlib-metadata-8.2.0 ipykernel-6.29.5 isoduration-20.11.0 jinja2-3.1.4 json5-0.9.25 jsonpointer-3.0.0 jsonschema-4.23.0 jsonschema-specifications-2023.12.1 jupyter-1.0.0 jupyter-client-8.6.2 jupyter-console-6.6.3 jupyter-core-5.7.2 jupyter-events-0.10.0 jupyter-lsp-2.2.5 jupyter-server-2.14.2 jupyter-server-terminals-0.5.3 jupyterlab-4.2.4 jupyterlab-pygments-0.3.0 jupyterlab-server-2.27.3 markupsafe-2.1.5 mistune-3.0.2 nbclient-0.10.0 nbconvert-7.16.4 nbformat-5.10.4 nest-asyncio-1.6.0 notebook-7.2.1 notebook-shim-0.2.4 overrides-7.7.0 pandocfilters-1.5.1 prometheus-client-0.20.0 ptyprocess-0.7.0 pycparser-2.22 python-json-logger-2.0.7 pyzmq-26.1.0 qtconsole-5.5.2 qtpy-2.4.1 referencing-0.35.1 rfc3339-validator-0.1.4 rfc3986-validator-0.1.1 rpds-py-0.20.0 send2trash-1.8.3 terminado-0.18.1 tinycss2-1.3.0 tomli-2.0.1 tornado-6.4.1 types-python-dateutil-2.9.0.20240316 uri-template-1.3.0 webcolors-24.8.0
+...
+Successfully installed rise-5.7.1
+...
+Installed Kivy
+```
+
+Once the installation is complete, the following screen is presented. 
+
+<br/>
+<p align="center"> 
+<img src="../Artwork/rasqberry_config-0a.png" alt="drawing" width="350"/> <br/>
+</p>
+<br/>
+
+2. Select `OK` to exit and reboot. 
+3. If done, select `Finish` to exit the setup. 
+
+<br/>
+<p align="center"> 
+<img src="../Artwork/rasqberry_config-0b.png" alt="drawing" width="350"/>
+<img src="../Artwork/rasqberry_config-0c.png" alt="drawing" width="350"/> <br/>
+</p>
+<br/>
+
+Installation is now complete so Let's now reboot the system. Using the display, the following tests were conducted and errors logged as shown below. 
+
+- [X] Started Jupyter Lab - Works 
+- [X] Started Jupyter Notebook - Works 
+- [ ] Started Kivy Interface - Nothing ** not sure what to see here**
+- [X] Started Qiskit - Terminal pops up showing installed versions 
+- [ ] Started Demos - Qoffe Maker (local) - 
+  - ERROR from JupyterLab - Could not determine jupyterlab build status without nodejs
+  - ERROR from browser 127.0.0.1:8887/?token=super-secret-token - site cannot be reached. 
+- [ ] Started Demos - Qoffee Maker (dockerhub) - 
+  - ERROR from terminal bash: line 1: cd: /home/pi/Qoffee-Maker/: No such file or directory 
+  - ERROR from browser 127.0.0.1:8887/?token=super-secret-token - site cannot be reached. 
+- [ ] Started Demos -  Ambilights - Not sure what to expect but terminal popped up and exited. 
+- [X] Started Demos - BlochSphere Demo - Works 
+- [ ] Started Demos - Clear LED Lights - Not sure what to expect 
+- [ ] Started Demos - Fractals - ERROR** - terminal popped up then exited - not sure what to expect BUT there seems to be an error printed out though too quickly for me to read it 
+- [ ] Started Demos - Lights - terminal popped up then exited - not sure what to expect
+- [ ] Started Demos - RasQ-LED -  ERROR** - terminal popped up then exited - not sure what to expect BUT there seems to be an error printed out though too quickly for me to read it 
+- [X] Started HD Demos - Fun with Quantum Repo - Navigates to Jan's repo regarding Fun with Quantum 
+- [X] Started HD Demos - IBM Quantum Composer - Works 
+- [X] Started HD Demos - Jupyter Notebook Fun with Quantum - A repo in Jupyter notebook is presented
+- [X] Started HD Demos - Jupyter Notebook Qiskit Tutorials - A repo in Jupyter notebook is presented
+
+
