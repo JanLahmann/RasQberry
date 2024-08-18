@@ -77,4 +77,6 @@ if grep -q -E "bullseye" /etc/os-release ; then
   fi
 fi
 
+# force interactive mode (needed if previous execution was terminated abnormally)
+sed -i "s/^INTERACTIVE=false/INTERACTIVE=true/gm" RasQberry/rasqberry_environment.env
 sudo rasqberry-config
