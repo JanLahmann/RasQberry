@@ -159,12 +159,20 @@ You can check which location you are currently in by running the `pwd` command. 
 $ pwd 
 /home/pi
 ```
- 
-Now we are finally ready to install RasQberry!
 
-**Downloading the RasQberry OS**
+Now we are finally ready to install RasQberry in just a few moments!
 
-To download the file from GitHub, we'll use the `getgist` (python command)[https://pypi.org/project/getgist/]
+**Option A: Downloading the RasQberry OS (recommended way)**
+
+The recommended way to get the OS is using `wget` command. Open the terminal/ssh window on your Raspberry Pi and run the following command to install from the master branch. 
+
+```
+wget https://github.com/JanLahmann/RasQberry/raw/master/RasQ-init.sh
+```
+
+**Option B: Downloading the RasQberry OS (no longer recommended)**
+
+For this particluar test, an older way of downloading the file was used. To download the file from GitHub, run the `getgist` (python command)[https://pypi.org/project/getgist/]. 
 
 ```
 pip3 install getgist
@@ -182,6 +190,10 @@ You can download the installation script `RasQ-init.sh` from the source `JanLahm
 ```
 .local/bin/getgist -y JanLahmann RasQ-init.sh
 ```
+
+As you can see, the newer way is easier and thus should be your go to instead of getgist. 
+
+**Installing the RasQberry OS**
 
 The command above downloads the script into the user's `pi` home directory as seen below. 
 
