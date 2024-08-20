@@ -305,7 +305,12 @@ Once the installation is complete, the following screen is presented.
 </p>
 <br/>
 
-Installation is now complete so Let's now reboot the system. Using the display, the following tests were conducted and errors logged as shown below. 
+Installation is now complete so Let's now reboot the system. Using the display, we do see 3 icons on desktop
+- BlochSphere_
+- Fractals 
+- IBM Quantu_
+
+At this point, the following tests were conducted and errors logged as shown below. 
 
 - [X] Started Jupyter Lab - Works 
 - [X] Started Jupyter Notebook - Works 
@@ -328,4 +333,122 @@ Installation is now complete so Let's now reboot the system. Using the display, 
 - [X] Started HD Demos - Jupyter Notebook Fun with Quantum - A repo in Jupyter notebook is presented
 - [X] Started HD Demos - Jupyter Notebook Qiskit Tutorials - A repo in Jupyter notebook is presented
 
+## Step 4b: One-Click Demo Install with touch display
 
+Incase you are not in the RasQberry Configuration Tool (rasqberry-config), you can restart it by running the following command from terminal. Make sure you are in the user's `pi` home directory as mentioned in `section 3 - Prerequisites`. 
+
+```
+. ./RasQ-init.sh 
+```
+
+This command should bring up the RasQberry Configuration Tool (rasqberry-config) as shown below. 
+
+<br/>
+<p align="center"> 
+<img src="../Artwork/rasqconfig_demo-01.png" alt="drawing" width="350"/>
+<br/>
+</p>
+<br/>
+
+1. Select `OD – One-Click Demo Install`. This will run options BS and QM in one go. 
+
+The script ran for around 20 or so minutes. Here is a sample of some of the output that is seen when the script runs showing versions that were installed. 
+
+```
+...
+Bloch Sphere Demo
+...
+Using default tag: latest
+latest: Pulling from janlahmann/qoffee-local
+a9bec1cbb822: Pull complete 
+2d9e47cd2446: Pull complete 
+c8deb44fa055: Pull complete 
+e22aca21bac1: Pull complete 
+5e2b77379ff8: Pull complete 
+34d9cd5d7a59: Pull complete 
+e9c3deeb14ba: Pull complete 
+08c7319e69a7: Pull complete 
+6890c692090b: Pull complete 
+2974580f890d: Pull complete 
+23ca8f8c1a4a: Pull complete 
+615074ba800e: Pull complete 
+6ae87b1796b5: Pull complete 
+ccb3374881d8: Pull complete 
+0959a1c3f084: Pull complete 
+2bcfaeb60eaa: Pull complete 
+8933d59228e3: Pull complete 
+209d90cf1945: Pull complete 
+4c08d49d8265: Pull complete 
+8f39a76cf9c8: Pull complete 
+e65b374bac23: Pull complete 
+f82c1c38ff56: Pull complete 
+1d0ed2cb9d32: Pull complete 
+cbc267da8493: Pull complete 
+4c155293d688: Pull complete 
+ec5e31b2966b: Pull complete 
+5ca3ac41b3a8: Pull complete 
+1b8a3ea425ae: Pull complete 
+Digest: sha256:89733ac193e4a20148ec6f918834d4dd2d2074728c2442d1e34aaae2b08552ec
+Status: Downloaded newer image for ghcr.io/janlahmann/qoffee-local:latest
+ghcr.io/janlahmann/qoffee-local:latest
+```
+
+Once installation is complete, the screen below is presented requiring a reboot of the system. 
+
+2. Select `OK` to exit
+3. Select `Finish`
+4. Select `Yes` to reboot
+
+<br/>
+<p align="center"> 
+<img src="../Artwork/rasqconfig_demo-02.png" alt="drawing" width="350"/>
+<img src="../Artwork/rasqconfig_demo-03.png" alt="drawing" width="350"/>
+<img src="../Artwork/rasqconfig_demo-04.png" alt="drawing" width="350"/>
+<br/>
+</p>
+<br/>
+
+After the reboot, an additional icon `Qoffee Maker` appears on display so we have a total of 4. 
+- BlochSphere_
+- Fractals 
+- IBM Quantu_
+- 1 Qoffee Maker
+
+At this point, the following tests were conducted and errors logged as shown below. 
+
+- [X] Started Jupyter Lab - seems to Work but need to test each notebook  
+    - [X] Ran the Fun with Quantum notebook `codebeispiele-Linux-Magazin
+      - [ ] ERROR: ``Import Error /lib/arm-linux-gnueabihf/libm.so.6: version `GLIBC_2.35' not found ( required by /home/pi/.local/lib/python3.9/site-packages/qiskit/_accelerate.abi3.so)``
+- [X] Started Jupyter Notebook - seems to Work but need to test each notebook 
+  - [X] Ran the Fun with Quantum - Quantum coin game 
+    - [ ] ERROR: Import Error Cell In [1], line 3
+- [X] Started Demos - BlochSphere Demo - seems to Work 
+- [ ] Started Demos - Fractals - ERROR** - terminal popped up then exited - not sure what to expect BUT there seems to be an error printed out though too quickly for me to read it 
+- [X] Started HD Demos - IBM Quantum Composer - seems to Work
+  - [ ] Need to figure out and test it
+- [ ] Started Demos - Qoffee Maker (local) - seems to Work 
+  - [ ] Ran each cell in qoffee.ipynb - seems to work
+    - [ ] ERROR: docplex is not officially supported on 32 bit 
+  - [ ] In the terminal, I see a couple of permission errors but will get back to this
+- [ ] Started Kivy Interface - terminal pops then Nothing ** not sure what to see here**
+- [ ] Started Qiskit - Terminal pops up showing installed versions 
+- [ ] Started Demos - Qoffee Maker (dockerhub) - not working although I see some downloads and pulls happening when I close the browser. 
+  - [ ] ERROR from terminal bash: line 1: cd: /home/pi/Qoffee-Maker/: No such file or directory 
+  - [ ] ERROR from browser 127.0.0.1:8887/?token=super-secret-token - site cannot be reached. 
+  - [ ] ERROR v4l2_utils.cc(513)] Could not open /dev/video...
+- [ ] Started Demos -  Ambilights - Not sure what to expect but terminal popped up and exited. 
+- [ ] Started Demos - Clear LED Lights - empty terminal pops up and nothing - Not sure what to expect 
+- [ ] Started Demos - Fractals - not sure what to expect BUT there seems to be an error printed out though too quickly for me to read it
+  - [ ] ERROR** - terminal popped up then exited
+- [ ] Started Demos - Lights - terminal popped up then exited 
+- [ ] Started Demos - RasQ-LED -  not sure what to expect BUT there seems to be an error printed out though too quickly for me to read it 
+  - [ ] ERROR** - terminal popped up then exited 
+- [ ] Started HD Demos - Fun with Quantum Repo - Navigates to Jan's repo regarding Fun with Quantum 
+  - [ ] Need to test the jupyter notebooks 
+- [ ] Started HD Demos - Jupyter Notebook Fun with Quantum - seems to work - A repo in Jupyter notebook is presented
+  - [ ] Tested the GHZ-Game Notebook 
+    - [ ] ERROR - ``Import Error: /lib/arm-linux-gnueabihf/libm.so.6: version `GLibc_2.25' not found ( required by /home/pi/.local/lib/python3.9/site-packages/qiskit/_accelerate.abi3.so)``
+    - [ ] Need to test the rest of the Notebooks 
+- [ ] Started HD Demos - Jupyter Notebook Qiskit Tutorials - seems to work - a repo in Jupyter notebook is presented
+  - [ ] Tested the start_here.ipynb notebook 
+    - [ ] ERROR - ``Import Error: /lib/arm-linux-gnueabihf/libm.so.6: version `GLibc_2.25' not found ( required by /home/pi/.local/lib/python3.9/site-packages/qiskit/_accelerate.abi3.so)``
