@@ -1,15 +1,22 @@
 # RasQberry Test Report
 
-The tests documented below were conducted under the following conditions:
+The guide below is meant to walk you through installation and initial setup performed using RasQberry. The instructions build upon each other so if this is your first time, it is strongly advised to follow them step by step. 
+
+Before we start, please be aware that the tests that follow were conducted under these conditions:
 
 Hardware used
 - Raspberry Pi 4
 - SanDisk Extreme Pro 64GB microSDXC UHS-I V30 card
 
 Software used
-- Raspberry Pi OS (Legacy 32 bit) with desktop
+- Raspberry Pi OS Bullseye (Legacy 32 bit) with desktop
 - Raspberry Pi Imager 1.8.5
 
+Settings
+- Default Username `pi` is used
+- RasQberry is installed in the home directory of the default user `pi`
+
+Output seen after installing Bullseye but before installing RasQberry
 ```
 pi@raspberrypi:~ $ lsb_release -a
 No LSB modules are available.
@@ -17,13 +24,10 @@ Distributor ID:	Raspbian
 Description:	Raspbian GNU/Linux 11 (bullseye)
 Release:	11
 Codename:	bullseye
+
 pi@raspberrypi:~ $ uname -a
 Linux raspberrypi 6.1.21-v8+ #1642 SMP PREEMPT Mon Apr  3 17:24:16 BST 2023 aarch64 GNU/Linux
 ```
-
-Settings
-- Default Username `pi` is used
-- RasQberry is installed in the home directory of the default user `pi`
 
 ## Step 1: Preparing the Raspberry Pi 
 
@@ -138,16 +142,16 @@ You are presented with a dialogue. You need to agree that you want to connect yo
 
 **Prerequisites**
 
-Before starting this section, the following needs to be true 
+It is expected that both steps 1 and 2 have been completed before starting this section. If both steps 1 and 2 are done, then the following statements hold true:
 
-- [X] Installed Raspberry Pi OS Bullseye (Legacy 32 bit) with desktop
-- [X] Made sure that you are using the default username `pi` 
+- [X] Installed Raspberry Pi OS Bullseye (Legacy 32 bit) with desktop as advised in step 1
+- [X] Made sure that you are using the default username `pi` as advised in step 1
 
 Let's now navigate to the home directory of the user `pi`. __<a style="color: red"> NOTE__: Not doing this will result in an error while installing and using the RasQberry. </a>
 
 <br/>
 
-You can do that simply by typring `cd` then the user's path. 
+You can do that simply by typing `cd` then the user's path. 
 
 ```
 cd /home/pi/
@@ -231,6 +235,22 @@ After reboot, please login and restart the script RasQ-init.sh
 ```
 
 We can now SSH back into the host and restart the script to start setting up. 
+
+__<a style="color: red"> NOTE__: Do take note that after installing RasQberry, a change in the output below was seen. That's expected and OK. </a>
+
+<br/>
+
+Before installing RasQberry 
+```
+pi@raspberrypi:~ $ uname -a
+Linux raspberrypi 6.1.21-v8+ #1642 SMP PREEMPT Mon Apr  3 17:24:16 BST 2023 aarch64 GNU/Linux
+```
+
+After installing RasQberry 
+```
+pi@raspberrypi:~ $ uname -a
+Linux raspberrypi 6.1.21-v7l+ #1642 SMP Mon Apr  3 17:22:30 BST 2023 armv7l GNU/Linux
+```
 
 ## Step 4: RasQberry Setup with touch display
 
@@ -452,3 +472,5 @@ At this point, the following tests were conducted and errors logged as shown bel
 - [ ] Started HD Demos - Jupyter Notebook Qiskit Tutorials - seems to work - a repo in Jupyter notebook is presented
   - [ ] Tested the start_here.ipynb notebook 
     - [ ] ERROR - ``Import Error: /lib/arm-linux-gnueabihf/libm.so.6: version `GLibc_2.25' not found ( required by /home/pi/.local/lib/python3.9/site-packages/qiskit/_accelerate.abi3.so)``
+ 
+
