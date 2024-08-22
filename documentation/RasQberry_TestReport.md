@@ -1,6 +1,6 @@
 # RasQberry Test Report
 
-The guide below is meant to walk you through installation and initial setup performed using RasQberry. The instructions build upon each other so if this is your first time, it is strongly advised to follow them step by step. 
+The guide below is meant to walk you through installation and initial setup performed using RasQberry. The instructions build upon each other so if this is your first time, it is strongly advised to follow them step by step. To simplify and eliminate errors, you can also copy and paste commands from the guide to the terminal. 
 
 Before we start, please be aware that the tests that follow were conducted under these conditions:
 
