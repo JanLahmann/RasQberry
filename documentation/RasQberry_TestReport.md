@@ -455,7 +455,7 @@ At this point, the following tests were conducted and errors logged as shown bel
 - [ ] Started Demos - Qoffee Maker (dockerhub) - not working although I see some downloads and pulls happening when I close the browser. 
   - [ ] ERROR from terminal bash: line 1: cd: /home/pi/Qoffee-Maker/: No such file or directory 
   - [ ] ERROR from browser 127.0.0.1:8887/?token=super-secret-token - site cannot be reached. 
-  - [ ] ERROR v4l2_utils.cc(513)] Could not open /dev/video...
+  - [ ] ERROR v4l2_utils.cc(513) Could not open /dev/video...
 - [ ] Started Demos -  Ambilights - Not sure what to expect but terminal popped up and exited. 
 - [ ] Started Demos - Clear LED Lights - empty terminal pops up and nothing - Not sure what to expect 
 - [ ] Started Demos - Fractals - not sure what to expect BUT there seems to be an error printed out though too quickly for me to read it
@@ -472,3 +472,6 @@ At this point, the following tests were conducted and errors logged as shown bel
 - [ ] Started HD Demos - Jupyter Notebook Qiskit Tutorials - seems to work - a repo in Jupyter notebook is presented
   - [ ] Tested the start_here.ipynb notebook 
     - [ ] ERROR - ``Import Error: /lib/arm-linux-gnueabihf/libm.so.6: version `GLibc_2.25' not found ( required by /home/pi/.local/lib/python3.9/site-packages/qiskit/_accelerate.abi3.so)``
+
+
+
