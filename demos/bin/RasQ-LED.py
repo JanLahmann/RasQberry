@@ -133,7 +133,7 @@ def loop(duration):
       time.sleep(3)
   subprocess.call(["sudo","python3","/home/pi/RasQberry/demos/bin/RasQ-LED-display.py", "0", "-c"])
   
-loop(5)
+loop(2)
 
 #action()
 
