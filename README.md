@@ -41,12 +41,11 @@ You can find andy further information [here](https://janlahmann.github.io/RasQbe
 When you already have a RasQberry that you can use you can install RasQberry in just a very few moments.<br/>
 Open the terminal/ssh window on your Raspberry Pi.
 ```python
-pip3 install getgist
-.local/bin/getgist -y JanLahmann RasQ-init.sh
+wget https://github.com/JanLahmann/RasQberry/raw/master/RasQ-init.sh
 . ./RasQ-init.sh
 ```
 <p align="center"> 
-    <img src="./Artwork/rasqberry_config-1.png" alt="drawing"/> <img src="./Artwork/rasqberry_config-2.png" alt="drawing"/> 
+    <img src="./Artwork/rasqberry_config-1.png" alt="drawing" width="350"/> <img src="./Artwork/rasqberry_config-2.png" alt="drawing" width="350"/>/> 
 </p>
 
 This will download and start the RasQberry Configuration Tool (rasqberry-config) in your terminal. It is similar to the well-known raspi-config and can also be used for some basic configurations. 
