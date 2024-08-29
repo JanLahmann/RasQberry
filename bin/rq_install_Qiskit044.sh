@@ -21,8 +21,10 @@ sh ./get_rustup.sh -y
 source $HOME/.cargo/env
 
 #pip3 install --prefer-binary cmake "pillow>=6.2.0" "decorator<5,>=4.3" "numpy<1.23.0,>=1.21.0" 
-pip3 install --no-warn-script-location --prefer-binary 'qiskit[visualization,all]==0.44'
+pip3 install --no-warn-script-location --prefer-binary 'qiskit[visualization,all]==0.44' --no-binary=qiskit-terra,rustworkx
 pip3 install ~/RasQberry/whl/ibm_quantum_widgets-1.0.3-py2.py3-none-any.whl
+pip3 install ~/RasQberry/whl/qiskit_aer-0.12.2-cp39-cp39-linux_armv7l.whl
+pip3 install qiskit-ibmq-provider
 
 pip3 list | grep qiskit
 

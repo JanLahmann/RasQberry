@@ -186,7 +186,7 @@ do_rasqberry_install_general() {
     if [ "$1" = "019" ] || [ "$1" = "020" ]; then
       do_rasqberry_install_libcint;
     else
-      apt -y install libatlas-base-dev
+      apt -y install libatlas-base-dev libopenblas-base libopenblas-dev
     fi
     sudo -u pi -H -- sh -c "/home/pi/.local/bin/rq_install_Qiskit$1.sh"
     if [ "$INTERACTIVE" = true ] && ! [ "$2" = silent ]; then
