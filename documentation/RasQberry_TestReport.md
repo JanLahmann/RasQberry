@@ -472,6 +472,3 @@ At this point, the following tests were conducted and errors logged as shown bel
 - [ ] Started HD Demos - Jupyter Notebook Qiskit Tutorials - seems to work - a repo in Jupyter notebook is presented
   - [ ] Tested the start_here.ipynb notebook 
     - [ ] ERROR - ``Import Error: /lib/arm-linux-gnueabihf/libm.so.6: version `GLibc_2.25' not found ( required by /home/pi/.local/lib/python3.9/site-packages/qiskit/_accelerate.abi3.so)``
-
-
-
