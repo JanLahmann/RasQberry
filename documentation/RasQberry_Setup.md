@@ -58,19 +58,10 @@ Open the terminal/ssh window on your Raspberry Pi.</br>
 <a style="color:red"> Move to the home directory of the user pi (`/home/pi`). Not doing this will result in an error while installing and using the RasQberry. 
 You go there by typing `cd` in the terminal. You can check your current working directory by typing in `pwd`.</a> </br>
 
-The script can be run with parameters `. ./RasQ-init.sh devoption branch gituser`.
-
-1. The `devoption` parameter is used to install the development version of the RasQberry repository (dev=1; production=0).
-2. The `branch` parameter is used to specify the branch you want to use.
-3. The `gituser` parameter is used to specify the GitHub user to clone the RasQberry repository from.
-
-Example: `. ./RasQ-init.sh 1 master JanLahmann`
-
-Default values are: `devoption=0` `branch=master` `gituser=JanLahmann`
+Download and run the script using the following commands. 
 
 ```python
-pip3 install getgist
-.local/bin/getgist -y JanLahmann RasQ-init.sh
+wget https://github.com/JanLahmann/RasQberry/raw/master/RasQ-init.sh
 . ./RasQ-init.sh
 ```
 <p align="center"> 

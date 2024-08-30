@@ -1,6 +1,6 @@
 # RasQberry Test Report
 
-The guide below is meant to walk you through installation and initial setup performed using RasQberry. The instructions build upon each other so if this is your first time, it is strongly advised to follow them step by step. 
+The guide below is meant to walk you through installation and initial setup performed using RasQberry. The instructions build upon each other so if this is your first time, it is strongly advised to follow them step by step. To simplify and eliminate errors, you can also copy and paste commands from the guide to the terminal. 
 
 Before we start, please be aware that the tests that follow were conducted under these conditions:
 
@@ -166,36 +166,13 @@ $ pwd
 
 Now we are finally ready to install RasQberry in just a few moments!
 
-**Option A: Downloading the RasQberry OS (recommended way)**
+**Downloading the RasQberry OS**
 
 The recommended way to get the OS is using `wget` command. Open the terminal/ssh window on your Raspberry Pi and run the following command to install from the master branch. 
 
 ```
 wget https://github.com/JanLahmann/RasQberry/raw/master/RasQ-init.sh
-```
-
-**Option B: Downloading the RasQberry OS (no longer recommended)**
-
-For this particluar test, an older way of downloading the file was used. To download the file from GitHub, run the `getgist` (python command)[https://pypi.org/project/getgist/]. 
-
-```
-pip3 install getgist
-```
-
-That command installed the following version of getgist as of date of testing. 
-
-```
-$ pip3 list | grep -i getgist
-getgist           0.2.2
-```
-
-You can download the installation script `RasQ-init.sh` from the source `JanLahmann` using the `getgist <username> <filename>` command 
-
-```
-.local/bin/getgist -y JanLahmann RasQ-init.sh
-```
-
-As you can see, the newer way is easier and thus should be your go to instead of getgist. 
+``` 
 
 **Installing the RasQberry OS**
 
@@ -455,7 +432,7 @@ At this point, the following tests were conducted and errors logged as shown bel
 - [ ] Started Demos - Qoffee Maker (dockerhub) - not working although I see some downloads and pulls happening when I close the browser. 
   - [ ] ERROR from terminal bash: line 1: cd: /home/pi/Qoffee-Maker/: No such file or directory 
   - [ ] ERROR from browser 127.0.0.1:8887/?token=super-secret-token - site cannot be reached. 
-  - [ ] ERROR v4l2_utils.cc(513)] Could not open /dev/video...
+  - [ ] ERROR v4l2_utils.cc(513) Could not open /dev/video...
 - [ ] Started Demos -  Ambilights - Not sure what to expect but terminal popped up and exited. 
 - [ ] Started Demos - Clear LED Lights - empty terminal pops up and nothing - Not sure what to expect 
 - [ ] Started Demos - Fractals - not sure what to expect BUT there seems to be an error printed out though too quickly for me to read it
