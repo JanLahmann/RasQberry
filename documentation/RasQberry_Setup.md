@@ -244,32 +244,20 @@ To activate and run the package, choose the options:
 
 ### Enable VNC Server: <br/>
 
-<ol>
- <li>
-  Open terminal and goto this path `/home/pi`
- </li>
- <li>
-  Run this script file `. ./RasQ-init.sh`
- </li>
- <li>
-  Choose `S – RasQberry Setup` option and hit `<Select>` button <br/>
+1. Open terminal and goto this path `/home/pi` <br/>
+2. Run this script file `. ./RasQ-init.sh` <br/>
+3. Choose `S – RasQberry Setup` option and hit `<Select>` button <br/>
    <p align="left"> 
-     <img src="../Artwork/s_rasqberry_setup.png" alt="drawing" height="350"/>
+     <img src="../Artwork/s_rasqberry_setup.png" alt="drawing" height="350"/> <br/>
    </p>
- </li>
- <li>
-  Choose `DV Configure Desktop and VNC` option and hit `<Select>` button <br/>
+4. Choose `DV Configure Desktop and VNC` option and hit `<Select>` button <br/>
    <p align="left"> 
-     <img src="../Artwork/dv_configure_desktop_and_vnc.png" alt="drawing" height="350"/>
+     <img src="../Artwork/dv_configure_desktop_and_vnc.png" alt="drawing" height="350"/> <br/>
    </p>
- </li>
- <li>
-  You will see `Desktop and VNC are enabled` message once it's successfully enabled the vnc server.
+5. You will see `Desktop and VNC are enabled` message once it's successfully enabled the vnc server <br/>
    <p align="left"> 
-     <img src="../Artwork/desktop_and_vnc_are_enabled.png" alt="drawing" height="350"/>
+     <img src="../Artwork/desktop_and_vnc_are_enabled.png" alt="drawing" height="350"/> <br/>
    </p>
- </li>
-</ol>
 
 ### Connect to your VNC Server (Raspberry Pi) from your personal laptop: <br/>
 
