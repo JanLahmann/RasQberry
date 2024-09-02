@@ -239,7 +239,7 @@ To activate and run the package, choose the options:
 <b>Prerequisites:</b> <br/>
 <ol>
  <li>Download the RasQ-init.sh script file from GitHub repository if it's not done</li>
- <li>RealVNC Viewer software installed your personal laptop. Remote Desktop option (VNC) has been tested using the [realVNC Viewer](https://www.realvnc.com/de/connect/download/viewer/)</li>
+ <li>RealVNC Viewer software should be installed on your personal laptop. Remote Desktop option (VNC) has been tested using the [realVNC Viewer](https://www.realvnc.com/de/connect/download/viewer/)</li>
 </ol>
 
 ### Enable VNC Server: <br/>
