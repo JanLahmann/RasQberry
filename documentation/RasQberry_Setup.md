@@ -244,39 +244,61 @@ To activate and run the package, choose the options:
 
 ### Enable VNC Server: <br/>
 
-1. Open terminal and goto this path `/home/pi` <br/>
-2. Run this script file `. ./RasQ-init.sh` <br/>
-3. Choose `S – RasQberry Setup` option and hit `<Select>` button <br/>
+<ol>
+ <li>
+  Open terminal and goto this path `/home/pi`
+ </li>
+ <li>
+  Run this script file `. ./RasQ-init.sh`
+ </li>
+ <li>
+  Choose `S – RasQberry Setup` option and hit `<Select>` button <br/>
    <p align="left"> 
-     <img src="../Artwork/s_rasqberry_setup.png" alt="drawing" height="350"/> <br/>
+     <img src="../Artwork/s_rasqberry_setup.png" alt="drawing" height="350"/>
    </p>
-4. Choose `DV Configure Desktop and VNC` option and hit `<Select>` button <br/>
+ </li>
+ <li>
+  Choose `DV Configure Desktop and VNC` option and hit `<Select>` button <br/>
    <p align="left"> 
-     <img src="../Artwork/dv_configure_desktop_and_vnc.png" alt="drawing" height="350"/> <br/>
+     <img src="../Artwork/dv_configure_desktop_and_vnc.png" alt="drawing" height="350"/>
    </p>
-5. You will see `Desktop and VNC are enabled` message once it's successfully enabled the vnc server.
+ </li>
+ <li>
+  You will see `Desktop and VNC are enabled` message once it's successfully enabled the vnc server.
    <p align="left"> 
-     <img src="../Artwork/desktop_and_vnc_are_enabled.png" alt="drawing" height="350"/> <br/>
+     <img src="../Artwork/desktop_and_vnc_are_enabled.png" alt="drawing" height="350"/>
    </p>
+ </li>
+</ol>
 
 ### Connect to your VNC Server (Raspberry Pi) from your personal laptop: <br/>
 
-1. Open the VNC Viewer app
+<ol>
+ <li>
+  Open the VNC Viewer app
    <p align="left"> 
      <img src="../Artwork/real_vnc_viewer_empty.png" alt="drawing" height="350"/>
    </p>
-2. Enter VNC Server (Raspberry Pi) IPAddress in the address bar section and hit ENTER button
+ </li>
+ <li>
+  Enter VNC Server (Raspberry Pi) IPAddress in the address bar section and hit ENTER button
    <p align="left"> 
      <img src="../Artwork/real_vnc_viewer.png" alt="drawing" height="350"/>
    </p>
-3. Enter VNC Server (Raspberry Pi) username (Default: pi) and password (Default: raspberry) and click OK button
+ </li>
+ <li>
+  Enter VNC Server (Raspberry Pi) username (Default: pi) and password (Default: raspberry) and click OK button
    <p align="left"> 
      <img src="../Artwork/authenticate_to_vnc_server.png" alt="drawing" height="350"/>
    </p>
-4. VNC Viewer will connect to your Raspberry Pi
+ </li>
+ <li>
+  VNC Viewer will connect to your Raspberry Pi
    <p align="left"> 
      <img src="../Artwork/raspberry_pi_remote_desktop.png" alt="drawing" height="350"/>
    </p>
+ </li>
+</ol>
 
 <br/>
 
