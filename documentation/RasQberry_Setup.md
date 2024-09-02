@@ -236,11 +236,13 @@ To activate and run the package, choose the options:
 
 ## Remote Desktop to Raspberry Pi
 
-### Enable VNC Server: <br/>
-
 <b>Prerequisites:</b> <br/>
-Download the RasQ-init.sh script file from GitHub repository if it's not done <br/>
-RealVNC Viewer software installed your personal laptop. Remote Desktop option (VNC) has been tested using the [realVNC Viewer](https://www.realvnc.com/de/connect/download/viewer/) <br/>
+<ol>
+ <li>Download the RasQ-init.sh script file from GitHub repository if it's not done</li>
+ <li>RealVNC Viewer software installed your personal laptop. Remote Desktop option (VNC) has been tested using the [realVNC Viewer](https://www.realvnc.com/de/connect/download/viewer/)</li>
+</ol>
+
+### Enable VNC Server: <br/>
 
 1. Open terminal and goto this path `/home/pi` <br/>
 2. Run this script file `. ./RasQ-init.sh` <br/>
@@ -252,6 +254,7 @@ RealVNC Viewer software installed your personal laptop. Remote Desktop option (V
    <p align="left"> 
      <img src="../Artwork/dv_configure_desktop_and_vnc.png" alt="drawing" height="350"/> <br/>
    </p>
+5. You will see `Desktop and VNC are enabled` message once it's successfully enabled the vnc server.
 
 ### Connect to your VNC Server (Raspberry Pi) from your personal laptop: <br/>
 
