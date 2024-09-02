@@ -255,21 +255,21 @@ RealVNC Viewer software installed your personal laptop. Remote Desktop option (V
 
 ### Connect to your VNC Server (Raspberry Pi) from your personal laptop: <br/>
 
-1. Open the VNC Viewer app <br/>
+1. Open the VNC Viewer app
    <p align="left"> 
-     <img src="../Artwork/real_vnc_viewer_empty.png" alt="drawing" height="350"/> <br/>
+     <img src="../Artwork/real_vnc_viewer_empty.png" alt="drawing" height="350"/>
    </p>
-2. Enter VNC Server (Raspberry Pi) IPAddress in the address bar section and hit ENTER button <br/>
+2. Enter VNC Server (Raspberry Pi) IPAddress in the address bar section and hit ENTER button
    <p align="left"> 
-     <img src="../Artwork/real_vnc_viewer.png" alt="drawing" height="350"/> <br/>
+     <img src="../Artwork/real_vnc_viewer.png" alt="drawing" height="350"/>
    </p>
-3. Enter VNC Server (Raspberry Pi) username (Default: pi) and password (Default: raspberry) and click OK button <br/>
+3. Enter VNC Server (Raspberry Pi) username (Default: pi) and password (Default: raspberry) and click OK button
    <p align="left"> 
-     <img src="../Artwork/authenticate_to_vnc_server.png" alt="drawing" height="350"/> <br/>
+     <img src="../Artwork/authenticate_to_vnc_server.png" alt="drawing" height="350"/>
    </p>
-4. VNC Viewer will connect to your Raspberry Pi <br/>
+4. VNC Viewer will connect to your Raspberry Pi
    <p align="left"> 
-     <img src="../Artwork/raspberry_pi_remote_desktop.png" alt="drawing" height="350"/> <br/>
+     <img src="../Artwork/raspberry_pi_remote_desktop.png" alt="drawing" height="350"/>
    </p>
 
 <br/>
