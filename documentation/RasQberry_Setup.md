@@ -245,7 +245,7 @@ Enable VNC Server <br/>
    `. ./RasQ-init.sh` <br/>
    <br/>
    <p align="center">  
-     <img src="../Artwork/RPi_SSH.png" alt="drawing" width="350"/> <br/>
+     <img src="../Artwork/s_rasqberry_setup.png" alt="drawing" width="350"/> <br/>
    </p>
    <br/>
 by choosing the "DV Configure Desktop and VNC"-Option in the RasQberry Setup menu. </br>
