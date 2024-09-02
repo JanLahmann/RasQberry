@@ -243,12 +243,18 @@ To remotely access the screen of your Raspberry Pi you need to have a VNC Viewer
 Enable VNC Server <br/>
 1. Open terminal and run the below script <br/>
    `. ./RasQ-init.sh` <br/>
+2. Select `S – RasQberry Setup` option and hit <Select> button
    <br/>
    <p align="center">  
      <img src="../Artwork/s_rasqberry_setup.png" alt="drawing" width="350"/> <br/>
    </p>
    <br/>
-by choosing the "DV Configure Desktop and VNC"-Option in the RasQberry Setup menu. </br>
+3. Select `DV Configure Desktop and VNC` option and hit <Select> button
+   <br/>
+   <p align="center">  
+     <img src="../Artwork/dv_configure_desktop_and_vnc.png" alt="drawing" width="350"/> <br/>
+   </p>
+   <br/>
 <br/>
 ### Connect to your VNC Server (Raspberry Pi) from your personal laptop:
 1. Open the VNC Viewer app <br/>
