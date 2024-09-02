@@ -238,7 +238,7 @@ To activate and run the package, choose the options:
 
 <b>Prerequisites:</b> <br/>
 <ol>
- <li>Download the RasQ-init.sh script file from GitHub repository if it's not done</li>
+ <li>Download the RasQ-init.sh script file from GitHub repository if it's not done before</li>
  <li>RealVNC Viewer software should be installed on your personal laptop. Remote Desktop option (VNC) has been tested using the [realVNC Viewer](https://www.realvnc.com/de/connect/download/viewer/)</li>
 </ol>
 
@@ -255,6 +255,9 @@ To activate and run the package, choose the options:
      <img src="../Artwork/dv_configure_desktop_and_vnc.png" alt="drawing" height="350"/> <br/>
    </p>
 5. You will see `Desktop and VNC are enabled` message once it's successfully enabled the vnc server.
+   <p align="left"> 
+     <img src="../Artwork/desktop_and_vnc_are_enabled.png" alt="drawing" height="350"/> <br/>
+   </p>
 
 ### Connect to your VNC Server (Raspberry Pi) from your personal laptop: <br/>
 
