@@ -245,7 +245,9 @@ This starts the RasQberry Configuration Tool (rasqberry-config) in the terminal.
 </p>
 <br/>
 
-## Step 4a: One-Click Install with touch display
+Instead of installing each component individually, a quick way to get started is with the one click installation options. 
+
+### Step 4a: One-Click Install with touch display
 
 From the RasQberry Configuration Tool (rasqberry-config):
 
@@ -330,7 +332,7 @@ At this point, the following tests were conducted and errors logged as shown bel
 - [X] Started HD Demos - Jupyter Notebook Fun with Quantum - A repo in Jupyter notebook is presented
 - [X] Started HD Demos - Jupyter Notebook Qiskit Tutorials - A repo in Jupyter notebook is presented
 
-## Step 4b: One-Click Demo Install with touch display
+### Step 4b: One-Click Demo Install with touch display
 
 Incase you are not in the RasQberry Configuration Tool (rasqberry-config), you can restart it by running the following command from terminal. Make sure you are in the user's `pi` home directory as mentioned in `section 3 - Prerequisites`. 
 
@@ -449,3 +451,111 @@ At this point, the following tests were conducted and errors logged as shown bel
 - [ ] Started HD Demos - Jupyter Notebook Qiskit Tutorials - seems to work - a repo in Jupyter notebook is presented
   - [ ] Tested the start_here.ipynb notebook 
     - [ ] ERROR - ``Import Error: /lib/arm-linux-gnueabihf/libm.so.6: version `GLibc_2.25' not found ( required by /home/pi/.local/lib/python3.9/site-packages/qiskit/_accelerate.abi3.so)``
+
+## Step 5: Other Settings
+
+### Step 5a: Connecting via VNC 
+
+In addition to SSH, you can connect remotely to your Raspberry Pi via VNC. For this, you need to have a VNC Client installed on a different computer. For this test, the VNC client that was used was the [realVNC Viewer](https://www.realvnc.com/en/connect/download/viewer/).<br/>
+
+You then need to enable the vnc-server on the Raspberry Pi. To do this, start the RasQberry Configuration Tool (rasqberry-config) by running the following command from terminal. Make sure you are in the user's `pi` home directory as mentioned in `section 3 - Prerequisites`. 
+
+```
+. ./RasQ-init.sh 
+```
+
+Then: 
+1. Select `S - RasQberry Setup` 
+2. Select `DV - Configure Desktop and VNC` to configure Desktop Layout and enable VNC displays
+3. Click `OK` to enable vnc and configure desktop 
+
+<br/>
+<p align="center"> 
+<img src="../Artwork/vnc_01.png" alt="drawing" width="350"/>
+<img src="../Artwork/vnc_02.png" alt="drawing" width="350"/>
+<img src="../Artwork/vnc_03.png" alt="drawing" width="350"/>
+<br/>
+</p>
+<br/>
+
+You can then use the remote computer to connect to the Raspberry Pi via VNC protocol. Open the VNC client and enter the IP address of the Raspberry Pi. You will need to enter the username and password for the Pi and you are all set. 
+
+<br/>
+<p align="center"> 
+<img src="../Artwork/vnc_client01.png" alt="drawing" width="350"/>
+<img src="../Artwork/vnc_client02.png" alt="drawing" width="350"/>
+<img src="../Artwork/vnc_client03.png" alt="drawing" width="350"/>
+<img src="../Artwork/vnc_client04.png" alt="drawing" width="350"/>
+<br/>
+</p>
+<br/>
+ 
+Note: During the test, I did experience an error while connecting from a mac device as seen in the picture below. 
+
+<br/>
+<p align="center"> 
+<img src="../Artwork/vnc_client05.png" alt="drawing" width="350"/>
+<br/>
+</p>
+<br/>
+
+To fix this issue, modify the `/boot/config.txt` file and uncomment the 3 lines as shown in the [post here](https://forums.raspberrypi.com/viewtopic.php?t=216737#p1486862) or the [video here](https://www.youtube.com/watch?v=hA9r13ZUS08).
+
+Below is what the file looked like before modifying.
+
+```
+pi@raspberrypi:~ $ cat /boot/config.txt | grep -i hdmi
+# uncomment if you get no picture on HDMI for a default "safe" mode
+#hdmi_safe=1
+# uncomment if hdmi display is not detected and composite is being output
+#hdmi_force_hotplug=1
+# uncomment to force a specific HDMI mode (this will force VGA)
+#hdmi_group=1
+#hdmi_mode=1
+# uncomment to force a HDMI mode rather than DVI. This can make audio work in
+#hdmi_drive=2
+# uncomment to increase signal to HDMI, if you have interference, blanking, or
+#config_hdmi_boost=4
+```
+
+These are the changes that were made.
+
+```
+# uncomment if hdmi display is not detected and composite is being output
+hdmi_force_hotplug=1
+
+# uncomment to force a specific HDMI mode (this will force VGA)
+hdmi_group=1
+hdmi_mode=1
+```
+
+This is what the file looked like after modifying. 
+
+```
+pi@raspberrypi:~ $ cat /boot/config.txt | grep -i hdmi
+# uncomment if you get no picture on HDMI for a default "safe" mode
+#hdmi_safe=1
+# uncomment if hdmi display is not detected and composite is being output
+hdmi_force_hotplug=1
+# uncomment to force a specific HDMI mode (this will force VGA)
+hdmi_group=1
+hdmi_mode=1
+# uncomment to force a HDMI mode rather than DVI. This can make audio work in
+#hdmi_drive=2
+# uncomment to increase signal to HDMI, if you have interference, blanking, or
+#config_hdmi_boost=4
+```
+
+You then need to reboot the Raspberry Pi before attempting a connection. 
+
+```
+sudo reboot
+```
+And there we have it, connection success!
+
+<br/>
+<p align="center"> 
+<img src="../Artwork/vnc_client06.png" alt="drawing" width="350"/>
+<br/>
+</p>
+<br/>
