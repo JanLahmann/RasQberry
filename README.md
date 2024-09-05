@@ -45,7 +45,7 @@ wget https://github.com/JanLahmann/RasQberry/raw/master/RasQ-init.sh
 . ./RasQ-init.sh
 ```
 <p align="center"> 
-    <img src="./Artwork/rasqberry_config-1.png" alt="drawing" width="350"/> <img src="./Artwork/rasqberry_config-2.png" alt="drawing" width="350"/>/> 
+    <img src="./Artwork/rasqberry_config-1.png" alt="drawing" width="350"/> <img src="./Artwork/rasqberry_config-2.png" alt="drawing" width="350"/> 
 </p>
 
 This will download and start the RasQberry Configuration Tool (rasqberry-config) in your terminal. It is similar to the well-known raspi-config and can also be used for some basic configurations. 
