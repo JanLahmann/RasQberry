@@ -1,3 +1,5 @@
+For a detailed step by step and up to date installation and testing guide, please refer to the [link here](https://github.com/JanLahmann/RasQberry/blob/gh-pages/documentation/RasQberry_TestReport.md). The report linked provides additional information that is not necessarily covered in the Setup Guide below. 
+
 # RasQberry Installation and Setup
 
 If you already have a Raspberry Pi with the latest version of Raspberry Pi OS you can start at step 2.
