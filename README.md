@@ -32,6 +32,8 @@ Here you can find all the information on [how to use your RasQberry](./documenta
 * **If you want to work with the repository**<br/>
 Here you can find all the information on [how to contribute to the RasQberry-Repository](./documentation/HowToContribute.md)
 
+**For a detailed step by step and up to date installation and testing guide, please refer to the [link here](./documentation/RasQberry_TestReport.md). The report linked provides additional information that is not necessarily covered in the Setup Guide below.**
+
 ***
 
 ## Quick Installation of RasQberry
