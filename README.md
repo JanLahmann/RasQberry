@@ -33,7 +33,7 @@ Here you can find all the information on [how to use your RasQberry](https://jan
 * **If you want to work with the repository**<br/>
 Here you can find all the information on [how to contribute to the RasQberry-Repository](https://janlahmann.github.io/RasQberry/documentation/HowToContribute.html)
 
-You can find andy further information [here](https://janlahmann.github.io/RasQberry/).
+You can find any further information [here](https://janlahmann.github.io/RasQberry/).
 
 ***
 
