@@ -58,3 +58,11 @@ To start the tool again you can use
 in your terminal/ssh window.
 
 You can find the full instructions for the setup [here](https://janlahmann.github.io/RasQberry/documentation/RasQberry_Setup.html).
+
+---
+
+## Part of the Fun with Quantum family
+
+RasQberry One is part of [**Fun with Quantum**](https://fun-with-quantum.org), a family of open-source quantum outreach projects: [RasQberry Two](https://rasqberry.org) · [Quantego](https://quantego.org) · [Qutie](https://qutie.org) · [Qoffee-Maker](https://qoffee-maker.org).
+
+*God does play dice. Come play, build, learn.*
