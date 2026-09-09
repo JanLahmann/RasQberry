@@ -61,8 +61,5 @@ You can find the full instructions for the setup [here](https://janlahmann.githu
 
 ---
 
-## Part of the Fun with Quantum family
-
-RasQberry One is part of [**Fun with Quantum**](https://fun-with-quantum.org), a family of open-source quantum outreach projects: [RasQberry Two](https://rasqberry.org) · [Quantego](https://quantego.org) · [Qutie](https://qutie.org) · [Qoffee-Maker](https://qoffee-maker.org).
-
-*God does play dice. Come play, build, learn.*
+<!-- FWQ-FAMILY:START format=list -->
+<!-- FWQ-FAMILY:END -->
