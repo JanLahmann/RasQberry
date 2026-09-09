@@ -64,7 +64,9 @@
 </footer>
 <!-- FWQ-FAMILY:END -->
         <style>
-          .family-footer { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.15); font-size: .85em; }
+          /* The theme fixes every <footer> into the 180px sidebar; the family block is a <footer> too — undo that for it. */
+          section > footer.family-footer { position: static !important; width: auto !important; left: auto; bottom: auto; float: none; text-align: left; }
+          .family-footer { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,.15); font-size: .85em; }
           .family-footer > div { margin: .4rem 0; }
           .family-footer-tagline { font-family: monospace; letter-spacing: .05em; }
           .family-footer-members { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .5rem 1.25rem; }
