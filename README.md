@@ -5,6 +5,8 @@
 
 
 # RasQberry
+[![Qiskit Ecosystem](https://qisk.it/e-dfa4cfd2)](https://qisk.it/e)
+
 ## The RasQberry project: Exploring Quantum Computing and Qiskit with a Raspberry Pi and a 3D Printer
 
 [Quantum Computing](https://en.wikipedia.org/wiki/Quantum_computing) - which is based on Quantum Mechanics - is a complex technology that is hard to understand for most people. Completely new algorithms - and even new thinking - is needed to exploit the potential power of upcoming quantum computers. This requires new approaches to teach Quantum Computing in engaging and understandable ways for IT experts, developers and young academics.
