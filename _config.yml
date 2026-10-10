@@ -1,1 +1,4 @@
 theme: jekyll-theme-leap-day
+url: https://rasqberry.one
+plugins:
+  - jekyll-sitemap
