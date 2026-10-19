@@ -12,7 +12,11 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="97f347ac-e7ba-4be3-b26f-ab4b328bdbf2" data-domains="rasqberry.one"></script>
+    <!-- Fun with Quantum's standard tracker filter (every family site): ?notrack keeps this browser out of
+         the counts (?track undoes it); headless browsers and bots send nothing. Links to rasqberry.org
+         without their own event count as "RasQberry One: to two click". -->
+    <script>(function(){try{var q=location.search;if(/[?&]notrack\b/.test(q))localStorage.setItem('umami.disabled','1');if(/[?&]track\b/.test(q))localStorage.removeItem('umami.disabled')}catch(e){}window.fwqUmamiBeforeSend=function(t,p){var n=navigator;return(n.webdriver||/HeadlessChrome|bot|crawl|spider|Lighthouse|PageSpeed/i.test(n.userAgent))?false:p};document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href*="rasqberry.org"]');if(a&&!a.hasAttribute('data-umami-event')&&window.umami)window.umami.track('RasQberry One: to two click',{from:location.pathname})},true)})();</script>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="97f347ac-e7ba-4be3-b26f-ab4b328bdbf2" data-domains="rasqberry.one" data-before-send="fwqUmamiBeforeSend"></script>
 
     {% include head-custom.html %}
   </head>
