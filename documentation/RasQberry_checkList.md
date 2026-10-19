@@ -1,3 +1,8 @@
+---
+title: Checklist
+description: "Manual checklist to verify a RasQberry install: desktop, configuration tool, VNC, touch display and demos."
+last_modified_at: 2022-09-26
+---
 # Checklist
 With this checklist you can test if everything works fine and is installed correctly.<br/>
 
@@ -13,7 +18,7 @@ pip3 list installed | grep qiskit
 ```
 <br/>
 <p align="center">  
-<img src="../Artwork/terminal_qiskit.png" alt="drawing" width="400"/> <br/>
+<img loading="lazy" src="../Artwork/terminal_qiskit.png" alt="drawing" width="400"/> <br/>
 </p>
 <br/>
 
@@ -28,7 +33,7 @@ pip3 list installed | grep jupyter
 ```
 <br/>
 <p align="center">  
-<img src="../Artwork/terminal_jupyter.png" alt="drawing" width="400"/> <br/>
+<img loading="lazy" src="../Artwork/terminal_jupyter.png" alt="drawing" width="400"/> <br/>
 </p>
 <br/>
 
@@ -44,7 +49,7 @@ pip3 list installed | grep sense
 ```
 <br/>
 <p align="center">  
-<img src="../Artwork/terminal_sense.png" alt="drawing" width="400"/> <br/>
+<img loading="lazy" src="../Artwork/terminal_sense.png" alt="drawing" width="400"/> <br/>
 </p>
 <br/>
 <br/>

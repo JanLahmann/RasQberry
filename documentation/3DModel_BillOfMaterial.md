@@ -1,3 +1,8 @@
+---
+title: Bill of material
+description: "What you need to build a RasQberry: Raspberry Pi, SD card, touch display, SenseHAT and the 3D-printed model."
+last_modified_at: 2022-09-26
+---
 ## Bill of Material for the 3D Model
 We will provide a more detailed BOM later. The following list should help to get you started:
 1. 3D Model: see the above description and STL files. The 3D model is optional and not required for running Qiskit on the Raspberry Pi.
