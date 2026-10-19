@@ -1,0 +1,40 @@
+# After GitHub Pages has built rasqberry.one from gh-pages, tell Bing,
+# Yandex & co. which pages changed (Fun with Quantum's shared IndexNow job;
+# the key is public by design, <key>.txt at the site root)
+name: IndexNow
+
+on:
+  push:
+    branches: [gh-pages]
+
+permissions:
+  contents: read
+
+jobs:
+  # the classic Pages build runs on its own: wait until it has published this commit
+  wait-for-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      pages: read
+    steps:
+      - name: Wait for the Pages build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.sha }}
+        run: |
+          for i in $(seq 1 60); do
+            read -r status commit < <(gh api repos/${{ github.repository }}/pages/builds/latest --jq '"\(.status) \(.commit)"')
+            echo "Pages build: $status ($commit)"
+            [ "$commit" = "$SHA" ] && [ "$status" = built ] && exit 0
+            [ "$commit" = "$SHA" ] && [ "$status" = errored ] && exit 1
+            sleep 15
+          done
+          exit 1
+
+  indexnow:
+    needs: wait-for-pages
+    uses: JanLahmann/Fun-with-Quantum/.github/workflows/indexnow.yml@master
+    with:
+      site: https://rasqberry.one
+      key: 640abf651d6e748870fcf07f08125e43
