@@ -1,3 +1,8 @@
+---
+title: Test report
+description: "A tested step-by-step guide to installing and checking RasQberry on a Raspberry Pi 4."
+last_modified_at: 2024-09-05
+---
 # RasQberry Test Report
 
 The guide below is meant to walk you through installation and initial setup performed using RasQberry. The instructions build upon each other so if this is your first time, it is strongly advised to follow them step by step. To simplify and eliminate errors, you can also copy and paste commands from the guide to the terminal. 
@@ -34,7 +39,7 @@ Linux raspberrypi 6.1.21-v8+ #1642 SMP PREEMPT Mon Apr  3 17:24:16 BST 2023 aarc
 1. Download and install Raspberry Pi Imager from the (official website)[https://www.raspberrypi.com/software/] and use that to write the Raspberry Pi OS (Legacy 32 bit) on an (empty) SD-Card. As seen in the images below, you can select the OS straight from the imager itself. 
 
 <p align="center"> 
-<img src="../Artwork/imager-02.png" alt="drawing" width="350"/> <img src="../Artwork/imager-03.png" alt="drawing" width="350"/> <img src="../Artwork/imager-04.png" alt="drawing" width="350"/> <img src="../Artwork/imager-05.png" alt="drawing" width="350"/> <img src="../Artwork/imager-06.png" alt="drawing" width="350"/> <img src="../Artwork/imager-07.png" alt="drawing" width="350"/> <img src="../Artwork/imager-08.png" alt="drawing" width="350"/> <img src="../Artwork/imager-09.png" alt="drawing" width="350"/> <img src="../Artwork/imager-10.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/imager-02.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-03.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-04.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-05.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-06.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-07.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-08.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-09.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-10.png" alt="drawing" width="350"/> <br/>
 </p>
 
 **(Option A: Settings Using Imager)** Using the Raspberry Pi Imager, we can choose to customize the wifi settings, username and password and enable ssh as shown below. 
@@ -44,7 +49,7 @@ __<a style="color: red"> NOTE__: You must use the standard username `pi`. Otherw
 <br/>
 
 <p align="center"> 
-<img src="../Artwork/imager-11.png" alt="drawing" width="350"/> <img src="../Artwork/imager-12.png" alt="drawing" width="350"/> <img src="../Artwork/imager-13.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/imager-11.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-12.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/imager-13.png" alt="drawing" width="350"/> <br/>
 </p>
 
 Once the OS and settings have been saved to the SD card, you can now boot your Raspberry Pi and connect it. 
@@ -65,7 +70,7 @@ This command brings up menu options to choose from.
 4. Fill in your WLAN Password under `Please enter passphrase` 
 
 <p align="center"> 
-<img src="../Artwork/raspi-config_02.png" alt="drawing" width="350"/> <img src="../Artwork/raspi-config_03.png" alt="drawing" width="350"/> <img src="../Artwork/raspi-config_04.png" alt="drawing" width="350"/> <img src="../Artwork/raspi-config_05.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/raspi-config_02.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/raspi-config_03.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/raspi-config_04.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/raspi-config_05.png" alt="drawing" width="350"/> <br/>
 </p>
 
 Apply the settings and select `Finish`. To view the IP address of your device, go back to the terminal and type `ifconfig` can be used. 
@@ -84,7 +89,7 @@ As we saw in `option A of step 1` above, when you write the Raspberry Pi OS on y
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/imager-13.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/imager-13.png" alt="drawing" width="350"/> <br/>
 </p>
 <br/>
 
@@ -103,7 +108,7 @@ sudo raspi-config
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/ssh_01.png" alt="drawing" width="350"/> <img src="../Artwork/ssh_04.png" alt="drawing" width="350"/> <img src="../Artwork/ssh_03.png" alt="drawing" width="350"/> <img src="../Artwork/ssh_02.png" alt="drawing" width="350"/><br/>
+<img loading="lazy" src="../Artwork/ssh_01.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/ssh_04.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/ssh_03.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/ssh_02.png" alt="drawing" width="350"/><br/>
 </p>
 <br/>
 
@@ -241,7 +246,7 @@ This starts the RasQberry Configuration Tool (rasqberry-config) in the terminal.
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/rasqberry_config-0.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/rasqberry_config-0.png" alt="drawing" width="350"/> <br/>
 </p>
 <br/>
 
@@ -290,7 +295,7 @@ Once the installation is complete, the following screen is presented.
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/rasqberry_config-0a.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/rasqberry_config-0a.png" alt="drawing" width="350"/> <br/>
 </p>
 <br/>
 
@@ -299,8 +304,8 @@ Once the installation is complete, the following screen is presented.
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/rasqberry_config-0b.png" alt="drawing" width="350"/>
-<img src="../Artwork/rasqberry_config-0c.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/rasqberry_config-0b.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/rasqberry_config-0c.png" alt="drawing" width="350"/> <br/>
 </p>
 <br/>
 
@@ -344,7 +349,7 @@ This command should bring up the RasQberry Configuration Tool (rasqberry-config)
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/rasqconfig_demo-01.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/rasqconfig_demo-01.png" alt="drawing" width="350"/>
 <br/>
 </p>
 <br/>
@@ -400,9 +405,9 @@ Once installation is complete, the screen below is presented requiring a reboot 
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/rasqconfig_demo-02.png" alt="drawing" width="350"/>
-<img src="../Artwork/rasqconfig_demo-03.png" alt="drawing" width="350"/>
-<img src="../Artwork/rasqconfig_demo-04.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/rasqconfig_demo-02.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/rasqconfig_demo-03.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/rasqconfig_demo-04.png" alt="drawing" width="350"/>
 <br/>
 </p>
 <br/>
@@ -471,9 +476,9 @@ Then:
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/vnc_01.png" alt="drawing" width="350"/>
-<img src="../Artwork/vnc_02.png" alt="drawing" width="350"/>
-<img src="../Artwork/vnc_03.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/vnc_01.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/vnc_02.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/vnc_03.png" alt="drawing" width="350"/>
 <br/>
 </p>
 <br/>
@@ -482,10 +487,10 @@ You can then use the remote computer to connect to the Raspberry Pi via VNC prot
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/vnc_client01.png" alt="drawing" width="350"/>
-<img src="../Artwork/vnc_client02.png" alt="drawing" width="350"/>
-<img src="../Artwork/vnc_client03.png" alt="drawing" width="350"/>
-<img src="../Artwork/vnc_client04.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/vnc_client01.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/vnc_client02.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/vnc_client03.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/vnc_client04.png" alt="drawing" width="350"/>
 <br/>
 </p>
 <br/>
@@ -494,7 +499,7 @@ Note: During the test, I did experience an error while connecting from a mac dev
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/vnc_client05.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/vnc_client05.png" alt="drawing" width="350"/>
 <br/>
 </p>
 <br/>
@@ -555,7 +560,7 @@ And there we have it, connection success!
 
 <br/>
 <p align="center"> 
-<img src="../Artwork/vnc_client06.png" alt="drawing" width="350"/>
+<img loading="lazy" src="../Artwork/vnc_client06.png" alt="drawing" width="350"/>
 <br/>
 </p>
 <br/>

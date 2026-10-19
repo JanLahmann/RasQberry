@@ -1,3 +1,8 @@
+---
+title: Documentation
+description: "Overview of the RasQberry documentation: 3D model, bill of material, setup and demos."
+last_modified_at: 2021-08-17
+---
 # Content
 
 This documentation consists of the following parts:

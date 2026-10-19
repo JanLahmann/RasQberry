@@ -1,4 +1,15 @@
 theme: jekyll-theme-leap-day
 url: https://rasqberry.one
+title: RasQberry
+description: Quantum computing with Raspberry Pi and Qiskit
+lang: en
 plugins:
   - jekyll-sitemap
+  - jekyll-seo-tag
+twitter:
+  card: summary_large_image
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /Artwork/og-rasqberry.jpg

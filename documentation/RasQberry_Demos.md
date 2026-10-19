@@ -1,3 +1,8 @@
+---
+title: Demos
+description: "Quantum computing demos for RasQberry: Bloch sphere, Qiskit games and LED demos for touch display and SenseHAT."
+last_modified_at: 2022-09-26
+---
 # RasQberry Demos
 In this repository you can find different demos which also work with different hardware components.<br/>
 
@@ -16,7 +21,7 @@ You can also start it manually by clicking on the desktop icon *BlochSphereDemo*
 Enter fullscreen-mode by clicking on the icon on the right.<br/>
 
 <p align="center"> 
-    <img src="../Artwork/Bloch_Sphere_Demo.png" alt="drawing" width="400"/> 
+    <img loading="lazy" src="../Artwork/Bloch_Sphere_Demo.png" alt="drawing" width="400"/> 
 </p>
 
 * **Usage**<br/>
@@ -39,7 +44,7 @@ You can start the IBM Quantum Composer by clicking on the desktop icon *IBM Quan
 The Quantum Composer will be started in fullscreen-mode.
 
 <p align="center"> 
-    <img src="../Artwork/Quantum_Composer.png" alt="drawing" width="400"/> 
+    <img loading="lazy" src="../Artwork/Quantum_Composer.png" alt="drawing" width="400"/> 
 </p>
 
 * **Usage**<br/>
@@ -53,9 +58,9 @@ Now you can exit the quantum composer by closing the window.
 You can connect LED Lights to your Raspberry Pi. This demo starts a program which lets the LED Lights shine in different colors and pattern.
 
 <p align="center"> 
-    <img src="../Artwork/LED_purple.png" alt="drawing" width="300"/> <img src="../Artwork/LED_rainbow.png" alt="drawing" width="300"/> <br/>
-    <img src="../Artwork/LED_green.png" alt="drawing" width="300"/> <img src="../Artwork/LED_4red.png" alt="drawing" width="300"/> <br/>
-     <img src="../Artwork/LED_4blue.png" alt="drawing" width="300"/> <br/>
+    <img loading="lazy" src="../Artwork/LED_purple.png" alt="drawing" width="300"/> <img loading="lazy" src="../Artwork/LED_rainbow.png" alt="drawing" width="300"/> <br/>
+    <img loading="lazy" src="../Artwork/LED_green.png" alt="drawing" width="300"/> <img loading="lazy" src="../Artwork/LED_4red.png" alt="drawing" width="300"/> <br/>
+     <img loading="lazy" src="../Artwork/LED_4blue.png" alt="drawing" width="300"/> <br/>
 </p>
 
 * **Start and Stop**<br/>
@@ -69,8 +74,8 @@ This demo will randomly calculate which one of the single LEDs will be `0` and w
 To start the RasQ-LED Demo you need to click on the desktop icon *RasQ-LED*.
 
 <p align="center">  
-    <img src="../Artwork/RasQ_LED-1.png" alt="drawing" width="300"/> <img src="../Artwork/RasQ_LED-2.png" alt="drawing" width="300"/> <br/>
-    <img src="../Artwork/RasQ_LED-3.png" alt="drawing" width="300"/> 
+    <img loading="lazy" src="../Artwork/RasQ_LED-1.png" alt="drawing" width="300"/> <img loading="lazy" src="../Artwork/RasQ_LED-2.png" alt="drawing" width="300"/> <br/>
+    <img loading="lazy" src="../Artwork/RasQ_LED-3.png" alt="drawing" width="300"/> 
 </p>
 
 * **Stop**<br/>
@@ -86,8 +91,8 @@ You can install both demo versions by opening the Rasqberr Configuration Tool, s
 To start the 16 Qbit version you need to execute `D3 - Rasqberry-Tie 16`.<br>
 
 <p align="center"> 
-<img src="../Artwork/Tie5-1.png" alt="drawing" width="250"/><img src="../Artwork/Tie5-3.png" alt="drawing" width="250"/><br/>
-<img src="../Artwork/Tie5-2.png" alt="drawing" width="250"/><img src="../Artwork/Tie16.png" alt="drawing" width="250"/><br/>
+<img loading="lazy" src="../Artwork/Tie5-1.png" alt="drawing" width="250"/><img loading="lazy" src="../Artwork/Tie5-3.png" alt="drawing" width="250"/><br/>
+<img loading="lazy" src="../Artwork/Tie5-2.png" alt="drawing" width="250"/><img loading="lazy" src="../Artwork/Tie16.png" alt="drawing" width="250"/><br/>
 </p>
 
 * **Stop**<br/>
@@ -99,8 +104,8 @@ The Qrasp demo is based on https://github.com/ordmoj/qrasp by Hassi Norlen.<br/>
 If not installed, you can install, start and stop this demo by opening the Rasqberry Configuration Tool, selecting `D - Quantum Demos` and then `D4 - Qrasp`.<br/>
 <br/>
 <p align="center"> 
-<img src="../Artwork/Qrasp-1.png" alt="drawing" width="250"/><img src="../Artwork/Qrasp-3.png" alt="drawing" width="250"/><br/>
-<img src="../Artwork/Qrasp-2.png" alt="drawing" width="250"/><img src="../Artwork/Qrasp-4.png" alt="drawing" width="250"/>
+<img loading="lazy" src="../Artwork/Qrasp-1.png" alt="drawing" width="250"/><img loading="lazy" src="../Artwork/Qrasp-3.png" alt="drawing" width="250"/><br/>
+<img loading="lazy" src="../Artwork/Qrasp-2.png" alt="drawing" width="250"/><img loading="lazy" src="../Artwork/Qrasp-4.png" alt="drawing" width="250"/>
 </p>
 <br/>
 

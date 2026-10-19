@@ -1,3 +1,8 @@
+---
+title: How to contribute
+description: "How to fork the RasQberry repository, test your changes with the checklist and open a pull request."
+last_modified_at: 2022-09-26
+---
 # How to Contribute
 If you have an interesting idea you'd like to add or the solution to an issues you are welcome to contribute!<br/>
 To contribute you will fork the repository. By forking the RasQberry-Repository you create a personal copy of the repo that will be stored under your account.<br/>
@@ -11,7 +16,7 @@ You can fork the RasQberry-Repo easily by clicking on the `fork`-button on the t
 
 <br/>
 <p align="center">  
-<img src="../Artwork/Fork_Repo.png" alt="drawing" width="800"/> <br/>
+<img loading="lazy" src="../Artwork/Fork_Repo.png" alt="drawing" width="800"/> <br/>
 </p>
 <br/>
 
@@ -21,7 +26,7 @@ To update your copied repository for changes you can click on `fetch upstream` a
 
 <br/>
 <p align="center">  
-<img src="../Artwork/Fork_Repo_Update.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/Fork_Repo_Update.png" alt="drawing" width="350"/> <br/>
 </p>
 <br/>
 
@@ -44,7 +49,7 @@ If you have added a public key you can clone the repository via SSH as well.
 
 <br/>
 <p align="center">  
-<img src="../Artwork/Clone_Repo_https.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/Clone_Repo_https.png" alt="drawing" width="350"/> <br/>
 </p>
 <br/>
 
@@ -105,7 +110,7 @@ Open your repository in your browser. You will see a banner that lets you compar
 
 <br/>
 <p align="center">  
-<img src="../Artwork/PR_Repo.png" alt="drawing" width="800"/> <br/>
+<img loading="lazy" src="../Artwork/PR_Repo.png" alt="drawing" width="800"/> <br/>
 </p>
 <br/>
 
@@ -114,7 +119,7 @@ When you are done with your description you need to click on `Create pull reques
 
 <br/>
 <p align="center">  
-<img src="../Artwork/PR_Repo-2.png" alt="drawing" width="800"/> <br/>
+<img loading="lazy" src="../Artwork/PR_Repo-2.png" alt="drawing" width="800"/> <br/>
 </p>
 <br/>
 
