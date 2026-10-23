@@ -18,7 +18,7 @@ pip3 list installed | grep qiskit
 ```
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/terminal_qiskit.png" alt="drawing" width="400"/> <br/>
+<img loading="lazy" src="../Artwork/terminal_qiskit.png" alt="drawing" width="400" height="159"/> <br/>
 </p>
 <br/>
 
@@ -33,7 +33,7 @@ pip3 list installed | grep jupyter
 ```
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/terminal_jupyter.png" alt="drawing" width="400"/> <br/>
+<img loading="lazy" src="../Artwork/terminal_jupyter.png" alt="drawing" width="400" height="105"/> <br/>
 </p>
 <br/>
 
@@ -49,7 +49,7 @@ pip3 list installed | grep sense
 ```
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/terminal_sense.png" alt="drawing" width="400"/> <br/>
+<img loading="lazy" src="../Artwork/terminal_sense.png" alt="drawing" width="400" height="48"/> <br/>
 </p>
 <br/>
 <br/>

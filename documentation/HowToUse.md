@@ -11,13 +11,13 @@ On the opposite site of your touch display you can see a hole, which is big enou
 On the right side from the touch display you can see a bigger hole. This is big enough for a USB-C Charger to recharge the battery if necessary.
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/3DModelHoles.png" alt="drawing" width="600"/> <br/>
+<img loading="lazy" src="../Artwork/3DModelHoles.png" alt="drawing" width="600" height="579"/> <br/>
 </p>
 <br/>
 
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/RasQberry_desktop.png" alt="drawing" width="600"/> <br/>
+<img loading="lazy" src="../Artwork/RasQberry_desktop.png" alt="drawing" width="600" height="355"/> <br/>
 </p>
 <br/>
 
@@ -33,7 +33,7 @@ With your stylo pen you can tip onto the very top of your touch display (first p
 The taskbar appears.
 <br/><br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/RasQberry_Taskbar.png" alt="drawing" width="600"/> <br/>
+<img loading="lazy" src="../Artwork/RasQberry_Taskbar.png" alt="drawing" width="600" height="40"/> <br/>
 </p>
 <br/>
 
@@ -47,7 +47,7 @@ You can find the virtual keyboard in the application menu under *Accessories*.
 When you installed RasQberry on your Raspberry Pi then there should be an icon on your desktop.
 
 ### Kivy Interface
-<img loading="lazy" src="../icons/RaspberryQiskitEarsTop.png" alt="drawing" width="64"/> <br/>
+<img loading="lazy" src="../icons/RaspberryQiskitEarsTop.png" alt="drawing" width="64" height="64"/> <br/>
 When you click this icon you open the kivy user interface in which you can navigate through the demos and serious games.
 
 ## The Applications Menu

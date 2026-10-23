@@ -13,7 +13,7 @@ If you already have a Raspberry Pi with the latest version of Raspberry Pi OS yo
 With the [Raspberry Pi Imager](https://www.raspberrypi.org/software/) write the Raspberry Pi OS Raspbian on an (empty) SD-Card. You can either choose the Image right from the Raspberry Pi Imager or you can first download [Raspberry Pi OS](https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit).
 
 <p align="center"> 
-<img loading="lazy" src="../Artwork/RPi.png" alt="drawing" width="350"/> <img loading="lazy" src="../Artwork/RPi_OS.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/RPi.png" alt="drawing" width="350" height="238"/> <img loading="lazy" src="../Artwork/RPi_OS.png" alt="drawing" width="350" height="239"/> <br/>
 </p>
 
 **(Optional)** Do the default Setup of your Raspberry Pi by using 
@@ -36,7 +36,7 @@ When you added the file, you can now boot your Raspberry Pi.
 When you write the Raspberry Pi OS on your SD-Card you can enable SSH with the writing process. You can access the extended menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/RPi_SSH.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/RPi_SSH.png" alt="drawing" width="350" height="239"/> <br/>
 </p>
 <br/>
 You can enable SSH and enter your password or public-key to make the authenticating process while connecting easier.
@@ -72,7 +72,7 @@ wget https://github.com/JanLahmann/RasQberry/raw/master/RasQ-init.sh
 . ./RasQ-init.sh
 ```
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/rasqberry_config-1.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-2.png" alt="drawing" height="250"/> 
+    <img loading="lazy" src="../Artwork/rasqberry_config-1.png" alt="drawing" width="414" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-2.png" alt="drawing" width="415" height="250"/> 
 </p>
 
 This will download and start the RasQberry Configuration Tool (rasqberry-config) in your terminal. It is similar to the well-known raspi-config and can also be used for some basic configurations. 
@@ -93,47 +93,47 @@ Open the RasQberry Configuration Tool and follow the steps below.
 1. Select `S – RasQberry Setup`
    
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/rasqberry_config-1.png" alt="drawing" height="250"/> 
+    <img loading="lazy" src="../Artwork/rasqberry_config-1.png" alt="drawing" width="414" height="250"/> 
 </p>
 
 1. Select `SU – System Update`
 
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/rasqberry_config-3.png" alt="drawing" height="250"/> 
+    <img loading="lazy" src="../Artwork/rasqberry_config-3.png" alt="drawing" width="415" height="250"/> 
 </p>
 
 2. Select `IC - Initial Config`<br/>
 Your Raspberry will process the basic configurations on your device.
 
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/rasqberry_config-1.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-4.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-5.png" alt="drawing" height="250"/>
+    <img loading="lazy" src="../Artwork/rasqberry_config-1.png" alt="drawing" width="414" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-4.png" alt="drawing" width="413" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-5.png" alt="drawing" width="415" height="250"/>
 </p>
 
 3. Select `A – Advanced Config` then `Q – Install Qiskit`<br/>
 With this step you will install Qiskit. You can choose between a few versions of Qiskit to install. The latest version is recommended.
 
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/rasqberry_config-6.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-7.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-8.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-9.png" alt="drawing" height="250"/>
+    <img loading="lazy" src="../Artwork/rasqberry_config-6.png" alt="drawing" width="415" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-7.png" alt="drawing" width="414" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-8.png" alt="drawing" width="414" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-9.png" alt="drawing" width="415" height="250"/>
 </p>
 
 4. Select `D – Quantum Demos` then run `BS – Bloch Sphere` and enable `BlockSphere Autostart` <br/>
 With this step you Raspberry will start the Bloch Sphere Demo automatically whenever you start your device.<br/>
 
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/rasqberry_config-10.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-11.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-12.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-13.png" alt="drawing" height="250"/>
+    <img loading="lazy" src="../Artwork/rasqberry_config-10.png" alt="drawing" width="436" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-11.png" alt="drawing" width="439" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-12.png" alt="drawing" width="438" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-13.png" alt="drawing" width="408" height="250"/>
 </p>
 
 After your first the executing `D` then `BS` your Raspberry will reboot automatically. After the reboot you should execute `D` then `BS` again. This time there is no automatic reboot, but one is recommended.
 
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/rasqberry_config-14.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-15.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-16.png" alt="drawing" height="250"/> 
+    <img loading="lazy" src="../Artwork/rasqberry_config-14.png" alt="drawing" width="406" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-15.png" alt="drawing" width="407" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-16.png" alt="drawing" width="409" height="250"/> 
 </p>
 
 5. Select `S - Rasberry Setup` then `CD – Config & Demos` (optional)<br/>
 With this step you will configurate Qiskit automatically and install the Quantum Demos. Also, this step will configurate jupyter notebook.
 
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/rasqberry_config-17.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-18.png" alt="drawing" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-19.png" alt="drawing" height="250"/>  
+    <img loading="lazy" src="../Artwork/rasqberry_config-17.png" alt="drawing" width="407" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-18.png" alt="drawing" width="408" height="250"/> <img loading="lazy" src="../Artwork/rasqberry_config-19.png" alt="drawing" width="405" height="250"/>  
 </p>
 
 ### With Sense HAT
@@ -189,7 +189,7 @@ If you got handed an SD-Card where the above described installation already is m
 When you write the Raspberry Pi OS on your SD-Card you can set your WI-FI Settings with the writing process. You can access the extended menu when entering **shift + command + X** (windows: **shift + control + X**)<br/>
 <br/>
 <p align="center"> 
-<img loading="lazy" src="../Artwork/RPi_WIFI.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/RPi_WIFI.png" alt="drawing" width="350" height="239"/> <br/>
 </p>
 
 <br/>
@@ -255,15 +255,15 @@ To activate and run the package, choose the options:
 2. Run this script file `. ./RasQ-init.sh` <br/>
 3. Choose `S – RasQberry Setup` option and hit `<Select>` button <br/>
    <p align="left"> 
-     <img loading="lazy" src="../Artwork/s_rasqberry_setup.png" alt="drawing" height="350"/> <br/>
+     <img loading="lazy" src="../Artwork/s_rasqberry_setup.png" alt="drawing" width="609" height="350"/> <br/>
    </p>
 4. Choose `DV Configure Desktop and VNC` option and hit `<Select>` button <br/>
    <p align="left"> 
-     <img loading="lazy" src="../Artwork/dv_configure_desktop_and_vnc.png" alt="drawing" height="350"/> <br/>
+     <img loading="lazy" src="../Artwork/dv_configure_desktop_and_vnc.png" alt="drawing" width="609" height="350"/> <br/>
    </p>
 5. You will see `Desktop and VNC are enabled` message once it's successfully enabled the vnc server <br/>
    <p align="left"> 
-     <img loading="lazy" src="../Artwork/desktop_and_vnc_are_enabled.png" alt="drawing" height="350"/> <br/>
+     <img loading="lazy" src="../Artwork/desktop_and_vnc_are_enabled.png" alt="drawing" width="609" height="350"/> <br/>
    </p>
 
 ### Connect to your VNC Server (Raspberry Pi) from your personal laptop: <br/>
@@ -272,25 +272,25 @@ To activate and run the package, choose the options:
  <li>
   Open the VNC Viewer app
    <p align="left"> 
-     <img loading="lazy" src="../Artwork/real_vnc_viewer_empty.png" alt="drawing" height="350"/>
+     <img loading="lazy" src="../Artwork/real_vnc_viewer_empty.png" alt="drawing" width="473" height="350"/>
    </p>
  </li>
  <li>
   Enter VNC Server (Raspberry Pi) IPAddress in the address bar section and hit ENTER button
    <p align="left"> 
-     <img loading="lazy" src="../Artwork/real_vnc_viewer.png" alt="drawing" height="350"/>
+     <img loading="lazy" src="../Artwork/real_vnc_viewer.png" alt="drawing" width="461" height="350"/>
    </p>
  </li>
  <li>
   Enter VNC Server (Raspberry Pi) username (Default: pi) and password (Default: raspberry) and click OK button
    <p align="left"> 
-     <img loading="lazy" src="../Artwork/authenticate_to_vnc_server.png" alt="drawing" height="350"/>
+     <img loading="lazy" src="../Artwork/authenticate_to_vnc_server.png" alt="drawing" width="434" height="350"/>
    </p>
  </li>
  <li>
   VNC Viewer will connect to your Raspberry Pi
    <p align="left"> 
-     <img loading="lazy" src="../Artwork/raspberry_pi_remote_desktop.png" alt="drawing" height="350"/>
+     <img loading="lazy" src="../Artwork/raspberry_pi_remote_desktop.png" alt="drawing" width="609" height="350"/>
    </p>
  </li>
 </ol>
@@ -311,7 +311,7 @@ pinout
 in your terminal/ssh window.
 
 <p align="center"> 
-<img loading="lazy" src="../Artwork/pinout-1.png" alt="drawing" height="350"/> <img loading="lazy" src="../Artwork/pinout-2.png" alt="drawing" height="350"/> <br/>
+<img loading="lazy" src="../Artwork/pinout-1.png" alt="drawing" width="312" height="350"/> <img loading="lazy" src="../Artwork/pinout-2.png" alt="drawing" width="169" height="350"/> <br/>
 </p>
 
 Open your terminal/ssh window and type 
