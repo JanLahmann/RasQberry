@@ -16,7 +16,7 @@ You can fork the RasQberry-Repo easily by clicking on the `fork`-button on the t
 
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/Fork_Repo.png" alt="drawing" width="800"/> <br/>
+<img loading="lazy" src="../Artwork/Fork_Repo.png" alt="drawing" width="800" height="78"/> <br/>
 </p>
 <br/>
 
@@ -26,7 +26,7 @@ To update your copied repository for changes you can click on `fetch upstream` a
 
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/Fork_Repo_Update.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/Fork_Repo_Update.png" alt="drawing" width="350" height="239"/> <br/>
 </p>
 <br/>
 
@@ -49,7 +49,7 @@ If you have added a public key you can clone the repository via SSH as well.
 
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/Clone_Repo_https.png" alt="drawing" width="350"/> <br/>
+<img loading="lazy" src="../Artwork/Clone_Repo_https.png" alt="drawing" width="350" height="169"/> <br/>
 </p>
 <br/>
 
@@ -110,7 +110,7 @@ Open your repository in your browser. You will see a banner that lets you compar
 
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/PR_Repo.png" alt="drawing" width="800"/> <br/>
+<img loading="lazy" src="../Artwork/PR_Repo.png" alt="drawing" width="800" height="70"/> <br/>
 </p>
 <br/>
 
@@ -119,7 +119,7 @@ When you are done with your description you need to click on `Create pull reques
 
 <br/>
 <p align="center">  
-<img loading="lazy" src="../Artwork/PR_Repo-2.png" alt="drawing" width="800"/> <br/>
+<img loading="lazy" src="../Artwork/PR_Repo-2.png" alt="drawing" width="800" height="367"/> <br/>
 </p>
 <br/>
 

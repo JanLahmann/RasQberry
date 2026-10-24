@@ -21,7 +21,7 @@ You can also start it manually by clicking on the desktop icon *BlochSphereDemo*
 Enter fullscreen-mode by clicking on the icon on the right.<br/>
 
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/Bloch_Sphere_Demo.png" alt="drawing" width="400"/> 
+    <img loading="lazy" src="../Artwork/Bloch_Sphere_Demo.png" alt="drawing" width="400" height="246"/> 
 </p>
 
 * **Usage**<br/>
@@ -44,7 +44,7 @@ You can start the IBM Quantum Composer by clicking on the desktop icon *IBM Quan
 The Quantum Composer will be started in fullscreen-mode.
 
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/Quantum_Composer.png" alt="drawing" width="400"/> 
+    <img loading="lazy" src="../Artwork/Quantum_Composer.png" alt="drawing" width="400" height="249"/> 
 </p>
 
 * **Usage**<br/>
@@ -58,9 +58,9 @@ Now you can exit the quantum composer by closing the window.
 You can connect LED Lights to your Raspberry Pi. This demo starts a program which lets the LED Lights shine in different colors and pattern.
 
 <p align="center"> 
-    <img loading="lazy" src="../Artwork/LED_purple.png" alt="drawing" width="300"/> <img loading="lazy" src="../Artwork/LED_rainbow.png" alt="drawing" width="300"/> <br/>
-    <img loading="lazy" src="../Artwork/LED_green.png" alt="drawing" width="300"/> <img loading="lazy" src="../Artwork/LED_4red.png" alt="drawing" width="300"/> <br/>
-     <img loading="lazy" src="../Artwork/LED_4blue.png" alt="drawing" width="300"/> <br/>
+    <img loading="lazy" src="../Artwork/LED_purple.png" alt="drawing" width="300" height="146"/> <img loading="lazy" src="../Artwork/LED_rainbow.png" alt="drawing" width="300" height="149"/> <br/>
+    <img loading="lazy" src="../Artwork/LED_green.png" alt="drawing" width="300" height="142"/> <img loading="lazy" src="../Artwork/LED_4red.png" alt="drawing" width="300" height="148"/> <br/>
+     <img loading="lazy" src="../Artwork/LED_4blue.png" alt="drawing" width="300" height="139"/> <br/>
 </p>
 
 * **Start and Stop**<br/>
@@ -74,8 +74,8 @@ This demo will randomly calculate which one of the single LEDs will be `0` and w
 To start the RasQ-LED Demo you need to click on the desktop icon *RasQ-LED*.
 
 <p align="center">  
-    <img loading="lazy" src="../Artwork/RasQ_LED-1.png" alt="drawing" width="300"/> <img loading="lazy" src="../Artwork/RasQ_LED-2.png" alt="drawing" width="300"/> <br/>
-    <img loading="lazy" src="../Artwork/RasQ_LED-3.png" alt="drawing" width="300"/> 
+    <img loading="lazy" src="../Artwork/RasQ_LED-1.png" alt="drawing" width="300" height="138"/> <img loading="lazy" src="../Artwork/RasQ_LED-2.png" alt="drawing" width="300" height="137"/> <br/>
+    <img loading="lazy" src="../Artwork/RasQ_LED-3.png" alt="drawing" width="300" height="137"/> 
 </p>
 
 * **Stop**<br/>
@@ -91,8 +91,8 @@ You can install both demo versions by opening the Rasqberr Configuration Tool, s
 To start the 16 Qbit version you need to execute `D3 - Rasqberry-Tie 16`.<br>
 
 <p align="center"> 
-<img loading="lazy" src="../Artwork/Tie5-1.png" alt="drawing" width="250"/><img loading="lazy" src="../Artwork/Tie5-3.png" alt="drawing" width="250"/><br/>
-<img loading="lazy" src="../Artwork/Tie5-2.png" alt="drawing" width="250"/><img loading="lazy" src="../Artwork/Tie16.png" alt="drawing" width="250"/><br/>
+<img loading="lazy" src="../Artwork/Tie5-1.png" alt="drawing" width="250" height="159"/><img loading="lazy" src="../Artwork/Tie5-3.png" alt="drawing" width="250" height="162"/><br/>
+<img loading="lazy" src="../Artwork/Tie5-2.png" alt="drawing" width="250" height="160"/><img loading="lazy" src="../Artwork/Tie16.png" alt="drawing" width="250" height="162"/><br/>
 </p>
 
 * **Stop**<br/>
@@ -104,8 +104,8 @@ The Qrasp demo is based on https://github.com/ordmoj/qrasp by Hassi Norlen.<br/>
 If not installed, you can install, start and stop this demo by opening the Rasqberry Configuration Tool, selecting `D - Quantum Demos` and then `D4 - Qrasp`.<br/>
 <br/>
 <p align="center"> 
-<img loading="lazy" src="../Artwork/Qrasp-1.png" alt="drawing" width="250"/><img loading="lazy" src="../Artwork/Qrasp-3.png" alt="drawing" width="250"/><br/>
-<img loading="lazy" src="../Artwork/Qrasp-2.png" alt="drawing" width="250"/><img loading="lazy" src="../Artwork/Qrasp-4.png" alt="drawing" width="250"/>
+<img loading="lazy" src="../Artwork/Qrasp-1.png" alt="drawing" width="250" height="162"/><img loading="lazy" src="../Artwork/Qrasp-3.png" alt="drawing" width="250" height="163"/><br/>
+<img loading="lazy" src="../Artwork/Qrasp-2.png" alt="drawing" width="250" height="163"/><img loading="lazy" src="../Artwork/Qrasp-4.png" alt="drawing" width="250" height="158"/>
 </p>
 <br/>
 
@@ -148,7 +148,7 @@ If you want to start the jupyter notebook with the cloned Fun-with-Quantum or Qi
 <br/>
 When you are on your Raspberry you can access the Jupyter Notebook by opening http://raspberrypi:8888/ in your browser. When you want to access the Jupyter Notebook on your Laptop you can open it by typing http://{ip address}:{port}. The Default port is *8888*. You can find the corresponding port number in the messagebox.
 </br>
-<h7 style="color:red"> Password: **RasQberry**. </h7> <br/>
+<strong style="color:#b30000">Password: RasQberry.</strong> <br/>
 You can now use the Jupyter notebook.
 
 [Go back to: Content](./README.md) <br/>
